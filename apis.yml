@@ -1,7 +1,11 @@
 aid: centene
-url: https://raw.githubusercontent.com/api-evangelist/centene/refs/heads/main/apis.yml
+url: 
+  https://raw.githubusercontent.com/api-evangelist/centene/refs/heads/main/apis.yml
 modified: '2026-03-21'
 apis: []
 common:
   - type: Website
     url: https://www.centene.com
+description: >-
+  As a managed care organization, we provide access to high-quality healthcare solutions
+  that help families & individuals. Learn more about Centene.
