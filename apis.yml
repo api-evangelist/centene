@@ -82,7 +82,7 @@ common:
     url: https://www.linkedin.com/company/centene-corporation
   - type: Website
     url: https://www.centene.com
-  - type: Developer Portal
+  - type: DeveloperPortal
     url: https://partners.centene.com/
   - type: API Catalog
     url: https://partners.centene.com/apis
