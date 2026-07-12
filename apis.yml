@@ -76,6 +76,8 @@ apis:
       provider directory data between payers and authorized external partners
       using HL7 FHIR PDEX profiles.
 common:
+  - type: DomainSecurity
+    url: security/centene-domain-security.yml
   - type: GitHubOrganization
     url: https://github.com/Centene
   - type: LinkedIn
