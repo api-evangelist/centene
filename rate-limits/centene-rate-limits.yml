@@ -3,52 +3,83 @@ specificationVersion: '0.1'
 schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
 provider: Centene
 providerId: centene
+generated: '2026-09-07'
+method: probed
+source: https://iopc-pd.api.centene.com/iopc/pd/fhir/providerdirectory/Practitioner?family=SMITH
 created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-05'
-reconciled: false
+modified: '2026-09-07'
+reconciled: true
 tags:
   - Healthcare
   - FHIR
   - CMS Interoperability
   - Rate Limiting
-description: Centene's CMS-mandated FHIR APIs are gated behind partners.centene.com application registration.
-  Per-second / per-minute throttling numbers are not published on the public portal landing; CMS Interoperability
-  guidance allows payers to apply reasonable throttling so long as it does not interfere with the member's
-  right to access. Limits surface during application onboarding.
-notes: Public portal (anonymous fetch) does not surface numeric rate limits. Specific thresholds delivered
-  to registered applications.
-sources:
-  - https://partners.centene.com/apis
-  - https://partners.centene.com/applicationDeveloper
+limit_count: 0
+description: >-
+  Centene publishes no numeric rate limit for any of its twenty public APIs. This replaces a
+  2026-05-04 bulk-generated placeholder that recorded three limits of "see partner portal
+  documentation" - which is not a limit. The honest measurement is zero published limits, plus
+  the runtime signals that do exist.
+note: >-
+  Verified two ways. (1) All twelve first-party OpenAPI documents were scanned: 62 operations
+  declare a 429 response, so throttling is real, but no operation declares a RateLimit-*,
+  X-RateLimit-* or Retry-After response header, and no spec states a numeric limit. (2) A live
+  anonymous request to the production FHIR Provider Directory returned HTTP 200 with only
+  x-request-id as a Centene-specific header - no rate-limit headers on the wire. An agent
+  therefore has no way to see how much budget it has left until it receives a 429, and no
+  Retry-After to tell it when to come back.
+observed_response_headers:
+  - name: x-request-id
+    purpose: Per-request correlation id. Undocumented by Centene.
+probe:
+  url: https://iopc-pd.api.centene.com/iopc/pd/fhir/providerdirectory/Practitioner?family=SMITH
+  status: 200
+  rate_limit_headers_present: false
 responseCodes:
   throttled: 429
   serviceUnavailable: 503
-limits:
-  - name: Patient Access (per registered application)
-    scope: application
-    metric: varies
-    limit: see partner portal documentation per registered app
-  - name: Provider Directory (public)
-    scope: IP
-    metric: varies
-    limit: see partner portal documentation
-  - name: Provider RTR / PDEX (authorized payer)
-    scope: payer-account
-    metric: varies
-    limit: see Payer Data Exchange agreement
+  gatewayTimeout: 504
+declared_in_spec:
+  '429': 62
+  '503': 62
+  '504': 146
+  source: openapi/ (185 operations across 12 documents)
+limits: []
 policies:
-  - name: SMART-on-FHIR auth
-    description: Patient Access requires SMART-on-FHIR / OAuth 2.0 with member-granted scopes; tokens
-      are short-lived and refresh tokens follow the SMART-on-FHIR profile.
+  - name: Pagination cap
+    description: >-
+      The only hard published throughput number in the entire estate. Centene's Provider Directory
+      guide states the API paginates at 200 records per page and a client must follow the FHIR
+      Bundle next link to retrieve more. Confirmed live - a searchset Bundle returned total 200
+      with a next link.
+    value: 200
+    unit: records per page
+    source: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - name: Access token lifetime
+    description: >-
+      Access tokens expire in 3600 seconds; a refresh_token is issued so an application can
+      continue syncing without re-running member consent.
+    value: 3600
+    unit: seconds
+    source: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - name: Authorization code single use
+    description: Centene states the authorization code is valid for a single use.
+    source: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
   - name: Backoff
-    description: On 429 / 503, retry with exponential backoff and jitter. Honor Retry-After when supplied
-      by the FHIR gateway.
+    description: >-
+      No Retry-After is published or observed, so exponential backoff with jitter is the only
+      available strategy on 429 / 503 / 504.
   - name: Member access protection
-    description: Per CMS guidance, throttling must not deny a member's right to access their own clinical
-      and financial information; investigate sustained 429s through the partner portal.
+    description: >-
+      Under the CMS Interoperability and Patient Access Rule, throttling must not obstruct a
+      member's right to access their own clinical and financial data. Sustained 429s on Patient
+      Access are a compliance question, not just an engineering one; raise them through
+      IOP_External_Onboarding@Centene.com.
+sources:
+  - https://iopc-pd.api.centene.com/iopc/pd/fhir/providerdirectory/Practitioner?family=SMITH
+  - https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - https://external-api.my.centene.com/partner-portal/apis
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

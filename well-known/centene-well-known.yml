@@ -1,0 +1,200 @@
+generated: '2026-09-07'
+method: probed
+source: >-
+  Direct anonymous GET of the RFC 8615 named path list against every host this record knows:
+  the registrable domain and www, the developer portal and its alias, the partner-portal
+  backend API host, both live FHIR gateway hosts, the shared API gateways, the provider
+  search host, and the AEM content host. No glob, no guessing.
+provider: Centene
+providerId: centene
+note: >-
+  ONE real document was served: partners.centene.com/.well-known/openid-configuration returns a
+  complete OpenID Provider Metadata document (RFC 8414 / OpenID Discovery) for Centene's Ping
+  Identity SSO tenant at https://sso.entrykeyid.com. It is the discovery document behind both the
+  portal login and the SMART-on-FHIR member authorization flow, and its scopes_supported list is
+  the authoritative published scope inventory for the Patient Access API. Everything else 404s,
+  403s or 401s. partners.centene.com and its alias developer.centene.com are an Angular SPA on S3:
+  every unknown path returns an S3 AccessDenied 403 (application/xml), which is a real absence and
+  not a bot challenge. api-gateway-01.centene.com does not resolve for an outside client (000).
+hosts:
+  - host: centene.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+      - path: /.well-known/oauth-protected-resource
+        status: 404
+  - host: www.centene.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+      - path: /.well-known/oauth-protected-resource
+        status: 404
+  - host: partners.centene.com
+    documents:
+      - path: /.well-known/openid-configuration
+        status: 200
+        file: centene-openid-configuration.json
+        note: >-
+          Real OpenID Provider Metadata. issuer https://sso.entrykeyid.com, jwks_uri
+          https://sso.entrykeyid.com/pf/JWKS, PKCE S256 supported, 73 scopes_supported
+          including the SMART-on-FHIR patient/*.read family.
+      - path: /.well-known/security.txt
+        status: 403
+      - path: /.well-known/oauth-authorization-server
+        status: 403
+      - path: /.well-known/api-catalog
+        status: 403
+      - path: /.well-known/ai-plugin.json
+        status: 403
+      - path: /.well-known/agent-card.json
+        status: 403
+      - path: /.well-known/agent.json
+        status: 403
+      - path: /.well-known/oauth-protected-resource
+        status: 403
+  - host: developer.centene.com
+    note: Alias of partners.centene.com serving the identical Angular bundle.
+    documents:
+      - path: /.well-known/openid-configuration
+        status: 200
+        file: centene-openid-configuration.json
+      - path: /.well-known/security.txt
+        status: 403
+  - host: sso.entrykeyid.com
+    note: >-
+      The authorization server named by the discovery document's issuer. Not a centene.com
+      domain: EntryKey ID is Centene's member-identity brand, the Ping Identity tenant that
+      fronts partner-portal login and SMART-on-FHIR member authorization, and it is the host
+      partners.centene.com's own discovery document points every client at.
+    documents:
+      - path: /.well-known/openid-configuration
+        status: 200
+        note: Same document, served from the issuer itself.
+  - host: external-api.my.centene.com
+    note: Partner-portal backend API host. Serves the API catalogue and OAS files anonymously, but no well-known documents.
+    documents:
+      - path: /.well-known/security.txt
+        status: 403
+      - path: /.well-known/openid-configuration
+        status: 403
+      - path: /.well-known/oauth-authorization-server
+        status: 403
+      - path: /.well-known/api-catalog
+        status: 403
+      - path: /.well-known/ai-plugin.json
+        status: 403
+      - path: /.well-known/agent-card.json
+        status: 403
+      - path: /.well-known/agent.json
+        status: 403
+      - path: /.well-known/oauth-protected-resource
+        status: 403
+  - host: iopc-pa.api.centene.com
+    note: FHIR Patient Access production gateway.
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+      - path: /.well-known/oauth-protected-resource
+        status: 404
+  - host: iopc-pd.api.centene.com
+    note: FHIR Provider Directory production gateway (publicly callable, no auth).
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+      - path: /.well-known/oauth-protected-resource
+        status: 404
+  - host: prod.api.centene.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+  - host: external-api.search.my.centene.com
+    note: Provider Search / PCES production host. Every path returns 401 — the gateway authenticates before routing.
+    documents:
+      - path: /.well-known/security.txt
+        status: 401
+      - path: /.well-known/openid-configuration
+        status: 401
+      - path: /.well-known/api-catalog
+        status: 401
+      - path: /.well-known/agent-card.json
+        status: 401
+      - path: /.well-known/agent.json
+        status: 401
+  - host: content.centene.com
+    note: AEM content host backing the portal's static pages.
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+  - host: api-gateway-01.centene.com
+    note: Named in several servers[] blocks but does not resolve from the public internet (curl exit 6, status 000) — an internal-only gateway hostname left in published specs.
+    documents:
+      - path: /.well-known/security.txt
+        status: 0
+      - path: /.well-known/agent-card.json
+        status: 0
+summary:
+  hosts_probed: 12
+  documents_served: 1
+  security_txt: false
+  api_catalog: false
+  agent_card: false
+  ai_plugin: false
+  openid_configuration: true

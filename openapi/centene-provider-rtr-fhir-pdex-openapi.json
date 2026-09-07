@@ -1,0 +1,3820 @@
+{
+  "components": {
+    "parameters": {
+      "_count": {
+        "description": "The number of resources to return in a single page.",
+        "in": "query",
+        "name": "_count",
+        "schema": {
+          "type": "integer"
+        }
+      },
+      "_id": {
+        "description": "*Query by the resource's logical assignment id. For example, get {{base}}/{{resource}}?_id=[id value]. For further information please visit http://hl7.org/fhir/R4/search.html#id*",
+        "in": "query",
+        "name": "_id",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "_lastUpdated": {
+        "description": "*Search by the LastUpdated Date. This is the date when the content of the resource was last updated by the source creating the record. For example, {{base}}/{{resource}}?_lastUpdated=[meta.lastUpdated value]. The value can be prefixed for more flexible searching. For example {{base}}/{{resource}}?_lastUpdated=lt2023-11-22. The available prefixes are: 'eq' for equal, 'ne' for not equal, 'le' for less than or equal, 'lt' for less than, 'ge' for greater than or equal, 'gt' for greater than, 'sa' for starts after, 'ap' for approximately equal, 'eb' for ends before. For further information please visit http://hl7.org/fhir/r4/search.html#lastUpdated*",
+        "in": "query",
+        "name": "_lastUpdated",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "_next": {
+        "description": "*The default value for total results in all profiles is 200. _next will appear under link array only when rendered data records count is >200 , with a unique id . Clicking that link will help to navigate to next page. For further information please visit https://confluence.centene.com/pages/viewpage.action?spaceKey=PR&title=Documentation+on+how+FHIR+Pagination+works*",
+        "in": "query",
+        "name": "_next",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "_page": {
+        "description": "*This parameter shows the next page number. For further information please visit https://confluence.centene.com/pages/viewpage.action?spaceKey=PR&title=Documentation+on+how+FHIR+Pagination+works*",
+        "in": "query",
+        "name": "_page",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "_profile": {
+        "description": "*Find resources where the profile value equals a URI for the FHIR Profile. This will equal the URI representing the FHIR implementation of the resource. Each resource can have their own profile URI. For example, {{base}}/{{resource}}?_profile=[meta.profile value]. For further information please visit http://hl7.org/fhir/r4/search.html#profile*",
+        "in": "query",
+        "name": "_profile",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "_profile_exact": {
+        "description": "*Find resources where the profile value equals a URI for the FHIR Profile. This will equal the URI representing the FHIR implementation of the resource. Each resource can have their own profile URI. For example, {{base}}/{{resource}}?_profile=[meta.profile value]. For further information please visit http://hl7.org/fhir/r4/search.html#profile*",
+        "in": "query",
+        "name": "_profile",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "_source": {
+        "description": "*User can get all the records of the source provided. _source will be equal to the value of meta.source within the body. The source will be the entity that created the content for the resource json document. For example, {{base}}/{{resource}}?_source=[meta.source value]. For further information please visit http://hl7.org/fhir/r4/search.html#source*",
+        "in": "query",
+        "name": "_source",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "active": {
+        "description": "*Find profiles that are currently marked as 'active'*",
+        "in": "query",
+        "name": "active",
+        "schema": {
+          "type": "boolean"
+        }
+      },
+      "address": {
+        "description": "*Search by address line values that start with the search term and return the matching resources. This search will span all applicable address lines. For example, {{base}}/{{resource}}?address=[address.city/address.state/address.country/address.postalCode value]*. For further information please visit http://hl7.org/fhir/r4/search.html#address*",
+        "in": "query",
+        "name": "address",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "address_contains": {
+        "description": "*Search by address line values that contain the search term and return the matching resources. This search will span all applicable address lines. For example, {{base}}/{{resource}}?address:contains=[address.city/address.state/address.country/address.postalCode value]*. For further information please visit http://hl7.org/fhir/r4/search.html#address*",
+        "in": "query",
+        "name": "address:contains",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "address_exact": {
+        "description": "*Search by address line values that exactly match the search term and return the matching resources. This search will span all applicable address lines. For example, {{base}}/{{resource}}?address:exact=[address.city/address.state/address.country/address.postalCode value]*. For further information please visit http://hl7.org/fhir/r4/search.html#address*",
+        "in": "query",
+        "name": "address:exact",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "email": {
+        "description": "*The value in an email contact*",
+        "in": "query",
+        "name": "email",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "endpoint": {
+        "description": "*Technical endpoints providing access to electronic services operated for the resource*",
+        "in": "query",
+        "name": "endpoint",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "identifier": {
+        "description": "*External identifier for this item*",
+        "in": "query",
+        "name": "identifier",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "identifier_of_type": {
+        "description": "*External identifier type*",
+        "in": "query",
+        "name": "identifier:of-type",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "identifier_text": {
+        "description": "*External identifier type text for this item*",
+        "in": "query",
+        "name": "identifier:text",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "location": {
+        "description": "*The location of the resource*",
+        "in": "query",
+        "name": "location",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "name": {
+        "description": "*Search by the resource's name value and return the matching resources. For example, {{base}}/{{resource}}?name=[name value]. For further information please visit http://hl7.org/fhir/r4/search.html#name*",
+        "in": "query",
+        "name": "name",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "name_contains": {
+        "description": "*Search by the resource's name with an partial match for the value and return the matching resources. For example, {{base}}/{{resource}}?name:contains=[name value]. For further information please visit http://hl7.org/fhir/r4/search.html#name:contains*",
+        "in": "query",
+        "name": "name:contains",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "name_exact": {
+        "description": "*Search by the resource's name with an exact match for the value and return only the matching resources. For example, {{base}}/{{resource}}?name:exact=[name value]. For further information please visit http://hl7.org/fhir/r4/search.html#name:exact*",
+        "in": "query",
+        "name": "name:exact",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "phone": {
+        "description": "*The value in an phone contact*",
+        "in": "query",
+        "name": "phone",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "providedByOrganization": {
+        "description": "*Search for a resource provided by the referenced organization and return the matching resources. The value should passed to the parameter should be the logical _id for the organization desired. For example, {{base}}/{{resource}}?organization=[providedBy.reference value]. For further information please visit http://hl7.org/fhir/r4/search.html#organization*",
+        "in": "query",
+        "name": "organization",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "role": {
+        "description": "*Role code for the resource*",
+        "in": "query",
+        "name": "role",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "role_text": {
+        "description": "*Role code text for the resource*",
+        "in": "query",
+        "name": "role:text",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "service": {
+        "description": "*Search for a resource providing the specified service and return the matching resources. The value should passed to the parameter should be the logical _id for the HealthcareService desired. For example, {{base}}/{{resource}}?service=[service.reference value]. For further information please visit http://hl7.org/fhir/r4/search.html#service*",
+        "in": "query",
+        "name": "service",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "specialty": {
+        "description": "*The specialty code of the service provided by this resource.*",
+        "in": "query",
+        "name": "specialty",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "specialty_text": {
+        "description": "*The specialty code description of the service provided by this resource.*",
+        "in": "query",
+        "name": "specialty:text",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "telecom": {
+        "description": "*The value of any kind of contact*",
+        "in": "query",
+        "name": "telecom",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "type": {
+        "description": "*Type code*",
+        "in": "query",
+        "name": "type",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "type_text": {
+        "description": "*Type code text*",
+        "in": "query",
+        "name": "type:text",
+        "schema": {
+          "type": "string"
+        }
+      }
+    },
+    "schemas": {
+      "APIErrorResponse": {
+        "properties": {
+          "CorrelationID": {
+            "type": "object"
+          },
+          "Details": {
+            "type": "string"
+          },
+          "Message": {
+            "type": "string"
+          },
+          "StatusCode": {
+            "format": "int64",
+            "type": "integer"
+          }
+        },
+        "type": "object",
+        "x-go-package": "gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/response"
+      },
+      "Address": {
+        "properties": {
+          "city": {
+            "type": "string",
+            "x-go-name": "City"
+          },
+          "country": {
+            "type": "string",
+            "x-go-name": "Country"
+          },
+          "district": {
+            "type": "string",
+            "x-go-name": "District"
+          },
+          "extension": {
+            "items": {
+              "$ref": "#/components/schemas/Extension"
+            },
+            "type": "array",
+            "x-go-name": "Extension"
+          },
+          "id": {
+            "type": "string",
+            "x-go-name": "ID"
+          },
+          "line": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "x-go-name": "Line"
+          },
+          "period": {
+            "$ref": "#/components/schemas/Period"
+          },
+          "postalCode": {
+            "type": "string",
+            "x-go-name": "PostalCode"
+          },
+          "state": {
+            "type": "string",
+            "x-go-name": "State"
+          },
+          "text": {
+            "type": "string",
+            "x-go-name": "Text"
+          },
+          "type": {
+            "type": "string",
+            "x-go-name": "Type"
+          },
+          "use": {
+            "type": "string",
+            "x-go-name": "Use"
+          }
+        },
+        "type": "object",
+        "x-go-package": "gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/models/shared"
+      },
+      "Attachment": {
+        "properties": {
+          "contentType": {
+            "type": "string",
+            "x-go-name": "ContentType"
+          },
+          "creation": {
+            "type": "string",
+            "x-go-name": "Creation"
+          },
+          "data": {
+            "type": "string",
+            "x-go-name": "Data"
+          },
+          "hash": {
+            "type": "string",
+            "x-go-name": "Hash"
+          },
+          "language": {
+            "type": "string",
+            "x-go-name": "Language"
+          },
+          "size": {
+            "format": "int64",
+            "type": "integer",
+            "x-go-name": "Size"
+          },
+          "title": {
+            "type": "string",
+            "x-go-name": "Title"
+          },
+          "url": {
+            "type": "string",
+            "x-go-name": "URL"
+          }
+        },
+        "type": "object",
+        "x-go-package": "gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/models/shared"
+      },
+      "AvailableTime": {
+        "properties": {
+          "allDay": {
+            "type": "boolean",
+            "x-go-name": "AllDay"
+          },
+          "availableEndTime": {
+            "type": "string",
+            "x-go-name": "AvailableEndtime"
+          },
+          "availableStartTime": {
+            "type": "string",
+            "x-go-name": "AvailableStarttime"
+          },
+          "daysOfWeek": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "x-go-name": "DaysOfWeek"
+          }
+        },
+        "type": "object",
+        "x-go-package": "gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/models/shared"
+      },
+      "Code": {
+        "properties": {
+          "coding": {
+            "items": {
+              "$ref": "#/components/schemas/Coding"
+            },
+            "type": "array",
+            "x-go-name": "Coding"
+          },
+          "extension": {
+            "items": {
+              "$ref": "#/components/schemas/Extension"
+            },
+            "type": "array",
+            "x-go-name": "Extension"
+          },
+          "id": {
+            "type": "string",
+            "x-go-name": "ID"
+          },
+          "text": {
+            "type": "string",
+            "x-go-name": "Text"
+          }
+        },
+        "type": "object",
+        "x-go-package": "gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/models/shared"
+      },
+      "CodeableConcept": {
+        "properties": {
+          "coding": {
+            "items": {
+              "$ref": "#/components/schemas/Coding"
+            },
+            "type": "array",
+            "x-go-name": "Coding"
+          },
+          "text": {
+            "type": "string",
+            "x-go-name": "Text"
+          }
+        },
+        "type": "object",
+        "x-go-package": "gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/models/shared"
+      },
+      "Coding": {
+        "properties": {
+          "code": {
+            "type": "string",
+            "x-go-name": "Code"
+          },
+          "display": {
+            "type": "string",
+            "x-go-name": "Display"
+          },
+          "system": {
+            "type": "string",
+            "x-go-name": "System"
+          }
+        },
+        "type": "object",
+        "x-go-package": "gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/models/shared"
+      },
+      "Contact": {
+        "properties": {
+          "address": {
+            "$ref": "#/components/schemas/Address"
+          },
+          "id": {
+            "type": "string",
+            "x-go-name": "ID"
+          },
+          "name": {
+            "$ref": "#/components/schemas/HumanName"
+          },
+          "purpose": {
+            "$ref": "#/components/schemas/CodeableConcept"
+          },
+          "telecom": {
+            "items": {
+              "$ref": "#/components/schemas/Telecom"
+            },
+            "type": "array",
+            "x-go-name": "Telecom"
+          }
+        },
+        "type": "object",
+        "x-go-package": "gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/models/shared"
+      },
+      "EndpointAPIResponse": {
+        "properties": {
+          "address": {
+            "type": "string",
+            "x-go-name": "Address"
+          },
+          "connectionType": {
+            "$ref": "#/components/schemas/Coding"
+          },
+          "contact": {
+            "items": {
+              "$ref": "#/components/schemas/Telecom"
+            },
+            "type": "array",
+            "x-go-name": "Contact"
+          },
+          "extension": {
+            "items": {
+              "$ref": "#/components/schemas/Extension"
+            },
+            "type": "array",
+            "x-go-name": "Extension"
+          },
+          "header": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "x-go-name": "Header"
+          },
+          "id": {
+            "type": "string",
+            "x-go-name": "ID"
+          },
+          "identifier": {
+            "items": {
+              "$ref": "#/components/schemas/Identifier"
+            },
+            "type": "array",
+            "x-go-name": "Identifier"
+          },
+          "language": {
+            "type": "string",
+            "x-go-name": "Language"
+          },
+          "managingOrganization": {
+            "$ref": "#/components/schemas/Reference"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/Meta"
+          },
+          "name": {
+            "type": "string",
+            "x-go-name": "Name"
+          },
+          "payloadMimeType": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "x-go-name": "PayloadMimeType"
+          },
+          "payloadType": {
+            "items": {
+              "$ref": "#/components/schemas/Code"
+            },
+            "type": "array",
+            "x-go-name": "PayloadType"
+          },
+          "period": {
+            "$ref": "#/components/schemas/Period"
+          },
+          "resourceType": {
+            "type": "string",
+            "x-go-name": "ResourceType"
+          },
+          "status": {
+            "type": "string",
+            "x-go-name": "Status"
+          },
+          "text": {
+            "$ref": "#/components/schemas/Text"
+          }
+        },
+        "type": "object",
+        "x-go-name": "Endpoint",
+        "x-go-package": "gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/models"
+      },
+      "Extension": {
+        "properties": {
+          "extension": {
+            "items": {
+              "properties": {
+                "url": {
+                  "type": "string",
+                  "x-go-name": "URL"
+                },
+                "valueAttachment": {
+                  "$ref": "#/components/schemas/Attachment"
+                },
+                "valueBoolean": {
+                  "type": "boolean",
+                  "x-go-name": "ValueBoolean"
+                },
+                "valueCode": {
+                  "type": "string",
+                  "x-go-name": "ValueCode"
+                },
+                "valueCodeableConcept": {
+                  "$ref": "#/components/schemas/CodeableConcept"
+                },
+                "valueDecimal": {
+                  "format": "double",
+                  "type": "number",
+                  "x-go-name": "ValueDecimal"
+                },
+                "valueIdentifier": {
+                  "$ref": "#/components/schemas/Identifier"
+                },
+                "valuePeriod": {
+                  "$ref": "#/components/schemas/Period"
+                },
+                "valueReference": {
+                  "$ref": "#/components/schemas/Reference"
+                },
+                "valueString": {
+                  "type": "string",
+                  "x-go-name": "ValueString"
+                },
+                "valueTime": {
+                  "type": "string",
+                  "x-go-name": "ValueTime"
+                },
+                "valueUri": {
+                  "type": "string",
+                  "x-go-name": "ValueURI"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array",
+            "x-go-name": "Extension"
+          },
+          "url": {
+            "type": "string",
+            "x-go-name": "URL"
+          },
+          "valueAttachment": {
+            "$ref": "#/components/schemas/Attachment"
+          },
+          "valueBoolean": {
+            "type": "boolean",
+            "x-go-name": "ValueBoolean"
+          },
+          "valueCode": {
+            "type": "string",
+            "x-go-name": "ValueCode"
+          },
+          "valueCodeableConcept": {
+            "$ref": "#/components/schemas/CodeableConcept"
+          },
+          "valueDecimal": {
+            "format": "double",
+            "type": "number",
+            "x-go-name": "ValueDecimal"
+          },
+          "valueIdentifier": {
+            "$ref": "#/components/schemas/Identifier"
+          },
+          "valuePeriod": {
+            "$ref": "#/components/schemas/Period"
+          },
+          "valueReference": {
+            "$ref": "#/components/schemas/Reference"
+          },
+          "valueString": {
+            "type": "string",
+            "x-go-name": "ValueString"
+          },
+          "valueTime": {
+            "type": "string",
+            "x-go-name": "ValueTime"
+          },
+          "valueUri": {
+            "type": "string",
+            "x-go-name": "ValueURI"
+          }
+        },
+        "type": "object",
+        "x-go-package": "gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/models/shared"
+      },
+      "HealthcareServiceAPIResponse": {
+        "properties": {
+          "active": {
+            "type": "boolean",
+            "x-go-name": "Active"
+          },
+          "appointmentRequired": {
+            "type": "boolean",
+            "x-go-name": "Appointmentrequired"
+          },
+          "availabilityExceptions": {
+            "type": "string",
+            "x-go-name": "AvailabilityExceptions"
+          },
+          "availableTime": {
+            "items": {
+              "$ref": "#/components/schemas/AvailableTime"
+            },
+            "type": "array",
+            "x-go-name": "AvailableTime"
+          },
+          "category": {
+            "items": {
+              "$ref": "#/components/schemas/Code"
+            },
+            "type": "array",
+            "x-go-name": "Category"
+          },
+          "characteristic": {
+            "items": {
+              "$ref": "#/components/schemas/Code"
+            },
+            "type": "array",
+            "x-go-name": "Characteristic"
+          },
+          "comment": {
+            "type": "string",
+            "x-go-name": "Comment"
+          },
+          "communication": {
+            "items": {
+              "$ref": "#/components/schemas/Code"
+            },
+            "type": "array",
+            "x-go-name": "Communication"
+          },
+          "coverageArea": {
+            "items": {
+              "$ref": "#/components/schemas/Reference"
+            },
+            "type": "array",
+            "x-go-name": "CoverageArea"
+          },
+          "eligibility": {
+            "items": {
+              "properties": {
+                "code": {
+                  "$ref": "#/components/schemas/Code"
+                },
+                "comment": {
+                  "type": "string",
+                  "x-go-name": "Comment"
+                },
+                "id": {
+                  "type": "string",
+                  "x-go-name": "ID"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array",
+            "x-go-name": "Eligibility"
+          },
+          "endpoint": {
+            "items": {
+              "$ref": "#/components/schemas/Reference"
+            },
+            "type": "array",
+            "x-go-name": "Endpoint"
+          },
+          "extension": {
+            "items": {
+              "$ref": "#/components/schemas/Extension"
+            },
+            "type": "array",
+            "x-go-name": "Extension"
+          },
+          "extraDetails": {
+            "type": "string",
+            "x-go-name": "ExtraDetails"
+          },
+          "id": {
+            "type": "string",
+            "x-go-name": "ID"
+          },
+          "identifier": {
+            "items": {
+              "$ref": "#/components/schemas/Identifier"
+            },
+            "type": "array",
+            "x-go-name": "Identifier"
+          },
+          "language": {
+            "type": "string",
+            "x-go-name": "Language"
+          },
+          "location": {
+            "items": {
+              "$ref": "#/components/schemas/Reference"
+            },
+            "type": "array",
+            "x-go-name": "Location"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/Meta"
+          },
+          "name": {
+            "type": "string",
+            "x-go-name": "Name"
+          },
+          "notAvailable": {
+            "items": {
+              "$ref": "#/components/schemas/NotAvailable"
+            },
+            "type": "array",
+            "x-go-name": "NotAvailable"
+          },
+          "program": {
+            "items": {
+              "$ref": "#/components/schemas/Code"
+            },
+            "type": "array",
+            "x-go-name": "Program"
+          },
+          "providedBy": {
+            "$ref": "#/components/schemas/Reference"
+          },
+          "referralMethod": {
+            "items": {
+              "$ref": "#/components/schemas/Code"
+            },
+            "type": "array",
+            "x-go-name": "ReferralMethod"
+          },
+          "resourceType": {
+            "type": "string",
+            "x-go-name": "ResourceType"
+          },
+          "serviceProvisionCode": {
+            "items": {
+              "$ref": "#/components/schemas/Code"
+            },
+            "type": "array",
+            "x-go-name": "ServiceProvisionCode"
+          },
+          "specialty": {
+            "items": {
+              "$ref": "#/components/schemas/Code"
+            },
+            "type": "array",
+            "x-go-name": "Specialty"
+          },
+          "telecom": {
+            "items": {
+              "$ref": "#/components/schemas/Telecom"
+            },
+            "type": "array",
+            "x-go-name": "Telecom"
+          },
+          "text": {
+            "$ref": "#/components/schemas/Text"
+          },
+          "type": {
+            "items": {
+              "$ref": "#/components/schemas/Code"
+            },
+            "type": "array",
+            "x-go-name": "Type"
+          }
+        },
+        "type": "object",
+        "x-go-name": "HealthcareService",
+        "x-go-package": "gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/models"
+      },
+      "HumanName": {
+        "properties": {
+          "family": {
+            "type": "string",
+            "x-go-name": "Family"
+          },
+          "given": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "x-go-name": "Given"
+          },
+          "period": {
+            "$ref": "#/components/schemas/Period"
+          },
+          "prefix": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "x-go-name": "Prefix"
+          },
+          "suffix": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "x-go-name": "Suffix"
+          },
+          "text": {
+            "type": "string",
+            "x-go-name": "Text"
+          },
+          "use": {
+            "type": "string",
+            "x-go-name": "Use"
+          }
+        },
+        "type": "object",
+        "x-go-package": "gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/models/shared"
+      },
+      "Identifier": {
+        "properties": {
+          "assigner": {
+            "$ref": "#/components/schemas/Reference"
+          },
+          "id": {
+            "type": "string",
+            "x-go-name": "ID"
+          },
+          "period": {
+            "$ref": "#/components/schemas/Period"
+          },
+          "system": {
+            "type": "string",
+            "x-go-name": "System"
+          },
+          "type": {
+            "$ref": "#/components/schemas/Code"
+          },
+          "use": {
+            "type": "string",
+            "x-go-name": "Use"
+          },
+          "value": {
+            "type": "string",
+            "x-go-name": "Value"
+          }
+        },
+        "type": "object",
+        "x-go-package": "gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/models/shared"
+      },
+      "InsurancePlanAPIResponse": {
+        "properties": {
+          "administeredBy": {
+            "$ref": "#/components/schemas/Reference"
+          },
+          "alias": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "x-go-name": "Alias"
+          },
+          "contact": {
+            "items": {
+              "$ref": "#/components/schemas/Contact"
+            },
+            "type": "array",
+            "x-go-name": "Contact"
+          },
+          "coverage": {
+            "items": {
+              "properties": {
+                "benefit": {
+                  "items": {
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "x-go-name": "ID"
+                      },
+                      "limit": {
+                        "items": {
+                          "properties": {
+                            "code": {
+                              "$ref": "#/components/schemas/Code"
+                            },
+                            "value": {
+                              "$ref": "#/components/schemas/Quantity"
+                            }
+                          },
+                          "type": "object"
+                        },
+                        "type": "array",
+                        "x-go-name": "Limit"
+                      },
+                      "type": {
+                        "$ref": "#/components/schemas/Code"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array",
+                  "x-go-name": "Benefit"
+                },
+                "id": {
+                  "type": "string",
+                  "x-go-name": "ID"
+                },
+                "network": {
+                  "items": {
+                    "$ref": "#/components/schemas/Reference"
+                  },
+                  "type": "array",
+                  "x-go-name": "Network"
+                },
+                "type": {
+                  "$ref": "#/components/schemas/Code"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array",
+            "x-go-name": "Coverage"
+          },
+          "coverageArea": {
+            "items": {
+              "$ref": "#/components/schemas/Reference"
+            },
+            "type": "array",
+            "x-go-name": "CoverageArea"
+          },
+          "endpoint": {
+            "items": {
+              "$ref": "#/components/schemas/Reference"
+            },
+            "type": "array",
+            "x-go-name": "Endpoint"
+          },
+          "id": {
+            "type": "string",
+            "x-go-name": "ID"
+          },
+          "identifier": {
+            "items": {
+              "$ref": "#/components/schemas/Identifier"
+            },
+            "type": "array",
+            "x-go-name": "Identifier"
+          },
+          "language": {
+            "type": "string",
+            "x-go-name": "Language"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/Meta"
+          },
+          "name": {
+            "type": "string",
+            "x-go-name": "Name"
+          },
+          "network": {
+            "items": {
+              "$ref": "#/components/schemas/Reference"
+            },
+            "type": "array",
+            "x-go-name": "Network"
+          },
+          "ownedBy": {
+            "$ref": "#/components/schemas/Reference"
+          },
+          "period": {
+            "$ref": "#/components/schemas/Period"
+          },
+          "plan": {
+            "items": {
+              "properties": {
+                "coverageArea": {
+                  "items": {
+                    "$ref": "#/components/schemas/Reference"
+                  },
+                  "type": "array",
+                  "x-go-name": "CoverageArea"
+                },
+                "generalCost": {
+                  "items": {
+                    "properties": {
+                      "comment": {
+                        "type": "string",
+                        "x-go-name": "Comment"
+                      },
+                      "cost": {
+                        "properties": {
+                          "currency": {
+                            "type": "string",
+                            "x-go-name": "Currency"
+                          },
+                          "value": {
+                            "format": "double",
+                            "type": "number",
+                            "x-go-name": "Value"
+                          }
+                        },
+                        "type": "object",
+                        "x-go-name": "Cost"
+                      },
+                      "groupSize": {
+                        "format": "int64",
+                        "type": "integer",
+                        "x-go-name": "GroupSize"
+                      },
+                      "id": {
+                        "type": "string",
+                        "x-go-name": "ID"
+                      },
+                      "type": {
+                        "$ref": "#/components/schemas/Code"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array",
+                  "x-go-name": "GeneralCost"
+                },
+                "id": {
+                  "type": "string",
+                  "x-go-name": "ID"
+                },
+                "identifier": {
+                  "items": {
+                    "$ref": "#/components/schemas/Identifier"
+                  },
+                  "type": "array",
+                  "x-go-name": "Identifier"
+                },
+                "network": {
+                  "items": {
+                    "$ref": "#/components/schemas/Reference"
+                  },
+                  "type": "array",
+                  "x-go-name": "Network"
+                },
+                "specificCost": {
+                  "items": {
+                    "properties": {
+                      "benefit": {
+                        "items": {
+                          "properties": {
+                            "cost": {
+                              "items": {
+                                "properties": {
+                                  "applicability": {
+                                    "$ref": "#/components/schemas/Code"
+                                  },
+                                  "id": {
+                                    "type": "string",
+                                    "x-go-name": "ID"
+                                  },
+                                  "qualifiers": {
+                                    "items": {
+                                      "$ref": "#/components/schemas/Qualifiers"
+                                    },
+                                    "type": "array",
+                                    "x-go-name": "Qualifiers"
+                                  },
+                                  "type": {
+                                    "$ref": "#/components/schemas/Code"
+                                  },
+                                  "value": {
+                                    "$ref": "#/components/schemas/Quantity"
+                                  }
+                                },
+                                "type": "object"
+                              },
+                              "type": "array",
+                              "x-go-name": "Cost"
+                            },
+                            "id": {
+                              "type": "string",
+                              "x-go-name": "ID"
+                            },
+                            "type": {
+                              "$ref": "#/components/schemas/Code"
+                            }
+                          },
+                          "type": "object"
+                        },
+                        "type": "array",
+                        "x-go-name": "Benefit"
+                      },
+                      "category": {
+                        "$ref": "#/components/schemas/Code"
+                      },
+                      "id": {
+                        "type": "string",
+                        "x-go-name": "ID"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array",
+                  "x-go-name": "SpecificCost"
+                },
+                "type": {
+                  "$ref": "#/components/schemas/Code"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array",
+            "x-go-name": "Plan"
+          },
+          "resourceType": {
+            "type": "string",
+            "x-go-name": "ResourceType"
+          },
+          "status": {
+            "type": "string",
+            "x-go-name": "Status"
+          },
+          "text": {
+            "$ref": "#/components/schemas/Text"
+          },
+          "type": {
+            "items": {
+              "$ref": "#/components/schemas/Code"
+            },
+            "type": "array",
+            "x-go-name": "Type"
+          }
+        },
+        "type": "object",
+        "x-go-name": "InsurancePlan",
+        "x-go-package": "gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/models"
+      },
+      "Link": {
+        "properties": {
+          "relation": {
+            "type": "string",
+            "x-go-name": "Relation"
+          },
+          "url": {
+            "type": "string",
+            "x-go-name": "URL"
+          }
+        },
+        "type": "object",
+        "x-go-package": "gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/response"
+      },
+      "LocationAPIResponse": {
+        "properties": {
+          "address": {
+            "$ref": "#/components/schemas/Address"
+          },
+          "alias": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "x-go-name": "Alias"
+          },
+          "availabilityExceptions": {
+            "type": "string",
+            "x-go-name": "AvailabilityExceptions"
+          },
+          "description": {
+            "type": "string",
+            "x-go-name": "Description"
+          },
+          "endpoint": {
+            "items": {
+              "$ref": "#/components/schemas/Reference"
+            },
+            "type": "array",
+            "x-go-name": "Endpoint"
+          },
+          "extension": {
+            "items": {
+              "$ref": "#/components/schemas/Extension"
+            },
+            "type": "array",
+            "x-go-name": "Extension"
+          },
+          "hoursOfOperation": {
+            "items": {
+              "properties": {
+                "allDay": {
+                  "type": "boolean",
+                  "x-go-name": "AllDay"
+                },
+                "closingTime": {
+                  "type": "string",
+                  "x-go-name": "ClosingTime"
+                },
+                "daysOfWeek": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array",
+                  "x-go-name": "DaysOfWeek"
+                },
+                "openingTime": {
+                  "type": "string",
+                  "x-go-name": "OpeningTime"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array",
+            "x-go-name": "HoursOfOperation"
+          },
+          "id": {
+            "type": "string",
+            "x-go-name": "ID"
+          },
+          "identifier": {
+            "items": {
+              "$ref": "#/components/schemas/Identifier"
+            },
+            "type": "array",
+            "x-go-name": "Identifier"
+          },
+          "language": {
+            "type": "string",
+            "x-go-name": "Language"
+          },
+          "managingOrganization": {
+            "$ref": "#/components/schemas/Reference"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/Meta"
+          },
+          "name": {
+            "type": "string",
+            "x-go-name": "Name"
+          },
+          "operationalStatus": {
+            "$ref": "#/components/schemas/Coding"
+          },
+          "partOf": {
+            "$ref": "#/components/schemas/Reference"
+          },
+          "physicalType": {
+            "$ref": "#/components/schemas/Code"
+          },
+          "position": {
+            "properties": {
+              "altitude": {
+                "format": "double",
+                "type": "number",
+                "x-go-name": "Altitude"
+              },
+              "latitude": {
+                "format": "double",
+                "type": "number",
+                "x-go-name": "Latitude"
+              },
+              "longitude": {
+                "format": "double",
+                "type": "number",
+                "x-go-name": "Longitude"
+              }
+            },
+            "type": "object",
+            "x-go-name": "Position"
+          },
+          "resourceType": {
+            "type": "string",
+            "x-go-name": "ResourceType"
+          },
+          "status": {
+            "type": "string",
+            "x-go-name": "Status"
+          },
+          "telecom": {
+            "items": {
+              "$ref": "#/components/schemas/Telecom"
+            },
+            "type": "array",
+            "x-go-name": "Telecom"
+          },
+          "text": {
+            "$ref": "#/components/schemas/Text"
+          },
+          "type": {
+            "items": {
+              "$ref": "#/components/schemas/Code"
+            },
+            "type": "array",
+            "x-go-name": "Type"
+          }
+        },
+        "type": "object",
+        "x-go-name": "Location",
+        "x-go-package": "gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/models"
+      },
+      "Meta": {
+        "properties": {
+          "extension": {
+            "items": {
+              "$ref": "#/components/schemas/Extension"
+            },
+            "type": "array",
+            "x-go-name": "Extension"
+          },
+          "lastUpdated": {
+            "type": "string",
+            "x-go-name": "Lastupdated"
+          },
+          "profile": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "x-go-name": "Profile"
+          },
+          "source": {
+            "type": "string",
+            "x-go-name": "Source"
+          },
+          "versionId": {
+            "type": "string",
+            "x-go-name": "Versionid"
+          }
+        },
+        "type": "object",
+        "x-go-package": "gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/models/shared"
+      },
+      "Metadata": {
+        "properties": {
+          "page": {
+            "format": "int64",
+            "type": "integer",
+            "x-go-name": "Page"
+          },
+          "pageCount": {
+            "format": "int64",
+            "type": "integer",
+            "x-go-name": "PageCount"
+          },
+          "totalCount": {
+            "format": "int64",
+            "type": "integer",
+            "x-go-name": "TotalCount"
+          }
+        },
+        "type": "object",
+        "x-go-package": "gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/api-framework/api/response"
+      },
+      "NotAvailable": {
+        "properties": {
+          "description": {
+            "type": "string",
+            "x-go-name": "Description"
+          },
+          "during": {
+            "$ref": "#/components/schemas/Period"
+          }
+        },
+        "type": "object",
+        "x-go-package": "gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/models/shared"
+      },
+      "OrganizationAPIResponse": {
+        "properties": {
+          "active": {
+            "type": "boolean",
+            "x-go-name": "Active"
+          },
+          "address": {
+            "items": {
+              "$ref": "#/components/schemas/Address"
+            },
+            "type": "array",
+            "x-go-name": "Address"
+          },
+          "alias": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "x-go-name": "Alias"
+          },
+          "contact": {
+            "items": {
+              "$ref": "#/components/schemas/Contact"
+            },
+            "type": "array",
+            "x-go-name": "Contact"
+          },
+          "description": {
+            "type": "string",
+            "x-go-name": "Description"
+          },
+          "endpoint": {
+            "items": {
+              "$ref": "#/components/schemas/Reference"
+            },
+            "type": "array",
+            "x-go-name": "Endpoint"
+          },
+          "extension": {
+            "items": {
+              "$ref": "#/components/schemas/Extension"
+            },
+            "type": "array",
+            "x-go-name": "Extension"
+          },
+          "id": {
+            "type": "string",
+            "x-go-name": "ID"
+          },
+          "identifier": {
+            "items": {
+              "$ref": "#/components/schemas/Identifier"
+            },
+            "type": "array",
+            "x-go-name": "Identifier"
+          },
+          "language": {
+            "type": "string",
+            "x-go-name": "Language"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/Meta"
+          },
+          "name": {
+            "type": "string",
+            "x-go-name": "Name"
+          },
+          "partOf": {
+            "$ref": "#/components/schemas/Reference"
+          },
+          "resourceType": {
+            "type": "string",
+            "x-go-name": "ResourceType"
+          },
+          "telecom": {
+            "items": {
+              "$ref": "#/components/schemas/Telecom"
+            },
+            "type": "array",
+            "x-go-name": "Telecom"
+          },
+          "text": {
+            "$ref": "#/components/schemas/Text"
+          },
+          "type": {
+            "items": {
+              "$ref": "#/components/schemas/Code"
+            },
+            "type": "array",
+            "x-go-name": "Type"
+          }
+        },
+        "type": "object",
+        "x-go-name": "Organization",
+        "x-go-package": "gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/models"
+      },
+      "OrganizationAffiliationAPIResponse": {
+        "properties": {
+          "active": {
+            "type": "boolean",
+            "x-go-name": "Active"
+          },
+          "code": {
+            "items": {
+              "$ref": "#/components/schemas/Code"
+            },
+            "type": "array",
+            "x-go-name": "Code"
+          },
+          "endpoint": {
+            "items": {
+              "$ref": "#/components/schemas/Reference"
+            },
+            "type": "array",
+            "x-go-name": "Endpoint"
+          },
+          "healthcareService": {
+            "items": {
+              "$ref": "#/components/schemas/Reference"
+            },
+            "type": "array",
+            "x-go-name": "HealthcareService"
+          },
+          "id": {
+            "type": "string",
+            "x-go-name": "ID"
+          },
+          "identifier": {
+            "items": {
+              "$ref": "#/components/schemas/Identifier"
+            },
+            "type": "array",
+            "x-go-name": "Identifier"
+          },
+          "language": {
+            "type": "string",
+            "x-go-name": "Language"
+          },
+          "location": {
+            "items": {
+              "$ref": "#/components/schemas/Reference"
+            },
+            "type": "array",
+            "x-go-name": "Location"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/Meta"
+          },
+          "network": {
+            "items": {
+              "$ref": "#/components/schemas/Reference"
+            },
+            "type": "array",
+            "x-go-name": "Network"
+          },
+          "organization": {
+            "$ref": "#/components/schemas/Reference"
+          },
+          "participatingOrganization": {
+            "$ref": "#/components/schemas/Reference"
+          },
+          "period": {
+            "$ref": "#/components/schemas/Period"
+          },
+          "resourceType": {
+            "type": "string",
+            "x-go-name": "ResourceType"
+          },
+          "specialty": {
+            "items": {
+              "$ref": "#/components/schemas/Code"
+            },
+            "type": "array",
+            "x-go-name": "Specialty"
+          },
+          "telecom": {
+            "items": {
+              "$ref": "#/components/schemas/Telecom"
+            },
+            "type": "array",
+            "x-go-name": "Telecom"
+          },
+          "text": {
+            "$ref": "#/components/schemas/Text"
+          }
+        },
+        "type": "object",
+        "x-go-name": "OrganizationAffiliation",
+        "x-go-package": "gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/models"
+      },
+      "Period": {
+        "properties": {
+          "end": {
+            "type": "string",
+            "x-go-name": "End"
+          },
+          "start": {
+            "type": "string",
+            "x-go-name": "Start"
+          }
+        },
+        "type": "object",
+        "x-go-package": "gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/models/shared"
+      },
+      "PractitionerAPIResponse": {
+        "properties": {
+          "active": {
+            "type": "boolean",
+            "x-go-name": "Active"
+          },
+          "address": {
+            "items": {
+              "$ref": "#/components/schemas/Address"
+            },
+            "type": "array",
+            "x-go-name": "Address"
+          },
+          "birthdate": {
+            "type": "string",
+            "x-go-name": "Birthdate"
+          },
+          "communication": {
+            "items": {
+              "$ref": "#/components/schemas/Code"
+            },
+            "type": "array",
+            "x-go-name": "Communication"
+          },
+          "gender": {
+            "type": "string",
+            "x-go-name": "Gender"
+          },
+          "id": {
+            "type": "string",
+            "x-go-name": "ID"
+          },
+          "identifier": {
+            "items": {
+              "$ref": "#/components/schemas/Identifier"
+            },
+            "type": "array",
+            "x-go-name": "Identifier"
+          },
+          "language": {
+            "type": "string",
+            "x-go-name": "Language"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/Meta"
+          },
+          "name": {
+            "items": {
+              "$ref": "#/components/schemas/HumanName"
+            },
+            "type": "array",
+            "x-go-name": "Name"
+          },
+          "qualification": {
+            "items": {
+              "properties": {
+                "code": {
+                  "$ref": "#/components/schemas/Code"
+                },
+                "extension": {
+                  "items": {
+                    "$ref": "#/components/schemas/Extension"
+                  },
+                  "type": "array",
+                  "x-go-name": "Extension"
+                },
+                "id": {
+                  "type": "string",
+                  "x-go-name": "ID"
+                },
+                "identifier": {
+                  "items": {
+                    "$ref": "#/components/schemas/Identifier"
+                  },
+                  "type": "array",
+                  "x-go-name": "Identifier"
+                },
+                "issuer": {
+                  "$ref": "#/components/schemas/Reference"
+                },
+                "period": {
+                  "$ref": "#/components/schemas/Period"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array",
+            "x-go-name": "Qualification"
+          },
+          "resourceType": {
+            "type": "string",
+            "x-go-name": "ResourceType"
+          },
+          "telecom": {
+            "items": {
+              "$ref": "#/components/schemas/Telecom"
+            },
+            "type": "array",
+            "x-go-name": "Telecom"
+          },
+          "text": {
+            "$ref": "#/components/schemas/Text"
+          }
+        },
+        "type": "object",
+        "x-go-name": "Practitioner",
+        "x-go-package": "gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/models"
+      },
+      "PractitionerRoleAPIResponse": {
+        "properties": {
+          "active": {
+            "type": "boolean",
+            "x-go-name": "Active"
+          },
+          "availabilityExceptions": {
+            "type": "string",
+            "x-go-name": "AvailabilityExceptions"
+          },
+          "availableTime": {
+            "items": {
+              "$ref": "#/components/schemas/AvailableTime"
+            },
+            "type": "array",
+            "x-go-name": "AvailableTime"
+          },
+          "code": {
+            "items": {
+              "$ref": "#/components/schemas/Code"
+            },
+            "type": "array",
+            "x-go-name": "Code"
+          },
+          "endpoint": {
+            "items": {
+              "$ref": "#/components/schemas/Reference"
+            },
+            "type": "array",
+            "x-go-name": "Endpoint"
+          },
+          "extension": {
+            "items": {
+              "$ref": "#/components/schemas/Extension"
+            },
+            "type": "array",
+            "x-go-name": "Extension"
+          },
+          "healthcareService": {
+            "items": {
+              "$ref": "#/components/schemas/Reference"
+            },
+            "type": "array",
+            "x-go-name": "Healthcareservice"
+          },
+          "id": {
+            "type": "string",
+            "x-go-name": "ID"
+          },
+          "identifier": {
+            "items": {
+              "$ref": "#/components/schemas/Identifier"
+            },
+            "type": "array",
+            "x-go-name": "Identifier"
+          },
+          "language": {
+            "type": "string",
+            "x-go-name": "Language"
+          },
+          "location": {
+            "items": {
+              "$ref": "#/components/schemas/Reference"
+            },
+            "type": "array",
+            "x-go-name": "Location"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/Meta"
+          },
+          "notAvailable": {
+            "items": {
+              "$ref": "#/components/schemas/NotAvailable"
+            },
+            "type": "array",
+            "x-go-name": "NotAvailable"
+          },
+          "organization": {
+            "$ref": "#/components/schemas/Reference"
+          },
+          "period": {
+            "$ref": "#/components/schemas/Period"
+          },
+          "practitioner": {
+            "$ref": "#/components/schemas/Reference"
+          },
+          "resourceType": {
+            "type": "string",
+            "x-go-name": "ResourceType"
+          },
+          "specialty": {
+            "items": {
+              "$ref": "#/components/schemas/Code"
+            },
+            "type": "array",
+            "x-go-name": "Specialty"
+          },
+          "telecom": {
+            "items": {
+              "$ref": "#/components/schemas/Telecom"
+            },
+            "type": "array",
+            "x-go-name": "Telecom"
+          },
+          "text": {
+            "$ref": "#/components/schemas/Text"
+          }
+        },
+        "type": "object",
+        "x-go-name": "PractitionerRole",
+        "x-go-package": "gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/models"
+      },
+      "Qualifiers": {
+        "properties": {
+          "coding": {
+            "items": {
+              "$ref": "#/components/schemas/Coding"
+            },
+            "type": "array",
+            "x-go-name": "Coding"
+          },
+          "text": {
+            "type": "string",
+            "x-go-name": "Text"
+          }
+        },
+        "type": "object",
+        "x-go-package": "gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/models"
+      },
+      "Quantity": {
+        "properties": {
+          "code": {
+            "type": "string",
+            "x-go-name": "Code"
+          },
+          "comparator": {
+            "type": "string",
+            "x-go-name": "Comparator"
+          },
+          "system": {
+            "type": "string",
+            "x-go-name": "System"
+          },
+          "unit": {
+            "type": "string",
+            "x-go-name": "Unit"
+          },
+          "value": {
+            "format": "double",
+            "type": "number",
+            "x-go-name": "Value"
+          }
+        },
+        "type": "object",
+        "x-go-package": "gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/models"
+      },
+      "Reference": {
+        "properties": {
+          "display": {
+            "type": "string",
+            "x-go-name": "Display"
+          },
+          "reference": {
+            "type": "string",
+            "x-go-name": "Reference"
+          }
+        },
+        "type": "object",
+        "x-go-package": "gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/models/shared"
+      },
+      "Response": {
+        "properties": {
+          "metadata": {
+            "$ref": "#/components/schemas/Metadata"
+          },
+          "result": {
+            "type": "object",
+            "x-go-name": "Result"
+          }
+        },
+        "title": "Basic response object.",
+        "type": "object",
+        "x-go-name": "InterfaceResponse",
+        "x-go-package": "gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/api-framework/api/response"
+      },
+      "Telecom": {
+        "properties": {
+          "extension": {
+            "items": {
+              "$ref": "#/components/schemas/Extension"
+            },
+            "type": "array",
+            "x-go-name": "Extension"
+          },
+          "id": {
+            "type": "string",
+            "x-go-name": "ID"
+          },
+          "period": {
+            "$ref": "#/components/schemas/Period"
+          },
+          "rank": {
+            "format": "int64",
+            "type": "integer",
+            "x-go-name": "Rank"
+          },
+          "system": {
+            "type": "string",
+            "x-go-name": "System"
+          },
+          "use": {
+            "type": "string",
+            "x-go-name": "Use"
+          },
+          "value": {
+            "type": "string",
+            "x-go-name": "Value"
+          }
+        },
+        "type": "object",
+        "x-go-package": "gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/models/shared"
+      },
+      "Text": {
+        "properties": {
+          "div": {
+            "type": "string",
+            "x-go-name": "Div"
+          },
+          "status": {
+            "type": "string",
+            "x-go-name": "Status"
+          }
+        },
+        "type": "object",
+        "x-go-package": "gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/models/shared"
+      },
+      "apiResponse": {
+        "properties": {
+          "entry": {
+            "items": {
+              "type": "object"
+            },
+            "type": "array",
+            "x-go-name": "Entry"
+          },
+          "link": {
+            "items": {
+              "$ref": "#/components/schemas/Link"
+            },
+            "type": "array",
+            "x-go-name": "Link"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/Meta"
+          },
+          "resourceType": {
+            "type": "string",
+            "x-go-name": "ResourceType"
+          },
+          "total": {
+            "format": "int64",
+            "type": "integer",
+            "x-go-name": "Total"
+          },
+          "type": {
+            "type": "string",
+            "x-go-name": "Type"
+          }
+        },
+        "type": "object",
+        "x-go-name": "APIResponse",
+        "x-go-package": "gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/response"
+      },
+      "healthResponse": {
+        "description": "Health response containing the status of the mongo database",
+        "properties": {
+          "databaseReady": {
+            "type": "boolean",
+            "x-go-name": "DatabaseReady"
+          },
+          "dbhost": {
+            "type": "string",
+            "x-go-name": "Host"
+          },
+          "endpoint": {
+            "type": "string",
+            "x-go-name": "Endpoint"
+          },
+          "reason": {
+            "type": "string",
+            "x-go-name": "Reason"
+          }
+        },
+        "type": "object",
+        "x-go-name": "health",
+        "x-go-package": "gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/api-framework/api/handlers"
+      },
+      "versionResponse": {
+        "description": "Version response containing build information of the current api",
+        "properties": {
+          "branch": {
+            "type": "string",
+            "x-go-name": "Branch"
+          },
+          "buildTime": {
+            "type": "string",
+            "x-go-name": "BuildTime"
+          },
+          "commitSHA": {
+            "type": "string",
+            "x-go-name": "CommitSHA"
+          }
+        },
+        "type": "object",
+        "x-go-name": "version",
+        "x-go-package": "gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/api-framework/api/handlers"
+      }
+    },
+    "securitySchemes": {
+      "oauth2": {
+        "flows": {
+          "clientCredentials": {
+            "scopes": {
+              "resource.READ": "read access"
+            },
+            "tokenUrl": "https://stage.entrykeyid.com/as/token.oauth2"
+          }
+        },
+        "type": "oauth2"
+      }
+    }
+  },
+  "x-stoplight": {
+    "id": "z4saz5y45f192"
+  },
+  "info": {
+    "description": "These external facing (DMZ) endpoints allow users to retrieve information on different FHIR PDEX Plan Net Resources. All endpoints available on this microservice are a GET http operation and produce JSON. FHIR Search has a relational pattern and is detailed on this webpage: https://build.fhir.org/search.html. \n\nThis implementation conforms to the DaVinci PDEX Plan Net 1.1.0 - STU1 FHIR standard mandated by CMS in 2021. Please see the guide at: https://build.fhir.org/ig/HL7/davinci-pdex-plan-net/index.html for more details.",
+    "title": "Provider RTR - FHIR PDEX Directory API (External)",
+    "version": "1.2",
+    "contact": {
+      "email": "Provider_RTR_Support@centene.com"
+    }
+  },
+  "openapi": "3.0.3",
+  "paths": {
+    "/Endpoint": {
+      "get": {
+        "operationId": "EndpointSearch",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/_id"
+          },
+          {
+            "$ref": "#/components/parameters/_source"
+          },
+          {
+            "$ref": "#/components/parameters/_profile"
+          },
+          {
+            "$ref": "#/components/parameters/_lastUpdated"
+          },
+          {
+            "$ref": "#/components/parameters/_next"
+          },
+          {
+            "$ref": "#/components/parameters/_page"
+          },
+          {
+            "$ref": "#/components/parameters/_count"
+          },
+          {
+            "description": "*The organization that is managing the endpoint. The value should be a reference to an Organization resource.*",
+            "in": "query",
+            "name": "organization",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/apiResponse"
+                    },
+                    {
+                      "properties": {
+                        "entry": {
+                          "items": {
+                            "$ref": "#/components/schemas/EndpointAPIResponse"
+                          },
+                          "type": "array"
+                        }
+                      },
+                      "type": "object"
+                    }
+                  ]
+                }
+              }
+            },
+            "description": "Valid response"
+          },
+          "403": {
+            "description": "Unauthorized Request Error. In this scenario, please ensure your teams' authorization key is correctly configured in the calling application. If problem persists, please contact IT-POTS-Team@CENTENE.COM (cc STL_Provider_RTR_Support@CENTENE.COM)."
+          },
+          "500": {
+            "description": "Internal Server Error. In this scenario, please contact STL_Provider_RTR_Support@CENTENE.COM."
+          },
+          "504": {
+            "description": "Gateway Timeout Error. In this scenario, please contact STL_Provider_RTR_Support@CENTENE.COM."
+          }
+        },
+        "tags": [
+          "FHIR-PDEX-Plan-Net-API"
+        ]
+      }
+    },
+    "/Endpoint/{_id}": {
+      "get": {
+        "operationId": "EndpointById",
+        "parameters": [
+          {
+            "description": "*Query by Endpoint's logical assignment id. For example, get {{base}}/Endpoint/[id value]. For further information please visit http://hl7.org/fhir/R4/search.html#id*",
+            "in": "path",
+            "name": "_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/apiResponse"
+                    },
+                    {
+                      "properties": {
+                        "entry": {
+                          "items": {
+                            "$ref": "#/components/schemas/EndpointAPIResponse"
+                          },
+                          "type": "array"
+                        }
+                      },
+                      "type": "object"
+                    }
+                  ]
+                }
+              }
+            },
+            "description": "Valid response"
+          },
+          "403": {
+            "description": "Unauthorized Request Error. In this scenario, please ensure your teams' authorization key is correctly configured in the calling application. If problem persists, please contact IT-POTS-Team@CENTENE.COM (cc STL_Provider_RTR_Support@CENTENE.COM)."
+          },
+          "500": {
+            "description": "Internal Server Error. In this scenario, please contact STL_Provider_RTR_Support@CENTENE.COM."
+          },
+          "504": {
+            "description": "Gateway Timeout Error. In this scenario, please contact STL_Provider_RTR_Support@CENTENE.COM."
+          }
+        },
+        "tags": [
+          "FHIR-PDEX-Plan-Net-API"
+        ]
+      }
+    },
+    "/HealthcareService": {
+      "get": {
+        "description": "For further information about parameters please visit https://hl7.org/fhir/R4/healthcareservice.html#search",
+        "operationId": "HealthcareServiceSearch",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/_id"
+          },
+          {
+            "$ref": "#/components/parameters/_source"
+          },
+          {
+            "$ref": "#/components/parameters/_profile"
+          },
+          {
+            "$ref": "#/components/parameters/_lastUpdated"
+          },
+          {
+            "$ref": "#/components/parameters/name"
+          },
+          {
+            "$ref": "#/components/parameters/name_exact"
+          },
+          {
+            "$ref": "#/components/parameters/name_contains"
+          },
+          {
+            "$ref": "#/components/parameters/_next"
+          },
+          {
+            "$ref": "#/components/parameters/_page"
+          },
+          {
+            "$ref": "#/components/parameters/_count"
+          },
+          {
+            "$ref": "#/components/parameters/identifier"
+          },
+          {
+            "$ref": "#/components/parameters/identifier_text"
+          },
+          {
+            "$ref": "#/components/parameters/identifier_of_type"
+          },
+          {
+            "$ref": "#/components/parameters/endpoint"
+          },
+          {
+            "$ref": "#/components/parameters/location"
+          },
+          {
+            "$ref": "#/components/parameters/specialty"
+          },
+          {
+            "$ref": "#/components/parameters/specialty_text"
+          },
+          {
+            "$ref": "#/components/parameters/active"
+          },
+          {
+            "description": "*Search for a HealthcareService provided by the referenced organization and return the matching HealthcareService resources. The value should passed to the parameter should be the logical _id for the organization desired. For example, {{base}}/HealthcareService?organization=[providedBy.reference value]. For further information please visit http://hl7.org/fhir/r4/search.html#organization*",
+            "in": "query",
+            "name": "organization",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "*Service Category code of the Healthcare Service.*",
+            "in": "query",
+            "name": "service-category",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "*Service Category description of the Healthcare Service.*",
+            "in": "query",
+            "name": "service-category:text",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "*The type code for the type of service provided by this healthcare service*",
+            "in": "query",
+            "name": "service-type",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "*The type description for the type of service provided by this healthcare service*",
+            "in": "query",
+            "name": "service-type:text",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "*Location(s) service is intended for/available to*",
+            "in": "query",
+            "name": "coverage-area",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "*The characteristic (attribute) code of the Healthcare Service*",
+            "in": "query",
+            "name": "characteristic",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "*The characteristic (attribute) description of the Healthcare Service*",
+            "in": "query",
+            "name": "characteristic:text",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "*The program code supported by the Healthcare Service*",
+            "in": "query",
+            "name": "program",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "*The program description supported by the Healthcare Service*",
+            "in": "query",
+            "name": "program:text",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "*Additional resource(s) to fetch that refer to the resulting Healthcare Services. Valid resources to include are 'PractitionerRole:service' or 'OrganizationAffiliation:service'*",
+            "in": "query",
+            "name": "_revinclude",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "*Additional resource(s) to fetch that are related to the resulting Healthcare Services. Valid resources to include are 'HealthcareService:location', 'HealthcareService:coverage-area', 'HealthcareService:organization', or 'HealthcareService:endpoint' *",
+            "in": "query",
+            "name": "_include",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/apiResponse"
+                    },
+                    {
+                      "properties": {
+                        "entry": {
+                          "items": {
+                            "$ref": "#/components/schemas/HealthcareServiceAPIResponse"
+                          },
+                          "type": "array"
+                        }
+                      },
+                      "type": "object"
+                    }
+                  ]
+                }
+              }
+            },
+            "description": "Valid response"
+          },
+          "403": {
+            "description": "Unauthorized Request Error. In this scenario, please ensure your teams' authorization key is correctly configured in the calling application. If problem persists, please contact IT-POTS-Team@CENTENE.COM (cc STL_Provider_RTR_Support@CENTENE.COM)."
+          },
+          "500": {
+            "description": "Internal Server Error. In this scenario, please contact STL_Provider_RTR_Support@CENTENE.COM."
+          },
+          "504": {
+            "description": "Gateway Timeout Error. In this scenario, please contact STL_Provider_RTR_Support@CENTENE.COM."
+          }
+        },
+        "tags": [
+          "FHIR-PDEX-Plan-Net-API"
+        ]
+      }
+    },
+    "/HealthcareService/{_id}": {
+      "get": {
+        "description": "For further information about parameters please visit https://hl7.org/fhir/R4/healthcareservice.html#search",
+        "operationId": "HealthcareServiceById",
+        "parameters": [
+          {
+            "description": "*Query by HealthcareService's logical assignment id. For example, get {{base}}/HealthcareService/[id value]. For further information please visit http://hl7.org/fhir/R4/search.html#id*",
+            "in": "path",
+            "name": "_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/apiResponse"
+                    },
+                    {
+                      "properties": {
+                        "entry": {
+                          "items": {
+                            "$ref": "#/components/schemas/HealthcareServiceAPIResponse"
+                          },
+                          "type": "array"
+                        }
+                      },
+                      "type": "object"
+                    }
+                  ]
+                }
+              }
+            },
+            "description": "Valid response"
+          },
+          "403": {
+            "description": "Unauthorized Request Error. In this scenario, please ensure your teams' authorization key is correctly configured in the calling application. If problem persists, please contact IT-POTS-Team@CENTENE.COM (cc STL_Provider_RTR_Support@CENTENE.COM)."
+          },
+          "500": {
+            "description": "Internal Server Error. In this scenario, please contact STL_Provider_RTR_Support@CENTENE.COM."
+          },
+          "504": {
+            "description": "Gateway Timeout Error. In this scenario, please contact STL_Provider_RTR_Support@CENTENE.COM."
+          }
+        },
+        "tags": [
+          "FHIR-PDEX-Plan-Net-API"
+        ]
+      }
+    },
+    "/InsurancePlan": {
+      "get": {
+        "operationId": "InsurancePlanSearch",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/_id"
+          },
+          {
+            "$ref": "#/components/parameters/_source"
+          },
+          {
+            "$ref": "#/components/parameters/_profile"
+          },
+          {
+            "$ref": "#/components/parameters/_lastUpdated"
+          },
+          {
+            "$ref": "#/components/parameters/name"
+          },
+          {
+            "$ref": "#/components/parameters/name_exact"
+          },
+          {
+            "$ref": "#/components/parameters/name_contains"
+          },
+          {
+            "$ref": "#/components/parameters/_next"
+          },
+          {
+            "$ref": "#/components/parameters/_page"
+          },
+          {
+            "$ref": "#/components/parameters/_count"
+          },
+          {
+            "$ref": "#/components/parameters/identifier"
+          },
+          {
+            "$ref": "#/components/parameters/identifier_text"
+          },
+          {
+            "$ref": "#/components/parameters/identifier_of_type"
+          },
+          {
+            "description": "*Additional resource(s) to fetch that are related to the resulting Insurance Plans. Valid resources to include are 'InsurancePlan:administered-by', 'InsurancePlan:owned-by', or 'InsurancePlan:coverage-area'.*",
+            "in": "query",
+            "name": "_include",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "*Search for a InsurancePlan administered by the referenced organization and return the matching InsurancePlan resources. The value should passed to the parameter should be the logical _id for the organization desired. For example, {{base}}/InsurancePlan?administered-by=[administeredBy.reference value]. For further information please visit http://hl7.org/fhir/r4/search.html#administered-by*",
+            "in": "query",
+            "name": "administered-by",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "*Search for a InsurancePlan owned by the referenced organization and return the matching InsurancePlan resources. The value should passed to the parameter should be the logical _id for the organization desired. For example, {{base}}/InsurancePlan?administered-by=[ownedBy.reference value]. For further information please visit http://hl7.org/fhir/r4/search.html#administered-by*",
+            "in": "query",
+            "name": "owned-by",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "*Code for the type of health insurance product.*",
+            "in": "query",
+            "name": "type",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "*Text description for the type of health insurance product.*",
+            "in": "query",
+            "name": "type:text",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "*Code for the type of plan. For example, 'Platinum' or 'High Deductable'.*",
+            "in": "query",
+            "name": "plan-type",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "*Text description for the type of plan.*",
+            "in": "query",
+            "name": "plan-type:text",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "*The geographic region in which a health insurance product's benefits apply. The value should be a reference to a location resource.*",
+            "in": "query",
+            "name": "coverage-area",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/apiResponse"
+                    },
+                    {
+                      "properties": {
+                        "entry": {
+                          "items": {
+                            "$ref": "#/components/schemas/InsurancePlanAPIResponse"
+                          },
+                          "type": "array"
+                        }
+                      },
+                      "type": "object"
+                    }
+                  ]
+                }
+              }
+            },
+            "description": "Valid response"
+          },
+          "403": {
+            "description": "Unauthorized Request Error. In this scenario, please ensure your teams' authorization key is correctly configured in the calling application. If problem persists, please contact IT-POTS-Team@CENTENE.COM (cc STL_Provider_RTR_Support@CENTENE.COM)."
+          },
+          "500": {
+            "description": "Internal Server Error. In this scenario, please contact STL_Provider_RTR_Support@CENTENE.COM."
+          },
+          "504": {
+            "description": "Gateway Timeout Error. In this scenario, please contact STL_Provider_RTR_Support@CENTENE.COM."
+          }
+        },
+        "tags": [
+          "FHIR-PDEX-Plan-Net-API"
+        ]
+      }
+    },
+    "/InsurancePlan/{_id}": {
+      "get": {
+        "operationId": "InsurancePlanById",
+        "parameters": [
+          {
+            "description": "*Query by InsurancePlan's logical assignment id. For example, get {{base}}/InsurancePlan/[id value]. For further information please visit http://hl7.org/fhir/R4/search.html#id*",
+            "in": "path",
+            "name": "_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/apiResponse"
+                    },
+                    {
+                      "properties": {
+                        "entry": {
+                          "items": {
+                            "$ref": "#/components/schemas/InsurancePlanAPIResponse"
+                          },
+                          "type": "array"
+                        }
+                      },
+                      "type": "object"
+                    }
+                  ]
+                }
+              }
+            },
+            "description": "Valid response"
+          },
+          "403": {
+            "description": "Unauthorized Request Error. In this scenario, please ensure your teams' authorization key is correctly configured in the calling application. If problem persists, please contact IT-POTS-Team@CENTENE.COM (cc STL_Provider_RTR_Support@CENTENE.COM)."
+          },
+          "500": {
+            "description": "Internal Server Error. In this scenario, please contact STL_Provider_RTR_Support@CENTENE.COM."
+          },
+          "504": {
+            "description": "Gateway Timeout Error. In this scenario, please contact STL_Provider_RTR_Support@CENTENE.COM."
+          }
+        },
+        "tags": [
+          "FHIR-PDEX-Plan-Net-API"
+        ]
+      }
+    },
+    "/Location": {
+      "get": {
+        "operationId": "LocationSearch",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/_id"
+          },
+          {
+            "$ref": "#/components/parameters/_source"
+          },
+          {
+            "$ref": "#/components/parameters/_profile"
+          },
+          {
+            "$ref": "#/components/parameters/_lastUpdated"
+          },
+          {
+            "$ref": "#/components/parameters/name"
+          },
+          {
+            "$ref": "#/components/parameters/name_exact"
+          },
+          {
+            "$ref": "#/components/parameters/name_contains"
+          },
+          {
+            "$ref": "#/components/parameters/_next"
+          },
+          {
+            "$ref": "#/components/parameters/_page"
+          },
+          {
+            "$ref": "#/components/parameters/_count"
+          },
+          {
+            "$ref": "#/components/parameters/address"
+          },
+          {
+            "$ref": "#/components/parameters/address_contains"
+          },
+          {
+            "$ref": "#/components/parameters/address_exact"
+          },
+          {
+            "description": "*Search by city values that start with the search term and return a matching location resource. For example, {{base}}/Location?address-city=[address.city value]. For further information please visit http://hl7.org/fhir/r4/search.html#address-city*",
+            "in": "query",
+            "name": "address-city",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "*Search by city values that contain the search term and return a matching location resource. For example, {{base}}/Location?address-city:contains=[address.city value]. For further information please visit http://hl7.org/fhir/r4/search.html#address-city*",
+            "in": "query",
+            "name": "address-city:contains",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "*Search by city values that exactly match the search term and return a matching location resource. For example, {{base}}/Location?address-city:exact=[address.city value]. For further information please visit http://hl7.org/fhir/r4/search.html#address-city*",
+            "in": "query",
+            "name": "address-city:exact",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "*Search by state values that start with the search term and return the matching location resources. For example, {{base}}/Location?address-state=[address.state value]. For further information please visit http://hl7.org/fhir/r4/search.html#address-state*",
+            "in": "query",
+            "name": "address-state",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "*Search by state values that contain the search term and return the matching location resources. For example, {{base}}/Location?address-state:contains=[address.state value]. For further information please visit http://hl7.org/fhir/r4/search.html#address-state*",
+            "in": "query",
+            "name": "address-state:contains",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "*Search by state values that exactly match the search term and return the matching location resources. For example, {{base}}/Location?address-state:exact=[address.state value]. For further information please visit http://hl7.org/fhir/r4/search.html#address-state*",
+            "in": "query",
+            "name": "address-state:exact",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "*Search by postal codes values that start with the search term and return the matching location resources. For example, {{base}}/Location?address-postalcode=[address.postalcode value]. For further information please visit http://hl7.org/fhir/r4/search.html#address-postalcode*",
+            "in": "query",
+            "name": "address-postalcode",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "*Search by postal codes values that contain the search term and return the matching location resources. For example, {{base}}/Location?address-postalcode:contains=[address.postalcode value]. For further information please visit http://hl7.org/fhir/r4/search.html#address-postalcode*",
+            "in": "query",
+            "name": "address-postalcode:contains",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "*Search by postal codes values that exactly match the search term and return the matching location resources. For example, {{base}}/Location?address-postalcode:exact=[address.postalcode value]. For further information please visit http://hl7.org/fhir/r4/search.html#address-postalcode*",
+            "in": "query",
+            "name": "address-postalcode:exact",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "*Search by country code values that start with the search term and return the matching location resources. This is the CODE not the country name spelled out. For example, {{base}}/Location?address-country=[address.country value]. For further information please visit http://hl7.org/fhir/r4/search.html#address-postalcode*",
+            "in": "query",
+            "name": "address-country",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "*Search by country code values that contain the search term and return the matching location resources. This is the CODE not the country name spelled out. For example, {{base}}/Location?address-country:contains=[address.country value]. For further information please visit http://hl7.org/fhir/r4/search.html#address-postalcode*",
+            "in": "query",
+            "name": "address-country:contains",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "*Search by country code values that exactly match the search term and return the matching location resources. This is the CODE not the country name spelled out. For example, {{base}}/Location?address-country:exact=[address.country value]. For further information please visit http://hl7.org/fhir/r4/search.html#address-postalcode*",
+            "in": "query",
+            "name": "address-country:exact",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "$ref": "#/components/parameters/identifier"
+          },
+          {
+            "$ref": "#/components/parameters/identifier_text"
+          },
+          {
+            "$ref": "#/components/parameters/identifier_of_type"
+          },
+          {
+            "$ref": "#/components/parameters/type"
+          },
+          {
+            "$ref": "#/components/parameters/type_text"
+          },
+          {
+            "$ref": "#/components/parameters/endpoint"
+          },
+          {
+            "description": "*Search for locations that are part of another location resource and return the matching location resources. For example, St. Louis city is part of the location Missouri which is a state. For example, {{base}}/Location?partof=[partOf.reference value]. For further information please visit http://hl7.org/fhir/r4/search.html#partof*",
+            "in": "query",
+            "name": "partof",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "*Search for a location managed by the referenced organization and return the matching location resources. The value should passed to the parameter should be the logical _id for the organization desired. For example, {{base}}/Location?organization=[managingOrganization.reference value]. For further information please visit http://hl7.org/fhir/r4/search.html#organization*",
+            "in": "query",
+            "name": "organization",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "*Request additional resources be provided along with the location being searched for by other parameters. This parameter allows for compound searching. First use case is to include Location's managing organization and second use case is Location is part of other location. For example, {{base}}/Location?[parameter=value]*&_include=Location:organization or {{base}}/Location?[parameter=value]*&_include=Location:partof. For further information please visit http://hl7.org/fhir/r4/search.html#include*",
+            "in": "query",
+            "name": "_include",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "*Additional resource(s) to fetch that refer to the resulting Locations. Valid resources to include are 'HealthcareService:location', 'InsurancePlan:coverage-area', 'OrganizationAffiliation:location', or 'PractitionerRole:location'*",
+            "in": "query",
+            "name": "_revinclude",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/apiResponse"
+                    },
+                    {
+                      "properties": {
+                        "entry": {
+                          "items": {
+                            "$ref": "#/components/schemas/LocationAPIResponse"
+                          },
+                          "type": "array"
+                        }
+                      },
+                      "type": "object"
+                    }
+                  ]
+                }
+              }
+            },
+            "description": "Valid response"
+          },
+          "403": {
+            "description": "Unauthorized Request Error. In this scenario, please ensure your teams' authorization key is correctly configured in the calling application. If problem persists, please contact IT-POTS-Team@CENTENE.COM (cc STL_Provider_RTR_Support@CENTENE.COM)."
+          },
+          "500": {
+            "description": "Internal Server Error. In this scenario, please contact STL_Provider_RTR_Support@CENTENE.COM."
+          },
+          "504": {
+            "description": "Gateway Timeout Error. In this scenario, please contact STL_Provider_RTR_Support@CENTENE.COM."
+          }
+        },
+        "tags": [
+          "FHIR-PDEX-Plan-Net-API"
+        ]
+      }
+    },
+    "/Location/{_id}": {
+      "get": {
+        "operationId": "LocationById",
+        "parameters": [
+          {
+            "description": "*Query by Location's logical assignment id. For example, get {{base}}/Location/[id value]. For further information please visit http://hl7.org/fhir/R4/search.html#id*",
+            "in": "path",
+            "name": "_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/apiResponse"
+                    },
+                    {
+                      "properties": {
+                        "entry": {
+                          "items": {
+                            "$ref": "#/components/schemas/LocationAPIResponse"
+                          },
+                          "type": "array"
+                        }
+                      },
+                      "type": "object"
+                    }
+                  ]
+                }
+              }
+            },
+            "description": "Valid response"
+          },
+          "403": {
+            "description": "Unauthorized Request Error. In this scenario, please ensure your teams' authorization key is correctly configured in the calling application. If problem persists, please contact IT-POTS-Team@CENTENE.COM (cc STL_Provider_RTR_Support@CENTENE.COM)."
+          },
+          "500": {
+            "description": "Internal Server Error. In this scenario, please contact STL_Provider_RTR_Support@CENTENE.COM."
+          },
+          "504": {
+            "description": "Gateway Timeout Error. In this scenario, please contact STL_Provider_RTR_Support@CENTENE.COM."
+          }
+        },
+        "tags": [
+          "FHIR-PDEX-Plan-Net-API"
+        ]
+      }
+    },
+    "/Organization": {
+      "get": {
+        "operationId": "OrganizationSearch",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/_id"
+          },
+          {
+            "$ref": "#/components/parameters/_source"
+          },
+          {
+            "$ref": "#/components/parameters/_profile"
+          },
+          {
+            "$ref": "#/components/parameters/_lastUpdated"
+          },
+          {
+            "$ref": "#/components/parameters/name"
+          },
+          {
+            "$ref": "#/components/parameters/name_exact"
+          },
+          {
+            "$ref": "#/components/parameters/name_contains"
+          },
+          {
+            "$ref": "#/components/parameters/_next"
+          },
+          {
+            "$ref": "#/components/parameters/_page"
+          },
+          {
+            "$ref": "#/components/parameters/_count"
+          },
+          {
+            "$ref": "#/components/parameters/address"
+          },
+          {
+            "$ref": "#/components/parameters/address_contains"
+          },
+          {
+            "$ref": "#/components/parameters/address_exact"
+          },
+          {
+            "$ref": "#/components/parameters/identifier"
+          },
+          {
+            "$ref": "#/components/parameters/identifier_text"
+          },
+          {
+            "$ref": "#/components/parameters/identifier_of_type"
+          },
+          {
+            "$ref": "#/components/parameters/endpoint"
+          },
+          {
+            "$ref": "#/components/parameters/type"
+          },
+          {
+            "$ref": "#/components/parameters/type_text"
+          },
+          {
+            "description": "*Search for Organizations that are part of another Organization resource and return the matching Organization resources. For example, {{base}}/Organization?partof=[partOf.reference value]. For further information please visit http://hl7.org/fhir/r4/search.html#partof*",
+            "in": "query",
+            "name": "partof",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "*Request additional resources be provided along with the Organization being searched for by other parameters. This parameter allows for compound searching. First use case is to include Organizations that are part of another Organization and second use case is Organizations in same the coverage-area. For example, {{base}}/Organization?[parameter=value]&_include=Organization:partof or {{base}}/Organization?[parameter=value]&_include=Organization:coverage-area. For further information please visit http://hl7.org/fhir/r4/search.html#include*",
+            "in": "query",
+            "name": "_include",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "*Additional resource(s) to fetch that refer to the resulting organizations. Valid resources to include are 'OrganizationAffiliation:primary-organization', 'OrganizationAffiliation:participating-organization', 'HealthcareService:organization', 'InsurancePlan:administered-by', 'InsurancePlan:owned-by', 'PractitionerRole:organization', 'PractitionerRole:network', or 'Endpoint:organization'*",
+            "in": "query",
+            "name": "_revinclude",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "*The geographic region in which the organization apples. The value should be a reference to a location resource.*",
+            "in": "query",
+            "name": "coverage-area",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/apiResponse"
+                    },
+                    {
+                      "properties": {
+                        "entry": {
+                          "items": {
+                            "$ref": "#/components/schemas/OrganizationAPIResponse"
+                          },
+                          "type": "array"
+                        }
+                      },
+                      "type": "object"
+                    }
+                  ]
+                }
+              }
+            },
+            "description": "Valid response"
+          },
+          "403": {
+            "description": "Unauthorized Request Error. In this scenario, please ensure your teams' authorization key is correctly configured in the calling application. If problem persists, please contact IT-POTS-Team@CENTENE.COM (cc STL_Provider_RTR_Support@CENTENE.COM)."
+          },
+          "500": {
+            "description": "Internal Server Error. In this scenario, please contact STL_Provider_RTR_Support@CENTENE.COM."
+          },
+          "504": {
+            "description": "Gateway Timeout Error. In this scenario, please contact STL_Provider_RTR_Support@CENTENE.COM."
+          }
+        },
+        "tags": [
+          "FHIR-PDEX-Plan-Net-API"
+        ]
+      }
+    },
+    "/Organization/{_id}": {
+      "get": {
+        "operationId": "OrganizationById",
+        "parameters": [
+          {
+            "description": "*Query by Organization's logical assignment id. For example, get {{base}}/Organization/[id value]. For further information please visit http://hl7.org/fhir/R4/search.html#id*",
+            "in": "path",
+            "name": "_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/apiResponse"
+                    },
+                    {
+                      "properties": {
+                        "entry": {
+                          "items": {
+                            "$ref": "#/components/schemas/OrganizationAPIResponse"
+                          },
+                          "type": "array"
+                        }
+                      },
+                      "type": "object"
+                    }
+                  ]
+                }
+              }
+            },
+            "description": "Valid response"
+          },
+          "403": {
+            "description": "Unauthorized Request Error. In this scenario, please ensure your teams' authorization key is correctly configured in the calling application. If problem persists, please contact IT-POTS-Team@CENTENE.COM (cc STL_Provider_RTR_Support@CENTENE.COM)."
+          },
+          "500": {
+            "description": "Internal Server Error. In this scenario, please contact STL_Provider_RTR_Support@CENTENE.COM."
+          },
+          "504": {
+            "description": "Gateway Timeout Error. In this scenario, please contact STL_Provider_RTR_Support@CENTENE.COM."
+          }
+        },
+        "tags": [
+          "FHIR-PDEX-Plan-Net-API"
+        ]
+      }
+    },
+    "/OrganizationAffiliation": {
+      "get": {
+        "operationId": "OrganizationAffiliationSearch",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/_id"
+          },
+          {
+            "$ref": "#/components/parameters/_source"
+          },
+          {
+            "$ref": "#/components/parameters/_profile"
+          },
+          {
+            "$ref": "#/components/parameters/_lastUpdated"
+          },
+          {
+            "$ref": "#/components/parameters/_next"
+          },
+          {
+            "$ref": "#/components/parameters/_page"
+          },
+          {
+            "$ref": "#/components/parameters/_count"
+          },
+          {
+            "$ref": "#/components/parameters/identifier"
+          },
+          {
+            "$ref": "#/components/parameters/identifier_text"
+          },
+          {
+            "$ref": "#/components/parameters/identifier_of_type"
+          },
+          {
+            "$ref": "#/components/parameters/location"
+          },
+          {
+            "$ref": "#/components/parameters/specialty"
+          },
+          {
+            "$ref": "#/components/parameters/specialty_text"
+          },
+          {
+            "$ref": "#/components/parameters/role"
+          },
+          {
+            "$ref": "#/components/parameters/role_text"
+          },
+          {
+            "$ref": "#/components/parameters/service"
+          },
+          {
+            "$ref": "#/components/parameters/active"
+          },
+          {
+            "$ref": "#/components/parameters/email"
+          },
+          {
+            "$ref": "#/components/parameters/phone"
+          },
+          {
+            "$ref": "#/components/parameters/telecom"
+          },
+          {
+            "description": "*Search for a OrganizationAffiliation providing services or is a member of the referenced organization and return the matching OrganizationAffiliation resources. The value should passed to the parameter should be the logical _id for the organization desired. For example, {{base}}/OrganizationAffiliation?participating-organization=[participatingOrganization.reference value]. For further information please visit http://hl7.org/fhir/r4/search.html#participating-organization*",
+            "in": "query",
+            "name": "participating-organization",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "*Search for a OrganizationAffiliation roles offered by the referenced organization and return the matching OrganizationAffiliation resources. The value should passed to the parameter should be the logical _id for the organization desired. For example, {{base}}/OrganizationAffiliation?primary-organization=[Organization.reference value]. For further information please visit http://hl7.org/fhir/r4/search.html#primary-organization*",
+            "in": "query",
+            "name": "primary-organization",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "*Search for a OrganizationAffiliation a member of the specified health insurance provider network and return the matching OrganizationAffiliation resources. The value should passed to the parameter should be the logical _id for the Organization (type Network) desired. For example, {{base}}/OrganizationAffiliation?network=[network.reference value]. For further information please visit http://hl7.org/fhir/r4/search.html#service*",
+            "in": "query",
+            "name": "network",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "*Request additional resources be provided along with the Organization Affiliation being searched for by other parameters. Valid resources to include are 'OrganizationAffiliation:primary-organization', 'OrganizationAffiliation:participating-organization', 'OrganizationAffiliation:location', 'OrganizationAffiliation:service', 'OrganizationAffiliation:network', or 'OrganizationAffiliation:endpoint'*",
+            "in": "query",
+            "name": "_include",
+            "schema": {}
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/apiResponse"
+                    },
+                    {
+                      "properties": {
+                        "entry": {
+                          "items": {
+                            "$ref": "#/components/schemas/OrganizationAffiliationAPIResponse"
+                          },
+                          "type": "array"
+                        }
+                      },
+                      "type": "object"
+                    }
+                  ]
+                }
+              }
+            },
+            "description": "Valid response"
+          },
+          "403": {
+            "description": "Unauthorized Request Error. In this scenario, please ensure your teams' authorization key is correctly configured in the calling application. If problem persists, please contact IT-POTS-Team@CENTENE.COM (cc STL_Provider_RTR_Support@CENTENE.COM)."
+          },
+          "500": {
+            "description": "Internal Server Error. In this scenario, please contact STL_Provider_RTR_Support@CENTENE.COM."
+          },
+          "504": {
+            "description": "Gateway Timeout Error. In this scenario, please contact STL_Provider_RTR_Support@CENTENE.COM."
+          }
+        },
+        "tags": [
+          "FHIR-PDEX-Plan-Net-API"
+        ]
+      }
+    },
+    "/OrganizationAffiliation/{_id}": {
+      "get": {
+        "operationId": "OrganizationAffiliationById",
+        "parameters": [
+          {
+            "description": "*Query by OrganizationAffiliation's logical assignment id. For example, get {{base}}/OrganizationAffiliation/[id value]. For further information please visit http://hl7.org/fhir/R4/search.html#id*",
+            "in": "path",
+            "name": "_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/apiResponse"
+                    },
+                    {
+                      "properties": {
+                        "entry": {
+                          "items": {
+                            "$ref": "#/components/schemas/OrganizationAffiliationAPIResponse"
+                          },
+                          "type": "array"
+                        }
+                      },
+                      "type": "object"
+                    }
+                  ]
+                }
+              }
+            },
+            "description": "Valid response"
+          },
+          "403": {
+            "description": "Unauthorized Request Error. In this scenario, please ensure your teams' authorization key is correctly configured in the calling application. If problem persists, please contact IT-POTS-Team@CENTENE.COM (cc STL_Provider_RTR_Support@CENTENE.COM)."
+          },
+          "500": {
+            "description": "Internal Server Error. In this scenario, please contact STL_Provider_RTR_Support@CENTENE.COM."
+          },
+          "504": {
+            "description": "Gateway Timeout Error. In this scenario, please contact STL_Provider_RTR_Support@CENTENE.COM."
+          }
+        },
+        "tags": [
+          "FHIR-PDEX-Plan-Net-API"
+        ]
+      }
+    },
+    "/Practitioner": {
+      "get": {
+        "operationId": "PractitionerSearch",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/_id"
+          },
+          {
+            "$ref": "#/components/parameters/_source"
+          },
+          {
+            "$ref": "#/components/parameters/_profile"
+          },
+          {
+            "$ref": "#/components/parameters/_lastUpdated"
+          },
+          {
+            "$ref": "#/components/parameters/_next"
+          },
+          {
+            "$ref": "#/components/parameters/_page"
+          },
+          {
+            "$ref": "#/components/parameters/_count"
+          },
+          {
+            "$ref": "#/components/parameters/name"
+          },
+          {
+            "$ref": "#/components/parameters/name_exact"
+          },
+          {
+            "$ref": "#/components/parameters/name_contains"
+          },
+          {
+            "$ref": "#/components/parameters/identifier"
+          },
+          {
+            "$ref": "#/components/parameters/identifier_text"
+          },
+          {
+            "$ref": "#/components/parameters/identifier_of_type"
+          },
+          {
+            "description": "*Additional resource(s) to fetch that refer to the resulting Practitioners. Valid resource to include is 'PractitionerRole:practitioner'*",
+            "in": "query",
+            "name": "_revinclude",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "*Search by the Practitioner family name value and return the matching Practitioner resources. For example, {{base}}/Practitioner?family=[family value]. For further information please visit http://hl7.org/fhir/r4/search.html#family*",
+            "in": "query",
+            "name": "family",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "*Search by exact match of the Practitioner family name value and return the matching Practitioner resources. For example, {{base}}/Practitioner?family:exact=[family value]. For further information please visit http://hl7.org/fhir/r4/search.html#family*",
+            "in": "query",
+            "name": "family:exact",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "*Search the Practitioner where the family name value contains the search term and return the matching Practitioner resources. For example, {{base}}/Practitioner?family:contains=[family value]. For further information please visit http://hl7.org/fhir/r4/search.html#family*",
+            "in": "query",
+            "name": "family:contains",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "*Search by the Practitioner given name value and return the matching Practitioner resources. For example, {{base}}/Practitioner?given=[given value]. For further information please visit http://hl7.org/fhir/r4/search.html#given*",
+            "in": "query",
+            "name": "given",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "*Search by exact match of the Practitioner given name value and return the matching Practitioner resources. For example, {{base}}/Practitioner?given:exact=[given value]. For further information please visit http://hl7.org/fhir/r4/search.html#given*",
+            "in": "query",
+            "name": "given:exact",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "*Search the Practitioner where the given name value contains the search term and return the matching Practitioner resources. For example, {{base}}/Practitioner?given:contains=[family value]. For further information please visit http://hl7.org/fhir/r4/search.html#given*",
+            "in": "query",
+            "name": "given:contains",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/apiResponse"
+                    },
+                    {
+                      "properties": {
+                        "entry": {
+                          "items": {
+                            "$ref": "#/components/schemas/PractitionerAPIResponse"
+                          },
+                          "type": "array"
+                        }
+                      },
+                      "type": "object"
+                    }
+                  ]
+                }
+              }
+            },
+            "description": "Valid response"
+          },
+          "403": {
+            "description": "Unauthorized Request Error. In this scenario, please ensure your teams' authorization key is correctly configured in the calling application. If problem persists, please contact IT-POTS-Team@CENTENE.COM (cc STL_Provider_RTR_Support@CENTENE.COM)."
+          },
+          "500": {
+            "description": "Internal Server Error. In this scenario, please contact STL_Provider_RTR_Support@CENTENE.COM."
+          },
+          "504": {
+            "description": "Gateway Timeout Error. In this scenario, please contact STL_Provider_RTR_Support@CENTENE.COM."
+          }
+        },
+        "tags": [
+          "FHIR-PDEX-Plan-Net-API"
+        ]
+      }
+    },
+    "/Practitioner/{_id}": {
+      "get": {
+        "operationId": "PractitionerById",
+        "parameters": [
+          {
+            "description": "*Query by Practitioner's logical assignment id. For example, get {{base}}/Practitioner/[id value]. For further information please visit http://hl7.org/fhir/R4/search.html#id*",
+            "in": "path",
+            "name": "_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/apiResponse"
+                    },
+                    {
+                      "properties": {
+                        "entry": {
+                          "items": {
+                            "$ref": "#/components/schemas/PractitionerAPIResponse"
+                          },
+                          "type": "array"
+                        }
+                      },
+                      "type": "object"
+                    }
+                  ]
+                }
+              }
+            },
+            "description": "Valid response"
+          },
+          "403": {
+            "description": "Unauthorized Request Error. In this scenario, please ensure your teams' authorization key is correctly configured in the calling application. If problem persists, please contact IT-POTS-Team@CENTENE.COM (cc STL_Provider_RTR_Support@CENTENE.COM)."
+          },
+          "500": {
+            "description": "Internal Server Error. In this scenario, please contact STL_Provider_RTR_Support@CENTENE.COM."
+          },
+          "504": {
+            "description": "Gateway Timeout Error. In this scenario, please contact STL_Provider_RTR_Support@CENTENE.COM."
+          }
+        },
+        "tags": [
+          "FHIR-PDEX-Plan-Net-API"
+        ]
+      }
+    },
+    "/PractitionerRole": {
+      "get": {
+        "operationId": "practitionerRoleSearch",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/_id"
+          },
+          {
+            "$ref": "#/components/parameters/_source"
+          },
+          {
+            "$ref": "#/components/parameters/_profile"
+          },
+          {
+            "$ref": "#/components/parameters/_lastUpdated"
+          },
+          {
+            "$ref": "#/components/parameters/_next"
+          },
+          {
+            "$ref": "#/components/parameters/_page"
+          },
+          {
+            "$ref": "#/components/parameters/_count"
+          },
+          {
+            "$ref": "#/components/parameters/role"
+          },
+          {
+            "$ref": "#/components/parameters/role_text"
+          },
+          {
+            "$ref": "#/components/parameters/specialty"
+          },
+          {
+            "$ref": "#/components/parameters/specialty_text"
+          },
+          {
+            "$ref": "#/components/parameters/identifier"
+          },
+          {
+            "$ref": "#/components/parameters/identifier_text"
+          },
+          {
+            "$ref": "#/components/parameters/identifier_of_type"
+          },
+          {
+            "$ref": "#/components/parameters/service"
+          },
+          {
+            "$ref": "#/components/parameters/location"
+          },
+          {
+            "$ref": "#/components/parameters/endpoint"
+          },
+          {
+            "description": "*Request additional resources be provided along with the Practitioner Roles being searched for by other parameters. Valid resources to include are 'PractitionerRole:practitioner', 'PractitionerRole:organization', 'PractitionerRole:service', 'PractitionerRole:network', 'PractitionerRole:location', or 'PractitionerRole:endpoint'*",
+            "in": "query",
+            "name": "_include",
+            "schema": {}
+          },
+          {
+            "description": "*Search for a PractitionerRole filled by the specified practitioner return the matching PractitionerRole resources. The value should passed to the parameter should be the logical _id for the practitioner desired. For example, {{base}}/PractitionerRole?practitioner=[practitioner.reference value]. For further information please visit http://hl7.org/fhir/r4/search.html#practitioner*",
+            "in": "query",
+            "name": "practitioner",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "*Search for a PractitionerRole available at the specified organization and return the matching PractitionerRole resources. The value should passed to the parameter should be the logical _id for the organization desired. For example, {{base}}/PractitionerRole?organization=[Organization.reference value]. For further information please visit http://hl7.org/fhir/r4/search.html#organization*",
+            "in": "query",
+            "name": "organization",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "*The network applicable to the PractitionerRole. The value should be a reference to a Network resource.*",
+            "in": "query",
+            "name": "network",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/apiResponse"
+                    },
+                    {
+                      "properties": {
+                        "entry": {
+                          "items": {
+                            "$ref": "#/components/schemas/PractitionerRoleAPIResponse"
+                          },
+                          "type": "array"
+                        }
+                      },
+                      "type": "object"
+                    }
+                  ]
+                }
+              }
+            },
+            "description": "Valid response"
+          },
+          "403": {
+            "description": "Unauthorized Request Error. In this scenario, please ensure your teams' authorization key is correctly configured in the calling application. If problem persists, please contact IT-POTS-Team@CENTENE.COM (cc STL_Provider_RTR_Support@CENTENE.COM)."
+          },
+          "500": {
+            "description": "Internal Server Error. In this scenario, please contact STL_Provider_RTR_Support@CENTENE.COM."
+          },
+          "504": {
+            "description": "Gateway Timeout Error. In this scenario, please contact STL_Provider_RTR_Support@CENTENE.COM."
+          }
+        },
+        "tags": [
+          "FHIR-PDEX-Plan-Net-API"
+        ]
+      }
+    },
+    "/PractitionerRole/{_id}": {
+      "get": {
+        "operationId": "practitionerRoleById",
+        "parameters": [
+          {
+            "description": "*Query by PractitionerRole's logical assignment id. For example, get {{base}}/PractitionerRole/[id value]. For further information please visit http://hl7.org/fhir/R4/search.html#id*",
+            "in": "path",
+            "name": "_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/apiResponse"
+                    },
+                    {
+                      "properties": {
+                        "entry": {
+                          "items": {
+                            "$ref": "#/components/schemas/PractitionerRoleAPIResponse"
+                          },
+                          "type": "array"
+                        }
+                      },
+                      "type": "object"
+                    }
+                  ]
+                }
+              }
+            },
+            "description": "Valid response"
+          },
+          "403": {
+            "description": "Unauthorized Request Error. In this scenario, please ensure your teams' authorization key is correctly configured in the calling application. If problem persists, please contact IT-POTS-Team@CENTENE.COM (cc STL_Provider_RTR_Support@CENTENE.COM)."
+          },
+          "500": {
+            "description": "Internal Server Error. In this scenario, please contact STL_Provider_RTR_Support@CENTENE.COM."
+          },
+          "504": {
+            "description": "Gateway Timeout Error. In this scenario, please contact STL_Provider_RTR_Support@CENTENE.COM."
+          }
+        },
+        "tags": [
+          "FHIR-PDEX-Plan-Net-API"
+        ]
+      }
+    },
+    "/health": {
+      "get": {
+        "description": "Health Check",
+        "operationId": "Health",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/healthResponse"
+                }
+              }
+            },
+            "description": "Valid response"
+          },
+          "403": {
+            "description": "Unauthorized Request Error. In this scenario, please ensure your teams' authorization key is correctly configured in the calling application. If problem persists, please contact IT-POTS-Team@CENTENE.COM (cc STL_Provider_RTR_Support@CENTENE.COM)."
+          },
+          "424": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/healthResponse"
+                }
+              }
+            },
+            "description": "Unable to establish connection with MongoDB server."
+          },
+          "500": {
+            "description": "Internal Server Error. In this scenario, please contact STL_Provider_RTR_Support@CENTENE.COM."
+          },
+          "504": {
+            "description": "Gateway Timeout Error. In this scenario, please contact STL_Provider_RTR_Support@CENTENE.COM."
+          }
+        },
+        "tags": [
+          "Utilities"
+        ]
+      }
+    },
+    "/version": {
+      "get": {
+        "description": "Version Information",
+        "operationId": "Version",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/versionResponse"
+                }
+              }
+            },
+            "description": "Valid response"
+          },
+          "403": {
+            "description": "Unauthorized Request Error. In this scenario, please ensure your teams' authorization key is correctly configured in the calling application. If problem persists, please contact IT-POTS-Team@CENTENE.COM (cc STL_Provider_RTR_Support@CENTENE.COM)."
+          },
+          "500": {
+            "description": "Internal Server Error. In this scenario, please contact STL_Provider_RTR_Support@CENTENE.COM."
+          },
+          "504": {
+            "description": "Gateway Timeout Error. In this scenario, please contact STL_Provider_RTR_Support@CENTENE.COM."
+          }
+        },
+        "tags": [
+          "Utilities"
+        ]
+      }
+    }
+  },
+  "security": [
+    {
+      "oauth2": [
+        "resource.READ"
+      ]
+    }
+  ],
+  "servers": [
+    {
+      "description": "Test environment",
+      "url": "https://prod.api.centene.com/tst/prtc/external/fhir-pdex-plan-net/v1/"
+    },
+    {
+      "url": "https://prod.api.centene.com/prtc/external/fhir-pdex-plan-net/v1/",
+      "description": "Prod environment"
+    }
+  ]
+}

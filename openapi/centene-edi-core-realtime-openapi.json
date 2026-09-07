@@ -1,0 +1,1987 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "EDI Realtime CORE Web Service",
+    "description": "",
+    "x-ibm-name": "EDI Realtime CORE",
+    "version": "1.0.0"
+  },
+  "schemes": [
+    "https"
+  ],
+  "basePath": "/Core",
+  "produces": [
+    "application/xml"
+  ],
+  "consumes": [
+    "application/xop+xml"
+  ],
+  "securityDefinitions": {
+    "clientID": {
+      "type": "apiKey",
+      "name": "APIKey",
+      "in": "header",
+      "description": ""
+    }
+  },
+  "security": [
+    {
+      "clientID": []
+    }
+  ],
+  "x-ibm-configuration": {
+    "type": "wsdl",
+    "phase": "realized",
+    "enforced": true,
+    "testable": true,
+    "gateway": "datapower-gateway",
+    "cors": {
+      "enabled": true
+    },
+    "wsdl-definition": {
+      "wsdl": "EDI_Realtime_CORE_WS_Security.wsdl",
+      "service": "Core",
+      "port": "CoreSoapPort",
+      "soap-version": "1.2"
+    },
+    "assembly": {
+      "execute": [
+        {
+          "proxy": {
+            "title": "proxy",
+            "target-url": "http://URL_OF_WEB_SERVICE"
+          }
+        }
+      ]
+    }
+  },
+  "paths": {
+    "/RealTimeTransaction": {
+      "post": {
+        "summary": "Operation RealTimeTransaction",
+        "description": "",
+        "operationId": "RealTimeTransaction",
+        "x-ibm-soap": {
+          "soap-action": "RealTimeTransaction",
+          "soap-operation": "{http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd}COREEnvelopeRealTimeRequest"
+        },
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RealTimeTransactionInput"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/RealTimeTransactionOutput"
+            }
+          }
+        }
+      }
+    },
+    "/BatchSubmitTransaction": {
+      "post": {
+        "summary": "Operation BatchSubmitTransaction",
+        "description": "",
+        "operationId": "BatchSubmitTransaction",
+        "x-ibm-soap": {
+          "soap-action": "BatchSubmitTransaction",
+          "soap-operation": "{http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd}COREEnvelopeBatchSubmission"
+        },
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BatchSubmitTransactionInput"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/BatchSubmitTransactionOutput"
+            }
+          }
+        }
+      }
+    },
+    "/GenericBatchSubmissionTransaction": {
+      "post": {
+        "summary": "Operation GenericBatchSubmissionTransaction",
+        "description": "",
+        "operationId": "GenericBatchSubmissionTransaction",
+        "x-ibm-soap": {
+          "soap-action": "GenericBatchSubmissionTransaction",
+          "soap-operation": "{http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd}COREEnvelopeBatchSubmission"
+        },
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GenericBatchSubmissionTransactionInput"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/GenericBatchSubmissionTransactionOutput"
+            }
+          }
+        }
+      }
+    },
+    "/BatchSubmitAckRetrievalTransaction": {
+      "post": {
+        "summary": "Operation BatchSubmitAckRetrievalTransaction",
+        "description": "",
+        "operationId": "BatchSubmitAckRetrievalTransaction",
+        "x-ibm-soap": {
+          "soap-action": "BatchSubmitAckRetrievalTransaction",
+          "soap-operation": "{http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd}COREEnvelopeBatchSubmissionAckRetrievalRequest"
+        },
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BatchSubmitAckRetrievalTransactionInput"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/BatchSubmitAckRetrievalTransactionOutput"
+            }
+          }
+        }
+      }
+    },
+    "/BatchResultsRetrievalTransaction": {
+      "post": {
+        "summary": "Operation BatchResultsRetrievalTransaction",
+        "description": "",
+        "operationId": "BatchResultsRetrievalTransaction",
+        "x-ibm-soap": {
+          "soap-action": "BatchResultsRetrievalTransaction",
+          "soap-operation": "{http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd}COREEnvelopeBatchResultsRetrievalRequest"
+        },
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BatchResultsRetrievalTransactionInput"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/BatchResultsRetrievalTransactionOutput"
+            }
+          }
+        }
+      }
+    },
+    "/BatchResultsAckSubmitTransaction": {
+      "post": {
+        "summary": "Operation BatchResultsAckSubmitTransaction",
+        "description": "",
+        "operationId": "BatchResultsAckSubmitTransaction",
+        "x-ibm-soap": {
+          "soap-action": "BatchResultsAckSubmitTransaction",
+          "soap-operation": "{http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd}COREEnvelopeBatchResultsAckSubmission"
+        },
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BatchResultsAckSubmitTransactionInput"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/BatchResultsAckSubmitTransactionOutput"
+            }
+          }
+        }
+      }
+    },
+    "/GenericBatchRetrievalTransaction": {
+      "post": {
+        "summary": "Operation GenericBatchRetrievalTransaction",
+        "description": "",
+        "operationId": "GenericBatchRetrievalTransaction",
+        "x-ibm-soap": {
+          "soap-action": "GenericBatchRetrievalTransaction",
+          "soap-operation": "{http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd}COREEnvelopeBatchResultsRetrievalRequest"
+        },
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GenericBatchRetrievalTransactionInput"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/GenericBatchRetrievalTransactionOutput"
+            }
+          }
+        }
+      }
+    },
+    "/GenericBatchReceiptConfirmationTransaction": {
+      "post": {
+        "summary": "Operation GenericBatchReceiptConfirmationTransaction",
+        "description": "",
+        "operationId": "GenericBatchReceiptConfirmationTransaction",
+        "x-ibm-soap": {
+          "soap-action": "GenericBatchReceiptConfirmationTransaction",
+          "soap-operation": "{http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd}COREEnvelopeBatchResultsAckSubmission"
+        },
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GenericBatchReceiptConfirmationTransactionInput"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/GenericBatchReceiptConfirmationTransactionOutput"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Security": {
+      "xml": {
+        "namespace": "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd",
+        "prefix": "wsse"
+      },
+      "description": "Header for WS-Security",
+      "type": "object",
+      "properties": {
+        "UsernameToken": {
+          "xml": {
+            "namespace": "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd",
+            "prefix": "wsse"
+          },
+          "type": "object",
+          "properties": {
+            "Username": {
+              "xml": {
+                "namespace": "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd",
+                "prefix": "wsse"
+              },
+              "type": "string"
+            },
+            "Password": {
+              "xml": {
+                "namespace": "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd",
+                "prefix": "wsse"
+              },
+              "type": "string"
+            },
+            "Nonce": {
+              "xml": {
+                "namespace": "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd",
+                "prefix": "wsse"
+              },
+              "type": "string",
+              "properties": {
+                "EncodingType": {
+                  "xml": {
+                    "namespace": "",
+                    "attribute": true
+                  },
+                  "type": "string"
+                }
+              }
+            },
+            "Created": {
+              "xml": {
+                "namespace": "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd",
+                "prefix": "wsu"
+              },
+              "type": "string"
+            }
+          }
+        },
+        "Timestamp": {
+          "xml": {
+            "namespace": "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd",
+            "prefix": "wsu"
+          },
+          "type": "object",
+          "properties": {
+            "Created": {
+              "xml": {
+                "namespace": "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd",
+                "prefix": "wsu"
+              },
+              "type": "string"
+            },
+            "Expires": {
+              "xml": {
+                "namespace": "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd",
+                "prefix": "wsu"
+              },
+              "type": "string"
+            },
+            "Id": {
+              "xml": {
+                "namespace": "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd",
+                "prefix": "wsu",
+                "attribute": true
+              },
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "RealTimeTransactionInput": {
+      "description": "Input message for wsdl operation COREEnvelopeRealTimeRequest",
+      "type": "object",
+      "properties": {
+        "Envelope": {
+          "xml": {
+            "namespace": "http://www.w3.org/2003/05/soap-envelope",
+            "prefix": "soapenv"
+          },
+          "type": "object",
+          "properties": {
+            "Header": {
+              "$ref": "#/definitions/RealTimeTransactionHeader"
+            },
+            "Body": {
+              "xml": {
+                "namespace": "http://www.w3.org/2003/05/soap-envelope",
+                "prefix": "soapenv"
+              },
+              "type": "object",
+              "properties": {
+                "COREEnvelopeRealTimeRequest": {
+                  "$ref": "#/definitions/COREEnvelopeRealTimeRequest_element_CORE-XSD"
+                }
+              },
+              "required": [
+                "COREEnvelopeRealTimeRequest"
+              ]
+            }
+          },
+          "required": [
+            "Body"
+          ]
+        }
+      },
+      "required": [
+        "Envelope"
+      ],
+      "x-ibm-schema": {
+        "wsdl-port": "{http://www.caqh.org/SOAP/WSDL/}CoreSoapPort",
+        "wsdl-operation": "COREEnvelopeRealTimeRequest",
+        "wsdl-message-direction-or-name": "COREEnvelopeRealTimeRequestRequest"
+      },
+      "example": "\n<soapenv:Envelope xmlns:soapenv=\"http://www.w3.org/2003/05/soap-envelope\">\n <soapenv:Header>\n  <!-- The Security element should be removed if WS-Security is not enabled on the SOAP target-url -->\n  <wsse:Security xmlns:wsse=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\" xmlns:wsu=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd\">\n   <wsse:UsernameToken>\n    <wsse:Username>string</wsse:Username>\n    <wsse:Password>string</wsse:Password>\n    <wsse:Nonce EncodingType=\"string\">string</wsse:Nonce>\n    <wsu:Created>string</wsu:Created>\n   </wsse:UsernameToken>\n   <wsu:Timestamp wsu:Id=\"string\">\n    <wsu:Created>string</wsu:Created>\n    <wsu:Expires>string</wsu:Expires>\n   </wsu:Timestamp>\n  </wsse:Security>\n </soapenv:Header>\n <soapenv:Body>\n  <CORE-XSD:COREEnvelopeRealTimeRequest xmlns:CORE-XSD=\"http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd\"><!-- mandatory -->\n   <PayloadType><!-- mandatory -->string</PayloadType>\n   <ProcessingMode><!-- mandatory -->string</ProcessingMode>\n   <PayloadID><!-- mandatory -->string</PayloadID>\n   <TimeStamp><!-- mandatory -->string</TimeStamp>\n   <SenderID><!-- mandatory -->string</SenderID>\n   <ReceiverID><!-- mandatory -->string</ReceiverID>\n   <CORERuleVersion><!-- mandatory -->string</CORERuleVersion>\n   <Payload><!-- mandatory -->string</Payload>\n  </CORE-XSD:COREEnvelopeRealTimeRequest>\n </soapenv:Body>\n</soapenv:Envelope>"
+    },
+    "RealTimeTransactionHeader": {
+      "description": "Input headers for wsdl operation COREEnvelopeRealTimeRequest",
+      "type": "object",
+      "properties": {
+        "Security": {
+          "$ref": "#/definitions/Security"
+        }
+      }
+    },
+    "RealTimeTransactionOutput": {
+      "description": "Output message for wsdl operation COREEnvelopeRealTimeRequest",
+      "type": "object",
+      "properties": {
+        "Envelope": {
+          "xml": {
+            "namespace": "http://www.w3.org/2003/05/soap-envelope",
+            "prefix": "soapenv"
+          },
+          "type": "object",
+          "properties": {
+            "Body": {
+              "xml": {
+                "namespace": "http://www.w3.org/2003/05/soap-envelope",
+                "prefix": "soapenv"
+              },
+              "type": "object",
+              "properties": {
+                "COREEnvelopeRealTimeResponse": {
+                  "$ref": "#/definitions/COREEnvelopeRealTimeResponse_element_CORE-XSD"
+                }
+              }
+            }
+          },
+          "required": [
+            "Body"
+          ]
+        }
+      },
+      "required": [
+        "Envelope"
+      ],
+      "x-ibm-schema": {
+        "wsdl-port": "{http://www.caqh.org/SOAP/WSDL/}CoreSoapPort",
+        "wsdl-operation": "COREEnvelopeRealTimeRequest",
+        "wsdl-message-direction-or-name": "COREEnvelopeRealTimeRequestResponse"
+      },
+      "example": "\n<soapenv:Envelope xmlns:soapenv=\"http://www.w3.org/2003/05/soap-envelope\">\n <soapenv:Body>\n  <CORE-XSD:COREEnvelopeRealTimeResponse xmlns:CORE-XSD=\"http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd\">\n   <PayloadType><!-- mandatory -->string</PayloadType>\n   <ProcessingMode><!-- mandatory -->string</ProcessingMode>\n   <PayloadID><!-- mandatory -->string</PayloadID>\n   <TimeStamp><!-- mandatory -->string</TimeStamp>\n   <SenderID><!-- mandatory -->string</SenderID>\n   <ReceiverID><!-- mandatory -->string</ReceiverID>\n   <CORERuleVersion><!-- mandatory -->string</CORERuleVersion>\n   <Payload>string</Payload>\n   <ErrorCode><!-- mandatory -->string</ErrorCode>\n   <ErrorMessage><!-- mandatory -->string</ErrorMessage>\n  </CORE-XSD:COREEnvelopeRealTimeResponse>\n </soapenv:Body>\n</soapenv:Envelope>"
+    },
+    "BatchSubmitTransactionInput": {
+      "description": "Input message for wsdl operation COREEnvelopeBatchSubmission",
+      "type": "object",
+      "properties": {
+        "Envelope": {
+          "xml": {
+            "namespace": "http://www.w3.org/2003/05/soap-envelope",
+            "prefix": "soapenv"
+          },
+          "type": "object",
+          "properties": {
+            "Header": {
+              "$ref": "#/definitions/BatchSubmitTransactionHeader"
+            },
+            "Body": {
+              "xml": {
+                "namespace": "http://www.w3.org/2003/05/soap-envelope",
+                "prefix": "soapenv"
+              },
+              "type": "object",
+              "properties": {
+                "COREEnvelopeBatchSubmission": {
+                  "$ref": "#/definitions/COREEnvelopeBatchSubmission_element_CORE-XSD"
+                }
+              },
+              "required": [
+                "COREEnvelopeBatchSubmission"
+              ]
+            }
+          },
+          "required": [
+            "Body"
+          ]
+        }
+      },
+      "required": [
+        "Envelope"
+      ],
+      "x-ibm-schema": {
+        "wsdl-port": "{http://www.caqh.org/SOAP/WSDL/}CoreSoapPort",
+        "wsdl-operation": "COREEnvelopeBatchSubmission",
+        "wsdl-message-direction-or-name": "COREEnvelopeBatchSubmissionRequest"
+      },
+      "example": "\n<soapenv:Envelope xmlns:soapenv=\"http://www.w3.org/2003/05/soap-envelope\">\n <soapenv:Header>\n  <!-- The Security element should be removed if WS-Security is not enabled on the SOAP target-url -->\n  <wsse:Security xmlns:wsse=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\" xmlns:wsu=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd\">\n   <wsse:UsernameToken>\n    <wsse:Username>string</wsse:Username>\n    <wsse:Password>string</wsse:Password>\n    <wsse:Nonce EncodingType=\"string\">string</wsse:Nonce>\n    <wsu:Created>string</wsu:Created>\n   </wsse:UsernameToken>\n   <wsu:Timestamp wsu:Id=\"string\">\n    <wsu:Created>string</wsu:Created>\n    <wsu:Expires>string</wsu:Expires>\n   </wsu:Timestamp>\n  </wsse:Security>\n </soapenv:Header>\n <soapenv:Body>\n  <CORE-XSD:COREEnvelopeBatchSubmission xmlns:CORE-XSD=\"http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd\"><!-- mandatory -->\n   <PayloadType><!-- mandatory -->string</PayloadType>\n   <ProcessingMode><!-- mandatory -->string</ProcessingMode>\n   <PayloadID><!-- mandatory -->string</PayloadID>\n   <PayloadLength><!-- mandatory -->3</PayloadLength>\n   <TimeStamp><!-- mandatory -->string</TimeStamp>\n   <SenderID><!-- mandatory -->string</SenderID>\n   <ReceiverID><!-- mandatory -->string</ReceiverID>\n   <CORERuleVersion><!-- mandatory -->string</CORERuleVersion>\n   <CheckSum><!-- mandatory -->string</CheckSum>\n   <Payload><!-- mandatory -->abcd</Payload>\n  </CORE-XSD:COREEnvelopeBatchSubmission>\n </soapenv:Body>\n</soapenv:Envelope>"
+    },
+    "BatchSubmitTransactionHeader": {
+      "description": "Input headers for wsdl operation COREEnvelopeBatchSubmission",
+      "type": "object",
+      "properties": {
+        "Security": {
+          "$ref": "#/definitions/Security"
+        }
+      }
+    },
+    "BatchSubmitTransactionOutput": {
+      "description": "Output message for wsdl operation COREEnvelopeBatchSubmission",
+      "type": "object",
+      "properties": {
+        "Envelope": {
+          "xml": {
+            "namespace": "http://www.w3.org/2003/05/soap-envelope",
+            "prefix": "soapenv"
+          },
+          "type": "object",
+          "properties": {
+            "Body": {
+              "xml": {
+                "namespace": "http://www.w3.org/2003/05/soap-envelope",
+                "prefix": "soapenv"
+              },
+              "type": "object",
+              "properties": {
+                "COREEnvelopeBatchSubmissionResponse": {
+                  "$ref": "#/definitions/COREEnvelopeBatchSubmissionResponse_element_CORE-XSD"
+                }
+              }
+            }
+          },
+          "required": [
+            "Body"
+          ]
+        }
+      },
+      "required": [
+        "Envelope"
+      ],
+      "x-ibm-schema": {
+        "wsdl-port": "{http://www.caqh.org/SOAP/WSDL/}CoreSoapPort",
+        "wsdl-operation": "COREEnvelopeBatchSubmission",
+        "wsdl-message-direction-or-name": "COREEnvelopeBatchSubmissionResponse"
+      },
+      "example": "\n<soapenv:Envelope xmlns:soapenv=\"http://www.w3.org/2003/05/soap-envelope\">\n <soapenv:Body>\n  <CORE-XSD:COREEnvelopeBatchSubmissionResponse xmlns:CORE-XSD=\"http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd\">\n   <PayloadType><!-- mandatory -->string</PayloadType>\n   <ProcessingMode><!-- mandatory -->string</ProcessingMode>\n   <PayloadID><!-- mandatory -->string</PayloadID>\n   <PayloadLength>3</PayloadLength>\n   <TimeStamp><!-- mandatory -->string</TimeStamp>\n   <SenderID><!-- mandatory -->string</SenderID>\n   <ReceiverID><!-- mandatory -->string</ReceiverID>\n   <CORERuleVersion><!-- mandatory -->string</CORERuleVersion>\n   <CheckSum>string</CheckSum>\n   <Payload>abcd</Payload>\n   <ErrorCode><!-- mandatory -->string</ErrorCode>\n   <ErrorMessage><!-- mandatory -->string</ErrorMessage>\n  </CORE-XSD:COREEnvelopeBatchSubmissionResponse>\n </soapenv:Body>\n</soapenv:Envelope>"
+    },
+    "GenericBatchSubmissionTransactionInput": {
+      "description": "Input message for wsdl operation COREEnvelopeBatchSubmission",
+      "type": "object",
+      "properties": {
+        "Envelope": {
+          "xml": {
+            "namespace": "http://www.w3.org/2003/05/soap-envelope",
+            "prefix": "soapenv"
+          },
+          "type": "object",
+          "properties": {
+            "Header": {
+              "$ref": "#/definitions/GenericBatchSubmissionTransactionHeader"
+            },
+            "Body": {
+              "xml": {
+                "namespace": "http://www.w3.org/2003/05/soap-envelope",
+                "prefix": "soapenv"
+              },
+              "type": "object",
+              "properties": {
+                "COREEnvelopeBatchSubmission": {
+                  "$ref": "#/definitions/COREEnvelopeBatchSubmission_element_CORE-XSD"
+                }
+              },
+              "required": [
+                "COREEnvelopeBatchSubmission"
+              ]
+            }
+          },
+          "required": [
+            "Body"
+          ]
+        }
+      },
+      "required": [
+        "Envelope"
+      ],
+      "x-ibm-schema": {
+        "wsdl-port": "{http://www.caqh.org/SOAP/WSDL/}CoreSoapPort",
+        "wsdl-operation": "COREEnvelopeBatchSubmission",
+        "wsdl-message-direction-or-name": "COREEnvelopeBatchSubmissionRequest"
+      },
+      "example": "\n<soapenv:Envelope xmlns:soapenv=\"http://www.w3.org/2003/05/soap-envelope\">\n <soapenv:Header>\n  <!-- The Security element should be removed if WS-Security is not enabled on the SOAP target-url -->\n  <wsse:Security xmlns:wsse=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\" xmlns:wsu=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd\">\n   <wsse:UsernameToken>\n    <wsse:Username>string</wsse:Username>\n    <wsse:Password>string</wsse:Password>\n    <wsse:Nonce EncodingType=\"string\">string</wsse:Nonce>\n    <wsu:Created>string</wsu:Created>\n   </wsse:UsernameToken>\n   <wsu:Timestamp wsu:Id=\"string\">\n    <wsu:Created>string</wsu:Created>\n    <wsu:Expires>string</wsu:Expires>\n   </wsu:Timestamp>\n  </wsse:Security>\n </soapenv:Header>\n <soapenv:Body>\n  <CORE-XSD:COREEnvelopeBatchSubmission xmlns:CORE-XSD=\"http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd\"><!-- mandatory -->\n   <PayloadType><!-- mandatory -->string</PayloadType>\n   <ProcessingMode><!-- mandatory -->string</ProcessingMode>\n   <PayloadID><!-- mandatory -->string</PayloadID>\n   <PayloadLength><!-- mandatory -->3</PayloadLength>\n   <TimeStamp><!-- mandatory -->string</TimeStamp>\n   <SenderID><!-- mandatory -->string</SenderID>\n   <ReceiverID><!-- mandatory -->string</ReceiverID>\n   <CORERuleVersion><!-- mandatory -->string</CORERuleVersion>\n   <CheckSum><!-- mandatory -->string</CheckSum>\n   <Payload><!-- mandatory -->abcd</Payload>\n  </CORE-XSD:COREEnvelopeBatchSubmission>\n </soapenv:Body>\n</soapenv:Envelope>"
+    },
+    "GenericBatchSubmissionTransactionHeader": {
+      "description": "Input headers for wsdl operation COREEnvelopeBatchSubmission",
+      "type": "object",
+      "properties": {
+        "Security": {
+          "$ref": "#/definitions/Security"
+        }
+      }
+    },
+    "GenericBatchSubmissionTransactionOutput": {
+      "description": "Output message for wsdl operation COREEnvelopeBatchSubmission",
+      "type": "object",
+      "properties": {
+        "Envelope": {
+          "xml": {
+            "namespace": "http://www.w3.org/2003/05/soap-envelope",
+            "prefix": "soapenv"
+          },
+          "type": "object",
+          "properties": {
+            "Body": {
+              "xml": {
+                "namespace": "http://www.w3.org/2003/05/soap-envelope",
+                "prefix": "soapenv"
+              },
+              "type": "object",
+              "properties": {
+                "COREEnvelopeBatchSubmissionResponse": {
+                  "$ref": "#/definitions/COREEnvelopeBatchSubmissionResponse_element_CORE-XSD"
+                }
+              }
+            }
+          },
+          "required": [
+            "Body"
+          ]
+        }
+      },
+      "required": [
+        "Envelope"
+      ],
+      "x-ibm-schema": {
+        "wsdl-port": "{http://www.caqh.org/SOAP/WSDL/}CoreSoapPort",
+        "wsdl-operation": "COREEnvelopeBatchSubmission",
+        "wsdl-message-direction-or-name": "COREEnvelopeBatchSubmissionResponse"
+      },
+      "example": "\n<soapenv:Envelope xmlns:soapenv=\"http://www.w3.org/2003/05/soap-envelope\">\n <soapenv:Body>\n  <CORE-XSD:COREEnvelopeBatchSubmissionResponse xmlns:CORE-XSD=\"http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd\">\n   <PayloadType><!-- mandatory -->string</PayloadType>\n   <ProcessingMode><!-- mandatory -->string</ProcessingMode>\n   <PayloadID><!-- mandatory -->string</PayloadID>\n   <PayloadLength>3</PayloadLength>\n   <TimeStamp><!-- mandatory -->string</TimeStamp>\n   <SenderID><!-- mandatory -->string</SenderID>\n   <ReceiverID><!-- mandatory -->string</ReceiverID>\n   <CORERuleVersion><!-- mandatory -->string</CORERuleVersion>\n   <CheckSum>string</CheckSum>\n   <Payload>abcd</Payload>\n   <ErrorCode><!-- mandatory -->string</ErrorCode>\n   <ErrorMessage><!-- mandatory -->string</ErrorMessage>\n  </CORE-XSD:COREEnvelopeBatchSubmissionResponse>\n </soapenv:Body>\n</soapenv:Envelope>"
+    },
+    "BatchSubmitAckRetrievalTransactionInput": {
+      "description": "Input message for wsdl operation COREEnvelopeBatchSubmissionAckRetrievalRequest",
+      "type": "object",
+      "properties": {
+        "Envelope": {
+          "xml": {
+            "namespace": "http://www.w3.org/2003/05/soap-envelope",
+            "prefix": "soapenv"
+          },
+          "type": "object",
+          "properties": {
+            "Header": {
+              "$ref": "#/definitions/BatchSubmitAckRetrievalTransactionHeader"
+            },
+            "Body": {
+              "xml": {
+                "namespace": "http://www.w3.org/2003/05/soap-envelope",
+                "prefix": "soapenv"
+              },
+              "type": "object",
+              "properties": {
+                "COREEnvelopeBatchSubmissionAckRetrievalRequest": {
+                  "$ref": "#/definitions/COREEnvelopeBatchSubmissionAckRetrievalRequest_element_CORE-XSD"
+                }
+              },
+              "required": [
+                "COREEnvelopeBatchSubmissionAckRetrievalRequest"
+              ]
+            }
+          },
+          "required": [
+            "Body"
+          ]
+        }
+      },
+      "required": [
+        "Envelope"
+      ],
+      "x-ibm-schema": {
+        "wsdl-port": "{http://www.caqh.org/SOAP/WSDL/}CoreSoapPort",
+        "wsdl-operation": "COREEnvelopeBatchSubmissionAckRetrievalRequest",
+        "wsdl-message-direction-or-name": "COREEnvelopeBatchSubmissionAckRetrievalRequestRequest"
+      },
+      "example": "\n<soapenv:Envelope xmlns:soapenv=\"http://www.w3.org/2003/05/soap-envelope\">\n <soapenv:Header>\n  <!-- The Security element should be removed if WS-Security is not enabled on the SOAP target-url -->\n  <wsse:Security xmlns:wsse=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\" xmlns:wsu=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd\">\n   <wsse:UsernameToken>\n    <wsse:Username>string</wsse:Username>\n    <wsse:Password>string</wsse:Password>\n    <wsse:Nonce EncodingType=\"string\">string</wsse:Nonce>\n    <wsu:Created>string</wsu:Created>\n   </wsse:UsernameToken>\n   <wsu:Timestamp wsu:Id=\"string\">\n    <wsu:Created>string</wsu:Created>\n    <wsu:Expires>string</wsu:Expires>\n   </wsu:Timestamp>\n  </wsse:Security>\n </soapenv:Header>\n <soapenv:Body>\n  <CORE-XSD:COREEnvelopeBatchSubmissionAckRetrievalRequest xmlns:CORE-XSD=\"http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd\"><!-- mandatory -->\n   <PayloadType><!-- mandatory -->string</PayloadType>\n   <ProcessingMode><!-- mandatory -->string</ProcessingMode>\n   <PayloadID><!-- mandatory -->string</PayloadID>\n   <PayloadLength>3</PayloadLength>\n   <TimeStamp><!-- mandatory -->string</TimeStamp>\n   <SenderID><!-- mandatory -->string</SenderID>\n   <ReceiverID><!-- mandatory -->string</ReceiverID>\n   <CORERuleVersion><!-- mandatory -->string</CORERuleVersion>\n   <CheckSum>string</CheckSum>\n   <Payload>abcd</Payload>\n  </CORE-XSD:COREEnvelopeBatchSubmissionAckRetrievalRequest>\n </soapenv:Body>\n</soapenv:Envelope>"
+    },
+    "BatchSubmitAckRetrievalTransactionHeader": {
+      "description": "Input headers for wsdl operation COREEnvelopeBatchSubmissionAckRetrievalRequest",
+      "type": "object",
+      "properties": {
+        "Security": {
+          "$ref": "#/definitions/Security"
+        }
+      }
+    },
+    "BatchSubmitAckRetrievalTransactionOutput": {
+      "description": "Output message for wsdl operation COREEnvelopeBatchSubmissionAckRetrievalRequest",
+      "type": "object",
+      "properties": {
+        "Envelope": {
+          "xml": {
+            "namespace": "http://www.w3.org/2003/05/soap-envelope",
+            "prefix": "soapenv"
+          },
+          "type": "object",
+          "properties": {
+            "Body": {
+              "xml": {
+                "namespace": "http://www.w3.org/2003/05/soap-envelope",
+                "prefix": "soapenv"
+              },
+              "type": "object",
+              "properties": {
+                "COREEnvelopeBatchSubmissionAckRetrievalResponse": {
+                  "$ref": "#/definitions/COREEnvelopeBatchSubmissionAckRetrievalResponse_element_CORE-XSD"
+                }
+              }
+            }
+          },
+          "required": [
+            "Body"
+          ]
+        }
+      },
+      "required": [
+        "Envelope"
+      ],
+      "x-ibm-schema": {
+        "wsdl-port": "{http://www.caqh.org/SOAP/WSDL/}CoreSoapPort",
+        "wsdl-operation": "COREEnvelopeBatchSubmissionAckRetrievalRequest",
+        "wsdl-message-direction-or-name": "COREEnvelopeBatchSubmissionAckRetrievalRequestResponse"
+      },
+      "example": "\n<soapenv:Envelope xmlns:soapenv=\"http://www.w3.org/2003/05/soap-envelope\">\n <soapenv:Body>\n  <CORE-XSD:COREEnvelopeBatchSubmissionAckRetrievalResponse xmlns:CORE-XSD=\"http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd\">\n   <PayloadType><!-- mandatory -->string</PayloadType>\n   <ProcessingMode><!-- mandatory -->string</ProcessingMode>\n   <PayloadID><!-- mandatory -->string</PayloadID>\n   <PayloadLength>3</PayloadLength>\n   <TimeStamp><!-- mandatory -->string</TimeStamp>\n   <SenderID><!-- mandatory -->string</SenderID>\n   <ReceiverID><!-- mandatory -->string</ReceiverID>\n   <CORERuleVersion><!-- mandatory -->string</CORERuleVersion>\n   <CheckSum>string</CheckSum>\n   <Payload>abcd</Payload>\n   <ErrorCode><!-- mandatory -->string</ErrorCode>\n   <ErrorMessage><!-- mandatory -->string</ErrorMessage>\n  </CORE-XSD:COREEnvelopeBatchSubmissionAckRetrievalResponse>\n </soapenv:Body>\n</soapenv:Envelope>"
+    },
+    "BatchResultsRetrievalTransactionInput": {
+      "description": "Input message for wsdl operation COREEnvelopeBatchResultsRetrievalRequest",
+      "type": "object",
+      "properties": {
+        "Envelope": {
+          "xml": {
+            "namespace": "http://www.w3.org/2003/05/soap-envelope",
+            "prefix": "soapenv"
+          },
+          "type": "object",
+          "properties": {
+            "Header": {
+              "$ref": "#/definitions/BatchResultsRetrievalTransactionHeader"
+            },
+            "Body": {
+              "xml": {
+                "namespace": "http://www.w3.org/2003/05/soap-envelope",
+                "prefix": "soapenv"
+              },
+              "type": "object",
+              "properties": {
+                "COREEnvelopeBatchResultsRetrievalRequest": {
+                  "$ref": "#/definitions/COREEnvelopeBatchResultsRetrievalRequest_element_CORE-XSD"
+                }
+              },
+              "required": [
+                "COREEnvelopeBatchResultsRetrievalRequest"
+              ]
+            }
+          },
+          "required": [
+            "Body"
+          ]
+        }
+      },
+      "required": [
+        "Envelope"
+      ],
+      "x-ibm-schema": {
+        "wsdl-port": "{http://www.caqh.org/SOAP/WSDL/}CoreSoapPort",
+        "wsdl-operation": "COREEnvelopeBatchResultsRetrievalRequest",
+        "wsdl-message-direction-or-name": "COREEnvelopeBatchResultsRetrievalRequestRequest"
+      },
+      "example": "\n<soapenv:Envelope xmlns:soapenv=\"http://www.w3.org/2003/05/soap-envelope\">\n <soapenv:Header>\n  <!-- The Security element should be removed if WS-Security is not enabled on the SOAP target-url -->\n  <wsse:Security xmlns:wsse=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\" xmlns:wsu=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd\">\n   <wsse:UsernameToken>\n    <wsse:Username>string</wsse:Username>\n    <wsse:Password>string</wsse:Password>\n    <wsse:Nonce EncodingType=\"string\">string</wsse:Nonce>\n    <wsu:Created>string</wsu:Created>\n   </wsse:UsernameToken>\n   <wsu:Timestamp wsu:Id=\"string\">\n    <wsu:Created>string</wsu:Created>\n    <wsu:Expires>string</wsu:Expires>\n   </wsu:Timestamp>\n  </wsse:Security>\n </soapenv:Header>\n <soapenv:Body>\n  <CORE-XSD:COREEnvelopeBatchResultsRetrievalRequest xmlns:CORE-XSD=\"http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd\"><!-- mandatory -->\n   <PayloadType><!-- mandatory -->string</PayloadType>\n   <ProcessingMode><!-- mandatory -->string</ProcessingMode>\n   <PayloadID><!-- mandatory -->string</PayloadID>\n   <PayloadLength>3</PayloadLength>\n   <TimeStamp><!-- mandatory -->string</TimeStamp>\n   <SenderID><!-- mandatory -->string</SenderID>\n   <ReceiverID><!-- mandatory -->string</ReceiverID>\n   <CORERuleVersion><!-- mandatory -->string</CORERuleVersion>\n   <CheckSum>string</CheckSum>\n   <Payload>abcd</Payload>\n  </CORE-XSD:COREEnvelopeBatchResultsRetrievalRequest>\n </soapenv:Body>\n</soapenv:Envelope>"
+    },
+    "BatchResultsRetrievalTransactionHeader": {
+      "description": "Input headers for wsdl operation COREEnvelopeBatchResultsRetrievalRequest",
+      "type": "object",
+      "properties": {
+        "Security": {
+          "$ref": "#/definitions/Security"
+        }
+      }
+    },
+    "BatchResultsRetrievalTransactionOutput": {
+      "description": "Output message for wsdl operation COREEnvelopeBatchResultsRetrievalRequest",
+      "type": "object",
+      "properties": {
+        "Envelope": {
+          "xml": {
+            "namespace": "http://www.w3.org/2003/05/soap-envelope",
+            "prefix": "soapenv"
+          },
+          "type": "object",
+          "properties": {
+            "Body": {
+              "xml": {
+                "namespace": "http://www.w3.org/2003/05/soap-envelope",
+                "prefix": "soapenv"
+              },
+              "type": "object",
+              "properties": {
+                "COREEnvelopeBatchResultsRetrievalResponse": {
+                  "$ref": "#/definitions/COREEnvelopeBatchResultsRetrievalResponse_element_CORE-XSD"
+                }
+              }
+            }
+          },
+          "required": [
+            "Body"
+          ]
+        }
+      },
+      "required": [
+        "Envelope"
+      ],
+      "x-ibm-schema": {
+        "wsdl-port": "{http://www.caqh.org/SOAP/WSDL/}CoreSoapPort",
+        "wsdl-operation": "COREEnvelopeBatchResultsRetrievalRequest",
+        "wsdl-message-direction-or-name": "COREEnvelopeBatchResultsRetrievalRequestResponse"
+      },
+      "example": "\n<soapenv:Envelope xmlns:soapenv=\"http://www.w3.org/2003/05/soap-envelope\">\n <soapenv:Body>\n  <CORE-XSD:COREEnvelopeBatchResultsRetrievalResponse xmlns:CORE-XSD=\"http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd\">\n   <PayloadType><!-- mandatory -->string</PayloadType>\n   <ProcessingMode><!-- mandatory -->string</ProcessingMode>\n   <PayloadID><!-- mandatory -->string</PayloadID>\n   <PayloadLength>3</PayloadLength>\n   <TimeStamp><!-- mandatory -->string</TimeStamp>\n   <SenderID><!-- mandatory -->string</SenderID>\n   <ReceiverID><!-- mandatory -->string</ReceiverID>\n   <CORERuleVersion><!-- mandatory -->string</CORERuleVersion>\n   <CheckSum>string</CheckSum>\n   <Payload>abcd</Payload>\n   <ErrorCode><!-- mandatory -->string</ErrorCode>\n   <ErrorMessage><!-- mandatory -->string</ErrorMessage>\n  </CORE-XSD:COREEnvelopeBatchResultsRetrievalResponse>\n </soapenv:Body>\n</soapenv:Envelope>"
+    },
+    "BatchResultsAckSubmitTransactionInput": {
+      "description": "Input message for wsdl operation COREEnvelopeBatchResultsAckSubmission",
+      "type": "object",
+      "properties": {
+        "Envelope": {
+          "xml": {
+            "namespace": "http://www.w3.org/2003/05/soap-envelope",
+            "prefix": "soapenv"
+          },
+          "type": "object",
+          "properties": {
+            "Header": {
+              "$ref": "#/definitions/BatchResultsAckSubmitTransactionHeader"
+            },
+            "Body": {
+              "xml": {
+                "namespace": "http://www.w3.org/2003/05/soap-envelope",
+                "prefix": "soapenv"
+              },
+              "type": "object",
+              "properties": {
+                "COREEnvelopeBatchResultsAckSubmission": {
+                  "$ref": "#/definitions/COREEnvelopeBatchResultsAckSubmission_element_CORE-XSD"
+                }
+              },
+              "required": [
+                "COREEnvelopeBatchResultsAckSubmission"
+              ]
+            }
+          },
+          "required": [
+            "Body"
+          ]
+        }
+      },
+      "required": [
+        "Envelope"
+      ],
+      "x-ibm-schema": {
+        "wsdl-port": "{http://www.caqh.org/SOAP/WSDL/}CoreSoapPort",
+        "wsdl-operation": "COREEnvelopeBatchResultsAckSubmission",
+        "wsdl-message-direction-or-name": "COREEnvelopeBatchResultsAckSubmissionRequest"
+      },
+      "example": "\n<soapenv:Envelope xmlns:soapenv=\"http://www.w3.org/2003/05/soap-envelope\">\n <soapenv:Header>\n  <!-- The Security element should be removed if WS-Security is not enabled on the SOAP target-url -->\n  <wsse:Security xmlns:wsse=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\" xmlns:wsu=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd\">\n   <wsse:UsernameToken>\n    <wsse:Username>string</wsse:Username>\n    <wsse:Password>string</wsse:Password>\n    <wsse:Nonce EncodingType=\"string\">string</wsse:Nonce>\n    <wsu:Created>string</wsu:Created>\n   </wsse:UsernameToken>\n   <wsu:Timestamp wsu:Id=\"string\">\n    <wsu:Created>string</wsu:Created>\n    <wsu:Expires>string</wsu:Expires>\n   </wsu:Timestamp>\n  </wsse:Security>\n </soapenv:Header>\n <soapenv:Body>\n  <CORE-XSD:COREEnvelopeBatchResultsAckSubmission xmlns:CORE-XSD=\"http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd\"><!-- mandatory -->\n   <PayloadType><!-- mandatory -->string</PayloadType>\n   <ProcessingMode><!-- mandatory -->string</ProcessingMode>\n   <PayloadID><!-- mandatory -->string</PayloadID>\n   <PayloadLength>3</PayloadLength>\n   <TimeStamp><!-- mandatory -->string</TimeStamp>\n   <SenderID><!-- mandatory -->string</SenderID>\n   <ReceiverID><!-- mandatory -->string</ReceiverID>\n   <CORERuleVersion><!-- mandatory -->string</CORERuleVersion>\n   <CheckSum>string</CheckSum>\n   <Payload>abcd</Payload>\n  </CORE-XSD:COREEnvelopeBatchResultsAckSubmission>\n </soapenv:Body>\n</soapenv:Envelope>"
+    },
+    "BatchResultsAckSubmitTransactionHeader": {
+      "description": "Input headers for wsdl operation COREEnvelopeBatchResultsAckSubmission",
+      "type": "object",
+      "properties": {
+        "Security": {
+          "$ref": "#/definitions/Security"
+        }
+      }
+    },
+    "BatchResultsAckSubmitTransactionOutput": {
+      "description": "Output message for wsdl operation COREEnvelopeBatchResultsAckSubmission",
+      "type": "object",
+      "properties": {
+        "Envelope": {
+          "xml": {
+            "namespace": "http://www.w3.org/2003/05/soap-envelope",
+            "prefix": "soapenv"
+          },
+          "type": "object",
+          "properties": {
+            "Body": {
+              "xml": {
+                "namespace": "http://www.w3.org/2003/05/soap-envelope",
+                "prefix": "soapenv"
+              },
+              "type": "object",
+              "properties": {
+                "COREEnvelopeBatchResultsAckSubmissionResponse": {
+                  "$ref": "#/definitions/COREEnvelopeBatchResultsAckSubmissionResponse_element_CORE-XSD"
+                }
+              }
+            }
+          },
+          "required": [
+            "Body"
+          ]
+        }
+      },
+      "required": [
+        "Envelope"
+      ],
+      "x-ibm-schema": {
+        "wsdl-port": "{http://www.caqh.org/SOAP/WSDL/}CoreSoapPort",
+        "wsdl-operation": "COREEnvelopeBatchResultsAckSubmission",
+        "wsdl-message-direction-or-name": "COREEnvelopeBatchResultsAckSubmissionResponse"
+      },
+      "example": "\n<soapenv:Envelope xmlns:soapenv=\"http://www.w3.org/2003/05/soap-envelope\">\n <soapenv:Body>\n  <CORE-XSD:COREEnvelopeBatchResultsAckSubmissionResponse xmlns:CORE-XSD=\"http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd\">\n   <PayloadType><!-- mandatory -->string</PayloadType>\n   <ProcessingMode><!-- mandatory -->string</ProcessingMode>\n   <PayloadID><!-- mandatory -->string</PayloadID>\n   <PayloadLength>3</PayloadLength>\n   <TimeStamp><!-- mandatory -->string</TimeStamp>\n   <SenderID><!-- mandatory -->string</SenderID>\n   <ReceiverID><!-- mandatory -->string</ReceiverID>\n   <CORERuleVersion><!-- mandatory -->string</CORERuleVersion>\n   <CheckSum>string</CheckSum>\n   <Payload>abcd</Payload>\n   <ErrorCode><!-- mandatory -->string</ErrorCode>\n   <ErrorMessage><!-- mandatory -->string</ErrorMessage>\n  </CORE-XSD:COREEnvelopeBatchResultsAckSubmissionResponse>\n </soapenv:Body>\n</soapenv:Envelope>"
+    },
+    "GenericBatchRetrievalTransactionInput": {
+      "description": "Input message for wsdl operation COREEnvelopeBatchResultsRetrievalRequest",
+      "type": "object",
+      "properties": {
+        "Envelope": {
+          "xml": {
+            "namespace": "http://www.w3.org/2003/05/soap-envelope",
+            "prefix": "soapenv"
+          },
+          "type": "object",
+          "properties": {
+            "Header": {
+              "$ref": "#/definitions/GenericBatchRetrievalTransactionHeader"
+            },
+            "Body": {
+              "xml": {
+                "namespace": "http://www.w3.org/2003/05/soap-envelope",
+                "prefix": "soapenv"
+              },
+              "type": "object",
+              "properties": {
+                "COREEnvelopeBatchResultsRetrievalRequest": {
+                  "$ref": "#/definitions/COREEnvelopeBatchResultsRetrievalRequest_element_CORE-XSD"
+                }
+              },
+              "required": [
+                "COREEnvelopeBatchResultsRetrievalRequest"
+              ]
+            }
+          },
+          "required": [
+            "Body"
+          ]
+        }
+      },
+      "required": [
+        "Envelope"
+      ],
+      "x-ibm-schema": {
+        "wsdl-port": "{http://www.caqh.org/SOAP/WSDL/}CoreSoapPort",
+        "wsdl-operation": "COREEnvelopeBatchResultsRetrievalRequest",
+        "wsdl-message-direction-or-name": "COREEnvelopeBatchResultsRetrievalRequestRequest"
+      },
+      "example": "\n<soapenv:Envelope xmlns:soapenv=\"http://www.w3.org/2003/05/soap-envelope\">\n <soapenv:Header>\n  <!-- The Security element should be removed if WS-Security is not enabled on the SOAP target-url -->\n  <wsse:Security xmlns:wsse=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\" xmlns:wsu=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd\">\n   <wsse:UsernameToken>\n    <wsse:Username>string</wsse:Username>\n    <wsse:Password>string</wsse:Password>\n    <wsse:Nonce EncodingType=\"string\">string</wsse:Nonce>\n    <wsu:Created>string</wsu:Created>\n   </wsse:UsernameToken>\n   <wsu:Timestamp wsu:Id=\"string\">\n    <wsu:Created>string</wsu:Created>\n    <wsu:Expires>string</wsu:Expires>\n   </wsu:Timestamp>\n  </wsse:Security>\n </soapenv:Header>\n <soapenv:Body>\n  <CORE-XSD:COREEnvelopeBatchResultsRetrievalRequest xmlns:CORE-XSD=\"http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd\"><!-- mandatory -->\n   <PayloadType><!-- mandatory -->string</PayloadType>\n   <ProcessingMode><!-- mandatory -->string</ProcessingMode>\n   <PayloadID><!-- mandatory -->string</PayloadID>\n   <PayloadLength>3</PayloadLength>\n   <TimeStamp><!-- mandatory -->string</TimeStamp>\n   <SenderID><!-- mandatory -->string</SenderID>\n   <ReceiverID><!-- mandatory -->string</ReceiverID>\n   <CORERuleVersion><!-- mandatory -->string</CORERuleVersion>\n   <CheckSum>string</CheckSum>\n   <Payload>abcd</Payload>\n  </CORE-XSD:COREEnvelopeBatchResultsRetrievalRequest>\n </soapenv:Body>\n</soapenv:Envelope>"
+    },
+    "GenericBatchRetrievalTransactionHeader": {
+      "description": "Input headers for wsdl operation COREEnvelopeBatchResultsRetrievalRequest",
+      "type": "object",
+      "properties": {
+        "Security": {
+          "$ref": "#/definitions/Security"
+        }
+      }
+    },
+    "GenericBatchRetrievalTransactionOutput": {
+      "description": "Output message for wsdl operation COREEnvelopeBatchResultsRetrievalRequest",
+      "type": "object",
+      "properties": {
+        "Envelope": {
+          "xml": {
+            "namespace": "http://www.w3.org/2003/05/soap-envelope",
+            "prefix": "soapenv"
+          },
+          "type": "object",
+          "properties": {
+            "Body": {
+              "xml": {
+                "namespace": "http://www.w3.org/2003/05/soap-envelope",
+                "prefix": "soapenv"
+              },
+              "type": "object",
+              "properties": {
+                "COREEnvelopeBatchResultsRetrievalResponse": {
+                  "$ref": "#/definitions/COREEnvelopeBatchResultsRetrievalResponse_element_CORE-XSD"
+                }
+              }
+            }
+          },
+          "required": [
+            "Body"
+          ]
+        }
+      },
+      "required": [
+        "Envelope"
+      ],
+      "x-ibm-schema": {
+        "wsdl-port": "{http://www.caqh.org/SOAP/WSDL/}CoreSoapPort",
+        "wsdl-operation": "COREEnvelopeBatchResultsRetrievalRequest",
+        "wsdl-message-direction-or-name": "COREEnvelopeBatchResultsRetrievalRequestResponse"
+      },
+      "example": "\n<soapenv:Envelope xmlns:soapenv=\"http://www.w3.org/2003/05/soap-envelope\">\n <soapenv:Body>\n  <CORE-XSD:COREEnvelopeBatchResultsRetrievalResponse xmlns:CORE-XSD=\"http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd\">\n   <PayloadType><!-- mandatory -->string</PayloadType>\n   <ProcessingMode><!-- mandatory -->string</ProcessingMode>\n   <PayloadID><!-- mandatory -->string</PayloadID>\n   <PayloadLength>3</PayloadLength>\n   <TimeStamp><!-- mandatory -->string</TimeStamp>\n   <SenderID><!-- mandatory -->string</SenderID>\n   <ReceiverID><!-- mandatory -->string</ReceiverID>\n   <CORERuleVersion><!-- mandatory -->string</CORERuleVersion>\n   <CheckSum>string</CheckSum>\n   <Payload>abcd</Payload>\n   <ErrorCode><!-- mandatory -->string</ErrorCode>\n   <ErrorMessage><!-- mandatory -->string</ErrorMessage>\n  </CORE-XSD:COREEnvelopeBatchResultsRetrievalResponse>\n </soapenv:Body>\n</soapenv:Envelope>"
+    },
+    "GenericBatchReceiptConfirmationTransactionInput": {
+      "description": "Input message for wsdl operation COREEnvelopeBatchResultsAckSubmission",
+      "type": "object",
+      "properties": {
+        "Envelope": {
+          "xml": {
+            "namespace": "http://www.w3.org/2003/05/soap-envelope",
+            "prefix": "soapenv"
+          },
+          "type": "object",
+          "properties": {
+            "Header": {
+              "$ref": "#/definitions/GenericBatchReceiptConfirmationTransactionHeader"
+            },
+            "Body": {
+              "xml": {
+                "namespace": "http://www.w3.org/2003/05/soap-envelope",
+                "prefix": "soapenv"
+              },
+              "type": "object",
+              "properties": {
+                "COREEnvelopeBatchResultsAckSubmission": {
+                  "$ref": "#/definitions/COREEnvelopeBatchResultsAckSubmission_element_CORE-XSD"
+                }
+              },
+              "required": [
+                "COREEnvelopeBatchResultsAckSubmission"
+              ]
+            }
+          },
+          "required": [
+            "Body"
+          ]
+        }
+      },
+      "required": [
+        "Envelope"
+      ],
+      "x-ibm-schema": {
+        "wsdl-port": "{http://www.caqh.org/SOAP/WSDL/}CoreSoapPort",
+        "wsdl-operation": "COREEnvelopeBatchResultsAckSubmission",
+        "wsdl-message-direction-or-name": "COREEnvelopeBatchResultsAckSubmissionRequest"
+      },
+      "example": "\n<soapenv:Envelope xmlns:soapenv=\"http://www.w3.org/2003/05/soap-envelope\">\n <soapenv:Header>\n  <!-- The Security element should be removed if WS-Security is not enabled on the SOAP target-url -->\n  <wsse:Security xmlns:wsse=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\" xmlns:wsu=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd\">\n   <wsse:UsernameToken>\n    <wsse:Username>string</wsse:Username>\n    <wsse:Password>string</wsse:Password>\n    <wsse:Nonce EncodingType=\"string\">string</wsse:Nonce>\n    <wsu:Created>string</wsu:Created>\n   </wsse:UsernameToken>\n   <wsu:Timestamp wsu:Id=\"string\">\n    <wsu:Created>string</wsu:Created>\n    <wsu:Expires>string</wsu:Expires>\n   </wsu:Timestamp>\n  </wsse:Security>\n </soapenv:Header>\n <soapenv:Body>\n  <CORE-XSD:COREEnvelopeBatchResultsAckSubmission xmlns:CORE-XSD=\"http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd\"><!-- mandatory -->\n   <PayloadType><!-- mandatory -->string</PayloadType>\n   <ProcessingMode><!-- mandatory -->string</ProcessingMode>\n   <PayloadID><!-- mandatory -->string</PayloadID>\n   <PayloadLength>3</PayloadLength>\n   <TimeStamp><!-- mandatory -->string</TimeStamp>\n   <SenderID><!-- mandatory -->string</SenderID>\n   <ReceiverID><!-- mandatory -->string</ReceiverID>\n   <CORERuleVersion><!-- mandatory -->string</CORERuleVersion>\n   <CheckSum>string</CheckSum>\n   <Payload>abcd</Payload>\n  </CORE-XSD:COREEnvelopeBatchResultsAckSubmission>\n </soapenv:Body>\n</soapenv:Envelope>"
+    },
+    "GenericBatchReceiptConfirmationTransactionHeader": {
+      "description": "Input headers for wsdl operation COREEnvelopeBatchResultsAckSubmission",
+      "type": "object",
+      "properties": {
+        "Security": {
+          "$ref": "#/definitions/Security"
+        }
+      }
+    },
+    "GenericBatchReceiptConfirmationTransactionOutput": {
+      "description": "Output message for wsdl operation COREEnvelopeBatchResultsAckSubmission",
+      "type": "object",
+      "properties": {
+        "Envelope": {
+          "xml": {
+            "namespace": "http://www.w3.org/2003/05/soap-envelope",
+            "prefix": "soapenv"
+          },
+          "type": "object",
+          "properties": {
+            "Body": {
+              "xml": {
+                "namespace": "http://www.w3.org/2003/05/soap-envelope",
+                "prefix": "soapenv"
+              },
+              "type": "object",
+              "properties": {
+                "COREEnvelopeBatchResultsAckSubmissionResponse": {
+                  "$ref": "#/definitions/COREEnvelopeBatchResultsAckSubmissionResponse_element_CORE-XSD"
+                }
+              }
+            }
+          },
+          "required": [
+            "Body"
+          ]
+        }
+      },
+      "required": [
+        "Envelope"
+      ],
+      "x-ibm-schema": {
+        "wsdl-port": "{http://www.caqh.org/SOAP/WSDL/}CoreSoapPort",
+        "wsdl-operation": "COREEnvelopeBatchResultsAckSubmission",
+        "wsdl-message-direction-or-name": "COREEnvelopeBatchResultsAckSubmissionResponse"
+      },
+      "example": "\n<soapenv:Envelope xmlns:soapenv=\"http://www.w3.org/2003/05/soap-envelope\">\n <soapenv:Body>\n  <CORE-XSD:COREEnvelopeBatchResultsAckSubmissionResponse xmlns:CORE-XSD=\"http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd\">\n   <PayloadType><!-- mandatory -->string</PayloadType>\n   <ProcessingMode><!-- mandatory -->string</ProcessingMode>\n   <PayloadID><!-- mandatory -->string</PayloadID>\n   <PayloadLength>3</PayloadLength>\n   <TimeStamp><!-- mandatory -->string</TimeStamp>\n   <SenderID><!-- mandatory -->string</SenderID>\n   <ReceiverID><!-- mandatory -->string</ReceiverID>\n   <CORERuleVersion><!-- mandatory -->string</CORERuleVersion>\n   <CheckSum>string</CheckSum>\n   <Payload>abcd</Payload>\n   <ErrorCode><!-- mandatory -->string</ErrorCode>\n   <ErrorMessage><!-- mandatory -->string</ErrorMessage>\n  </CORE-XSD:COREEnvelopeBatchResultsAckSubmissionResponse>\n </soapenv:Body>\n</soapenv:Envelope>"
+    },
+    "COREEnvelopeRealTimeRequest_element_CORE-XSD": {
+      "xml": {
+        "namespace": "http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd",
+        "prefix": "CORE-XSD",
+        "name": "COREEnvelopeRealTimeRequest"
+      },
+      "type": "object",
+      "properties": {
+        "PayloadType": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string"
+        },
+        "ProcessingMode": {
+          "$ref": "#/definitions/RealTimeMode_type_CORE-XSD"
+        },
+        "PayloadID": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string"
+        },
+        "TimeStamp": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string"
+        },
+        "SenderID": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string"
+        },
+        "ReceiverID": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string"
+        },
+        "CORERuleVersion": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string"
+        },
+        "Payload": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string"
+        }
+      },
+      "required": [
+        "PayloadType",
+        "ProcessingMode",
+        "PayloadID",
+        "TimeStamp",
+        "SenderID",
+        "ReceiverID",
+        "CORERuleVersion",
+        "Payload"
+      ],
+      "example": "\n<CORE-XSD:COREEnvelopeRealTimeRequest xmlns:CORE-XSD=\"http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd\">\n <PayloadType><!-- mandatory -->string</PayloadType>\n <ProcessingMode><!-- mandatory -->string</ProcessingMode>\n <PayloadID><!-- mandatory -->string</PayloadID>\n <TimeStamp><!-- mandatory -->string</TimeStamp>\n <SenderID><!-- mandatory -->string</SenderID>\n <ReceiverID><!-- mandatory -->string</ReceiverID>\n <CORERuleVersion><!-- mandatory -->string</CORERuleVersion>\n <Payload><!-- mandatory -->string</Payload>\n</CORE-XSD:COREEnvelopeRealTimeRequest>"
+    },
+    "COREEnvelopeRealTimeResponse_element_CORE-XSD": {
+      "xml": {
+        "namespace": "http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd",
+        "prefix": "CORE-XSD",
+        "name": "COREEnvelopeRealTimeResponse"
+      },
+      "type": "object",
+      "properties": {
+        "PayloadType": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string"
+        },
+        "ProcessingMode": {
+          "$ref": "#/definitions/RealTimeMode_type_CORE-XSD"
+        },
+        "PayloadID": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string"
+        },
+        "TimeStamp": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string"
+        },
+        "SenderID": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string"
+        },
+        "ReceiverID": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string"
+        },
+        "CORERuleVersion": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string"
+        },
+        "Payload": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string"
+        },
+        "ErrorCode": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string"
+        },
+        "ErrorMessage": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string"
+        }
+      },
+      "required": [
+        "PayloadType",
+        "ProcessingMode",
+        "PayloadID",
+        "TimeStamp",
+        "SenderID",
+        "ReceiverID",
+        "CORERuleVersion",
+        "ErrorCode",
+        "ErrorMessage"
+      ],
+      "example": "\n<CORE-XSD:COREEnvelopeRealTimeResponse xmlns:CORE-XSD=\"http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd\">\n <PayloadType><!-- mandatory -->string</PayloadType>\n <ProcessingMode><!-- mandatory -->string</ProcessingMode>\n <PayloadID><!-- mandatory -->string</PayloadID>\n <TimeStamp><!-- mandatory -->string</TimeStamp>\n <SenderID><!-- mandatory -->string</SenderID>\n <ReceiverID><!-- mandatory -->string</ReceiverID>\n <CORERuleVersion><!-- mandatory -->string</CORERuleVersion>\n <Payload>string</Payload>\n <ErrorCode><!-- mandatory -->string</ErrorCode>\n <ErrorMessage><!-- mandatory -->string</ErrorMessage>\n</CORE-XSD:COREEnvelopeRealTimeResponse>"
+    },
+    "COREEnvelopeBatchSubmission_element_CORE-XSD": {
+      "xml": {
+        "namespace": "http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd",
+        "prefix": "CORE-XSD",
+        "name": "COREEnvelopeBatchSubmission"
+      },
+      "type": "object",
+      "properties": {
+        "PayloadType": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string"
+        },
+        "ProcessingMode": {
+          "$ref": "#/definitions/BatchMode_type_CORE-XSD"
+        },
+        "PayloadID": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string"
+        },
+        "PayloadLength": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "integer",
+          "format": "int32"
+        },
+        "TimeStamp": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string"
+        },
+        "SenderID": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string"
+        },
+        "ReceiverID": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string"
+        },
+        "CORERuleVersion": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string"
+        },
+        "CheckSum": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string"
+        },
+        "Payload": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string",
+          "format": "binary"
+        }
+      },
+      "required": [
+        "PayloadType",
+        "ProcessingMode",
+        "PayloadID",
+        "PayloadLength",
+        "TimeStamp",
+        "SenderID",
+        "ReceiverID",
+        "CORERuleVersion",
+        "CheckSum",
+        "Payload"
+      ],
+      "example": "\n<CORE-XSD:COREEnvelopeBatchSubmission xmlns:CORE-XSD=\"http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd\">\n <PayloadType><!-- mandatory -->string</PayloadType>\n <ProcessingMode><!-- mandatory -->string</ProcessingMode>\n <PayloadID><!-- mandatory -->string</PayloadID>\n <PayloadLength><!-- mandatory -->3</PayloadLength>\n <TimeStamp><!-- mandatory -->string</TimeStamp>\n <SenderID><!-- mandatory -->string</SenderID>\n <ReceiverID><!-- mandatory -->string</ReceiverID>\n <CORERuleVersion><!-- mandatory -->string</CORERuleVersion>\n <CheckSum><!-- mandatory -->string</CheckSum>\n <Payload><!-- mandatory -->abcd</Payload>\n</CORE-XSD:COREEnvelopeBatchSubmission>"
+    },
+    "COREEnvelopeBatchSubmissionResponse_element_CORE-XSD": {
+      "xml": {
+        "namespace": "http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd",
+        "prefix": "CORE-XSD",
+        "name": "COREEnvelopeBatchSubmissionResponse"
+      },
+      "type": "object",
+      "properties": {
+        "PayloadType": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string"
+        },
+        "ProcessingMode": {
+          "$ref": "#/definitions/BatchMode_type_CORE-XSD"
+        },
+        "PayloadID": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string"
+        },
+        "PayloadLength": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "integer",
+          "format": "int32"
+        },
+        "TimeStamp": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string"
+        },
+        "SenderID": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string"
+        },
+        "ReceiverID": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string"
+        },
+        "CORERuleVersion": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string"
+        },
+        "CheckSum": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string"
+        },
+        "Payload": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string",
+          "format": "binary"
+        },
+        "ErrorCode": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string"
+        },
+        "ErrorMessage": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string"
+        }
+      },
+      "required": [
+        "PayloadType",
+        "ProcessingMode",
+        "PayloadID",
+        "TimeStamp",
+        "SenderID",
+        "ReceiverID",
+        "CORERuleVersion",
+        "ErrorCode",
+        "ErrorMessage"
+      ],
+      "example": "\n<CORE-XSD:COREEnvelopeBatchSubmissionResponse xmlns:CORE-XSD=\"http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd\">\n <PayloadType><!-- mandatory -->string</PayloadType>\n <ProcessingMode><!-- mandatory -->string</ProcessingMode>\n <PayloadID><!-- mandatory -->string</PayloadID>\n <PayloadLength>3</PayloadLength>\n <TimeStamp><!-- mandatory -->string</TimeStamp>\n <SenderID><!-- mandatory -->string</SenderID>\n <ReceiverID><!-- mandatory -->string</ReceiverID>\n <CORERuleVersion><!-- mandatory -->string</CORERuleVersion>\n <CheckSum>string</CheckSum>\n <Payload>abcd</Payload>\n <ErrorCode><!-- mandatory -->string</ErrorCode>\n <ErrorMessage><!-- mandatory -->string</ErrorMessage>\n</CORE-XSD:COREEnvelopeBatchSubmissionResponse>"
+    },
+    "COREEnvelopeBatchSubmissionAckRetrievalRequest_element_CORE-XSD": {
+      "xml": {
+        "namespace": "http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd",
+        "prefix": "CORE-XSD",
+        "name": "COREEnvelopeBatchSubmissionAckRetrievalRequest"
+      },
+      "type": "object",
+      "properties": {
+        "PayloadType": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string"
+        },
+        "ProcessingMode": {
+          "$ref": "#/definitions/BatchMode_type_CORE-XSD"
+        },
+        "PayloadID": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string"
+        },
+        "PayloadLength": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "integer",
+          "format": "int32"
+        },
+        "TimeStamp": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string"
+        },
+        "SenderID": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string"
+        },
+        "ReceiverID": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string"
+        },
+        "CORERuleVersion": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string"
+        },
+        "CheckSum": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string"
+        },
+        "Payload": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string",
+          "format": "binary"
+        }
+      },
+      "required": [
+        "PayloadType",
+        "ProcessingMode",
+        "PayloadID",
+        "TimeStamp",
+        "SenderID",
+        "ReceiverID",
+        "CORERuleVersion"
+      ],
+      "example": "\n<CORE-XSD:COREEnvelopeBatchSubmissionAckRetrievalRequest xmlns:CORE-XSD=\"http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd\">\n <PayloadType><!-- mandatory -->string</PayloadType>\n <ProcessingMode><!-- mandatory -->string</ProcessingMode>\n <PayloadID><!-- mandatory -->string</PayloadID>\n <PayloadLength>3</PayloadLength>\n <TimeStamp><!-- mandatory -->string</TimeStamp>\n <SenderID><!-- mandatory -->string</SenderID>\n <ReceiverID><!-- mandatory -->string</ReceiverID>\n <CORERuleVersion><!-- mandatory -->string</CORERuleVersion>\n <CheckSum>string</CheckSum>\n <Payload>abcd</Payload>\n</CORE-XSD:COREEnvelopeBatchSubmissionAckRetrievalRequest>"
+    },
+    "COREEnvelopeBatchSubmissionAckRetrievalResponse_element_CORE-XSD": {
+      "xml": {
+        "namespace": "http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd",
+        "prefix": "CORE-XSD",
+        "name": "COREEnvelopeBatchSubmissionAckRetrievalResponse"
+      },
+      "type": "object",
+      "properties": {
+        "PayloadType": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string"
+        },
+        "ProcessingMode": {
+          "$ref": "#/definitions/BatchMode_type_CORE-XSD"
+        },
+        "PayloadID": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string"
+        },
+        "PayloadLength": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "integer",
+          "format": "int32"
+        },
+        "TimeStamp": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string"
+        },
+        "SenderID": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string"
+        },
+        "ReceiverID": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string"
+        },
+        "CORERuleVersion": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string"
+        },
+        "CheckSum": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string"
+        },
+        "Payload": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string",
+          "format": "binary"
+        },
+        "ErrorCode": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string"
+        },
+        "ErrorMessage": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string"
+        }
+      },
+      "required": [
+        "PayloadType",
+        "ProcessingMode",
+        "PayloadID",
+        "TimeStamp",
+        "SenderID",
+        "ReceiverID",
+        "CORERuleVersion",
+        "ErrorCode",
+        "ErrorMessage"
+      ],
+      "example": "\n<CORE-XSD:COREEnvelopeBatchSubmissionAckRetrievalResponse xmlns:CORE-XSD=\"http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd\">\n <PayloadType><!-- mandatory -->string</PayloadType>\n <ProcessingMode><!-- mandatory -->string</ProcessingMode>\n <PayloadID><!-- mandatory -->string</PayloadID>\n <PayloadLength>3</PayloadLength>\n <TimeStamp><!-- mandatory -->string</TimeStamp>\n <SenderID><!-- mandatory -->string</SenderID>\n <ReceiverID><!-- mandatory -->string</ReceiverID>\n <CORERuleVersion><!-- mandatory -->string</CORERuleVersion>\n <CheckSum>string</CheckSum>\n <Payload>abcd</Payload>\n <ErrorCode><!-- mandatory -->string</ErrorCode>\n <ErrorMessage><!-- mandatory -->string</ErrorMessage>\n</CORE-XSD:COREEnvelopeBatchSubmissionAckRetrievalResponse>"
+    },
+    "COREEnvelopeBatchResultsRetrievalRequest_element_CORE-XSD": {
+      "xml": {
+        "namespace": "http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd",
+        "prefix": "CORE-XSD",
+        "name": "COREEnvelopeBatchResultsRetrievalRequest"
+      },
+      "type": "object",
+      "properties": {
+        "PayloadType": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string"
+        },
+        "ProcessingMode": {
+          "$ref": "#/definitions/BatchMode_type_CORE-XSD"
+        },
+        "PayloadID": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string"
+        },
+        "PayloadLength": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "integer",
+          "format": "int32"
+        },
+        "TimeStamp": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string"
+        },
+        "SenderID": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string"
+        },
+        "ReceiverID": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string"
+        },
+        "CORERuleVersion": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string"
+        },
+        "CheckSum": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string"
+        },
+        "Payload": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string",
+          "format": "binary"
+        }
+      },
+      "required": [
+        "PayloadType",
+        "ProcessingMode",
+        "PayloadID",
+        "TimeStamp",
+        "SenderID",
+        "ReceiverID",
+        "CORERuleVersion"
+      ],
+      "example": "\n<CORE-XSD:COREEnvelopeBatchResultsRetrievalRequest xmlns:CORE-XSD=\"http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd\">\n <PayloadType><!-- mandatory -->string</PayloadType>\n <ProcessingMode><!-- mandatory -->string</ProcessingMode>\n <PayloadID><!-- mandatory -->string</PayloadID>\n <PayloadLength>3</PayloadLength>\n <TimeStamp><!-- mandatory -->string</TimeStamp>\n <SenderID><!-- mandatory -->string</SenderID>\n <ReceiverID><!-- mandatory -->string</ReceiverID>\n <CORERuleVersion><!-- mandatory -->string</CORERuleVersion>\n <CheckSum>string</CheckSum>\n <Payload>abcd</Payload>\n</CORE-XSD:COREEnvelopeBatchResultsRetrievalRequest>"
+    },
+    "COREEnvelopeBatchResultsRetrievalResponse_element_CORE-XSD": {
+      "xml": {
+        "namespace": "http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd",
+        "prefix": "CORE-XSD",
+        "name": "COREEnvelopeBatchResultsRetrievalResponse"
+      },
+      "type": "object",
+      "properties": {
+        "PayloadType": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string"
+        },
+        "ProcessingMode": {
+          "$ref": "#/definitions/BatchMode_type_CORE-XSD"
+        },
+        "PayloadID": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string"
+        },
+        "PayloadLength": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "integer",
+          "format": "int32"
+        },
+        "TimeStamp": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string"
+        },
+        "SenderID": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string"
+        },
+        "ReceiverID": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string"
+        },
+        "CORERuleVersion": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string"
+        },
+        "CheckSum": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string"
+        },
+        "Payload": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string",
+          "format": "binary"
+        },
+        "ErrorCode": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string"
+        },
+        "ErrorMessage": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string"
+        }
+      },
+      "required": [
+        "PayloadType",
+        "ProcessingMode",
+        "PayloadID",
+        "TimeStamp",
+        "SenderID",
+        "ReceiverID",
+        "CORERuleVersion",
+        "ErrorCode",
+        "ErrorMessage"
+      ],
+      "example": "\n<CORE-XSD:COREEnvelopeBatchResultsRetrievalResponse xmlns:CORE-XSD=\"http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd\">\n <PayloadType><!-- mandatory -->string</PayloadType>\n <ProcessingMode><!-- mandatory -->string</ProcessingMode>\n <PayloadID><!-- mandatory -->string</PayloadID>\n <PayloadLength>3</PayloadLength>\n <TimeStamp><!-- mandatory -->string</TimeStamp>\n <SenderID><!-- mandatory -->string</SenderID>\n <ReceiverID><!-- mandatory -->string</ReceiverID>\n <CORERuleVersion><!-- mandatory -->string</CORERuleVersion>\n <CheckSum>string</CheckSum>\n <Payload>abcd</Payload>\n <ErrorCode><!-- mandatory -->string</ErrorCode>\n <ErrorMessage><!-- mandatory -->string</ErrorMessage>\n</CORE-XSD:COREEnvelopeBatchResultsRetrievalResponse>"
+    },
+    "COREEnvelopeBatchResultsAckSubmission_element_CORE-XSD": {
+      "xml": {
+        "namespace": "http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd",
+        "prefix": "CORE-XSD",
+        "name": "COREEnvelopeBatchResultsAckSubmission"
+      },
+      "type": "object",
+      "properties": {
+        "PayloadType": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string"
+        },
+        "ProcessingMode": {
+          "$ref": "#/definitions/BatchMode_type_CORE-XSD"
+        },
+        "PayloadID": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string"
+        },
+        "PayloadLength": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "integer",
+          "format": "int32"
+        },
+        "TimeStamp": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string"
+        },
+        "SenderID": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string"
+        },
+        "ReceiverID": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string"
+        },
+        "CORERuleVersion": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string"
+        },
+        "CheckSum": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string"
+        },
+        "Payload": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string",
+          "format": "binary"
+        }
+      },
+      "required": [
+        "PayloadType",
+        "ProcessingMode",
+        "PayloadID",
+        "TimeStamp",
+        "SenderID",
+        "ReceiverID",
+        "CORERuleVersion"
+      ],
+      "example": "\n<CORE-XSD:COREEnvelopeBatchResultsAckSubmission xmlns:CORE-XSD=\"http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd\">\n <PayloadType><!-- mandatory -->string</PayloadType>\n <ProcessingMode><!-- mandatory -->string</ProcessingMode>\n <PayloadID><!-- mandatory -->string</PayloadID>\n <PayloadLength>3</PayloadLength>\n <TimeStamp><!-- mandatory -->string</TimeStamp>\n <SenderID><!-- mandatory -->string</SenderID>\n <ReceiverID><!-- mandatory -->string</ReceiverID>\n <CORERuleVersion><!-- mandatory -->string</CORERuleVersion>\n <CheckSum>string</CheckSum>\n <Payload>abcd</Payload>\n</CORE-XSD:COREEnvelopeBatchResultsAckSubmission>"
+    },
+    "COREEnvelopeBatchResultsAckSubmissionResponse_element_CORE-XSD": {
+      "xml": {
+        "namespace": "http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd",
+        "prefix": "CORE-XSD",
+        "name": "COREEnvelopeBatchResultsAckSubmissionResponse"
+      },
+      "type": "object",
+      "properties": {
+        "PayloadType": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string"
+        },
+        "ProcessingMode": {
+          "$ref": "#/definitions/BatchMode_type_CORE-XSD"
+        },
+        "PayloadID": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string"
+        },
+        "PayloadLength": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "integer",
+          "format": "int32"
+        },
+        "TimeStamp": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string"
+        },
+        "SenderID": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string"
+        },
+        "ReceiverID": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string"
+        },
+        "CORERuleVersion": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string"
+        },
+        "CheckSum": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string"
+        },
+        "Payload": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string",
+          "format": "binary"
+        },
+        "ErrorCode": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string"
+        },
+        "ErrorMessage": {
+          "xml": {
+            "namespace": ""
+          },
+          "type": "string"
+        }
+      },
+      "required": [
+        "PayloadType",
+        "ProcessingMode",
+        "PayloadID",
+        "TimeStamp",
+        "SenderID",
+        "ReceiverID",
+        "CORERuleVersion",
+        "ErrorCode",
+        "ErrorMessage"
+      ],
+      "example": "\n<CORE-XSD:COREEnvelopeBatchResultsAckSubmissionResponse xmlns:CORE-XSD=\"http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd\">\n <PayloadType><!-- mandatory -->string</PayloadType>\n <ProcessingMode><!-- mandatory -->string</ProcessingMode>\n <PayloadID><!-- mandatory -->string</PayloadID>\n <PayloadLength>3</PayloadLength>\n <TimeStamp><!-- mandatory -->string</TimeStamp>\n <SenderID><!-- mandatory -->string</SenderID>\n <ReceiverID><!-- mandatory -->string</ReceiverID>\n <CORERuleVersion><!-- mandatory -->string</CORERuleVersion>\n <CheckSum>string</CheckSum>\n <Payload>abcd</Payload>\n <ErrorCode><!-- mandatory -->string</ErrorCode>\n <ErrorMessage><!-- mandatory -->string</ErrorMessage>\n</CORE-XSD:COREEnvelopeBatchResultsAckSubmissionResponse>"
+    },
+    "RealTimeMode_type_CORE-XSD": {
+      "xml": {
+        "namespace": ""
+      },
+      "type": "string",
+      "pattern": "RealTime",
+      "x-xsi-type": "RealTimeMode",
+      "x-xsi-type-xml": {
+        "namespace": "http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd",
+        "prefix": "CORE-XSD"
+      },
+      "x-xsi-type-uniquename": "RealTimeMode_type_CORE-XSD"
+    },
+    "BatchMode_type_CORE-XSD": {
+      "xml": {
+        "namespace": ""
+      },
+      "type": "string",
+      "pattern": "Batch",
+      "x-xsi-type": "BatchMode",
+      "x-xsi-type-xml": {
+        "namespace": "http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd",
+        "prefix": "CORE-XSD"
+      },
+      "x-xsi-type-uniquename": "BatchMode_type_CORE-XSD"
+    }
+  }
+}

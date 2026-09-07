@@ -1,0 +1,158 @@
+generated: '2026-09-07'
+method: searched
+source: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+docs:
+  - https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - https://partners.centene.com/applicationDeveloper
+  - https://partners.centene.com/.well-known/openid-configuration
+provider: Centene
+providerId: centene
+note: >-
+  Derived from the securitySchemes of all twelve first-party Centene OpenAPI documents, then
+  upgraded from two provider-published sources - the Getting Started guides attached to the FHIR
+  Patient Access and Provider Directory catalogue entries (fetched as Markdown from the partner
+  portal's own document service), and the OpenID Provider Metadata document served at
+  partners.centene.com/.well-known/openid-configuration. Centene runs a single Ping Identity
+  authorization server, branded EntryKey ID, across all published APIs; the OpenAPI documents
+  disagree with the portal on scheme in several places because the specs were authored per-team
+  and the gateway enforces OAuth uniformly in front of them.
+summary:
+  primary_model: oauth2
+  authorization_server: https://sso.entrykeyid.com
+  sandbox_authorization_server: https://sandbox.entrykeyid.com
+  identity_brand: EntryKey ID (Ping Identity PingFederate)
+  types:
+    - oauth2
+    - openIdConnect
+    - http
+    - apiKey
+    - none
+  api_key_in:
+    - header
+  oauth2_flows:
+    - authorizationCode
+    - clientCredentials
+  pkce: supported (S256)
+  mtls: not published
+  token_lifetime_seconds: 3600
+  refresh_tokens: supported
+  dynamic_client_registration: >-
+    registration_endpoint is advertised (https://sso.entrykeyid.com/as/clients.oauth2) but Centene
+    routes real onboarding through the Third-Party Application Developer form, not anonymous DCR.
+onboarding:
+  model: application-registration
+  form: https://partners.centene.com/applicationDeveloper-form
+  overview: https://partners.centene.com/applicationDeveloper
+  contact: IOP_External_Onboarding@Centene.com
+  note: >-
+    A developer registers an application through the partner portal, is issued a clientId and
+    clientSecret, and supplies a redirect_uri. Client credentials are exchanged with HTTP Basic
+    (base64(clientId:clientSecret)) at the token endpoint. No self-service key issuance.
+flows:
+  - id: smart-standalone-member-authorization
+    name: SMART on FHIR standalone launch (member-authorized)
+    used_by:
+      - FHIR - Patient Access
+    grant_type: authorization_code
+    implementation_guide: HL7 SMART App Launch Framework IG 2.0.0
+    authorize_url: https://sandbox.entrykeyid.com/as/authorization.oauth2
+    token_url: https://sandbox.entrykeyid.com/as/token.oauth2
+    production_authorize_url: https://sso.entrykeyid.com/as/authorization.oauth2
+    production_token_url: https://sso.entrykeyid.com/as/token.oauth2
+    request_scopes: ['patient/*.read', openid]
+    granted_scope_example: Patient/*.read launch/patient offline_access
+    token_request_auth: HTTP Basic base64(clientId:clientSecret)
+    token_request_content_type: application/json
+    authorization_code_reuse: >-
+      Single use. Centene's guide states plainly - "Please note the Authorization Code is only
+      valid for a single use."
+    access_token_ttl_seconds: 3600
+    refresh: >-
+      A refresh_token is returned and can be exchanged at the same token endpoint with
+      grant_type=refresh_token, so an app can keep syncing member data without re-running the
+      consent flow.
+    patient_context: >-
+      The token response carries a top-level `patient` claim holding the FHIR Patient logical id
+      the token is scoped to.
+    ehr_launch: not implemented
+  - id: client-credentials-service-account
+    name: Client Credentials (Service Account)
+    used_by:
+      - Provider RTR - FHIR PDEX Directory API (External)
+      - Provider RTR - Demographics API
+      - Provider Carrier Entity Search (PCES) API
+      - Provider Carrier Entity Search (PCES) Extract API
+      - Provider Search Suggest API
+      - Product Mapping V2
+      - LWC EDI CORE REAL TIME SERVICE
+      - CCM Communication
+      - Healow API
+    grant_type: client_credentials
+    token_url: https://stage.entrykeyid.com/as/token.oauth2
+    scopes: [resource.read, openid, profile]
+    audience_required: true
+    audience_note: >-
+      Every catalogue entry carries an `audience` value (patientaccess, prtrdemographic, ewsext,
+      edicorertservice, CCMAPIUSER, edas, xkafdev). The gateway validates it, so a token minted
+      for one Centene API will not open another.
+  - id: public-no-auth
+    name: Anonymous
+    used_by:
+      - FHIR - Provider Directory
+    grant_type: none
+    note: >-
+      The catalogue entry records authentication "None" and an empty scope list, and this was
+      verified live - GET on the production Practitioner endpoint returned HTTP 200 with a FHIR
+      searchset Bundle with no credential of any kind. CMS requires payer provider-directory data
+      to be publicly accessible without member authorization.
+schemes:
+  - name: oauth2
+    type: oauth2
+    flows:
+      - flow: clientCredentials
+        tokenUrl: https://stage.entrykeyid.com/as/token.oauth2
+        scopes: 1
+    sources:
+      - openapi/centene-provider-rtr-demographics-openapi.json
+      - openapi/centene-provider-rtr-fhir-pdex-openapi.json
+  - name: Bearer
+    type: http
+    scheme: bearer
+    sources:
+      - openapi/centene-fhir-patient-access-openapi.json
+  - name: Basic
+    type: http
+    scheme: basic
+    note: >-
+      Declared in three specs. For the Provider Directory this contradicts the catalogue entry and
+      the live behaviour, both of which say the API is anonymous - treat the spec block as stale.
+    sources:
+      - openapi/centene-fhir-provider-directory-openapi.json
+      - openapi/centene-product-mapping-v2-openapi.yaml
+      - openapi/centene-provider-search-suggest-openapi.yaml
+  - name: api_key
+    type: apiKey
+    in: header
+    parameter: api_key
+    sources:
+      - openapi/centene-pces-openapi.yaml
+      - openapi/centene-pces-extract-openapi.yaml
+  - name: clientID
+    type: apiKey
+    in: header
+    parameter: APIKey
+    sources:
+      - openapi/centene-edi-core-realtime-openapi.json
+gaps:
+  - >-
+    The OpenAPI documents do not declare the OAuth 2.0 authorization server the gateway actually
+    enforces; only two of twelve carry an oauth2 securityScheme, and those point at a staging
+    token endpoint (stage.entrykeyid.com) rather than production.
+  - >-
+    No securityScheme in any published spec references the SMART on FHIR scopes, so an agent
+    reading only the Patient Access OpenAPI would request no scopes and be rejected.
+  - No mutual TLS, DPoP, signed-request or token-binding requirement is published.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

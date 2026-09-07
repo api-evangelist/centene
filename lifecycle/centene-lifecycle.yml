@@ -1,0 +1,120 @@
+generated: '2026-09-07'
+method: searched
+source: https://partners.centene.com/apis
+docs:
+  - https://partners.centene.com/apis-publishing-process
+  - https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+provider: Centene
+providerId: centene
+note: >-
+  Read from the partner portal's own API catalogue, which is served anonymously as JSON and
+  carries per-API version, creation and last-updated timestamps. Centene publishes no changelog,
+  no deprecation policy, no Sunset/Deprecation header commitment, no SLA and no status page - all
+  four were searched for and all four are genuinely absent, which is recorded here rather than
+  omitted.
+versioning:
+  scheme: mixed
+  note: >-
+    There is no single versioning convention. The FHIR APIs version against the FHIR release
+    (4.0.1) and carry the version in neither path nor header. Provider RTR PDEX versions in the
+    path (/v1/). Product Mapping versions in both the path (/v2/) and the API name. The remaining
+    APIs carry a free-text `version` string in the catalogue only ("Version 1.0.0", "1.1", "2.0",
+    "0.0.6") that is not expressed anywhere in the contract.
+  in_path: partial
+  in_header: false
+  in_media_type: false
+  content_negotiation: false
+status_page:
+  published: false
+  probed:
+    - url: https://status.centene.com
+      status: 0
+      note: Does not resolve.
+    - url: https://status.partners.centene.com
+      status: 0
+      note: Does not resolve.
+    - url: https://centene.statuspage.io
+      status: 200
+      note: >-
+        Not a Centene status page. Redirects to atlassian.com/software/statuspage, and
+        /api/v2/status.json 302s to statuspage.io - the subdomain is unclaimed.
+deprecation_policy:
+  published: false
+  sunset_header: false
+  deprecation_header: false
+  note: >-
+    No deprecation or sunset policy is published on the portal, and no spec marks any operation
+    `deprecated: true` across all 185 operations. For a regulator-mandated API this matters more
+    than usual: a third-party app built against the Patient Access API has no published notice
+    period if an endpoint changes.
+deprecated_operations:
+  count: 0
+  source: openapi/ (185 operations scanned, none carry deprecated:true)
+sla:
+  published: false
+  note: >-
+    No uptime, latency or support-response commitment is published to third-party developers.
+    CMS-mandated availability obligations exist in regulation but Centene does not restate them
+    as an API SLA.
+support:
+  channel: email
+  contact: IOP_External_Onboarding@Centene.com
+  url: https://partners.centene.com/contact-us
+  scope: >-
+    Centene's own contact page lists the topics it covers - API Specifications, Sign-up process,
+    General Technical Queries.
+  provider_rtr_contact: Provider_RTR_Support@centene.com
+  provider_search_contact: provider_search_support@centene.com
+publishing_process:
+  url: https://partners.centene.com/apis-publishing-process
+  note: >-
+    Centene documents how an internal team publishes an API to this portal, including an OAS
+    validation step (the portal exposes an /apis/oas/validate endpoint). That is a producer-side
+    governance surface, not a consumer-side lifecycle policy.
+catalogue_freshness:
+  source: https://external-api.my.centene.com/partner-portal/apis
+  public_api_count: 20
+  first_party_specs_captured: 12
+  observations:
+    - api: FHIR - Patient Access
+      version: 4.0.1
+      spec_updated: '2024-10-10'
+      doc_updated: '2026-03-20'
+    - api: FHIR - Provider Directory
+      version: 4.0.1
+      spec_updated: '2024-10-10'
+      doc_updated: '2026-06-25'
+    - api: Provider RTR - FHIR PDEX Directory API (External)
+      version: '1.2'
+      spec_updated: '2024-11-25'
+    - api: CCM Communication Production
+      version: Version 1.1.0
+      spec_updated: '2025-09-29'
+    - api: REST Admin API
+      version: 3.0.0
+      spec_updated: '2025-06-23'
+  note: >-
+    The two marquee FHIR contracts have not been re-published since October 2024, while their
+    prose Getting Started documents were refreshed in March and June 2026. The documentation is
+    maintained; the machine-readable contract is not moving with it.
+stale_hosts:
+  - host: api-gateway-01.centene.com
+    appears_in:
+      - openapi/centene-provider-rtr-demographics-openapi.json
+      - openapi/centene-product-mapping-v2-openapi.yaml
+      - openapi/centene-pces-openapi.yaml
+      - openapi/centene-provider-search-suggest-openapi.yaml
+    status: does not resolve from the public internet
+  - host: dev-int-api-gw.centene.com
+    note: >-
+      Named as the FIRST servers[] entry in the Patient Access, Provider Directory, Product
+      Mapping, PCES and Provider Search specs. It is a development gateway; a client taking
+      servers[0] literally would call a dev host. The production hosts are in the portal
+      catalogue's hostServers, not in the spec.
+  - host: cdaxwu01.devad.devcorp.wellcare.com:4433
+    appears_in:
+      - openapi/centene-healow-health-openapi.yaml
+    note: An internal WellCare development hostname left in a publicly published contract.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

@@ -1,0 +1,251 @@
+generated: '2026-09-07'
+method: probed
+source: https://partners.centene.com/.well-known/openid-configuration
+docs: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+provider: Centene
+providerId: centene
+note: >-
+  Read from Centene's own OpenID Provider Metadata document, served anonymously at
+  partners.centene.com/.well-known/openid-configuration and again from the issuer
+  https://sso.entrykeyid.com. This supersedes the single `resource.READ` scope derivable from the
+  two Provider RTR OpenAPI oauth2 blocks - the discovery document publishes 74 scopes,
+  including the complete SMART on FHIR v2 patient-compartment read family the CMS Patient Access
+  API actually uses. Centene's Patient Access getting-started guide confirms the member
+  authorization flow requests `patient/*.read` and `openid`, and returns a token whose granted
+  scope string is `Patient/*.read launch/patient offline_access`.
+authorization_server:
+  issuer: https://sso.entrykeyid.com
+  authorization_endpoint: https://sso.entrykeyid.com/as/authorization.oauth2
+  token_endpoint: https://sso.entrykeyid.com/as/token.oauth2
+  jwks_uri: https://sso.entrykeyid.com/pf/JWKS
+  userinfo_endpoint: https://sso.entrykeyid.com/idp/userinfo.openid
+  introspection_endpoint: https://sso.entrykeyid.com/as/introspect.oauth2
+  revocation_endpoint: https://sso.entrykeyid.com/as/revoke_token.oauth2
+  registration_endpoint: https://sso.entrykeyid.com/as/clients.oauth2
+  sandbox_issuer: https://sandbox.entrykeyid.com
+  pkce: [S256, plain]
+  software: Ping Identity PingFederate
+grant_types_supported:
+  - "implicit"
+  - "authorization_code"
+  - "refresh_token"
+  - "password"
+  - "client_credentials"
+  - "urn:pingidentity.com:oauth2:grant_type:validate_bearer"
+  - "urn:ietf:params:oauth:grant-type:jwt-bearer"
+  - "urn:ietf:params:oauth:grant-type:saml2-bearer"
+  - "urn:ietf:params:oauth:grant-type:device_code"
+  - "urn:ietf:params:oauth:grant-type:token-exchange"
+  - "urn:openid:params:grant-type:ciba"
+scope_count: 74
+smart_on_fhir:
+  implementation_guide: HL7 SMART App Launch Framework 2.0.0
+  launch_modes_supported: [standalone]
+  launch_modes_not_supported: [ehr-launch]
+  note: >-
+    Centene's own getting-started guide states the API implements the SMART standalone launch flow
+    only, and explicitly does not implement SMART EHR Launch.
+  scopes:
+  - scope: "patient/*.read"
+    description: "SMART on FHIR - read every FHIR resource in the authorizing patient compartment."
+  - scope: "patient/AllergyIntolerance.read"
+    description: "SMART on FHIR - read AllergyIntolerance resources in the authorizing patient compartment."
+  - scope: "patient/CarePlan.read"
+    description: "SMART on FHIR - read CarePlan resources in the authorizing patient compartment."
+  - scope: "patient/CareTeam.read"
+    description: "SMART on FHIR - read CareTeam resources in the authorizing patient compartment."
+  - scope: "patient/Coverage.read"
+    description: "SMART on FHIR - read Coverage resources in the authorizing patient compartment."
+  - scope: "patient/DiagnosticReport.read"
+    description: "SMART on FHIR - read DiagnosticReport resources in the authorizing patient compartment."
+  - scope: "patient/Encounter.read"
+    description: "SMART on FHIR - read Encounter resources in the authorizing patient compartment."
+  - scope: "patient/ExplanationOfBenefit.read"
+    description: "SMART on FHIR - read ExplanationOfBenefit resources in the authorizing patient compartment."
+  - scope: "patient/Gaps.read"
+    description: "SMART on FHIR - read Gaps resources in the authorizing patient compartment."
+  - scope: "patient/Goal.read"
+    description: "SMART on FHIR - read Goal resources in the authorizing patient compartment."
+  - scope: "patient/Immunization.read"
+    description: "SMART on FHIR - read Immunization resources in the authorizing patient compartment."
+  - scope: "patient/Location.read"
+    description: "SMART on FHIR - read Location resources in the authorizing patient compartment."
+  - scope: "patient/Medication.read"
+    description: "SMART on FHIR - read Medication resources in the authorizing patient compartment."
+  - scope: "patient/MedicationRequest.read"
+    description: "SMART on FHIR - read MedicationRequest resources in the authorizing patient compartment."
+  - scope: "patient/Observation.read"
+    description: "SMART on FHIR - read Observation resources in the authorizing patient compartment."
+  - scope: "patient/Organization.read"
+    description: "SMART on FHIR - read Organization resources in the authorizing patient compartment."
+  - scope: "patient/Patient.read"
+    description: "SMART on FHIR - read Patient resources in the authorizing patient compartment."
+  - scope: "patient/Practitioner.read"
+    description: "SMART on FHIR - read Practitioner resources in the authorizing patient compartment."
+  - scope: "patient/Procedure.read"
+    description: "SMART on FHIR - read Procedure resources in the authorizing patient compartment."
+  - scope: "patient/Provenance.read"
+    description: "SMART on FHIR - read Provenance resources in the authorizing patient compartment."
+platform_scopes:
+  note: >-
+    The remaining scopes in scopes_supported belong to the shared EntryKey ID tenant - identity
+    administration, profile claims, event and data-platform scopes. They are published by the same
+    authorization server but are not part of the public interoperability API surface. Recorded as
+    fetched; descriptions are not published by Centene.
+  scopes:
+  - scope: "FName"
+    description: "Published in scopes_supported by the Centene EntryKey ID OpenID provider; description not published."
+  - scope: "Idaas"
+    description: "Published in scopes_supported by the Centene EntryKey ID OpenID provider; description not published."
+  - scope: "LName"
+    description: "Published in scopes_supported by the Centene EntryKey ID OpenID provider; description not published."
+  - scope: "LastLoginTime"
+    description: "Published in scopes_supported by the Centene EntryKey ID OpenID provider; description not published."
+  - scope: "MDM_UMPI.read"
+    description: "Published in scopes_supported by the Centene EntryKey ID OpenID provider; description not published."
+  - scope: "PCSentitlements"
+    description: "Published in scopes_supported by the Centene EntryKey ID OpenID provider; description not published."
+  - scope: "PingUUID"
+    description: "Published in scopes_supported by the Centene EntryKey ID OpenID provider; description not published."
+  - scope: "address"
+    description: "Published in scopes_supported by the Centene EntryKey ID OpenID provider; description not published."
+  - scope: "cn"
+    description: "Published in scopes_supported by the Centene EntryKey ID OpenID provider; description not published."
+  - scope: "email"
+    description: "Published in scopes_supported by the Centene EntryKey ID OpenID provider; description not published."
+  - scope: "guid"
+    description: "Published in scopes_supported by the Centene EntryKey ID OpenID provider; description not published."
+  - scope: "hniAliasName"
+    description: "Published in scopes_supported by the Centene EntryKey ID OpenID provider; description not published."
+  - scope: "hniIsDisabled"
+    description: "Published in scopes_supported by the Centene EntryKey ID OpenID provider; description not published."
+  - scope: "hniUserType"
+    description: "Published in scopes_supported by the Centene EntryKey ID OpenID provider; description not published."
+  - scope: "hniuid"
+    description: "Published in scopes_supported by the Centene EntryKey ID OpenID provider; description not published."
+  - scope: "idaas/Accounts.delete"
+    description: "Published in scopes_supported by the Centene EntryKey ID OpenID provider; description not published."
+  - scope: "idaas/Clients.create"
+    description: "Published in scopes_supported by the Centene EntryKey ID OpenID provider; description not published."
+  - scope: "idaas/Clients.delete"
+    description: "Published in scopes_supported by the Centene EntryKey ID OpenID provider; description not published."
+  - scope: "idaas/Clients.edit"
+    description: "Published in scopes_supported by the Centene EntryKey ID OpenID provider; description not published."
+  - scope: "idaas/Clients.read"
+    description: "Published in scopes_supported by the Centene EntryKey ID OpenID provider; description not published."
+  - scope: "idaas/Clients.write"
+    description: "Published in scopes_supported by the Centene EntryKey ID OpenID provider; description not published."
+  - scope: "idaas/Identities.create"
+    description: "Published in scopes_supported by the Centene EntryKey ID OpenID provider; description not published."
+  - scope: "idaas/Identities.delete"
+    description: "Published in scopes_supported by the Centene EntryKey ID OpenID provider; description not published."
+  - scope: "idaas/Identities.edit"
+    description: "Published in scopes_supported by the Centene EntryKey ID OpenID provider; description not published."
+  - scope: "idaas/Identities.proof"
+    description: "Published in scopes_supported by the Centene EntryKey ID OpenID provider; description not published."
+  - scope: "idaas/Identities.read"
+    description: "Published in scopes_supported by the Centene EntryKey ID OpenID provider; description not published."
+  - scope: "idaas/Identities.write"
+    description: "Published in scopes_supported by the Centene EntryKey ID OpenID provider; description not published."
+  - scope: "idaas/Profiles.create"
+    description: "Published in scopes_supported by the Centene EntryKey ID OpenID provider; description not published."
+  - scope: "idaas/Profiles.delete"
+    description: "Published in scopes_supported by the Centene EntryKey ID OpenID provider; description not published."
+  - scope: "idaas/Profiles.read"
+    description: "Published in scopes_supported by the Centene EntryKey ID OpenID provider; description not published."
+  - scope: "idaas/Profiles.write"
+    description: "Published in scopes_supported by the Centene EntryKey ID OpenID provider; description not published."
+  - scope: "idaas/Registration.create"
+    description: "Published in scopes_supported by the Centene EntryKey ID OpenID provider; description not published."
+  - scope: "memberOf"
+    description: "Published in scopes_supported by the Centene EntryKey ID OpenID provider; description not published."
+  - scope: "name"
+    description: "Published in scopes_supported by the Centene EntryKey ID OpenID provider; description not published."
+  - scope: "openid"
+    description: "Published in scopes_supported by the Centene EntryKey ID OpenID provider; description not published."
+  - scope: "pcs/entitlements.read"
+    description: "Published in scopes_supported by the Centene EntryKey ID OpenID provider; description not published."
+  - scope: "pcs/entitlements.write"
+    description: "Published in scopes_supported by the Centene EntryKey ID OpenID provider; description not published."
+  - scope: "phone"
+    description: "Published in scopes_supported by the Centene EntryKey ID OpenID provider; description not published."
+  - scope: "prisma-microseg"
+    description: "Published in scopes_supported by the Centene EntryKey ID OpenID provider; description not published."
+  - scope: "prisma-microseg/Ruleset.delete"
+    description: "Published in scopes_supported by the Centene EntryKey ID OpenID provider; description not published."
+  - scope: "prisma-microseg/Ruleset.read"
+    description: "Published in scopes_supported by the Centene EntryKey ID OpenID provider; description not published."
+  - scope: "prisma-microseg/Ruleset.write"
+    description: "Published in scopes_supported by the Centene EntryKey ID OpenID provider; description not published."
+  - scope: "profile"
+    description: "Published in scopes_supported by the Centene EntryKey ID OpenID provider; description not published."
+  - scope: "resource.read"
+    description: "Published in scopes_supported by the Centene EntryKey ID OpenID provider; description not published."
+  - scope: "resource.write"
+    description: "Published in scopes_supported by the Centene EntryKey ID OpenID provider; description not published."
+  - scope: "service"
+    description: "Published in scopes_supported by the Centene EntryKey ID OpenID provider; description not published."
+  - scope: "sn"
+    description: "Published in scopes_supported by the Centene EntryKey ID OpenID provider; description not published."
+  - scope: "snowflake/Data.read"
+    description: "Published in scopes_supported by the Centene EntryKey ID OpenID provider; description not published."
+  - scope: "user_type"
+    description: "Published in scopes_supported by the Centene EntryKey ID OpenID provider; description not published."
+  - scope: "web/member/delete"
+    description: "Published in scopes_supported by the Centene EntryKey ID OpenID provider; description not published."
+  - scope: "xp/Events.create"
+    description: "Published in scopes_supported by the Centene EntryKey ID OpenID provider; description not published."
+  - scope: "xp/Events.delete"
+    description: "Published in scopes_supported by the Centene EntryKey ID OpenID provider; description not published."
+  - scope: "xp/Events.read"
+    description: "Published in scopes_supported by the Centene EntryKey ID OpenID provider; description not published."
+  - scope: "xp/Events.write"
+    description: "Published in scopes_supported by the Centene EntryKey ID OpenID provider; description not published."
+per_api_scopes:
+  note: >-
+    The partner portal's own API catalogue records the scopes and grant types each published API
+    requires. Read anonymously from external-api.my.centene.com/partner-portal/apis.
+  entries:
+    - api: FHIR - Patient Access
+      grant_types: ['Authorization Code (Resource Server)']
+      scopes: ['patient/*.read', openid]
+      audience: patientaccess
+    - api: FHIR - Provider Directory
+      grant_types: []
+      scopes: []
+      authentication: none
+      note: Public and unauthenticated. No scope surface.
+    - api: Provider RTR - FHIR PDEX Directory API (External)
+      grant_types: ['Client Credentials (Service Account)']
+      scopes: [resource.read, openid]
+      audience: prtrdemographic
+    - api: Provider RTR - Demographics API
+      grant_types: ['Client Credentials (Service Account)']
+      scopes: [resource.read]
+      audience: prtrdemographic
+    - api: Provider Carrier Entity Search (PCES) API
+      grant_types: ['Client Credentials (Service Account)']
+      scopes: [openid, resource.read]
+      audience: ewsext
+    - api: Product Mapping V2
+      grant_types: ['Authorization Code (Resource Server)', 'Authorization Code + PKCE (SPA)', 'Client Credentials (Service Account)']
+      scopes: [openid]
+      audience: ewsext
+    - api: LWC EDI CORE REAL TIME SERVICE
+      grant_types: ['Client Credentials (Service Account)']
+      scopes: [resource.read, profile, openid]
+      audience: edicorertservice
+derived_from_spec:
+  note: >-
+    Retained from the OpenAPI derivation for traceability. Both Provider RTR specs declare a single
+    clientCredentials flow with one scope.
+  token_url: https://stage.entrykeyid.com/as/token.oauth2
+  scopes:
+    - scope: resource.READ
+      description: read access
+      sources:
+        - openapi/centene-provider-rtr-demographics-openapi.json
+        - openapi/centene-provider-rtr-fhir-pdex-openapi.json
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

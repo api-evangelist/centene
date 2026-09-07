@@ -1,0 +1,244 @@
+generated: '2026-09-07'
+method: derived
+source: openapi/ (12 first-party Centene OpenAPI documents) + conformance/centene-provider-directory-capabilitystatement.json
+provider: Centene
+providerId: centene
+note: >-
+  Derived from the components.schemas of Centene's published specs and cross-checked against the
+  live FHIR CapabilityStatement. The important structural fact is that Centene does not have one
+  data model - it has two, and they describe the same real-world providers in incompatible ways.
+  The FHIR estate speaks HL7 R4 resources with FHIR reference semantics. The Provider RTR
+  Demographics and PCES estate speaks a bespoke Centene provider model with 151 and 85 schemas
+  respectively and no FHIR mapping published between them.
+domains:
+  - id: fhir-patient
+    name: Member clinical and financial record (US Core + CARIN BB)
+    spec: openapi/centene-fhir-patient-access-openapi.json
+    entity_count: 24
+    identity: FHIR logical id; the token response carries a `patient` claim naming the compartment root
+    note: All resources are scoped to the authorizing member's patient compartment.
+  - id: fhir-directory
+    name: Provider directory (Da Vinci PDEX Plan Net 1.2.0)
+    spec: openapi/centene-fhir-provider-directory-openapi.json
+    entity_count: 9
+    identity: FHIR logical id
+    live_capability_statement: https://iopc-pd.api.centene.com/iopc/pd/fhir/providerdirectory/metadata
+  - id: rtr-demographics
+    name: Provider RTR demographics (bespoke)
+    spec: openapi/centene-provider-rtr-demographics-openapi.json
+    entity_count: 151
+    identity: Centene provider identifiers (NPI, CAQH, Amisys records, business identifiers)
+    note: >-
+      The richest model in the estate and the only one carrying credentialing, accreditation,
+      contracting and network-participation detail. It shares no schema with the FHIR directory.
+  - id: pces
+    name: Provider Carrier Entity Search (bespoke, search-index shaped)
+    spec: openapi/centene-pces-openapi.yaml
+    entity_count: 85
+    identity: carrier entity id
+    note: An Elasticsearch-shaped model - aggregations, buckets, bounding boxes, geo coords.
+  - id: edi
+    name: X12 / CAQH CORE transaction envelopes
+    spec: openapi/centene-edi-core-realtime-openapi.json
+    entity_count: 37
+entities:
+  - name: Practitioner
+    domain: fhir-directory
+    description: An individual provider.
+    relationships:
+      - to: PractitionerRole
+        type: has_many
+        via: PractitionerRole.practitioner
+      - to: Organization
+        type: belongs_to
+        via: PractitionerRole.organization
+      - to: Location
+        type: has_many
+        via: PractitionerRole.location
+  - name: PractitionerRole
+    domain: fhir-directory
+    description: The join resource binding a practitioner to an organization, location, network and specialty.
+    relationships:
+      - to: Practitioner
+        type: belongs_to
+        via: practitioner
+      - to: Organization
+        type: belongs_to
+        via: organization
+      - to: Location
+        type: has_many
+        via: location
+      - to: HealthcareService
+        type: has_many
+        via: healthcareService
+      - to: Endpoint
+        type: has_many
+        via: endpoint
+  - name: Organization
+    domain: fhir-directory
+    relationships:
+      - to: OrganizationAffiliation
+        type: has_many
+        via: OrganizationAffiliation.organization
+      - to: Location
+        type: has_many
+        via: Location.managingOrganization
+      - to: Endpoint
+        type: has_many
+        via: endpoint
+  - name: OrganizationAffiliation
+    domain: fhir-directory
+    description: Network participation - which organization participates in which network for which plan.
+    relationships:
+      - to: Organization
+        type: belongs_to
+        via: organization
+      - to: Organization
+        type: belongs_to
+        via: participatingOrganization
+      - to: HealthcareService
+        type: has_many
+        via: healthcareService
+      - to: Location
+        type: has_many
+        via: location
+  - name: Location
+    domain: fhir-directory
+    relationships:
+      - to: Organization
+        type: belongs_to
+        via: managingOrganization
+  - name: HealthcareService
+    domain: fhir-directory
+    relationships:
+      - to: Organization
+        type: belongs_to
+        via: providedBy
+      - to: Location
+        type: has_many
+        via: location
+  - name: InsurancePlan
+    domain: fhir-directory
+    description: The plan and network a member is shopping or enrolled in.
+    relationships:
+      - to: Organization
+        type: belongs_to
+        via: ownedBy
+      - to: Organization
+        type: belongs_to
+        via: administeredBy
+  - name: Endpoint
+    domain: fhir-directory
+    description: A technical endpoint for exchanging data with an organization - the PDEX payer-to-payer hook.
+  - name: Patient
+    domain: fhir-patient
+    description: The authorizing member. Root of the patient compartment.
+    relationships:
+      - to: Coverage
+        type: has_many
+        via: Coverage.beneficiary
+      - to: ExplanationOfBenefit
+        type: has_many
+        via: ExplanationOfBenefit.patient
+      - to: Condition
+        type: has_many
+        via: Condition.subject
+      - to: Observation
+        type: has_many
+        via: Observation.subject
+      - to: MedicationRequest
+        type: has_many
+        via: MedicationRequest.subject
+      - to: AllergyIntolerance
+        type: has_many
+        via: AllergyIntolerance.patient
+      - to: Immunization
+        type: has_many
+        via: Immunization.patient
+      - to: CarePlan
+        type: has_many
+        via: CarePlan.subject
+      - to: CareTeam
+        type: has_many
+        via: CareTeam.subject
+      - to: Encounter
+        type: has_many
+        via: Encounter.subject
+      - to: DiagnosticReport
+        type: has_many
+        via: DiagnosticReport.subject
+      - to: Goal
+        type: has_many
+        via: Goal.subject
+      - to: Procedure
+        type: has_many
+        via: Procedure.subject
+      - to: Device
+        type: has_many
+        via: Device.patient
+  - name: Coverage
+    domain: fhir-patient
+    description: The member's enrollment in a Centene plan.
+    relationships:
+      - to: Patient
+        type: belongs_to
+        via: beneficiary
+      - to: Organization
+        type: belongs_to
+        via: payor
+  - name: ExplanationOfBenefit
+    domain: fhir-patient
+    description: Claims and encounters, profiled by CARIN BB 2.0.0.
+    relationships:
+      - to: Patient
+        type: belongs_to
+        via: patient
+      - to: Coverage
+        type: belongs_to
+        via: insurance.coverage
+      - to: Practitioner
+        type: has_many
+        via: careTeam.provider
+      - to: Organization
+        type: belongs_to
+        via: insurer
+  - name: MedicationRequest
+    domain: fhir-patient
+    relationships:
+      - to: Medication
+        type: belongs_to
+        via: medicationReference
+      - to: Patient
+        type: belongs_to
+        via: subject
+      - to: Practitioner
+        type: belongs_to
+        via: requester
+  - name: MedicationKnowledge
+    domain: fhir-patient
+    description: Formulary content, profiled by Da Vinci US Drug Formulary 2.0.1.
+  - name: Provenance
+    domain: fhir-patient
+    description: PDEX provenance - which source system supplied a resource.
+cross_domain_gaps:
+  - >-
+    There is no published crosswalk between the FHIR directory `Practitioner` and the Provider RTR
+    Demographics provider record, even though both describe the same physician. An integrator
+    consuming both must join on NPI by hand.
+  - >-
+    PCES CarrierEntity has no declared relationship to either FHIR Organization or the RTR
+    business-entity model.
+  - >-
+    Product Mapping V2 returns networks and counties for an address but does not reference
+    InsurancePlan ids from the FHIR directory.
+identifiers:
+  - name: NPI
+    scope: National Provider Identifier - the only identifier that appears across both the FHIR and bespoke models.
+  - name: CAQH
+    scope: Present in the Provider RTR Demographics model as a credentialing source.
+  - name: FHIR logical id
+    scope: Opaque per-server. Not stable across the general and California Provider Directory deployments.
+render: null
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

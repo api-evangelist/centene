@@ -1,0 +1,143 @@
+generated: '2026-09-07'
+method: derived
+source: openapi/ (12 first-party Centene OpenAPI documents)
+provider: Centene
+providerId: centene
+status: candidate
+note: >-
+  Centene ships no MCP server. Searched the developer portal, the corporate site, npm, PyPI and
+  the open web; probed every host for /.well-known/ai-plugin.json and agent-card paths (all 404,
+  403 or 401). The tool list below is a CANDIDATE derived from real, verified operationIds in
+  Centene's own published specs - it describes what an MCP server over this surface could offer,
+  not anything Centene operates. No endpoint is asserted because none exists.
+deployment:
+  mode: none
+  endpoint: null
+  install: null
+  package: null
+  auth: unknown
+  verified: derived
+search_evidence:
+  - url: https://partners.centene.com/apis
+    status: 200
+    finding: 20 published APIs, no MCP entry. The catalogue's `type` field is REST for every entry.
+  - url: https://www.centene.com/.well-known/ai-plugin.json
+    status: 404
+  - url: https://partners.centene.com/.well-known/ai-plugin.json
+    status: 403
+  - registry: npm
+    query: centene
+    finding: No first-party Centene package of any kind.
+  - registry: PyPI
+    query: centene
+    status: 404
+candidate_tools:
+  - name: find_provider
+    description: >-
+      Search Centene's in-network provider directory by name, specialty, location or affiliation.
+      Anonymous - no credential required.
+    backing_api: FHIR - Provider Directory
+    rest:
+      - Practitioner_Search
+    endpoint: GET https://iopc-pd.api.centene.com/iopc/pd/fhir/providerdirectory/Practitioner
+    auth: none
+    consequence: read
+  - name: find_practitioner_role
+    description: Retrieve a practitioner's roles, networks and locations from the PDEX Plan Net directory.
+    backing_api: FHIR - Provider Directory
+    rest:
+      - PractitionerRole_Search
+    auth: none
+    consequence: read
+  - name: find_location
+    description: Search directory locations by city, address or organization.
+    backing_api: FHIR - Provider Directory
+    rest:
+      - Location_Search
+    auth: none
+    consequence: read
+  - name: find_organization
+    description: Search provider organizations and their affiliations.
+    backing_api: FHIR - Provider Directory
+    rest:
+      - Organization_Search
+      - OrganizationAffiliation_Search
+    auth: none
+    consequence: read
+  - name: list_insurance_plans
+    description: List the insurance plans and networks published in the directory.
+    backing_api: FHIR - Provider Directory
+    rest:
+      - InsurancePlan_Search
+    auth: none
+    consequence: read
+  - name: get_member_coverage
+    description: Read the authorizing member's coverage records.
+    backing_api: FHIR - Patient Access
+    scopes: ['patient/Coverage.read']
+    auth: oauth (SMART standalone launch, member consent)
+    consequence: read-phi
+  - name: get_member_claims
+    description: >-
+      Read the authorizing member's ExplanationOfBenefit resources (CARIN BB claims and
+      encounters).
+    backing_api: FHIR - Patient Access
+    scopes: ['patient/ExplanationOfBenefit.read']
+    auth: oauth (SMART standalone launch, member consent)
+    consequence: read-phi
+  - name: get_member_medications
+    description: Read the authorizing member's medication requests and formulary information.
+    backing_api: FHIR - Patient Access
+    scopes: ['patient/MedicationRequest.read', 'patient/Medication.read']
+    auth: oauth (SMART standalone launch, member consent)
+    consequence: read-phi
+  - name: get_member_clinical_record
+    description: >-
+      Read the authorizing member's US Core clinical resources - conditions, observations,
+      allergies, immunizations, care plans, care teams, encounters, diagnostic reports, goals,
+      procedures.
+    backing_api: FHIR - Patient Access
+    scopes: ['patient/*.read']
+    auth: oauth (SMART standalone launch, member consent)
+    consequence: read-phi
+  - name: map_product_to_county
+    description: Determine plan networks and counties for a given address.
+    backing_api: Product Mapping V2
+    rest:
+      - postQueryV2Networks
+      - determineCounties
+    auth: oauth client_credentials (audience ewsext)
+    consequence: read
+  - name: search_carrier_entities
+    description: Query the Provider Carrier Entity Search index.
+    backing_api: Provider Carrier Entity Search (PCES) API
+    rest:
+      - query
+      - providerCarrierEntitySearchQueryValidatorUsingPOST
+    auth: oauth client_credentials (audience ewsext)
+    consequence: read
+  - name: get_provider_demographics
+    description: Read Provider RTR demographic records for an authorized payer partner.
+    backing_api: Provider RTR - Demographics API
+    auth: oauth client_credentials (audience prtrdemographic)
+    consequence: read
+excluded_from_candidate:
+  - api: LWC EDI CORE REAL TIME SERVICE
+    reason: >-
+      Seven X12 transaction-submission operations with no idempotency and no reversal path. A
+      correctly cautious MCP surface would not expose these as agent tools without a
+      human-confirmation step Centene does not provide.
+  - api: CCM Communication
+    reason: Insert/update/merge writes with no documented undo.
+  - api: REST Admin API / External Kafka API
+    reason: >-
+      Confluent's Kafka REST Admin contract for Centene's internal KaaS clusters, on hostnames
+      that do not resolve publicly. Not a consumable external surface.
+recommendation: >-
+  The Provider Directory alone is a ready-made, zero-credential agent surface - 200-record paged
+  FHIR search over practitioners, locations, organizations and plans, already public, already
+  live. It is the single highest-leverage MCP server Centene could ship, and it would carry no PHI
+  and require no consent flow.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

@@ -1,0 +1,225 @@
+generated: '2026-09-07'
+method: searched
+source: https://iopc-pd.api.centene.com/iopc/pd/fhir/providerdirectory/metadata
+docs:
+  - https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - https://www.centene.com/why-were-different/corporate-sustainability/business-accountability/data-privacy-security.html
+provider: Centene
+providerId: centene
+note: >-
+  Three independent evidence sources, none of them a marketing claim - (1) a live FHIR R4
+  CapabilityStatement fetched anonymously from the production Provider Directory server, which is
+  the contract declaring its own conformance; (2) the Implementation Guide version table Centene
+  publishes in the Getting Started documents attached to its own catalogue entries; (3) the
+  corporate Data Privacy and Security disclosure naming its certifications.
+capability_statements:
+  - url: https://iopc-pd.api.centene.com/iopc/pd/fhir/providerdirectory/metadata
+    file: conformance/centene-provider-directory-capabilitystatement.json
+    http_status: 200
+    fhir_version: 4.0.1
+    software: HAPI FHIR Server 7.0.0
+    resource_types: [Endpoint, HealthcareService, InsurancePlan, Location, OperationDefinition, Organization, OrganizationAffiliation, Practitioner, PractitionerRole]
+    formats: ['application/fhir+xml', xml, 'application/fhir+json', json, html/json, html/xml]
+  - url: https://iopc-provider.api.centene.com/iopc/provider/ca/fhir/providerdirectory/metadata
+    file: conformance/centene-provider-directory-ca-capabilitystatement.json
+    http_status: 200
+    fhir_version: 4.0.1
+    software: HAPI FHIR Server 7.0.0
+    note: >-
+      A separate California-scoped deployment. Centene's Provider Directory Getting Started guide
+      directs developers wanting California provider details to this base URL instead of the
+      general production one.
+conformance:
+  - id: fhir
+    name: HL7 FHIR R4
+    conforms: true
+    version: 4.0.1
+    evidence: https://iopc-pd.api.centene.com/iopc/pd/fhir/providerdirectory/metadata
+    note: >-
+      The live server returns a FHIR CapabilityStatement declaring fhirVersion 4.0.1 over nine
+      resource types. Verified by anonymous GET, HTTP 200.
+  - id: us-core
+    name: HL7 US Core Implementation Guide
+    conforms: true
+    version: 6.1.0
+    evidence: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+    note: Declared in Centene's own Implementation Guide version table.
+  - id: carin-bb
+    name: CARIN Implementation Guide for Blue Button
+    conforms: true
+    version: 2.0.0
+    evidence: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+    note: >-
+      The ExplanationOfBenefit surface of the Patient Access API. CARIN BB is the CMS-designated
+      claims-and-encounter profile for payer Patient Access APIs.
+  - id: davinci-pdex
+    name: Da Vinci Payer Data Exchange (PDEX)
+    conforms: true
+    version: 1.0.0
+    evidence: https://partners.centene.com/apiDetail/6b5c0001-8b47-4f1c-864f-9193971f5c62
+  - id: davinci-pdex-plan-net
+    name: Da Vinci PDEX Plan Net
+    conforms: true
+    version: 1.2.0
+    evidence: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+    note: >-
+      The profile behind the Provider Directory resource set - Practitioner, PractitionerRole,
+      Organization, OrganizationAffiliation, Location, HealthcareService, InsurancePlan, Endpoint -
+      which is exactly the resource list the live CapabilityStatement advertises.
+  - id: davinci-drug-formulary
+    name: Da Vinci PDEX US Drug Formulary
+    conforms: true
+    version: 2.0.1
+    evidence: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - id: smart-app-launch
+    name: HL7 SMART App Launch Framework
+    conforms: partial
+    version: 2.0.0
+    evidence: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+    note: >-
+      Standalone launch only. Centene states in its own guide that SMART EHR Launch is not
+      implemented, so this is recorded as partial rather than full conformance.
+  - id: uscdi
+    name: United States Core Data for Interoperability (USCDI)
+    conforms: true
+    evidence: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - id: oauth2
+    name: OAuth 2.0
+    conforms: true
+    evidence: https://partners.centene.com/.well-known/openid-configuration
+  - id: oidc
+    name: OpenID Connect Discovery
+    conforms: true
+    evidence: https://partners.centene.com/.well-known/openid-configuration
+    note: >-
+      A complete OpenID Provider Metadata document is served anonymously, with jwks_uri,
+      userinfo, introspection and revocation endpoints and PKCE S256.
+  - id: rfc8414
+    name: OAuth 2.0 Authorization Server Metadata
+    conforms: true
+    evidence: https://partners.centene.com/.well-known/openid-configuration
+  - id: pkce
+    name: RFC 7636 PKCE
+    conforms: true
+    evidence: https://partners.centene.com/.well-known/openid-configuration
+    note: code_challenge_methods_supported lists S256 and plain.
+  - id: x12
+    name: ASC X12 EDI
+    conforms: true
+    evidence: openapi/centene-edi-core-realtime-openapi.json
+    note: >-
+      The LWC EDI CORE Real Time Service exchanges X12 transaction payloads over
+      /RealTimeTransaction and six batch operations.
+  - id: caqh-core
+    name: CAQH CORE Connectivity Rule
+    conforms: true
+    evidence: openapi/centene-edi-core-realtime-openapi.json
+    note: >-
+      The spec titles itself "EDI Realtime CORE Web Service" and its operation set -
+      RealTimeTransaction, BatchSubmitTransaction, BatchSubmitAckRetrievalTransaction,
+      BatchResultsRetrievalTransaction, BatchResultsAckSubmitTransaction, GenericBatch* - is the
+      CAQH CORE Connectivity envelope operation set, not a Centene invention.
+  - id: rfc9457
+    name: RFC 9457 Problem Details
+    conforms: false
+    evidence: openapi/centene-fhir-patient-access-openapi.json
+    note: >-
+      No published Centene spec declares application/problem+json. FHIR surfaces return
+      OperationOutcome instead, which is the correct domain equivalent; the non-FHIR surfaces
+      return bespoke envelopes.
+  - id: pagination
+    name: Cursor pagination
+    conforms: true
+    evidence: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+    note: >-
+      FHIR Bundle link-relation paging at 200 records per page, documented by Centene and observed
+      live - a searchset Bundle carried link[relation=next] with _next and _page cursor params.
+  - id: idempotency
+    name: Idempotency-Key
+    conforms: false
+    evidence: openapi/
+    note: No published spec or document defines an idempotency key or replay window.
+  - id: fapi
+    name: FAPI
+    conforms: false
+    evidence: https://partners.centene.com/.well-known/openid-configuration
+    note: Not applicable - healthcare payer, not open banking. No FAPI claim published.
+  - id: scim
+    name: SCIM
+    conforms: false
+    evidence: openapi/
+  - id: odata
+    name: OData
+    conforms: false
+    evidence: openapi/
+domain_standard:
+  market: US healthcare payer / managed care
+  regime: healthcare
+  signatures:
+    - standard: HL7 FHIR R4
+      declared_in: live CapabilityStatement resource, fhirVersion field
+      location: https://iopc-pd.api.centene.com/iopc/pd/fhir/providerdirectory/metadata
+      strength: definitive
+      note: >-
+        The contract declares the standard about itself. This is the CapabilityStatement, the FHIR
+        equivalent of an OpenAPI document, served by the production server.
+    - standard: Da Vinci PDEX Plan Net 1.2.0
+      declared_in: >-
+        The CapabilityStatement's rest.resource[].profile entries and Centene's published IG
+        version table.
+      location: conformance/centene-provider-directory-capabilitystatement.json
+      strength: definitive
+    - standard: CARIN BB 2.0.0 / US Core 6.1.0 / PDEX 1.0.0 / US Drug Formulary 2.0.1
+      declared_in: Implementation Guide version table in the provider's own Getting Started documents
+      location: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+      strength: declared
+    - standard: ASC X12 / CAQH CORE Connectivity
+      declared_in: OpenAPI info.title and operation names of the EDI Realtime CORE Web Service
+      location: openapi/centene-edi-core-realtime-openapi.json
+      strength: definitive
+    - standard: HL7 SMART App Launch 2.0.0
+      declared_in: Getting Started guide, plus the patient/*.read scope family in the OIDC discovery document
+      location: https://partners.centene.com/.well-known/openid-configuration
+      strength: definitive
+regulatory:
+  - name: 21st Century Cures Act
+    applies: true
+    evidence: https://partners.centene.com/apis
+  - name: CMS Interoperability and Patient Access Final Rule (CMS-9115-F)
+    applies: true
+    evidence: https://partners.centene.com/apis
+    note: >-
+      The Patient Access, Provider Directory and Payer-to-Payer PDEX APIs exist because this rule
+      requires them of Medicaid, Medicare Advantage and Marketplace issuers.
+  - name: HIPAA / HITECH
+    applies: true
+    evidence: https://www.centene.com/why-were-different/corporate-sustainability/business-accountability/data-privacy-security.html
+    note: >-
+      Centene states its programs are assessed annually against the HITECH Act and the HIPAA
+      Privacy and Security Rules.
+certifications:
+  - name: ISO/IEC 27001
+    status: certified
+    evidence: https://www.centene.com/why-were-different/corporate-sustainability/business-accountability/data-privacy-security.html
+    quote: >-
+      "Our information security program conforms with ISO 27001 and is certified by an accredited
+      organization."
+  - name: HIPAA Privacy and Security Rules
+    status: assessed annually
+    evidence: https://www.centene.com/why-were-different/corporate-sustainability/business-accountability/data-privacy-security.html
+  - name: HITECH Act
+    status: assessed annually
+    evidence: https://www.centene.com/why-were-different/corporate-sustainability/business-accountability/data-privacy-security.html
+not_found:
+  - SOC 2
+  - PCI DSS
+  - FedRAMP
+  - HITRUST CSF
+  - name: note
+    detail: >-
+      Searched the corporate Data Privacy and Security disclosure and the developer portal. Only
+      ISO 27001 is named as a certification; the others are not claimed and are not asserted here.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

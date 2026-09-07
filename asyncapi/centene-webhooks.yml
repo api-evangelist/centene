@@ -1,0 +1,86 @@
+generated: '2026-09-07'
+method: searched
+source: https://external-api.my.centene.com/partner-portal/apis
+docs:
+  - https://partners.centene.com/apiDetail/32203878-6174-4452-90af-04b35a97f791
+  - https://partners.centene.com/apiDetail/fa84df2e-81e7-4613-8d61-f62fb2567986
+provider: Centene
+providerId: centene
+note: >-
+  Centene publishes NO AsyncAPI document and no event-subscription surface for third-party
+  developers - there is nothing to subscribe to, no event catalogue, and no outbound callback a
+  developer can register for. What it does publish, and what is captured here, is the inverse:
+  three catalogue entries Centene itself labels "Webhook", which are INBOUND receiver endpoints a
+  named partner (Sinch, the SMS provider) posts into. Recording the direction matters - an
+  integrator reading "webhook" on this portal will not get callbacks from Centene.
+direction: inbound-receiver
+asyncapi_published: false
+event_subscription_for_developers: false
+webhooks:
+  - name: Sinch_SMS_UserResponse Webhook
+    catalogue_id: 32203878-6174-4452-90af-04b35a97f791
+    url: https://partners.centene.com/apiDetail/32203878-6174-4452-90af-04b35a97f791
+    direction: inbound
+    operation: POST /SMS.UserResponse/PostToCCMQueue
+    operationId: Member_PostSmsUserResponse
+    host: https://test-int-api-gw.centene.com/ccmsms/SMS.UserResponse
+    environment: test
+    auth: OAuth 2.0 client_credentials, audience Sinch
+    content_types: [application/json, text/json, application/x-www-form-urlencoded]
+    payload_schema: >-
+      Untyped. The spec declares the body as a bare `{"type": "object"}` with no properties, so
+      the event shape is not published.
+    spec: openapi/centene-ccm-sms-userresponse-openapi.json
+    purpose: >-
+      Receives a member's SMS reply from Sinch and places it on the CCM (care/campaign management)
+      queue.
+  - name: Sinch Production
+    catalogue_id: 6868b4d9-c336-4f02-bfb6-3886215b5564
+    url: https://partners.centene.com/apiDetail/6868b4d9-c336-4f02-bfb6-3886215b5564
+    direction: inbound
+    operation: POST /PostToCCMQueue
+    host: https://prod.api.centene.com/ma/ccmsms/sms-userresponse/posttoccmqueue/SMS.UserResponse
+    environment: production
+    auth: OAuth 2.0 client_credentials, audience SinchProdTeam
+    payload_schema: Untyped object.
+  - name: Synch_SMS_UserResponse
+    catalogue_id: b94c9d9b-db4d-4cb7-a5ed-895e56d3abfa
+    url: https://partners.centene.com/apiDetail/b94c9d9b-db4d-4cb7-a5ed-895e56d3abfa
+    direction: inbound
+    operation: POST /survey
+    host: https://api-gateway-01.centene.com/ccmdatahub/campaign/survey/api/Member/Campaign/
+    auth: OAuth 2.0 client_credentials, audience Synch
+    payload_schema: Untyped object.
+    note: >-
+      Host api-gateway-01.centene.com does not resolve from the public internet. Spelled "Synch"
+      in three catalogue entries and "Sinch" in two, for the same vendor.
+streaming:
+  kafka:
+    published: true
+    consumable_by_third_parties: false
+    catalogue_entries:
+      - REST Admin API
+      - External Kafka API - Test
+      - External Kafka API - Dev
+    contract: >-
+      Confluent's Kafka REST Admin API v3 OpenAPI, republished verbatim (info.contact is
+      kafka-clients-proxy-team@confluent.io and servers[] are templated
+      {protocol}://{address}:{port}/v3). Centene points it at its own KaaS clusters -
+      bootstrap.xkaf.dev.kaas.aws.centene.com, bootstrap.xkaf.tst.kaas.aws.centene.com,
+      bootstrap.xka2.tst.kaas.aws.centene.com.
+    note: >-
+      Deliberately NOT saved to openapi/ as a Centene contract. It is Confluent's document, and
+      all three registered clusters are dev/test hostnames that do not resolve publicly. Recorded
+      here because it is the only event-streaming surface Centene lists, and because an
+      integrator should know it exists and that it is not reachable.
+gaps:
+  - No AsyncAPI document for any surface.
+  - >-
+    No outbound webhooks for third-party developers. A CMS Patient Access app has no way to be
+    notified that a member's claims or coverage changed; it must poll.
+  - >-
+    Every inbound webhook payload is declared as an untyped object, so even the named partner
+    integrations have no published event schema.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

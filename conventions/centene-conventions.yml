@@ -1,0 +1,218 @@
+generated: '2026-09-07'
+method: searched
+source: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+docs:
+  - https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+provider: Centene
+providerId: centene
+note: >-
+  Cross-cutting runtime semantics for Centene's published API surface, read from the two Getting
+  Started guides Centene attaches to its own catalogue entries, from a live anonymous call to the
+  production FHIR Provider Directory, and derived from all twelve first-party OpenAPI documents.
+  The dominant convention is not Centene's own - it is HL7 FHIR R4, which supplies the search
+  grammar, the response envelope, the paging model and the error resource. Where a Centene surface
+  is not FHIR, there is no shared convention at all.
+auth:
+  style: oauth2
+  see: authentication/centene-authentication.yml
+  summary: >-
+    Bearer tokens from a single Ping Identity authorization server (EntryKey ID). SMART on FHIR
+    authorization_code for member data; client_credentials with a per-API audience for
+    partner/service surfaces; the Provider Directory is anonymous.
+idempotency:
+  supported: false
+  coverage: none
+  header: null
+  scope: []
+  retention: null
+  evidence:
+    - openapi/ (185 operations; no Idempotency-Key or equivalent parameter declared anywhere)
+    - https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  note: >-
+    No replay protection is published on any Centene surface. This is materially less alarming
+    than it sounds for the public estate - 159 of 185 operations are GETs and most of the
+    remaining 23 POSTs are query operations that happen to use POST because the request body is
+    too large for a query string (PCES /query, Product Mapping /query, Provider Search /query,
+    Healow member searches). But the genuinely mutating operations do exist and none is protected:
+    CCM Communication POST/PUT, the SMS user-response queue POST, and the six EDI CORE batch
+    submission operations. An EDI batch submitted twice is submitted twice.
+    Recorded as `none`, not `na`, because a write surface is present.
+pagination:
+  style: cursor
+  standard: HL7 FHIR Bundle link relations
+  page_size: 200
+  page_size_configurable: false
+  params:
+    - name: _next
+      in: query
+      note: Opaque cursor. Present in the `next` link Centene returns; not documented as user-constructible.
+    - name: _page
+      in: query
+      note: Page ordinal accompanying _next.
+    - name: _count
+      in: query
+      note: Standard FHIR page-size parameter. Centene does not document honouring it.
+  response_fields:
+    - link[].relation
+    - link[].url
+    - total
+    - entry[]
+  documented_algorithm: >-
+    Quoted from Centene's Provider Directory guide - "check for the existence of
+    link[1].relation == 'next' and if it exists, obtain the next pages by calling URL in
+    link[1].URL... If link[1].relation == 'next' does not exist in the response, it should be
+    considered as the last page."
+  verified: >-
+    Confirmed live. GET
+    /iopc/pd/fhir/providerdirectory/Practitioner?family=SMITH returned HTTP 200, a searchset
+    Bundle with total 200 and a next link carrying _next and _page=2.
+  caution: >-
+    Centene's instruction indexes link[1] positionally. The FHIR specification does not guarantee
+    ordering of the link array; a correct client matches on relation == 'next' rather than on
+    index 1.
+  non_fhir_surfaces:
+    - api: Provider Carrier Entity Search (PCES) Extract API
+      style: scroll
+      note: >-
+        Elasticsearch-style scrolling - POST /extract/initiate returns a scrollId, and
+        DELETE /extract/clear/{scrollId} releases it.
+    - api: Product Mapping V2 / Provider Search Suggest
+      style: none
+      note: No paging model is declared.
+filtering_and_search:
+  standard: FHIR R4 search
+  note: >-
+    Search parameters are declared per resource type in the live CapabilityStatement, which is the
+    authoritative list. Centene's own guide gives worked examples - ?family=SMITH on Practitioner,
+    ?address-city=boston on Location - and recommends building filters over Location,
+    Organization, OrganizationAffiliation and Network for member-facing directory search.
+  discovery: https://iopc-pd.api.centene.com/iopc/pd/fhir/providerdirectory/metadata
+field_expansion:
+  supported: partial
+  note: >-
+    FHIR _include and _revinclude are part of R4 and are declared per resource in the
+    CapabilityStatement, but Centene does not document them. Sparse fieldsets (_elements) are not
+    documented.
+metadata:
+  custom_fields: false
+  note: No customer-defined metadata surface on any published API.
+request_id_tracing:
+  supported: true
+  header: x-request-id
+  direction: response
+  documented: false
+  evidence: >-
+    Observed on live 200 and 403 responses from iopc-pd.api.centene.com and
+    iopc-provider.api.centene.com. Centene returns an x-request-id on every response but does not
+    document it, does not accept a client-supplied correlation id, and does not tell developers to
+    quote it in support requests.
+versioning:
+  see: lifecycle/centene-lifecycle.yml
+  summary: Mixed; no header or media-type versioning; no deprecation policy.
+error_envelope:
+  see: errors/centene-problem-types.yml
+  summary: >-
+    Three envelopes - FHIR OperationOutcome on the FHIR estate, a GeneralError JSON schema on two
+    search APIs, and an undocumented SOAP env:Fault emitted by the gateway on 403/404 regardless
+    of Accept.
+rate_limit_signaling:
+  see: rate-limits/centene-rate-limits.yml
+  headers_published: false
+  headers_observed: false
+  status_on_exhaustion: 429
+  retry_after: not published
+  note: >-
+    429 is declared in 62 operation responses across the specs, so the limit exists. No
+    RateLimit-*, X-RateLimit-* or Retry-After header is declared in any spec, and none appeared on
+    a live 200 from the production Provider Directory. An agent cannot see how close it is to a
+    limit until it crosses one.
+dry_run_mode:
+  supported: false
+  coverage: none
+  note: >-
+    No preview, validate-only or simulate parameter on any mutating operation. The closest thing
+    is PCES's /query-validator and /custom-query-validator, which validate a query shape before
+    execution - that is query linting, not a dry run of a write.
+reversibility:
+  grade: documented
+  coverage: partial
+  note: >-
+    Recorded per write surface. Centene publishes no reversal window anywhere, so nothing here can
+    be graded `verified`; asserting a window Centene does not state would be an invention. Most of
+    the public estate is read-only, and for those surfaces reversibility is genuinely `na`.
+  surfaces:
+    - surface: FHIR - Patient Access
+      write_operations: 0
+      reversibility: na
+      note: Read-only. patient/*.read scopes only; no write operation in 47 operations.
+    - surface: FHIR - Provider Directory
+      write_operations: 0
+      reversibility: na
+      note: Read-only and anonymous.
+    - surface: Provider RTR - FHIR PDEX Directory API (External)
+      write_operations: 0
+      reversibility: na
+    - surface: Provider RTR - Demographics API
+      write_operations: 0
+      reversibility: na
+      note: 67 operations, all GET.
+    - surface: Provider Carrier Entity Search (PCES) Extract API
+      write_operations: 2
+      reversal_operation:
+        operationId: clear extract
+        method: DELETE
+        path: /extract/clear/{scrollId}
+        reverses: Execute Query and Start Extract Process (POST /extract/initiate)
+      window: not stated
+      grade: documented
+      note: >-
+        A real, published undo path - the scroll context an extract opens can be released by id.
+        Centene does not state how long a scrollId remains valid, so an agent cannot know whether
+        the reversal will still work.
+    - surface: CCM Communication
+      write_operations: 2
+      operations:
+        - Communication_PostInsertUpdateCommunication
+        - Communication_PutMergeCommunicationByIdOrSysId
+      reversal_operation: null
+      window: not stated
+      grade: none
+      note: >-
+        Insert/update and merge with no delete, no void and no documented correction path. A merge
+        applied to the wrong sysId has no published remedy.
+    - surface: CCM SMS User Response
+      write_operations: 1
+      operations:
+        - Member_PostSmsUserResponse
+      reversal_operation: null
+      grade: none
+      note: Posts onto a queue. Once enqueued there is no published dequeue or cancel.
+    - surface: LWC EDI CORE Real Time Service
+      write_operations: 7
+      operations:
+        - RealTimeTransaction
+        - BatchSubmitTransaction
+        - GenericBatchSubmissionTransaction
+        - BatchSubmitAckRetrievalTransaction
+        - BatchResultsRetrievalTransaction
+        - BatchResultsAckSubmitTransaction
+        - GenericBatchReceiptConfirmationTransaction
+      reversal_operation: null
+      window: not stated
+      grade: none
+      note: >-
+        The highest-consequence write surface in the estate - X12 healthcare transactions - and
+        the one with neither idempotency nor a reversal path. Reversal in X12 is normally a
+        compensating transaction (a replacement or void claim), which is a business process
+        Centene does not expose or document as an API operation.
+cross_links:
+  errors: errors/centene-problem-types.yml
+  lifecycle: lifecycle/centene-lifecycle.yml
+  authentication: authentication/centene-authentication.yml
+  scopes: scopes/centene-scopes.yml
+  rate_limits: rate-limits/centene-rate-limits.yml
+  conformance: conformance/centene-conformance.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

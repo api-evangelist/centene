@@ -1,0 +1,104 @@
+generated: '2026-09-07'
+method: searched
+source: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+provider: Centene
+providerId: centene
+note: >-
+  Centene publishes a real sandbox for the CMS Patient Access API, documented in the Getting
+  Started guide attached to its own catalogue entry. Every value below is quoted from that
+  document - nothing here was invented, and the test identities are Centene's own published
+  fixtures, not real members.
+sandbox:
+  published: true
+  separate_environment: true
+  authorization_server: https://sandbox.entrykeyid.com
+  authorize_endpoint: https://sandbox.entrykeyid.com/as/authorization.oauth2
+  token_endpoint: https://sandbox.entrykeyid.com/as/token.oauth2
+  api_host: https://iopc-sand.test.api.centene.com/iopc/sand
+  api_host_source: >-
+    hostServers[serverName=Sandbox] on the FHIR - Patient Access entry in the partner portal
+    catalogue.
+  production_host: https://iopc-pa.api.centene.com/iopc/pa
+mode_separation:
+  style: separate hostname and separate authorization server
+  key_prefixes: none
+  note: >-
+    Centene does not use test-vs-live key prefixes. Sandbox and production are distinguished by
+    hostname (iopc-sand.test.api.centene.com vs iopc-pa.api.centene.com) and by issuer
+    (sandbox.entrykeyid.com vs sso.entrykeyid.com). A credential cannot be visually identified as
+    test or live, which is a real hazard for an agent holding both.
+test_identities:
+  type: sandbox member logins
+  count: 6
+  published_verbatim: true
+  note: >-
+    Centene publishes six sandbox member accounts with a shared password so a developer can walk
+    the SMART standalone launch end to end. These are the provider's own published fixtures.
+  users:
+    - username: CNCTESTTPA001
+      given: JAMES
+      family: ETETEST
+      patient_uuid: '302'
+    - username: CNCTESTTPA002
+      given: JAMES
+      family: ETETEST1
+      patient_uuid: '352'
+    - username: CNCTESTTPA003
+      given: JAMES
+      family: ETETEST2
+      patient_uuid: '361'
+    - username: CNCTESTTPA004
+      given: JAMES
+      family: ETETEST3
+      patient_uuid: '370'
+    - username: CNCTESTTPA005
+      given: JAMES
+      family: ETETEST4
+      patient_uuid: '375'
+    - username: CNCTESTTPA006
+      given: JAMES
+      family: ETETEST5
+      patient_uuid: '381'
+  password_note: >-
+    A single shared sandbox password is published alongside the six accounts in Centene's guide.
+    Deliberately not mirrored here - it is a credential-shaped string, it is one fetch away at the
+    source URL, and copying it into the catalogue adds nothing an integrator needs.
+flow:
+  - step: 1
+    action: Register an application through the partner portal to receive clientId, clientSecret and redirect_uri.
+    url: https://partners.centene.com/applicationDeveloper-form
+  - step: 2
+    action: >-
+      Open https://sandbox.entrykeyid.com/as/authorization.oauth2?client_id={clientId}&redirect_uri={redirectUri}&response_type=code
+      in a browser and sign in as one of the six sandbox members.
+  - step: 3
+    action: Read the authorization code from the redirect URL query string. It is single-use.
+  - step: 4
+    action: >-
+      POST to https://sandbox.entrykeyid.com/as/token.oauth2 with Authorization
+      "Basic base64(clientId:clientSecret)", Content-Type application/json, and a JSON body of
+      code, grant_type=authorization_code and redirect_uri.
+  - step: 5
+    action: >-
+      Call the sandbox FHIR host with the bearer token. The token response carries a `patient`
+      claim naming the FHIR Patient logical id the token is scoped to.
+  - step: 6
+    action: >-
+      Exchange the refresh_token at the same endpoint with grant_type=refresh_token when the
+      3600-second access token expires.
+public_no_signup_surface:
+  note: >-
+    The FHIR Provider Directory needs no sandbox and no registration at all - it is anonymous in
+    production. It is the fastest way to see real Centene data:
+    GET https://iopc-pd.api.centene.com/iopc/pd/fhir/providerdirectory/Practitioner?family=SMITH
+    returns HTTP 200 and a FHIR searchset Bundle with no credential.
+  verified: '2026-09-07'
+not_published:
+  - Test clocks or time simulation
+  - Fixture generators or trigger tooling
+  - Seeded data reset
+  - A sandbox for any surface other than Patient Access
+  - Test values for the EDI CORE, CCM Communication, PCES or Product Mapping APIs
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

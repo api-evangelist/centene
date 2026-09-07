@@ -1,0 +1,122 @@
+generated: '2026-09-07'
+method: derived
+source: openapi/ (12 first-party Centene OpenAPI documents, 185 operations)
+provider: Centene
+providerId: centene
+format: mixed
+note: >-
+  Derived by walking every 4xx/5xx response declared across all twelve published Centene OpenAPI
+  documents, then reconciled against a live anonymous call to the production FHIR Provider
+  Directory. Centene publishes no consolidated error reference, so titles below are the exact
+  `description` strings the specs carry - nothing was invented. There are three distinct error
+  envelopes in play, which is itself the finding.
+envelopes:
+  - id: fhir-operationoutcome
+    name: FHIR OperationOutcome
+    media_type: application/fhir+json
+    used_by:
+      - FHIR - Patient Access
+      - FHIR - Provider Directory
+      - Provider RTR - FHIR PDEX Directory API (External)
+    note: >-
+      The FHIR R4 standard error resource, carrying issue[].severity, issue[].code and
+      issue[].diagnostics. This is the correct domain equivalent of RFC 9457 for a FHIR server.
+  - id: general-error
+    name: GeneralError
+    media_type: application/json
+    schema_ref: '#/components/schemas/GeneralError'
+    used_by:
+      - Provider Carrier Entity Search (PCES) API
+      - Product Mapping V2
+    note: The only named error schema reused across non-FHIR Centene specs.
+  - id: gateway-soap-fault
+    name: SOAP env:Fault
+    media_type: application/xml
+    used_by:
+      - iopc-pa.api.centene.com
+      - iopc-pd.api.centene.com
+      - prod.api.centene.com
+    note: >-
+      Observed, not documented. The IBM DataPower gateway in front of the FHIR estate answers an
+      unauthorized or unrouted request with a SOAP 1.2 env:Envelope/env:Fault body regardless of
+      the Accept header - a REST client asking for application/fhir+json on a 403 receives XML.
+      No published spec mentions this, and no agent could anticipate it.
+problem_types:
+  - status: 400
+    title: Bad request
+    occurrences: 108
+    type: about:blank
+    remediation: >-
+      Validate FHIR search parameters against the CapabilityStatement before calling; the Provider
+      Directory advertises its supported searchParams per resource type.
+  - status: 401
+    title: Unauthorized
+    occurrences: 64
+    type: about:blank
+    remediation: >-
+      Obtain a token from https://sso.entrykeyid.com/as/token.oauth2 with the audience value the
+      partner-portal catalogue entry records for that API. A token minted for a different audience
+      returns 401 here.
+  - status: 403
+    title: Forbidden
+    occurrences: 148
+    type: about:blank
+    remediation: >-
+      Most commonly a scope or audience mismatch rather than a revoked credential. Also returned
+      by the gateway as a SOAP fault for an unrouted path.
+  - status: 404
+    title: Not Found
+    occurrences: 74
+    type: about:blank
+  - status: 424
+    title: Unable to establish connection with MongoDB server.
+    occurrences: 9
+    type: about:blank
+    note: >-
+      Recorded verbatim from the spec. This leaks an internal datastore name into a public
+      contract and tells an agent nothing actionable - flagged as a contract-quality defect worth
+      raising with Centene rather than a real problem type.
+  - status: 429
+    title: Too Many Requests
+    occurrences: 62
+    type: about:blank
+    remediation: >-
+      Back off exponentially with jitter. No RateLimit-* or Retry-After header is declared in any
+      spec, and none was returned on a live 200, so the retry interval is not discoverable ahead
+      of exhaustion.
+  - status: 500
+    title: InternalServerError
+    occurrences: 152
+    type: about:blank
+  - status: 501
+    title: Not Implemented
+    occurrences: 62
+    type: about:blank
+  - status: 502
+    title: Bad gateway
+    occurrences: 62
+    type: about:blank
+  - status: 503
+    title: Service Unavailable
+    occurrences: 62
+    type: about:blank
+  - status: 504
+    title: Gateway Timeout
+    occurrences: 146
+    type: about:blank
+coverage:
+  operations_scanned: 185
+  operations_with_4xx: 185
+  distinct_status_codes: 11
+  named_error_schemas: 2
+gaps:
+  - No RFC 9457 application/problem+json anywhere in the published surface.
+  - >-
+    No error codes. Every entry above is an HTTP status with a one-word description; there is no
+    machine-readable error identifier an agent could branch on, and no remediation text.
+  - >-
+    The gateway's SOAP-fault behaviour on 403/404 contradicts every published spec, which declare
+    JSON error bodies.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

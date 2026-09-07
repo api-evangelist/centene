@@ -1,0 +1,543 @@
+openapi: 3.0.1
+info:
+  title: Product Mapping V2
+  description: Application to get network data and active networks based on location.
+  version: 2.0.0
+servers:
+  - url: https://dev-int-api-gw.centene.com/productmapping/v2/
+    description: Dev Internal
+  - url: https://prod.api.centene.com/incoming/dev/productmapping/v2
+    description: Dev DMZ External
+  - url: https://test-int-api-gw.centene.com/productmapping/v2/
+    description: Test Internal
+  - url: https://prod.api.centene.com/incoming/test/productmapping/v2
+    description: Test DMZ External
+  - url: https://api-gateway-01.centene.com/productmapping/v2/
+    description: Prod Internal
+  - url:  https://prod.api.centene.com/incoming/productmapping/v2
+    description: Prod DMZ External
+security:
+  - basicAuth: []
+paths:
+  /network:
+    get:
+      tags:
+        - network
+      summary: A GET that fetches the Network Data for a given Network Code
+      operationId: getNetwork
+      parameters:
+        - name: fapNetworkIdentifier
+          in: query
+          description: code
+          required: true
+          schema:
+            type: string
+            default: "9001"
+      responses:
+        '200':
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/fapNetworkServiceArea'
+  /query:
+    post:
+      tags:
+        - query
+      summary: Search for a particular set of active networks and retrieve their names and identifiers. streetAddress is optional, all other fields are required
+      operationId: postQueryNetworks
+      requestBody:
+        description: Accepted parameters.
+        content:
+          'application/json':
+            schema:
+              anyOf:
+                - $ref: '#/components/schemas/query'
+                - $ref: '#/components/schemas/queryWithAddress'
+            examples:
+              Network Query:
+                description: "Query legacy Centene plans without county code restrictions."
+                value:
+                  url: "cahealthwellness.com"
+                  displayDate: "2020-12-02"
+              Network with Address Query:
+                description: 'Query legacy Centene plans WITH county code restrictions.'
+                value:
+                  url: "cahealthwellness.com"
+                  displayDate: "2020-12-02"
+                  streetAddress: "1 infinite loop"
+                  city: "cupertino"
+                  state: "CA"
+                  zip: "95014"
+        required: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/queryResponseObject'
+  /v2/query:
+    post:
+      tags:
+        - query v2
+      summary: Search for a particular set of active networks and retrieve their names and identifiers. streetAddress and includeProviderProgramCodesAggs are are optional, all other fields are required
+      operationId: postQueryV2Networks
+      requestBody:
+        description: Accepted parameters.
+        content:
+          'application/json':
+            schema:
+              anyOf:
+                - $ref: '#/components/schemas/query'
+                - $ref: '#/components/schemas/queryWithAddress'
+                - $ref: '#/components/schemas/queryWithFapNetworkTypeCode'
+                - $ref: '#/components/schemas/queryV2ResponseNetworkObject'
+            examples:
+              Network Query:
+                description: "Query legacy Centene plans without county code restrictions."
+                value:
+                  url: "cahealthwellness.com"
+                  displayDate: "2020-12-02"
+              Network with Address Query:
+                description: 'Query legacy Centene plans WITH county code restrictions.'
+                value:
+                  url: "cahealthwellness.com"
+                  displayDate: "2020-12-02"
+                  streetAddress: "1 infinite loop"
+                  city: "cupertino"
+                  state: "CA"
+                  zip: "95014"
+              Network with fapNetworkTypeCode Query:
+                description: 'Query legacy Centene plans WITH fapNetworkTypeCode restrictions.'
+                value:
+                  url: "https://healthnetcalifornia.com"
+                  city: "Santa Clara"
+                  zip: "95050"
+                  state: "CA"
+                  effectiveDate: "2020-08-01"
+                  countyFIPSCode: "06011"
+                  fapNetworkTypeCode: "Commercial Group Off Exchange"
+              Network with includeProviderProgramCodesAggs Query:
+                description: 'Query legacy Centene plans to include Provider Program Codes.'
+                value:
+                  url: "https://healthnetcalifornia.com"
+                  city: "Santa Clara"
+                  zip: "95050"
+                  state: "CA"
+                  effectiveDate: "2020-08-01"
+                  countyFIPSCode: "06011"
+                  fapNetworkTypeCode: "Commercial Group Off Exchange"
+                  includeProviderProgramCodesAggs: "Y"
+        required: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/networkResults'
+  /countiesForAddress:
+    post:
+      tags:
+        - Geo
+      summary: Determine the list of counties that apply for a given address and address type
+      operationId: determineCounties
+      requestBody:
+        description: Accepted parameters.
+        content:
+          'application/json':
+            schema:
+              anyOf:
+                - $ref: '#/components/schemas/countiesRequest'
+            examples:
+              County:
+                description: "Determine if the address is a valid county"
+                value:
+                  value: "Sacramento, CA"
+                  addressType: "county"
+              City:
+                description: "Determine the counties the city is in"
+                value:
+                  value: "San Francisco, CA"
+                  addressType: "city"
+              Street Address:
+                description: "Determine the counties for the address"
+                value:
+                  value: "105 NW 13th Ave, Portland, OR 97209"
+                  addressType: "street_address"
+              Postal Code:
+                description: "Determine the counties for the postal code"
+                value:
+                  value: "75001"
+                  addressType: "postal"
+        required: false
+      responses:
+        200:
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/countiesResponseObject'
+components:
+  schemas:
+    fapNetworkServiceAreaWithoutMemberOrProvider:
+      type: object
+      properties:
+        dataSourceIdentifier:
+          type: string
+          example: 259
+        fapNetworkCode:
+          type: string
+          example: 558103
+        fapNetworkDisplayEndDate:
+          type: string
+          example: "4000-01-01"
+        fapNetworkDisplayStartDate:
+          type: string
+          format: date
+          example: "2020-07-01"
+        fapNetworkEndDate:
+          type: string
+          example: "4000-01-01"
+        fapNetworkStartDate:
+          type: string
+          format: date
+          example: "2020-07-01"
+        fapNetworkIdentifier:
+          type: string
+          example: 558103
+        fapNetworkName:
+          type: string
+          example: Seniority Plus Sapphire Premier II (HMO)
+        fapNetworkStatusCode:
+          type: string
+          example: ACTIVE
+        fapNetworkTypeCode:
+          type: string
+          example: Medicaid
+        fapNetworkURLText:
+          type: string
+          example: healthnetadvantage.com
+        serviceAreaRestrictionFlag:
+          type: string
+          example: Y
+        ppgIndicator:
+          type: string
+          example: Y
+        noteText:
+          type: string
+          example: Initial Load 07282020
+        stateCode:
+          type: string
+          example: CA
+    fapNetworkServiceArea:
+      type: object
+      properties:
+        dataSourceIdentifier:
+          type: string
+          example: 259
+        fapNetworkCode:
+          type: string
+          example: 558103
+        fapNetworkDisplayEndDate:
+          type: string
+          example: "4000-01-01"
+        fapNetworkDisplayStartDate:
+          type: string
+          format: date
+          example: "2020-07-01"
+        fapNetworkEndDate:
+          type: string
+          example: "4000-01-01"
+        fapNetworkStartDate:
+          type: string
+          format: date
+          example: "2020-07-01"
+        fapNetworkIdentifier:
+          type: string
+          example: 558103
+        fapNetworkName:
+          type: string
+          example: Seniority Plus Sapphire Premier II (HMO)
+        fapNetworkStatusCode:
+          type: string
+          example: ACTIVE
+        fapNetworkTypeCode:
+          type: string
+          example: Medicaid
+        fapNetworkURLText:
+          type: string
+          example: healthnetadvantage.com
+        memberAttributes:
+          type: array
+          items:
+            type: object
+            properties:
+              counties:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    countyName:
+                      type: string
+                      example: Alameda
+                    dataSourceidentifier:
+                      type: string
+                      example: 259
+                    fipsCountyCode:
+                      type: string
+                      example: 06001
+                    stateCode:
+                      type: string
+                      example: CA
+              memberAttributeCode:
+                type: string
+                example: 1731
+              memberAttributeDescription:
+                type: string
+                example: Migrated Member
+              memberAttributeIdentifier:
+                type: string
+                example: 333622
+              memberAttributeName:
+                type: string
+                example: Seniority Plus Sapphire Premier II (HMO)
+              memberAttributeType:
+                type: string
+                example: Benefit Package Code
+        providerPrograms:
+          type: array
+          items:
+            type: object
+            properties:
+              dataSourceIdentifier:
+                type: string
+                example: 259
+              providerProgramCode:
+                type: string
+                example: 5581
+              providerProgramIdentifier:
+                type: string
+                example: 220091
+              providerProgramName:
+                type: string
+                example: 5581
+              providerProgramTypeCode:
+                type: string
+                example: MED
+              providerProgramDescription:
+                type: string
+                example: Some Description
+        serviceAreaRestrictionFlag:
+          type: string
+          example: Y
+        sites:
+          type: array
+          items:
+            type: object
+            properties:
+              domainUrl:
+                type: string
+                example: "findaprovider.superiorhealthplan.com/something_else"
+              root_url:
+                type: string
+                example: "sfindaprovider.superiorhealthplan.com"
+              tag:
+                type: string
+                example: "someTag"
+              modes:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    mode:
+                      type: string
+                      example: "someMode"
+        ppgIndicator:
+          type: string
+          example: Y
+        noteText:
+          type: string
+          example: Initial Load 07282020
+        stateCode:
+          type: string
+          example: CA
+    queryWithAddress:
+      type: object
+      properties:
+        streetAddress:
+          type: string
+          example: 1261 W 76th St
+        url:
+          type: string
+          example: sunshinehealth.com
+        city:
+          type: string
+          example: Los Angeles
+        state:
+          type: string
+          example: CA
+        zip:
+          type: string
+          example: 90044
+        effectiveDate:
+          type: string
+          format: date
+          example: "2020-09-01"
+    queryWithCounty:
+      type: object
+      properties:
+        countyFIPSCode:
+          type: string
+          example: 48113
+        url:
+          type: string
+          example: sunshinehealth.com
+        effectiveDate:
+          type: string
+          format: date
+          example: "2020-09-01"
+    queryWithFapNetworkTypeCode:
+      type: object
+      required:
+      - url
+      - city
+      - state
+      - zip
+      - effectiveDate
+      - countyFIPSCode
+      - fapNetworkTypeCode
+      properties:
+        url:
+          type: string
+          example: https://healthnetcalifornia.com
+        city:
+          type: string
+          example: Santa Clara
+        state:
+          type: string
+          example: CA
+        zip:
+          type: string
+          example: 95050
+        effectiveDate:
+          type: string
+          format: date
+          example: "2020-08-01"
+        countyFIPSCode:
+          type: string
+          example: 06011
+        fapNetworkTypeCode:
+          type: string
+          example: Commercial Group Off Exchange
+        includeProviderProgramCodesAggs:
+          type: string
+          enum: ["Y", "N"]
+          example: "Y"
+    query:
+      type: object
+      properties:
+        streetAddress:
+          type: string
+          example: 1261 W 76th St
+        url:
+          type: string
+          example: sunshinehealth.com
+    queryResponseObject:
+      type: array
+      items:
+        $ref: '#/components/schemas/fapNetworkServiceAreaWithoutMemberOrProvider'
+      properties:
+        "7001":
+          type: string
+          example: Medicaid Plan
+        "37803":
+          type: string
+          example: Allwell Dual Medicare HMO SNP
+        "37804":
+          type: string
+          example: Allwell Dual Medicare HMO SNP
+        "65601":
+          type: string
+          example: Florida Long Term Care
+        "343703":
+          type: string
+          example: Allwell Medicare HMO MAPD
+        "343704":
+          type: string
+          example: Allwell Medicare HMO MAPD
+        "803601":
+          type: string
+          example: Child Welfare Specialty Plan
+    queryV2ResponseNetworkObject:
+      $ref: '#/components/schemas/fapNetworkServiceAreaWithoutMemberOrProvider'
+    providerProgramCodes:
+      type: object
+      properties:
+        providerProgramCode:
+          type: string
+          example: 1234
+        fapNetworkIdentifier:
+          type: string
+          example: ["123401", "123402", "123403"]
+    networkResults:
+      type: object
+      properties:
+        network:
+          items:
+            $ref: '#/components/schemas/queryV2ResponseNetworkObject'
+        providerProgramCodes:
+          items:
+            $ref: '#/components/schemas/providerProgramCodes'
+    countiesRequest:
+      type: object
+      properties:
+        streetAddress:
+          type: string
+          example: 1261 W 76th St
+        url:
+          type: string
+          example: county
+    countiesResponseObject:
+      type: array
+      items:
+        $ref: '#/components/schemas/countyResult'
+      properties:
+        "7001":
+          type: string
+          example: Medicaid Plan
+        "37803":
+          type: string
+          example: Allwell Dual Medicare HMO SNP
+        "37804":
+          type: string
+          example: Allwell Dual Medicare HMO SNP
+        "65601":
+          type: string
+          example: Florida Long Term Care
+        "343703":
+          type: string
+          example: Allwell Medicare HMO MAPD
+        "343704":
+          type: string
+          example: Allwell Medicare HMO MAPD
+        "803601":
+          type: string
+          example: Child Welfare Specialty Plan
+    countyResult:
+      type: object
+      properties:
+        countyName:
+          type: string
+          example: King
+        countyFIPSCode:
+          type: string
+          example: 53033
+        state:
+          type: string
+          example: WA
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic

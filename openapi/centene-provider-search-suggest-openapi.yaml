@@ -1,0 +1,223 @@
+openapi: 3.0.1
+info:
+  title: Provider Search Suggest API
+  #termsOfService: http://swagger.io/terms/
+  contact:
+    email: provider_search_support@centene.com
+    #license:
+    #name: Apache 2.0
+    #url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 0.0.6
+servers:
+  - url: https://dev-int-api-gw.centene.com/provider-search-suggest
+    description: Dev
+  - url: https://d-api-gw.centene.com/dev/provider-search-suggest
+    description: Dev DMZ
+  - url: https://test-int-api-gw.centene.com/provider-search-suggest
+    description: Test
+  - url: https://d-api-gw.centene.com/test/provider-search-suggest
+    description: Test DMZ
+  - url: https://api-gateway-01.centene.com/provider-search-suggest
+    description: Prod
+  - url: https://d-api-gw.centene.com/provider-search-suggest
+    description: Prod DMZ
+tags:
+  - name: query
+    description: query elasticsearch
+security:
+  - basicAuth: [ ]
+paths:
+  /query:
+    post:
+      tags:
+        - query
+      summary: Send a provider search suggest query to Elasticsearch
+      operationId: query
+      requestBody:
+        description: Centene Search DSL Request
+        content:
+          application/json:
+            schema:
+              anyOf:
+                - $ref: '#/components/schemas/activeDate'
+                - $ref: '#/components/schemas/searchTerm'
+                - $ref: '#/components/schemas/eligibleForDisplay'
+                - $ref: '#/components/schemas/productIds'
+            examples:
+              SearchTerm Name Query:
+                description: ""
+                value:
+                  searchTerm: "ale"
+                  type: "name"
+              SearchTerm SpecialtyDescription Query:
+                description: ""
+                value:
+                  searchTerm: "card"
+                  type: "specialty"
+              SearchTerm SpecDescription with Synonyms Query:
+                description: "NOTE: Experimental, please do not use"
+                value:
+                  searchTerm: "card"
+                  type: "specialtySynonym"
+              SearchTerm With ActiveDate Query:
+                description: ""
+                value:
+                  searchTerm: "ale"
+                  activeDate: "2020-09-10"
+                  type: "name"
+              SearchTerm With EligibleIndicator:
+                description: ""
+                value:
+                  searchTerm: "ale"
+                  type: "name"
+                  eligibleForDisplay:
+                    eligibleIndicator: Y
+              SearchTerm ActiveDate And EligibleIndicator:
+                description: ""
+                value:
+                  searchTerm: "ale"
+                  type: "name"
+                  activeDate: "2020-09-10"
+                  eligibleForDisplay:
+                    eligibleIndicator: Y
+              ProductIds:
+                description: ""
+                value:
+                  searchTerm: "ale"
+                  type: "name"
+                  productIds: [ 910, 1025 ]
+              PrintDisplay:
+                description: ""
+                value:
+                  searchTerm: "ale"
+                  type: "name"
+                  eligibleForDisplay:
+                    printDisplay: "Y"
+              ParDisplay:
+                description: ""
+                value:
+                  searchTerm: "ale"
+                  type: "name"
+                  eligibleForDisplay:
+                    parDisplay: "Y"
+              SpecialtyDisplay:
+                description: ""
+                value:
+                  searchTerm: "ale"
+                  type: "name"
+                  eligibleForDisplay:
+                    specialtyDisplay: "Y"
+              GeoCoordsDisplay:
+                description: ""
+                value:
+                  searchTerm: "ale"
+                  type: "name"
+                  eligibleForDisplay:
+                    geoCoordsDisplay: "Y"
+              All EligibleForDisplay:
+                description: ""
+                value:
+                  searchTerm: "ale"
+                  type: "name"
+                  eligibleForDisplay:
+                    printDisplay: "Y"
+                    parDisplay: "Y"
+                    specialtyDisplay: "Y"
+                    geoCoordsDisplay: "Y"
+              Type of Specialty:
+                description: ""
+                value:
+                  searchTerm: "cardiology"
+                  type: "specialty"
+                  language: "en"
+                  activeDate: "2020-09-01"
+                  eligibleForDisplay:
+                  eligibleIndicator: "Y"
+              Type of Specialty Synonym:
+                description: ""
+                value:
+                  searchTerm: "addiction"
+                  description: ""
+                  type: "specialtySynonym"
+                  language: "es"
+                  activeDate: "2021-02-10"
+                  eligibleForDisplay:
+                  eligibleIndicator: "N"
+        required: true
+      responses:
+        '200':
+          description: Search accepted, executed, results returned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+        '400':
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                type: object
+        '500':
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                type: string
+components:
+  schemas:
+    activeDate:
+      type: string
+    searchTerm:
+      type: string
+    type:
+      type: string
+    productIds:
+      type: array
+      items:
+        type: string
+    eligibleForDisplay:
+      type: object
+      description: "eligibleIndicator must be used alone, but any other of the fields can be used together"
+      anyOf:
+        - $ref: '#/components/schemas/eligibleIndicator'
+        - $ref: '#/components/schemas/specialtyDisplay'
+        - $ref: '#/components/schemas/printDisplay'
+        - $ref: '#/components/schemas/geoCoordsDisplay'
+        - $ref: '#/components/schemas/parDisplay'
+    eligibleIndicator:
+      type: string
+    specialtyDisplay:
+      type: string
+    printDisplay:
+      type: string
+    geoCoordsDisplay:
+      type: string
+    parDisplay:
+      type: string
+    Response:
+      type: object
+      properties:
+        suggestions:
+          type: object
+          properties:
+            suggestType:
+              type: string
+            queryTime:
+              type: string
+            results:
+              type: array
+              items:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  entityType:
+                    type: string
+                  providerType:
+                    type: string
+                  score:
+                    type: number
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic

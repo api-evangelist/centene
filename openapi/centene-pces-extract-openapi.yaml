@@ -1,0 +1,461 @@
+openapi: 3.1.0
+info:
+  title: Provider Carrier Entity Search (PCES) Extract API
+  description: The PCES Extract API is a set of endpoints for supporting the extracting of large data sets
+  contact:
+    email: provider_search_support@centene.com
+  version: 0.0.6
+paths:
+  /extract/initiate:
+    post:
+      tags:
+        - Extract
+      summary: Send a query to PCES Extract API Interface
+      operationId: Execute Query and Start Extract Process
+      parameters:
+        - name: index
+          in: query
+          required: false
+          description: "query param to search the new index: carrier_entity_location_active"
+          schema:
+            type: string
+            enum:
+              - cel
+      requestBody:
+        description: Centene Search DSL Request
+        content:
+          application/json:
+            schema:
+              type: object
+            examples:
+              NameMatch Query:
+                description: "The nameMatch Query can be used to match against name fields in the JSON objects. The nameMatch query uses a predefined matching algorithm"
+                value:
+                  customQuery:
+                    nameMatch:
+                      field: "locations.name"
+                      value: "Walgreens"
+                      boost: 1
+              Value Query:
+                description: 'Used to apply logic that restricts a provided field in the document to an **exact** value. The Value query should only be used against fields that have an exact value representation in Elasticsearch such as fields mapped as keyword or number.'
+                value:
+                  customQuery:
+                    value:
+                      field: providerName
+                      value: Allwell Behavioral Health Services
+              Values Query:
+                description: 'Used to apply logic that restricts a provided field in the document to an array of **exact** values. The Values query should only be used against fields that have an exact value representation in Elasticsearch such as keyword or number.'
+                value:
+                  customQuery:
+                    values:
+                      field: providerName
+                      values: ["Minute Clinic", "CVS", "Walgreens"]
+              Range DateTime Query:
+                description: 'Used to apply logic that restricts a provided field to a given dateTime range.'
+                value:
+                  customQuery:
+                    range:
+                      field: locations.eligibleForDisplay.startDate
+                      type: datetime
+                      lte: '2017-01-01T12:00:00'
+              Range Date Query:
+                description: 'Used to apply logic that restricts a provided field to a given  date range.'
+                value:
+                  customQuery:
+                    range:
+                      field: locations.eligibleForDisplay.endDate
+                      type: date
+                      gt: '2017-01-01'
+              Range Time Query:
+                description: 'Used to apply logic that restricts a provided field to a given time range.'
+                value:
+                  customQuery:
+                    range:
+                      field: locations.providerOfficeHours.monday.search_isoClose
+                      type: time
+                      gt: '17:00:00'
+                      lte: '19:00:00'
+              Range Integer Query:
+                description: 'Used to apply logic that restricts a provided field to a given numerical range.'
+                value:
+                  customQuery:
+                    range:
+                      field: locations.panelCycles.lowestAge
+                      type: integer
+                      gte: '2'
+                      lt: '18'
+              Range Text Query:
+                description: 'Used to apply logic that restricts a provided field to a given text range.'
+                value:
+                  customQuery:
+                    range:
+                      field: modalities.modalityDescriptionFull
+                      type: text
+                      gte: a
+                      lt: m
+              GeoFilter Radius Query:
+                description: 'Used to apply logic that restricts a provided field by a geometric-defined limit, ie radius, box, or other shape. Note that geoFilters can only be applied to fields mapped as geo_point.'
+                value:
+                  customQuery:
+                    geoFilter:
+                      field: locations.address.search_coordinates
+                      radius:
+                        coordinates: '40, -80'
+                        distance: 200mi
+              GeoFilter BoundingBox Query:
+                description: 'Used to apply logic that restricts a provided field by a geometric-defined limit, ie radius, box, or other shape. Note that geoFilters can only be applied to fields mapped as geo_point.'
+                value:
+                  customQuery:
+                    geoFilter:
+                      field: locations.address.search_coordinates
+                      boundingBox:
+                        topLeft: '41.12, -71.34'
+                        bottomRight: '41, -90'
+              Exists Query:
+                description: 'Only includes results which have a value for the specified field.'
+                value:
+                  customQuery:
+                    exists:
+                      field: locations.address.addressLine1
+              Nested Query:
+                description: 'Specifies a list where you can declare a nested path that corresponds to a list of documents on the main provider document (ie, locations is a list of locations documents for a provider), and whether to filter the API results to only include matching results for that list.'
+                value:
+                  customQuery:
+                    nested:
+                      path: locations
+                      query:
+                        value:
+                          field: locations.name
+                          value: Mercy
+              Nested Query With MatchedList:
+                description: 'Specifies a list where you can declare a nested path that corresponds to a list of documents on the main provider document (ie, locations is a list of locations documents for a provider), and whether to filter the API results to only include matching results for that list.'
+                value:
+                  customQuery:
+                    nested:
+                      path: locations
+                      matchedList:
+                        name: locationsNested
+                        size: 100
+                        fields:
+                          - locations.name
+                          - locations.locationId
+                          - locations.taxIdNumber
+                      query:
+                        value:
+                          field: locations.name
+                          value: Mercy
+              RelevancyByDistance Query:
+                description: 'Documents will be sorted based on distance from the specified field, according to the custom parameters set.'
+                value:
+                  customQuery:
+                    relevancyByDistance:
+                      field: locations.address.search_coordinates
+                      origin: '38, -90'
+                      scale: 5mi
+                      offset: 3mi
+                      decay: 0.5
+                      minDistanceScore: 1
+                      query:
+                        value:
+                          field: locations.search_root_entityType
+                          value: prac
+              constantScore:
+                description: "Used to apply logic that Wraps a filter query and returns every matching document with a relevance score equal to the boost parameter value"
+                value:
+                  customQuery:
+                    constantScore:
+                      boost: 2
+                      query:
+                        value:
+                          field: locations.name
+                          value: Mercy
+              RequireAll Query:
+                description: 'A document must match all criteria in a requireAll to show up in results.'
+                value:
+                  customQuery:
+                    requireAll:
+                      criteria:
+                        - value:
+                            field: carrierId
+                            value: '8135'
+                        - value:
+                            field: entityId
+                            value: '3799665'
+
+              RequireAny Query:
+                description: 'Any criteria in a requireAny Query can be true for a document in order for that document to be returned. A minimum of one of the criteria must be true.'
+                value:
+                  customQuery:
+                    requireAny:
+                      criteria:
+                        - value:
+                            field: carrierId
+                            value: '8135'
+                        - value:
+                            field: entityId
+                            value: '3799665'
+
+              Exclude Query:
+                description: 'An exclude query negates a query in its criteria. In other words, only documents that do not match the criteria will be returned in results.'
+                value:
+                  customQuery:
+                    exclude:
+                      criteria:
+                        - value:
+                            field: carrierId
+                            value: '8135'
+
+              Filter Aggregation:
+                description: 'Filter Aggregations are used to insert custom query syntax at an aggregation level to limit the scope of the matching documents for that aggregation and any pipelined aggregations.'
+                value:
+                  customQuery:
+                    value:
+                      field: entityType
+                      value: prac
+                  aggs:
+                    - name: carrierId
+                      aggType:
+                        filter:
+                          value:
+                            field: carrierId
+                            value: '71'
+              Nested Aggregation:
+                description: 'Nested Aggregations are used to get aggregate values about the nested path.'
+                value:
+                  customQuery:
+                    value:
+                      field: entityType
+                      value: prac
+                  aggs:
+                    - name: hospitalAffiliations
+                      aggType:
+                        nested:
+                          path: hospitalAffiliations
+              Values Aggregation:
+                description: 'Values Aggregations are used to get aggregate values about the results of a query. And example would be the top 500 unique specialties.'
+                value:
+                  customQuery:
+                    value:
+                      field: entityType
+                      value: prac
+                  aggs:
+                    - name: entityId
+                      aggType:
+                        valuesAgg:
+                          field: entityId
+                          size: 10
+              Multiple Aggregations:
+                description: 'You can specify more than one aggregation in the aggs array'
+                value:
+                  customQuery:
+                    value:
+                      field: entityType
+                      value: prac
+                  aggs:
+                    - name: entityId
+                      aggType:
+                        valuesAgg:
+                          field: entityId
+                          size: 10
+                    - name: carrierId
+                      aggType:
+                        valuesAgg:
+                          field: carrierId
+                          size: 10
+              Pipelined Aggregations:
+                description: 'Also known as subAggregations, pipelined aggs allow you to gather aggregate data off an already aggregated data set'
+                value:
+                  customQuery:
+                    value:
+                      field: entityType
+                      value: prac
+                  aggs:
+                    - name: locations.eligibleForDisplay
+                      aggType:
+                        filter:
+                          value:
+                            field: locations.eligibleForDisplay.eligibleIndicator
+                            value: Y
+                      aggs:
+                        - name: locations.address
+                          aggType:
+                            valuesAgg:
+                              field: locations.address.city
+                              size: 100000000
+              All Hidden Fields:
+                description: The above is the JSON structure for every hidden field.  Please do not try to run it, it is not a valid query.
+
+                value:
+                  carrierEntity:
+                    locations:
+                      address:
+                        search_coordinates: geo_point
+                        practitionerOfficeHours:
+                          friday:
+                            search_isoClose: date (HH:mm:ss)
+                            search_isoOpen: date (HH:mm:ss)
+                          monday:
+                            search_isoClose: date (HH:mm:ss)
+                            search_isoOpen: date (HH:mm:ss)
+                          saturday:
+                            search_isoClose: date (HH:mm:ss)
+                            search_isoOpen: date (HH:mm:ss)
+                          sunday:
+                            search_isoClose: date (HH:mm:ss)
+                            search_isoOpen: date (HH:mm:ss)
+                          thursday:
+                            search_isoClose: date (HH:mm:ss)
+                            search_isoOpen: date (HH:mm:ss)
+                          tuesday:
+                            search_isoClose: date (HH:mm:ss)
+                            search_isoOpen: date (HH:mm:ss)
+                          wednesday:
+                            search_isoClose: date (HH:mm:ss)
+                            search_isoOpen: date (HH:mm:ss)
+                        providerOfficeHours:
+                          friday:
+                            search_isoClose: date (HH:mm:ss)
+                            search_isoOpen: date (HH:mm:ss)
+                          monday:
+                            search_isoClose: date (HH:mm:ss)
+                            search_isoOpen: date (HH:mm:ss)
+                          saturday:
+                            search_isoClose: date (HH:mm:ss)
+                            search_isoOpen: date (HH:mm:ss)
+                          sunday:
+                            search_isoClose: date (HH:mm:ss)
+                            search_isoOpen: date (HH:mm:ss)
+                          thursday:
+                            search_isoClose: date (HH:mm:ss)
+                            search_isoOpen: date (HH:mm:ss)
+                          tuesday:
+                            search_isoClose: date (HH:mm:ss)
+                            search_isoOpen: date (HH:mm:ss)
+                          wednesday:
+                            search_isoClose: date (HH:mm:ss)
+                            search_isoOpen: date (HH:mm:ss)
+                        search_root_attributes:
+                          fields:
+                            name: String
+                            value: String
+                            value_date: date
+                            value_number: long
+                          name: String
+                        search_root_entityType: String
+                        search_root_pracFullAlternateName:
+                          fields:
+                            nameMatch: String
+                            suggest: String
+                        search_root_pracFullName:
+                          fields:
+                            nameMatch: String
+                            suggest: String
+                        search_root_providerName:
+                          fields:
+                            nameMatch: String
+                            suggest: String
+                    search_id: String
+                    search_pracFullAlternateName:
+                      fields:
+                        nameMatch: String
+                        suggest: String
+                    search_pracFullName:
+                      fields:
+                        nameMatch: String
+                        suggest: String
+              AlphaFilter Query:
+                description: "The Alpha Filter Query can be used to Filter against name fields in the JSON objects. The Alpha Filter query uses prefix term to filter name fields by the first character, only documents that match the criteria will be returned in results."
+                value:
+                  customQuery:
+                    alphaFilter:
+                      field: "providerName"
+                      value: "a"
+
+        required: true
+      responses:
+        '200':
+          description: Search accepted, executed, results returned
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                type: object
+        '500':
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                type: string
+  /extract/scroll/{scrollId}:
+    get:
+      tags:
+        - Extract
+      summary: returns the next set of data in the Extract request
+      operationId: Execute Scroll and return next scroll set
+      parameters:
+        - in: path
+          name: scrollId
+          schema:
+            type: string
+          required: true
+          description: Scroll ID that was returned in the response of the initiate/extract API call
+      responses:
+        '200':
+          description: Search accepted, executed, results returned
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                type: object
+        '500':
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                type: string
+  /extract/clear/{scrollId}:
+    delete:
+      tags:
+        - Extract
+      summary: 'Clears the Extract request from the cache'
+      operationId: clear extract
+      parameters:
+        - in: path
+          name: scrollId
+          schema:
+            type: string
+          required: true
+          description: Scroll ID that was returned in the last /scroll endpoint result you recieved
+      responses:
+        '200':
+          description: 'Returns if the extract request was cleared or if the extract request already timed out'
+          content:
+            application/json: {}
+        '400':
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                type: object
+        '500':
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                type: string
+components:
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: api_key
+      in: header

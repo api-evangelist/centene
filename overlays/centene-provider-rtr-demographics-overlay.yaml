@@ -1,0 +1,38 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Centene Provider RTR Demographics API
+  version: 1.0.0
+extends: openapi/centene-provider-rtr-demographics-openapi.json
+x-generated: '2026-09-07'
+x-method: generated
+x-source: openapi/centene-provider-rtr-demographics-openapi.json
+x-note: Additive only. This overlay records what API Evangelist established about the contract - provenance,
+  the real production host, standards conformance and cross-links to derived artifacts. It never rewrites
+  or removes anything Centene published.
+actions:
+- target: $.info
+  description: 'Record the observed provenance of this contract: where API Evangelist fetched it and what
+    it is.'
+  update:
+    x-apievangelist-source: https://external-api.my.centene.com/partner-portal/files?url=<apiOASURL>
+    x-apievangelist-catalogue: https://partners.centene.com/apis
+    x-apievangelist-fetched: '2026-09-07'
+    x-apievangelist-spec-version: 3.0.3
+- target: $.servers
+  description: Flag that servers[0] names a non-production or non-resolving host. Recorded, not rewritten
+    - the original contract is never mutated.
+  update:
+    x-apievangelist-server-warning: servers[0] names a development or internal gateway. Production hosts
+      are published only in the partner-portal catalogue hostServers, not in this document.
+- target: $.info
+  description: Cross-link the derived artifacts that carry the runtime semantics this contract omits.
+  update:
+    x-apievangelist-artifacts:
+      authentication: authentication/centene-authentication.yml
+      scopes: scopes/centene-scopes.yml
+      conventions: conventions/centene-conventions.yml
+      errors: errors/centene-problem-types.yml
+      lifecycle: lifecycle/centene-lifecycle.yml
+      rate_limits: rate-limits/centene-rate-limits.yml
+      conformance: conformance/centene-conformance.yml
+      data_model: data-model/centene-data-model.yml

@@ -1,0 +1,55 @@
+generated: '2026-09-07'
+method: searched
+source: https://partners.centene.com/apis
+provider: Centene
+providerId: centene
+package_count: 0
+official_package_count: 0
+note: >-
+  Centene publishes no client libraries. Searched npm (registry search for "centene"), PyPI
+  (/pypi/centene/json returned 404), and the developer portal's own catalogue and Getting Started
+  documents, which offer raw curl examples and nothing else. There is no SDK, SourceCode or CLI
+  link anywhere in the record to derive candidates from.
+  github.com/Centene was checked and is NOT Centene Corporation - it is a personal account
+  (schema.org/Person) whose repositories are unrelated Spanish-language coursework projects
+  (Facturacion-Ivann, Facturacion-con-menu, pepete, AppWeb, Combo, NewRepo2). No Centene
+  Corporation GitHub organization was found.
+packages: []
+registries_searched:
+  - registry: npm
+    query: centene
+    endpoint: https://registry.npmjs.org/-/v1/search?text=centene
+    result: no first-party package
+  - registry: PyPI
+    query: centene
+    endpoint: https://pypi.org/pypi/centene/json
+    status: 404
+  - registry: GitHub
+    query: github.com/Centene
+    status: 200
+    result: >-
+      Personal user account, not the corporation. Six unrelated repositories. This is a false
+      pointer, not an SDK source.
+mitigating_context:
+  note: >-
+    For a FHIR payer this is less damaging than a zero would normally be. Centene's two marquee
+    APIs are HL7 FHIR R4, and mature open-source FHIR clients already speak that contract without
+    any vendor SDK - HAPI FHIR (Java), fhirclient (Python), fhir.js and @types/fhir
+    (JavaScript), Firely .NET SDK. An integrator is not blocked; they are just using someone
+    else's library.
+  third_party_generic_clients:
+    - name: HAPI FHIR
+      language: java
+      official: false
+      note: Not a Centene package. Listed as context only - Centene's own server runs HAPI FHIR 7.0.0.
+    - name: fhirclient
+      language: python
+      official: false
+      note: Not a Centene package. Context only.
+gaps:
+  - No first-party SDK in any language.
+  - No published Postman collection or OpenAPI-generated client.
+  - No GitHub organization to host one.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

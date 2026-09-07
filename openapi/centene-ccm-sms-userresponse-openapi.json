@@ -1,0 +1,52 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "v1",
+        "title": "CCMSMS"
+    },
+    "host": "MQ",
+    "basePath": "/",
+    "schemes": [
+        "https"
+    ],
+    "paths": {
+        "/SMS.UserResponse/PostToCCMQueue": {
+            "post": {
+                "tags": [
+                    "Member"
+                ],
+                "operationId": "Member_PostSmsUserResponse",
+                "consumes": [
+                    "application/json",
+                    "text/json",
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json",
+                    "text/json",
+                    "application/xml",
+                    "text/xml"
+                ],
+                "parameters": [
+                    {
+                        "name": "value",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {}
+}

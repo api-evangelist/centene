@@ -1,0 +1,2252 @@
+openapi: 3.1.0
+info:
+  title: Provider Carrier Entity Search (PCES) API
+  description: 'PCES Description'
+  contact:
+    email: provider_search_support@centene.com
+  version: 0.0.6
+externalDocs:
+  description: Centene Search DSL Documentation
+  url: https://centene-search-dsl.ckp-dev.centene.com/
+servers:
+  - url: https://dev-int-api-gw.centene.com/pces
+    description: Dev
+  - url: https://prod.api.centene.com/incoming/dev/pces
+    description: Dev DMZ
+  - url: https://test-int-api-gw.centene.com/pces
+    description: Test
+  - url: https://prod.api.centene.com/incoming/test/pces
+    description: Test DMZ
+  - url:  https://api-gateway-01.centene.com/pces
+    description: Prod
+  - url:  https://prod.api.centene.com/incoming/pces
+    description: Prod DMZ
+tags:
+  - name: query
+    description: query elasticsearch
+    externalDocs:
+      description: Centene Search DSL
+      url: https://centene-search-dsl.ckp-dev.centene.com/
+  - name: custom-mapping
+    description: check local mapping
+paths:
+  /query:
+    post:
+      tags:
+        - query
+      summary: Send a query to Elasticsearch
+      operationId: query
+      parameters:
+        - name: index
+          in: query
+          required: false
+          description: query param to search the new index - carrier_entity_location_active
+          schema:
+            type: string
+            enum:
+              - cel
+      requestBody:
+        description: Centene Search DSL Request
+        content:
+          application/json:
+            schema:
+              anyOf:
+                - $ref: '#/components/schemas/customQuery'
+                - $ref: '#/components/schemas/aggs'
+            examples:
+              NameMatch Query:
+                description: "The nameMatch Query can be used to match against name fields in the JSON objects. The nameMatch query uses a predefined matching algorithm"
+                value:
+                  customQuery:
+                    nameMatch:
+                      field: "locations.name"
+                      value: "Walgreens"
+                      boost: 1
+              Value Query:
+                description: 'Used to apply logic that restricts a provided field in the document to an **exact** value. The Value query should only be used against fields that have an exact value representation in Elasticsearch such as fields mapped as keyword or number.'
+                value:
+                  customQuery:
+                    value:
+                      field: providerName
+                      value: Allwell Behavioral Health Services
+              Values Query:
+                description: 'Used to apply logic that restricts a provided field in the document to an array of **exact** values. The Values query should only be used against fields that have an exact value representation in Elasticsearch such as keyword or number.'
+                value:
+                  customQuery:
+                    values:
+                      field: providerName
+                      values: ["Minute Clinic", "CVS", "Walgreens"]
+              Range DateTime Query:
+                description: 'Used to apply logic that restricts a provided field to a given dateTime range.'
+                value:
+                  customQuery:
+                    range:
+                      field: locations.eligibleForDisplay.startDate
+                      type: datetime
+                      lte: '2017-01-01T12:00:00'
+              Range Date Query:
+                description: 'Used to apply logic that restricts a provided field to a given  date range.'
+                value:
+                  customQuery:
+                    range:
+                      field: locations.eligibleForDisplay.endDate
+                      type: date
+                      gt: '2017-01-01'
+              Range Time Query:
+                description: 'Used to apply logic that restricts a provided field to a given time range.'
+                value:
+                  customQuery:
+                    range:
+                      field: locations.providerOfficeHours.monday.search_isoClose
+                      type: time
+                      gt: '17:00:00'
+                      lte: '19:00:00'
+              Range Integer Query:
+                description: 'Used to apply logic that restricts a provided field to a given numerical range.'
+                value:
+                  customQuery:
+                    range:
+                      field: locations.panelCycles.lowestAge
+                      type: integer
+                      gte: '2'
+                      lt: '18'
+              Range Text Query:
+                description: 'Used to apply logic that restricts a provided field to a given text range.'
+                value:
+                  customQuery:
+                    range:
+                      field: modalities.modalityDescriptionFull
+                      type: text
+                      gte: a
+                      lt: m
+              GeoFilter Radius Query:
+                description: 'Used to apply logic that restricts a provided field by a geometric-defined limit, ie radius, box, or other shape. Note that geoFilters can only be applied to fields mapped as geo_point.'
+                value:
+                  customQuery:
+                    geoFilter:
+                      field: locations.address.search_coordinates
+                      radius:
+                        coordinates: '40, -80'
+                        distance: 200mi
+              GeoFilter BoundingBox Query:
+                description: 'Used to apply logic that restricts a provided field by a geometric-defined limit, ie radius, box, or other shape. Note that geoFilters can only be applied to fields mapped as geo_point.'
+                value:
+                  customQuery:
+                    geoFilter:
+                      field: locations.address.search_coordinates
+                      boundingBox:
+                        topLeft: '41.12, -71.34'
+                        bottomRight: '41, -90'
+              Exists Query:
+                description: 'Only includes results which have a value for the specified field.'
+                value:
+                  customQuery:
+                    exists:
+                      field: locations.address.addressLine1
+              Nested Query:
+                description: 'Specifies a list where you can declare a nested path that corresponds to a list of documents on the main provider document (ie, locations is a list of locations documents for a provider), and whether to filter the API results to only include matching results for that list.'
+                value:
+                  customQuery:
+                    nested:
+                      path: locations
+                      query:
+                        value:
+                          field: locations.name
+                          value: Mercy
+              Nested Query With MatchedList:
+                description: 'Specifies a list where you can declare a nested path that corresponds to a list of documents on the main provider document (ie, locations is a list of locations documents for a provider), and whether to filter the API results to only include matching results for that list.'
+                value:
+                  customQuery:
+                    nested:
+                      path: locations
+                      matchedList:
+                        name: locationsNested
+                        size: 100
+                        fields:
+                          - locations.name
+                          - locations.locationId
+                          - locations.taxIdNumber
+                      query:
+                        value:
+                          field: locations.name
+                          value: Mercy
+              RelevancyByDistance Query:
+                description: 'Documents will be sorted based on distance from the specified field, according to the custom parameters set.'
+                value:
+                  customQuery:
+                    relevancyByDistance:
+                      field: locations.address.search_coordinates
+                      origin: '38, -90'
+                      scale: 5mi
+                      offset: 3mi
+                      decay: 0.5
+                      minDistanceScore: 1
+                      query:
+                        value:
+                          field: locations.search_root_entityType
+                          value: prac
+              constantScore:
+                description: "Used to apply logic that Wraps a filter query and returns every matching document with a relevance score equal to the boost parameter value"
+                value:
+                  customQuery:
+                    constantScore:
+                      boost: 2
+                      query:
+                        value:
+                          field: locations.name
+                          value: Mercy
+              RequireAll Query:
+                description: 'A document must match all criteria in a requireAll to show up in results.'
+                value:
+                  customQuery:
+                    requireAll:
+                      criteria:
+                        - value:
+                            field: carrierId
+                            value: '8135'
+                        - value:
+                            field: entityId
+                            value: '3799665'
+
+              RequireAny Query:
+                description: 'Any criteria in a requireAny Query can be true for a document in order for that document to be returned. A minimum of one of the criteria must be true.'
+                value:
+                  customQuery:
+                    requireAny:
+                      criteria:
+                        - value:
+                            field: carrierId
+                            value: '8135'
+                        - value:
+                            field: entityId
+                            value: '3799665'
+
+              Exclude Query:
+                description: 'An exclude query negates a query in its criteria. In other words, only documents that do not match the criteria will be returned in results.'
+                value:
+                  customQuery:
+                    exclude:
+                      criteria:
+                        - value:
+                            field: carrierId
+                            value: '8135'
+
+              Filter Aggregation:
+                description: 'Filter Aggregations are used to insert custom query syntax at an aggregation level to limit the scope of the matching documents for that aggregation and any pipelined aggregations.'
+                value:
+                  customQuery:
+                    value:
+                      field: entityType
+                      value: prac
+                  aggs:
+                    - name: carrierId
+                      aggType:
+                        filter:
+                          value:
+                            field: carrierId
+                            value: '71'
+              Nested Aggregation:
+                description: 'Nested Aggregations are used to get aggregate values about the nested path.'
+                value:
+                  customQuery:
+                    value:
+                      field: entityType
+                      value: prac
+                  aggs:
+                    - name: hospitalAffiliations
+                      aggType:
+                        nested:
+                          path: hospitalAffiliations
+              Values Aggregation:
+                description: 'Values Aggregations are used to get aggregate values about the results of a query. And example would be the top 500 unique specialties.'
+                value:
+                  customQuery:
+                    value:
+                      field: entityType
+                      value: prac
+                  aggs:
+                    - name: entityId
+                      aggType:
+                        valuesAgg:
+                          field: entityId
+                          size: 10
+              Min Aggregation:
+                description: 'A single-value metrics aggregation that keeps track and returns the minimum value among numeric values extracted from the aggregated documents, "missing filed is optional"'
+                value:
+                  customQuery:
+                    value:
+                      field: entityType
+                      value: prac
+                  aggs:
+                    - name: minUpdateTime
+                      aggType:
+                        minAgg:
+                          field: updateTime
+                          missing: 2022-10-06T03:47:29.193Z
+              Max Aggregation:
+                description: 'A single-value metrics aggregation that keeps track and returns the minimum value among numeric values extracted from the aggregated documents, "missing filed is optional"'
+                value:
+                  customQuery:
+                    value:
+                      field: entityType
+                      value: prac
+                  aggs:
+                    - name: minUpdateTime
+                      aggType:
+                        maxAgg:
+                          field: updateTime
+                          missing: 2022-10-06T03:47:29.193Z
+              Cardinality Aggregation:
+                description: 'A single-value metrics aggregation that calculates an approximate count of distinct values.The precision_threshold field is optional. It allows to trade memory for accuracy, and defines a unique count below which counts are expected to be close to accurate.  Above this value, counts might become a bit more fuzzy. The maximum supported value is 40000, thresholds above this number will have the same effect as a threshold of 40000. The default value is 3000'
+                value:
+                  customQuery:
+                    value:
+                      field: entityId
+                      value: 3248242
+                  aggs:
+                    - name: entityType
+                      aggType:
+                        cardinality:
+                          field: search_entityTypeEntityId
+                          precisionThreshold: 398
+              Collapse:
+                description: 'Collapse parameter collapses search results based on field values. The collapsing is done by selecting only the top sorted document per collapse key. If you need the count of hits to be accurate (approx.), then cardinality aggregation should be included for the same collapse field.'
+                value:
+                  customQuery:
+                    value:
+                      field: entityId
+                      value: 3248242
+                  collapse:
+                    field: search_entityTypeEntityId
+                  aggs:
+                    - name: entityType
+                      aggType:
+                        cardinality:
+                          field: search_entityTypeEntityId
+                          precisionThreshold: 398
+              Multiple Aggregations:
+                description: 'You can specify more than one aggregation in the aggs array'
+                value:
+                  customQuery:
+                    value:
+                      field: entityType
+                      value: prac
+                  aggs:
+                    - name: entityId
+                      aggType:
+                        valuesAgg:
+                          field: entityId
+                          size: 10
+                    - name: carrierId
+                      aggType:
+                        valuesAgg:
+                          field: carrierId
+                          size: 10
+              Pipelined Aggregations:
+                description: 'Also known as subAggregations, pipelined aggs allow you to gather aggregate data off an already aggregated data set'
+                value:
+                  customQuery:
+                    value:
+                      field: entityType
+                      value: prac
+                  aggs:
+                    - name: locations.eligibleForDisplay
+                      aggType:
+                        filter:
+                          value:
+                            field: locations.eligibleForDisplay.eligibleIndicator
+                            value: Y
+                      aggs:
+                        - name: locations.address
+                          aggType:
+                            valuesAgg:
+                              field: locations.address.city
+                              size: 100000000
+              All Hidden Fields:
+                description: The above is the JSON structure for every hidden field.  Please do not try to run it, it is not a valid query.
+
+                value:
+                  carrierEntity:
+                    locations:
+                      address:
+                        search_coordinates: geo_point
+                        practitionerOfficeHours:
+                          friday:
+                            search_isoClose: date (HH:mm:ss)
+                            search_isoOpen: date (HH:mm:ss)
+                          monday:
+                            search_isoClose: date (HH:mm:ss)
+                            search_isoOpen: date (HH:mm:ss)
+                          saturday:
+                            search_isoClose: date (HH:mm:ss)
+                            search_isoOpen: date (HH:mm:ss)
+                          sunday:
+                            search_isoClose: date (HH:mm:ss)
+                            search_isoOpen: date (HH:mm:ss)
+                          thursday:
+                            search_isoClose: date (HH:mm:ss)
+                            search_isoOpen: date (HH:mm:ss)
+                          tuesday:
+                            search_isoClose: date (HH:mm:ss)
+                            search_isoOpen: date (HH:mm:ss)
+                          wednesday:
+                            search_isoClose: date (HH:mm:ss)
+                            search_isoOpen: date (HH:mm:ss)
+                        providerOfficeHours:
+                          friday:
+                            search_isoClose: date (HH:mm:ss)
+                            search_isoOpen: date (HH:mm:ss)
+                          monday:
+                            search_isoClose: date (HH:mm:ss)
+                            search_isoOpen: date (HH:mm:ss)
+                          saturday:
+                            search_isoClose: date (HH:mm:ss)
+                            search_isoOpen: date (HH:mm:ss)
+                          sunday:
+                            search_isoClose: date (HH:mm:ss)
+                            search_isoOpen: date (HH:mm:ss)
+                          thursday:
+                            search_isoClose: date (HH:mm:ss)
+                            search_isoOpen: date (HH:mm:ss)
+                          tuesday:
+                            search_isoClose: date (HH:mm:ss)
+                            search_isoOpen: date (HH:mm:ss)
+                          wednesday:
+                            search_isoClose: date (HH:mm:ss)
+                            search_isoOpen: date (HH:mm:ss)
+                        search_root_attributes:
+                          fields:
+                            name: String
+                            value: String
+                            value_date: date
+                            value_number: long
+                          name: String
+                        search_root_associatedProvAttributes:
+                          type: object
+                          $ref: '#/components/schemas/AssociatedProvAttribute'
+                        search_root_entityType: String
+                        search_root_pracFullAlternateName:
+                          fields:
+                            nameMatch: String
+                            suggest: String
+                        search_root_pracFullName:
+                          fields:
+                            nameMatch: String
+                            suggest: String
+                        search_root_providerName:
+                          fields:
+                            nameMatch: String
+                            suggest: String
+                    search_entityTypeEntityId: String
+                    search_id: String
+                    search_pracFullAlternateName:
+                      fields:
+                        nameMatch: String
+                        suggest: String
+                    search_pracFullName:
+                      fields:
+                        nameMatch: String
+                        suggest: String
+              AlphaFilter Query:
+                description: "The Alpha Filter Query can be used to Filter against name fields in the JSON objects. The Alpha Filter query uses prefix term to filter name fields by the first character, only documents that match the criteria will be returned in results."
+                value:
+                  customQuery:
+                    alphaFilter:
+                      field: "providerName"
+                      value: "a"
+              Prefix Query:
+                description: "The Prefix Query can be used to Filter against keyword fields in the JSON objects. The Prefix query uses prefix term to filter keyword fields by the prefix characters sent in the request, only documents that match the criteria will be returned in results."
+                value:
+                  customQuery:
+                    prefix:
+                      field: "carrierId"
+                      value: "18"
+              Nested attribute Query Pattern Multiple Fields:
+                description: "This pattern is an example of how to query a multi-field Portico UDA in the attributes arrays"
+                value:
+                  customQuery:
+                    nested:
+                      path: locations.attributes
+                      query:
+                        constantScore:
+                          boost: 1
+                          query:
+                            requireAll:
+                              criteria:
+                                - value:
+                                    field: locations.attributes.name
+                                    value: Medicare Advantage Required
+                                - nested:
+                                    path: locations.attributes.fields
+                                    query:
+                                      requireAll:
+                                        criteria:
+                                          - value:
+                                              field: locations.attributes.fields.name
+                                              value: PH Chain
+                                          - value:
+                                              field: locations.attributes.fields.value
+                                              value: 'Y'
+                                - nested:
+                                    path: locations.attributes.fields
+                                    query:
+                                      requireAll:
+                                        criteria:
+                                          - value:
+                                              field: locations.attributes.fields.name
+                                              value: PH Retail
+                                          - value:
+                                              field: locations.attributes.fields.value
+                                              value: 'Y'
+              Nested attribute Query Pattern Single Field:
+                description: "This pattern is an example of how to query a multi-field Portico UDA in the attributes arrays"
+                value:
+                  customQuery:
+                    nested:
+                      path: locations.attributes
+                      query:
+                        constantScore:
+                          boost: 1
+                          query:
+                            requireAll:
+                              criteria:
+                                - value:
+                                    field: locations.attributes.name
+                                    value: Medicare Advantage Required
+                                - nested:
+                                    path: locations.attributes.fields
+                                    query:
+                                      requireAll:
+                                        criteria:
+                                          - value:
+                                              field: locations.attributes.fields.name
+                                              value: PH Chain
+                                          - value:
+                                              field: locations.attributes.fields.value
+                                              value: 'Y'
+              FieldValueScore Query:
+                description: "The fieldValueScore Query allows you to modify the score of documents that are retrieved by a query. This works just with float values. The only modifier value accepted is 'none'"
+                value:
+                  customQuery:
+                    fieldValueScore:
+                      "field": "locations.priScore"
+                      "factor": 2
+                      "modifier": "none"
+                      "default": 1
+        required: true
+      responses:
+        '200':
+          description: Search accepted, executed, results returned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CarrierEntityResults'
+        '400':
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                type: object
+        '500':
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                type: string
+  /custom-mapping:
+    get:
+      tags:
+        - custom-mapping
+      summary: 'local mapping file for PCES validations'
+      operationId: custom-mapping
+      responses:
+        '200':
+          description: 'responds with the local pces mapping json file'
+          content:
+            application/json: {}
+        '400':
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                type: object
+        '500':
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                type: string
+  /custom-query-validator:
+    post:
+      tags:
+        - custom-query-validator
+      summary: providerCarrierEntitySearchCustomQueryValidator
+      operationId: providerCarrierEntitySearchCustomQueryValidatorUsingPOST
+      requestBody:
+        content:
+          application/json:
+            schema:
+              anyOf:
+                - $ref: '#/components/schemas/CarrierEntityRequest'
+            examples:
+              query exmaple:
+                description: ''
+                value:
+                  customQuery:
+                    value:
+                      field: "location.name"
+                      value: "Walgreens"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                anyOf:
+                  - $ref: '#/components/schemas/Responses'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  /query-validator:
+    post:
+      tags:
+        - query-validator
+      summary: providerCarrierEntitySearchQueryValidator
+      operationId: providerCarrierEntitySearchQueryValidatorUsingPOST
+      requestBody:
+        content:
+          application/json:
+            schema:
+              anyOf:
+                - $ref: '#/components/schemas/CarrierEntityRequest'
+            examples:
+              query exmaple:
+                description: ''
+                value:
+                  customQuery:
+                    value:
+                      field: "locations.name"
+                      value: "Walgreens"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Query'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+components:
+  schemas:
+    customQuery:
+      description: 'The Custom Query object is where a user can define the query they want to run on the data. There are "building block" queries outlined in the DSL to allow a user to construct a query specific to their needs.'
+      type: object
+      properties:
+        customQuery:
+          type: object
+          oneOf:
+            - $ref: '#/components/schemas/value'
+            - $ref: '#/components/schemas/values'
+            - $ref: '#/components/schemas/range'
+            - $ref: '#/components/schemas/geoFilter'
+            - $ref: '#/components/schemas/nameMatch'
+            - $ref: '#/components/schemas/exists'
+            - $ref: '#/components/schemas/nested'
+            - $ref: '#/components/schemas/relevancyByDistance'
+            - $ref: '#/components/schemas/requireAll'
+            - $ref: '#/components/schemas/requireAny'
+            - $ref: '#/components/schemas/exclude'
+            - $ref: '#/components/schemas/constantScore'
+            - $ref: '#/components/schemas/alphaFilter'
+            - $ref: '#/components/schemas/prefix'
+    #generated schemas
+    aggs:
+      description: 'The Aggregations object is where a user can request aggregate data about the query results. For example, a user could ask for an aggregation on locations.address.state to get a list of all states represented in the result data. There are different types of aggregations that can be used, and aggregations can be pipelined off of each other. Currently, an aggregation needs an accompanying customQuery to return results.'
+      type: object
+      required:
+        - name
+        - aggType
+      properties:
+        name:
+          type: string
+        aggType:
+          $ref: '#/components/schemas/aggType'
+        aggs:
+          type: array
+          items:
+            $ref: '#/components/schemas/aggs'
+    aggType:
+      description: 'The aggType object contains the actual type of aggregation which will be like valuesAgg or filter or nested.'
+      type: object
+      oneOf:
+        - $ref: '#/components/schemas/FilterAggregation'
+        - $ref: '#/components/schemas/ValuesAggregation'
+        - $ref: '#/components/schemas/NestedAggregation'
+        - $ref: '#/components/schemas/MinAggregation'
+        - $ref: '#/components/schemas/MaxAggregation'
+    ValuesAggregation:
+      description: 'Value Aggregations are used to get aggregate values about the results of a query. And example would be the top 500 unique specialties.'
+      type: object
+      properties:
+        valuesAgg:
+          type: object
+          required:
+            - field
+          properties:
+            field:
+              type: string
+            size:
+              type: integer
+              format: int32
+    MinAggregation:
+      description: 'A single-value metrics aggregation that keeps track and returns the minimum value among numeric values extracted from the aggregated documents.'
+      type: object
+      properties:
+        minAgg:
+          type: object
+          required:
+            - field
+          properties:
+            field:
+              type: string
+            missing:
+              type: string
+    MaxAggregation:
+      description: 'A single-value metrics aggregation that keeps track and returns the minimum value among numeric values extracted from the aggregated documents.'
+      type: object
+      properties:
+        maxAgg:
+          type: object
+          required:
+            - field
+          properties:
+            field:
+              type: string
+            missing:
+              type: string
+    FilterAggregation:
+      description: 'Filter Aggregations are used to insert custom query syntax at an aggregation level to limit the scope of the matching documents for that aggregation and any pipelined aggregations.'
+      type: object
+      properties:
+        filter:
+          type: object
+          allOf:
+            - $ref: '#/components/schemas/Condition'
+    Condition:
+      type: object
+    exclude:
+      type: object
+      properties:
+        exclude:
+          type: object
+          allOf:
+            - $ref: '#/components/schemas/Condition'
+            - type: object
+              required:
+                - criteria
+              properties:
+                criteria:
+                  type: array
+                  maxItems: 1
+                  items:
+                    $ref: '#/components/schemas/Condition'
+    exists:
+      type: object
+      properties:
+        exists:
+          type: object
+          allOf:
+            - $ref: '#/components/schemas/Condition'
+            - type: object
+              required:
+                - field
+              properties:
+                field:
+                  type: string
+    geoFilter:
+      type: object
+      properties:
+        geoFilter:
+          type: object
+          allOf:
+            - $ref: '#/components/schemas/Condition'
+            - type: object
+              required:
+                - field
+              properties:
+                field:
+                  type: string
+              oneOf:
+                - $ref: '#/components/schemas/BoundingBox'
+                - $ref: '#/components/schemas/Radius'
+                - $ref: '#/components/schemas/Shape'
+    BoundingBox:
+      description: 'Provide coordinates as comma separated strings ("lat, lon") for <topLeft> point of the box, and <bottomRight> point.'
+      type: object
+      properties:
+        boundingBox:
+          type: object
+          required:
+            - topLeft
+            - bottomRight
+          properties:
+            topLeft:
+              type: string
+            bottomRight:
+              type: string
+    matchedList:
+      type: object
+      description: 'Used to return and/or filter down which locations match in the locations array. '
+      required:
+        - name
+      properties:
+        name:
+          type: string
+        restrictedMatchedList:
+          description: 'If set to Y the locations array will only contain matching locations. '
+          type: string
+          default: 'N'
+        size:
+          description: 'Used to determine how many locations matchedList will restrict/return.'
+          type: number
+          default: 3
+        determineDistance:
+          type: object
+          description: 'If populated will return the distances for each matching location'
+          required:
+            - field
+            - origin
+          properties:
+            field:
+              description: 'path to a coordinates field'
+              type: string
+            origin:
+              description: 'Comma seperated lat, lon string value for starting origin'
+              type: string
+        fields:
+          type: array
+          items:
+            type: string
+    nameMatch:
+      type: object
+      properties:
+        nameMatch:
+          type: object
+          allOf:
+            - $ref: '#/components/schemas/Condition'
+            - type: object
+              required:
+                - field
+                - value
+              properties:
+                field:
+                  type: string
+                value:
+                  type: string
+                boost:
+                  type: number
+                  format: float
+                minimumMatch:
+                  description: "This field is optional.
+                                When provided, it should be a percentage i. e. 75%
+                                (Indicates that this percent of the total number of optional clauses are necessary.
+                                The number computed from the percentage is rounded down and used as the minimum)
+                                The value can be negative i.e. -25%
+                                (Indicates that this percent of the total number of optional clauses can be missing.
+                                The number computed from the percentage is rounded down,
+                                before being subtracted from the total to determine the minimum.)
+                                The value can't be 0%."
+                  type: string
+    alphaFilter:
+      type: object
+      properties:
+        alphaFilter:
+          type: object
+          allOf:
+            - $ref: '#/components/schemas/Condition'
+            - type: object
+              required:
+                - field
+                - value
+              properties:
+                field:
+                  type: string
+                value:
+                  type: string
+    prefix:
+      type: object
+      properties:
+        prefix:
+          type: object
+          allOf:
+            - $ref: '#/components/schemas/Condition'
+            - type: object
+              required:
+                - field
+                - value
+              properties:
+                field:
+                  type: string
+                value:
+                  type: string
+    NestedAggregation:
+      description: 'Nested Aggregations are used to get aggregate values about the nested path.'
+      type: object
+      properties:
+        nested:
+          type: object
+          required:
+            - path
+          properties:
+            path:
+              type: string
+    nested:
+      description: 'Specifies a list where you can declare a nested path that corresponds to a list of documents on the main provider document (ie, locations is a list of locations documents for a provider), and whether to filter the API results to only include matching results for that list.'
+      type: object
+      properties:
+        nested:
+          type: object
+          allOf:
+            - $ref: '#/components/schemas/Condition'
+            - type: object
+              required:
+                - path
+                - query
+              properties:
+                path:
+                  type: string
+                query:
+                  $ref: '#/components/schemas/Condition'
+                matchedList:
+                  $ref: '#/components/schemas/matchedList'
+    Radius:
+      description: 'For filtering by a certain radial distance, eg. 100 miles. Simply provide <coordinates> as a comma separated string, lat, lon and <distance> for your specified range. Be sure to include your specified unit of measure in the distance field. (ie, 100mi for 100 miles or 300km for 300 kilometers)'
+      type: object
+      properties:
+        radius:
+          type: object
+          required:
+            - coordinates
+            - distance
+          properties:
+            coordinates:
+              type: string
+            distance:
+              type: string
+    range:
+      description: "Can accept a single logical operator (lt, lte, gt, gte), but at most one upper and one lower."
+      type: object
+      properties:
+        range:
+          type: object
+          allOf:
+            - $ref: '#/components/schemas/Condition'
+            - type: object
+              required:
+                - field
+                - type
+              properties:
+                field:
+                  type: string
+                type:
+                  type: string
+                gte:
+                  description: 'greater than or equal to'
+                  type: string
+                gt:
+                  description: 'greater than'
+                  type: string
+                lte:
+                  description: 'less than or equal to'
+                  type: string
+                lt:
+                  description: 'less than'
+                  type: string
+    relevancyByDistance:
+      description: 'Documents will be sorted based on distance from the specified field, according to the custom parameters set.'
+      type: object
+      properties:
+        relevancyByDistance:
+          type: object
+          allOf:
+            - $ref: '#/components/schemas/Condition'
+            - type: object
+              required:
+                - field
+                - origin
+                - scale
+                - offset
+                - decay
+                - minDistanceScore
+                - query
+              properties:
+                field:
+                  description: 'The field you want a documents relevancy scored by, must be a geo_point type mapped field.'
+                  type: string
+                origin:
+                  description: 'The starting point by which to score distance from.'
+                  type: string
+                scale:
+                  description: 'The distance at which a documents score will equal the decay value.'
+                  type: string
+                offset:
+                  description: 'If an offset is defined, the decay function will only compute for documents with a distance greater that the defined offset.'
+                  type: string
+                decay:
+                  description: 'How documents are scored at the scale distance. Ie, if scale is 5mi, and decay is 0.5, documents 5mi from the origin will be scored at 0.5.'
+                  type: string
+                minDistanceScore:
+                  description: 'This is the minimum score a document can have no matter how far away from the origin it is. For example, if a document is so far a way that its score would have been 0, this score will be used instead, this way a document will never have score of 0.'
+                  type: string
+                query:
+                  $ref: '#/components/schemas/Condition'
+    requireAll:
+      description: 'A document must match all criteria in a requireAll to show up in results.'
+      type: object
+      properties:
+        requireAll:
+          type: object
+          allOf:
+            - $ref: '#/components/schemas/Condition'
+            - type: object
+              required:
+                - criteria
+              properties:
+                criteria:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Condition'
+    requireAny:
+      description: 'Any criteria in a requireAny Query can be true for a document in order for that document to be returned. A minimum of one of the criteria must be true.'
+      type: object
+      properties:
+        requireAny:
+          type: object
+          allOf:
+            - $ref: '#/components/schemas/Condition'
+            - type: object
+              required:
+                - criteria
+              properties:
+                criteria:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Condition'
+    Shape:
+      description: 'Provide an array of latitude, longitude points for your shape.'
+      type: object
+      properties:
+        shape:
+          type: array
+          minItems: 1
+          items:
+            type: string
+    value:
+      description: 'Used to apply logic that restricts a provided field in the document to an **exact** value. The Value query should only be used against fields that have an exact value representation in Elasticsearch such as fields mapped as keyword or number.'
+      type: object
+      properties:
+        value:
+          type: object
+          allOf:
+            - $ref: '#/components/schemas/Condition'
+            - type: object
+              required:
+                - field
+                - value
+              properties:
+                field:
+                  type: string
+                value:
+                  type: string
+    values:
+      description: 'Used to apply logic that restricts a provided field in the document to an array of **exact** values. The Values query should only be used against fields that have an exact value representation in Elasticsearch such as keyword or number.'
+      type: object
+      properties:
+        values:
+          type: object
+          allOf:
+            - $ref: '#/components/schemas/Condition'
+            - type: object
+              required:
+                - field
+                - values
+              properties:
+                field:
+                  type: string
+                values:
+                  type: array
+                  items:
+                    type: string
+    constantScore:
+      description: 'Used to apply logic that Wraps a filter query and returns every matching document with a relevance score equal to the boost parameter value'
+      type: object
+      properties:
+        nested:
+          type: object
+          allOf:
+            - $ref: '#/components/schemas/Condition'
+            - type: object
+              required:
+                - query
+              properties:
+                boost:
+                  type: number
+                  format: float
+                query:
+                  $ref: '#/components/schemas/Condition'
+    Accreditation:
+      type: object
+      properties:
+        accredLevel:
+          type: string
+        accredType:
+          type: string
+        effectiveDate:
+          type: string
+          format: date-time
+        expirationDate:
+          type: string
+          format: date-time
+        isAccredited:
+          type: string
+        number:
+          type: string
+        validationDate:
+          type: string
+          format: date-time
+    AdditionalAddress:
+      type: object
+      properties:
+        addressId:
+          type: string
+        addressLine1:
+          type: string
+        addressLine2:
+          type: string
+        city:
+          type: string
+        county:
+          type: string
+        endDate:
+          type: string
+          format: date-time
+        geoCoords:
+          $ref: '#/components/schemas/GeoCoords'
+        latitude:
+          type: string
+        longitude:
+          type: string
+        phoneNumbers:
+          type: array
+          items:
+            $ref: '#/components/schemas/PhoneNumber'
+        startDate:
+          type: string
+          format: date-time
+        state:
+          type: string
+        stateCode:
+          type: string
+        type:
+          type: string
+        zipCode:
+          type: string
+        zipPlus4:
+          type: string
+    Address:
+      type: object
+      properties:
+        addressEndDate:
+          type: string
+          format: date-time
+        addressLine1:
+          type: string
+        addressLine2:
+          type: string
+        addressLine3:
+          type: string
+        addressStartDate:
+          type: string
+          format: date-time
+        city:
+          type: string
+        country:
+          type: string
+        countryCode:
+          type: string
+        county:
+          type: string
+        fipsCountyCode:
+          type: string
+        latitude:
+          type: string
+        longitude:
+          type: string
+        postalCode:
+          type: string
+        state:
+          type: string
+        stateCode:
+          type: string
+        type:
+          type: string
+        zipCode:
+          type: string
+        zipPlus4:
+          type: string
+    Affiliation:
+      type: object
+      properties:
+        absSuffix:
+          type: string
+        accept:
+          type: string
+        active:
+          type: string
+        affiliatedAgency:
+          type: string
+        affiliationNumber:
+          type: string
+        altProviderType:
+          type: string
+        altSpec1:
+          type: string
+        alternateQualifier:
+          type: string
+        area:
+          type: string
+        businessUnit:
+          type: string
+        capCycle:
+          type: string
+        capKey:
+          type: string
+        capMethod:
+          type: string
+        capStatus:
+          type: string
+        capType:
+          type: string
+        carrier:
+          type: string
+        claimType:
+          type: string
+        classX:
+          type: string
+        cnrReason:
+          type: string
+        county:
+          type: string
+        credRequired:
+          type: string
+        deaNumber:
+          type: string
+        endDate:
+          type: string
+          format: date-time
+        exceptionFee:
+          type: string
+        fundClass:
+          type: string
+        groupPracticeNumber:
+          type: string
+        hatCode:
+          type: string
+        irsNumber:
+          type: string
+        lag:
+          type: string
+        losRegion:
+          type: string
+        medicaidNumber:
+          type: string
+        medicareNumber:
+          type: string
+        nationalProviderIdentifier:
+          type: string
+        networkCycleIdRef:
+          type: string
+        networkLocationCycleIdRef:
+          type: string
+        officeNumber:
+          type: string
+        overrideKey:
+          type: string
+        patientLoad:
+          type: string
+        payClass:
+          type: string
+        payDiscount:
+          type: string
+        payTo:
+          type: string
+        periodTable:
+          type: string
+        poolClass:
+          type: string
+        program:
+          type: string
+        providerId:
+          type: string
+        providerType:
+          type: string
+        region:
+          type: string
+        scaleClass:
+          type: string
+        spec1:
+          type: string
+        startDate:
+          type: string
+          format: date-time
+        status:
+          type: string
+        subProgram:
+          type: string
+        taxonomy:
+          type: string
+    AggResponse:
+      type: object
+      properties:
+        name:
+          type: string
+        type:
+          type: string
+        buckets:
+          type: array
+          items:
+            $ref: '#/components/schemas/Bucket'
+        otherDocs:
+          type: integer
+          format: int64
+        docCount:
+          type: integer
+          format: int64
+        aggs:
+          type: array
+          items:
+            $ref: '#/components/schemas/AggResponse'
+    Aggregation:
+      title: Aggregation
+      type: object
+      properties:
+        aggType:
+          $ref: '#/components/schemas/AggregationType'
+        aggs:
+          type: array
+          items:
+            $ref: '#/components/schemas/Aggregation'
+        name:
+          type: string
+    AggregationType:
+      title: AggregationType
+      type: object
+      properties:
+        filter:
+          $ref: '#/components/schemas/Condition'
+        valuesAgg:
+          $ref: '#/components/schemas/AggregationValues'
+    AggregationValues:
+      title: AggregationValues
+      type: object
+      properties:
+        field:
+          type: string
+        size:
+          type: integer
+          format: int32
+    AreaNetworkService:
+      type: object
+      properties:
+        area:
+          type: string
+        areaType:
+          type: string
+        network:
+          type: string
+        service:
+          type: string
+        serviceDescription:
+          type: string
+        serviceDescriptionFull:
+          type: string
+        serviceType:
+          type: string
+    AvailabilityCondition:
+      title: AvailabilityCondition
+      allOf:
+        - $ref: '#/components/schemas/RelevancyCondition'
+        - title: AvailabilityCondition
+          type: object
+    BadgeCertification:
+      type: object
+      properties:
+        badgeOrCertType:
+          type: string
+        badgeOrCertTypeDescription:
+          type: string
+        badgeOrCertTypeDescriptionFull:
+          type: string
+    Bucket:
+      type: object
+      properties:
+        key:
+          type: string
+        aggs:
+          type: array
+          items:
+            $ref: '#/components/schemas/AggResponse'
+        docCount:
+          type: integer
+          format: int64
+    CarrierEntity:
+      type: object
+      properties:
+        _id:
+          type: string
+        accreditations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Accreditation'
+        additionalAddresses:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdditionalAddress'
+        affiliations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Affiliation'
+        alternateName:
+          $ref: '#/components/schemas/Name'
+        associatedProvAttributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/AssociatedProvAttribute'
+        attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/UDA'
+        badgeCertifications:
+          type: array
+          items:
+            $ref: '#/components/schemas/BadgeCertification'
+        carrierId:
+          type: string
+        categoryCode:
+          type: string
+        caveatMessages:
+          type: array
+          items:
+            $ref: '#/components/schemas/CaveatMessage'
+        dateOfBirth:
+          type: string
+          format: date-time
+        degree:
+          type: string
+        disorders:
+          type: array
+          items:
+            $ref: '#/components/schemas/Disorder'
+        email:
+          type: string
+        entityId:
+          type: string
+        entityType:
+          type: string
+        gender:
+          type: string
+        hatCode:
+          type: string
+        healthNetLegacyPhyId:
+          type: string
+        homeCommunityBasedServices:
+          type: array
+          items:
+            $ref: '#/components/schemas/HomeCommunityBasedService'
+        hospitalAffiliations:
+          type: array
+          items:
+            $ref: '#/components/schemas/HospitalAffiliation'
+        licenses:
+          type: array
+          items:
+            $ref: '#/components/schemas/License'
+        locations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Location'
+        meta:
+          $ref: '#/components/schemas/Meta'
+        medicaidNumbers:
+          type: array
+          items:
+            $ref: '#/components/schemas/MedicaidNumber'
+        medicareNumbers:
+          type: array
+          items:
+            $ref: '#/components/schemas/MedicareNumber'
+        modalities:
+          type: array
+          items:
+            $ref: '#/components/schemas/Modality'
+        name:
+          $ref: '#/components/schemas/Name'
+        nationalProviderIdentifiers:
+          type: array
+          items:
+            $ref: '#/components/schemas/NationalProviderIdentifiers'
+        network:
+          $ref: '#/components/schemas/Network'
+        providerName:
+          type: string
+        providerType:
+          type: string
+        search_id:
+          type: string
+        subCategoryCode:
+          type: string
+        subProviderCode:
+          type: string
+        taxIdNumber:
+          type: string
+        trainings:
+          type: array
+          items:
+            $ref: '#/components/schemas/Training'
+        updateTime:
+          type: string
+          format: date-time
+    CarrierEntityResults:
+      type: object
+      properties:
+        totalHits:
+          type: integer
+          format: int64
+        queryTime:
+          type: string
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Result'
+        aggs:
+          type: array
+          items:
+            $ref: '#/components/schemas/AggResponse'
+    CarrierEntityRequest:
+      title: CarrierEntityRequest
+      type: object
+      properties:
+        aggs:
+          type: array
+          items:
+            $ref: '#/components/schemas/Aggregation'
+        customQuery:
+          $ref: '#/components/schemas/Condition'
+        from:
+          type: integer
+          format: int32
+        matchedLists:
+          type: array
+          items:
+            $ref: '#/components/schemas/MatchedListsCondition'
+        relevancy:
+          type: array
+          items:
+            $ref: '#/components/schemas/RelevancyCondition'
+        size:
+          type: integer
+          format: int32
+    CaveatMessage:
+      type: object
+      properties:
+        caveatMessage:
+          type: string
+        caveatMessageDescription:
+          type: string
+        caveatMessageDescriptionFull:
+          type: string
+    Day:
+      type: object
+      properties:
+        open:
+          type: string
+        close:
+          type: string
+        isoOpen:
+          type: string
+          format: date-time
+        isoClose:
+          type: string
+          format: date-time
+    Disorder:
+      type: object
+      properties:
+        disorder:
+          type: string
+        disorderDescription:
+          type: string
+        disorderDescriptionFull:
+          type: string
+    EligibleForDisplay:
+      type: object
+      properties:
+        eligibleIndicator:
+          type: string
+        endDate:
+          type: string
+          format: date-time
+        geoCoordsDisplay:
+          type: string
+        parDisplay:
+          type: string
+        printDisplay:
+          type: string
+        specialtyDisplay:
+          type: string
+        startDate:
+          type: string
+          format: date-time
+    GeoCoords:
+      type: object
+      properties:
+        coordinates:
+          type: array
+          items:
+            type: number
+            format: float
+        type:
+          type: string
+    HomeCommunityBasedService:
+      type: object
+      properties:
+        activeService:
+          type: string
+        countyServed:
+          type: string
+        endDate:
+          type: string
+          format: date-time
+        hcbsService:
+          type: string
+        healthPlan:
+          type: string
+        serviceDescription:
+          type: string
+        serviceGrouping:
+          type: string
+        startDate:
+          type: string
+          format: date-time
+        waiver:
+          type: string
+    HospitalAffiliation:
+      type: object
+      properties:
+        name:
+          type: string
+        primary:
+          type: string
+        privilege:
+          type: string
+        privilegeEffectiveDate:
+          type: string
+          format: date-time
+        privilegeExpirationDate:
+          type: string
+          format: date-time
+    License:
+      type: object
+      properties:
+        effectiveDate:
+          type: string
+          format: date-time
+        expirationDate:
+          type: string
+          format: date-time
+        licenseNumber:
+          type: string
+        licenseType:
+          type: string
+        licensureStatus:
+          type: string
+        state:
+          type: string
+    Location:
+      type: object
+      properties:
+        address:
+          $ref: '#/components/schemas/Address'
+        areaNetworkServices:
+          type: array
+          items:
+            $ref: '#/components/schemas/AreaNetworkService'
+        attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/UDA'
+        eligibleForDisplay:
+          type: array
+          items:
+            $ref: '#/components/schemas/EligibleForDisplay'
+        handicap:
+          type: string
+        healthNetLegacyLocId:
+          type: string
+        locationEndDate:
+          type: string
+          format: date-time
+        locationId:
+          type: string
+        locationStartDate:
+          type: string
+          format: date-time
+        name:
+          type: string
+        networkLocationCycles:
+          type: array
+          items:
+            $ref: '#/components/schemas/NetworkLocationCycle'
+        panelCycles:
+          type: array
+          items:
+            $ref: '#/components/schemas/PanelCycle'
+        phone:
+          $ref: '#/components/schemas/Phone'
+        pracPhone:
+          $ref: '#/components/schemas/PracPhone'
+        practitionerOfficeHours:
+          $ref: '#/components/schemas/OfficeHours'
+        primary:
+          type: string
+        participatingPhysicianGroupIdentifiers:
+          $ref: '#/components/schemas/ParticipatingPhysicianGroupIdentifiers'
+        priScore:
+          type: string
+        providerId:
+          type: string
+        providerName:
+          type: string
+        providerOfficeHours:
+          $ref: '#/components/schemas/OfficeHours'
+        provPhones:
+          $ref: '#/components/schemas/ProvPhones'
+        publicTransportation:
+          $ref: '#/components/schemas/PublicTransportation'
+        specialties:
+          type: array
+          items:
+            $ref: '#/components/schemas/Specialty'
+        taxIdNumber:
+          type: string
+    MatchedListsCondition:
+      title: MatchedListsCondition
+      type: object
+      properties:
+        filter:
+          type: string
+        list:
+          type: string
+    Meta:
+      type: object
+      properties:
+        fileName:
+          type: string
+        source:
+          type: string
+        lastUpdated:
+          type: string
+          format: date-time
+    MedicaidNumber:
+      type: object
+      properties:
+        effectiveDate:
+          type: string
+          format: date-time
+        expirationDate:
+          type: string
+          format: date-time
+        number:
+          type: string
+        state:
+          type: string
+    MedicareNumber:
+      type: object
+      properties:
+        number:
+          type: string
+    Modality:
+      type: object
+      properties:
+        modality:
+          type: string
+        modalityDescription:
+          type: string
+        modalityDescriptionFull:
+          type: string
+    Name:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        middleName:
+          type: string
+        salutation:
+          type: string
+        suffix:
+          type: string
+    NationalProviderIdentifiers:
+      type: object
+      properties:
+        effectiveDate:
+          type: string
+          format: date-time
+        number:
+          type: string
+        terminationDate:
+          type: string
+          format: date-time
+        terminationReason:
+          type: string
+        type:
+          type: string
+    Network:
+      type: object
+      properties:
+        businessUnit:
+          $ref: '#/components/schemas/NetworkField'
+        carrier:
+          $ref: '#/components/schemas/NetworkField'
+        company:
+          $ref: '#/components/schemas/NetworkField'
+        healthNetNetwork:
+          type: string
+        healthPlan:
+          $ref: '#/components/schemas/NetworkField'
+        isVendor:
+          type: string
+        networkCycles:
+          type: array
+          items:
+            $ref: '#/components/schemas/NetworkCycle'
+        product:
+          $ref: '#/components/schemas/NetworkField'
+    NetworkCycle:
+      type: object
+      properties:
+        attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/UDA'
+        endDate:
+          type: string
+          format: date-time
+        networkCycleId:
+          type: string
+        startDate:
+          type: string
+          format: date-time
+        status:
+          type: string
+    NetworkField:
+      type: object
+      properties:
+        code:
+          type: string
+        name:
+          type: string
+        networkId:
+          type: string
+    NetworkLocationCycle:
+      type: object
+      properties:
+        attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/UDA'
+        endDate:
+          type: string
+          format: date-time
+        excludeFromDirectory:
+          type: string
+        exclusionReason:
+          type: string
+        networkCycleIdRef:
+          type: string
+        networkLocationCycleId:
+          type: string
+        populations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Population'
+        serviceTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/ServiceType'
+        startDate:
+          type: string
+          format: date-time
+    PracPhone:
+      type: object
+      properties:
+        afterHoursPhone:
+          type: string
+        fax:
+          type: string
+        phone:
+          type: string
+        verificationSource:
+          type: string
+        verifiedDate:
+          type: string
+          format: date
+    OfficeHours:
+      type: object
+      properties:
+        sunday:
+          $ref: '#/components/schemas/Day'
+        monday:
+          $ref: '#/components/schemas/Day'
+        tuesday:
+          $ref: '#/components/schemas/Day'
+        wednesday:
+          $ref: '#/components/schemas/Day'
+        thursday:
+          $ref: '#/components/schemas/Day'
+        friday:
+          $ref: '#/components/schemas/Day'
+        saturday:
+          $ref: '#/components/schemas/Day'
+    PhoneNumber:
+      type: object
+      properties:
+        number:
+          type: string
+        phoneId:
+          type: string
+        type:
+          type: string
+    PanelCycle:
+      type: object
+      properties:
+        ageRestriction:
+          type: string
+        endDate:
+          type: string
+          format: date-time
+        genderLimitation:
+          type: string
+        highestAge:
+          type: string
+        highestUnits:
+          type: string
+        lowestAge:
+          type: string
+        lowestUnits:
+          type: string
+        panelCode:
+          type: string
+        panelLimit:
+          type: string
+        panelStatus:
+          type: string
+        startDate:
+          type: string
+          format: date-time
+    Phone:
+      type: object
+      properties:
+        afterHoursPhone:
+          type: string
+        fax:
+          type: string
+        phone:
+          type: string
+    Population:
+      type: object
+      properties:
+        population:
+          type: string
+        populationDescription:
+          type: string
+        populationDescriptionFull:
+          type: string
+    ProvPhones:
+      type: object
+      properties:
+        afterHoursPhone:
+          type: string
+        fax:
+          type: string
+        phone:
+          type: string
+    PublicTransportation:
+      type: object
+      properties:
+        bus:
+          type: string
+        train:
+          type: string
+        transitRoute:
+          type: string
+    RelevancyByDistanceCondition:
+      title: RelevancyByDistanceCondition
+      properties:
+        decay:
+          type: string
+        field:
+          type: string
+        minDistanceScore:
+          type: string
+        offset:
+          type: string
+        origin:
+          type: string
+        scale:
+          type: string
+      allOf:
+        - $ref: '#/components/schemas/RelevancyCondition'
+        - title: RelevancyByDistanceCondition
+          type: object
+          properties:
+            decay:
+              type: string
+            field:
+              type: string
+            minDistanceScore:
+              type: string
+            offset:
+              type: string
+            origin:
+              type: string
+            scale:
+              type: string
+    RelevancyCondition:
+      title: RelevancyCondition
+      type: object
+      anyOf:
+        - $ref: '#/components/schemas/RelevancyByDistanceCondition'
+        - $ref: '#/components/schemas/AvailabilityCondition'
+    RelevancyDistanceCondition:
+      title: RelevancyDistanceCondition
+      properties:
+        decay:
+          type: number
+          format: double
+        field:
+          type: string
+        minDistanceScore:
+          type: number
+          format: float
+        offset:
+          type: string
+        origin:
+          type: string
+        query:
+          $ref: '#/components/schemas/Condition'
+        scale:
+          type: string
+      allOf:
+        - $ref: '#/components/schemas/Condition'
+        - title: RelevancyDistanceCondition
+          type: object
+          properties:
+            decay:
+              type: number
+              format: double
+            field:
+              type: string
+            minDistanceScore:
+              type: number
+              format: float
+            offset:
+              type: string
+            origin:
+              type: string
+            query:
+              $ref: '#/components/schemas/Condition'
+            scale:
+              type: string
+    Responses:
+      title: Response
+      type: object
+      properties:
+        totalHits:
+          type: number
+        queryTime:
+          type: string
+        results:
+          type: array
+          items:
+            type: string
+        aggs:
+          type: array
+          items:
+            type: string
+        scrollId:
+          type: string
+    Result:
+      type: object
+      properties:
+        carrierEntity:
+          $ref: '#/components/schemas/CarrierEntity'
+    ServiceType:
+      type: object
+      properties:
+        serviceType:
+          type: string
+        serviceTypeDescription:
+          type: string
+        serviceTypeDescriptionFull:
+          type: string
+    Specialty:
+      type: object
+      properties:
+        be5Ends:
+          type: string
+        boardCertExp:
+          type: string
+        boardCertIssued:
+          type: string
+        boardStatus:
+          type: string
+        category:
+          type: string
+        categorySpanish:
+          type: string
+        certNumber:
+          type: string
+        description:
+          type: string
+        descriptionDisplay:
+          type: string
+        descriptionSpanish:
+          type: string
+        grouping:
+          type: string
+        groupingSpanish:
+          type: string
+        hatCode:
+          type: string
+        issuerName:
+          type: string
+        netLocEligible_derived:
+          type: string
+        networkStatus:
+          type: string
+        primary:
+          type: string
+        specialtyId:
+          type: string
+        takingBoards:
+          type: string
+    Training:
+      type: object
+      properties:
+        cmeCredits:
+          type: string
+        completed:
+          type: string
+        degree:
+          type: string
+        endDate:
+          type: string
+          format: date-time
+        institutionName:
+          type: string
+        specialty:
+          type: string
+        startDate:
+          type: string
+          format: date-time
+        type:
+          type: string
+    UDA:
+      type: object
+      properties:
+        name:
+          type: string
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/UDAField'
+    UDAField:
+      type: object
+      properties:
+        name:
+          type: string
+        value:
+          type: string
+        value_date:
+          type: string
+        value_number:
+          type: number
+    AssociatedProvAttribute:
+      type: object
+      properties:
+        provId:
+          type: string
+        udas:
+          type: array
+          items:
+            $ref: '#/components/schemas/UDAS'
+    UDAS:
+      type: object
+      properties:
+        udaId:
+          type: string
+        name:
+          type: string
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/UDASField'
+    UDASField:
+      type: object
+      properties:
+        field_id:
+          type: string
+        name:
+          type: string
+        value:
+          type: string
+        value_date:
+          type: string
+        value_number:
+          type: number
+    ParticipatingPhysicianGroupIdentifiers:
+      type: object
+      properties:
+        ppgId:
+          type: string
+        parentPGGId:
+          type: string
+        capitatedPGG:
+          type: string
+        pcpRequired:
+          type: string
+        effectiveDate:
+          type: string
+          format: date
+    Query:
+      title: QueryResult
+      properties:
+        query:
+          type: string
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: api_key
+      in: header
