@@ -63,267 +63,2721 @@ description: 'Centene Corporation is a Fortune 500 managed care organization del
   with a per-API audience. Beyond the mandated interoperability estate Centene also publishes X12 / CAQH
   CORE EDI transaction, provider-search, product-mapping and care-management APIs.'
 apis:
-  - aid: centene:centene-fhir-patient-access
-    name: Centene FHIR Patient Access API
-    tags:
-      - FHIR
-      - Patient Access
-      - CMS Interoperability
-    humanURL: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
-    properties:
-      - url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
-        type: Documentation
-      - url: https://partners.centene.com/apis
-        type: Catalog
-      - url: openapi/centene-fhir-patient-access-openapi.json
-        type: OpenAPI
-      - url: overlays/centene-fhir-patient-access-overlay.yaml
-        type: Overlay
-      - url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
-        type: GettingStarted
-      - url: sandbox/centene-sandbox.yml
-        type: Sandbox
-      - url: skills/centene-member-record-access.md
-        type: AgentSkill
-    description: The Centene FHIR Patient Access API lets members of Centene health plans access their
-      clinical, financial, and formulary data through third-party applications, as required by the CMS
-      Interoperability and Patient Access Rule.
-    baseURL: https://iopc-pa.api.centene.com/iopc/pa
-  - aid: centene:centene-fhir-provider-directory
-    name: Centene FHIR Provider Directory API
-    tags:
-      - FHIR
-      - Provider Directory
-      - CMS Interoperability
-    humanURL: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
-    properties:
-      - url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
-        type: Documentation
-      - url: https://partners.centene.com/apis
-        type: Catalog
-      - url: openapi/centene-fhir-provider-directory-openapi.json
-        type: OpenAPI
-      - url: overlays/centene-fhir-provider-directory-overlay.yaml
-        type: Overlay
-      - url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
-        type: GettingStarted
-      - url: https://iopc-pd.api.centene.com/iopc/pd/fhir/providerdirectory/metadata
-        type: APIReference
-      - url: skills/centene-find-in-network-provider.md
-        type: AgentSkill
-    description: The Centene FHIR Provider Directory API exposes in-network provider information for Centene
-      members and the public via HL7 FHIR PDEX Provider Directory resources.
-    baseURL: https://iopc-pd.api.centene.com/iopc/pd/fhir/providerdirectory
-  - aid: centene:centene-fhir-pdex-rtr
-    name: Centene Provider RTR - FHIR PDEX Directory API
-    tags:
-      - FHIR
-      - PDEX
-      - Payer Data Exchange
-    humanURL: https://partners.centene.com/apiDetail/6b5c0001-8b47-4f1c-864f-9193971f5c62
-    properties:
-      - url: https://partners.centene.com/apiDetail/6b5c0001-8b47-4f1c-864f-9193971f5c62
-        type: Documentation
-      - url: https://partners.centene.com/apis
-        type: Catalog
-      - url: openapi/centene-provider-rtr-fhir-pdex-openapi.json
-        type: OpenAPI
-      - url: overlays/centene-provider-rtr-fhir-pdex-overlay.yaml
-        type: Overlay
-      - url: skills/centene-payer-to-payer-pdex.md
-        type: AgentSkill
-    description: The Provider RTR FHIR Payer Data Exchange (PDEX) Directory API delivers provider directory
-      data between payers and authorized external partners using HL7 FHIR PDEX profiles.
-    baseURL: https://prod.api.centene.com/prtc/external/fhir-pdex-plan-net/v1/
-  - aid: centene:centene-provider-rtr-demographics
-    name: Centene Provider RTR Demographics API
-    tags:
-      - Provider
-      - Demographics
-      - Credentialing
-      - Payer
-    humanURL: https://partners.centene.com/apiDetail/fa62cad4-34be-4b39-b599-30d8a8b7163b
-    baseURL: https://api-gateway-01.centene.com/provider-rtr/demographics/
-    description: The Provider RTR Demographics API exposes Centene’s provider record — credentialing,
-      accreditation, contracting, network participation and business identifiers — across 67 read operations
-      and 151 schemas. It is Centene’s bespoke provider model, not FHIR, and no published crosswalk maps
-      it to the FHIR Provider Directory. Access is OAuth client credentials with audience prtrdemographic.
-    properties:
-      - url: https://partners.centene.com/apiDetail/fa62cad4-34be-4b39-b599-30d8a8b7163b
-        type: Documentation
-      - url: openapi/centene-provider-rtr-demographics-openapi.json
-        type: OpenAPI
-      - url: overlays/centene-provider-rtr-demographics-overlay.yaml
-        type: Overlay
-      - url: https://partners.centene.com/apis
-        type: Catalog
-  - aid: centene:centene-pces
-    name: Centene Provider Carrier Entity Search (PCES) API
-    tags:
-      - Provider Search
-      - Search
-      - Provider
-    humanURL: https://partners.centene.com/apiDetail/a3cbbe9e-c2fe-4460-a248-6599e8b746be
-    baseURL: https://external-api.search.my.centene.com/pces
-    description: A search-index query API over Centene carrier entities, shaped like Elasticsearch — aggregations,
-      buckets, bounding boxes and geo coordinates across 85 schemas. Carries query and custom-query validator
-      operations that lint a query shape before execution. OAuth client credentials with audience ewsext.
-    properties:
-      - url: https://partners.centene.com/apiDetail/a3cbbe9e-c2fe-4460-a248-6599e8b746be
-        type: Documentation
-      - url: openapi/centene-pces-openapi.yaml
-        type: OpenAPI
-      - url: overlays/centene-pces-overlay.yaml
-        type: Overlay
-      - url: https://partners.centene.com/apis
-        type: Catalog
-  - aid: centene:centene-pces-extract
-    name: Centene Provider Carrier Entity Search (PCES) Extract API
-    tags:
-      - Provider Search
-      - Bulk Export
-      - Provider
-    humanURL: https://partners.centene.com/apiDetail/badcf145-cbcb-4163-bace-bcadc1da3554
-    baseURL: https://external-api.search.my.centene.com/pcesextract
-    description: Scroll-based bulk extract over the Provider Carrier Entity Search index. POST /extract/initiate
-      opens a scroll context and returns a scrollId; DELETE /extract/clear/{scrollId} releases it. Centene
-      does not publish how long a scrollId stays valid.
-    properties:
-      - url: https://partners.centene.com/apiDetail/badcf145-cbcb-4163-bace-bcadc1da3554
-        type: Documentation
-      - url: openapi/centene-pces-extract-openapi.yaml
-        type: OpenAPI
-      - url: overlays/centene-pces-extract-overlay.yaml
-        type: Overlay
-      - url: https://partners.centene.com/apis
-        type: Catalog
-  - aid: centene:centene-provider-search-suggest
-    name: Centene Provider Search Suggest API
-    tags:
-      - Provider Search
-      - Typeahead
-      - Search
-    humanURL: https://partners.centene.com/apiDetail/ee19c28c-cc90-4ea7-8181-512be50f210d
-    baseURL: https://external-api.search.my.centene.com/provider-search-suggest
-    description: A single typeahead suggestion operation backing Centene’s member-facing provider search
-      experiences. OAuth client credentials with audience ewsext.
-    properties:
-      - url: https://partners.centene.com/apiDetail/ee19c28c-cc90-4ea7-8181-512be50f210d
-        type: Documentation
-      - url: openapi/centene-provider-search-suggest-openapi.yaml
-        type: OpenAPI
-      - url: overlays/centene-provider-search-suggest-overlay.yaml
-        type: Overlay
-      - url: https://partners.centene.com/apis
-        type: Catalog
-  - aid: centene:centene-product-mapping
-    name: Centene Product Mapping V2 API
-    tags:
-      - Plans
-      - Networks
-      - Geography
-      - Marketplace
-    humanURL: https://partners.centene.com/apiDetail/97211dcb-047f-4f94-94b9-bb15376eb6ef
-    baseURL: https://external-api.search.my.centene.com/productmapping/v2/
-    description: Resolves Centene plan networks and counties for a given address — the geography layer
-      behind plan shopping and eligibility. Supports authorization_code, PKCE and client_credentials grants
-      with audience ewsext.
-    properties:
-      - url: https://partners.centene.com/apiDetail/97211dcb-047f-4f94-94b9-bb15376eb6ef
-        type: Documentation
-      - url: openapi/centene-product-mapping-v2-openapi.yaml
-        type: OpenAPI
-      - url: overlays/centene-product-mapping-v2-overlay.yaml
-        type: Overlay
-      - url: https://partners.centene.com/apis
-        type: Catalog
-  - aid: centene:centene-edi-core-realtime
-    name: Centene LWC EDI CORE Real Time Service
-    tags:
-      - EDI
-      - X12
-      - CAQH CORE
-      - Claims
-      - Eligibility
-    humanURL: https://partners.centene.com/apiDetail/c921dd2a-ed7a-40ca-9324-803c7f65c374
-    baseURL: https://prod.api.centene.com/edi/core/
-    description: Centene’s CAQH CORE Connectivity envelope over ASC X12 healthcare transactions — RealTimeTransaction
-      plus six batch submission, acknowledgement and retrieval operations. This is the highest-consequence
-      write surface Centene publishes and it has neither idempotency nor a documented reversal path. OAuth
-      client credentials with audience edicorertservice.
-    properties:
-      - url: https://partners.centene.com/apiDetail/c921dd2a-ed7a-40ca-9324-803c7f65c374
-        type: Documentation
-      - url: openapi/centene-edi-core-realtime-openapi.json
-        type: OpenAPI
-      - url: overlays/centene-edi-core-realtime-overlay.yaml
-        type: Overlay
-      - url: https://partners.centene.com/apis
-        type: Catalog
-  - aid: centene:centene-ccm-communication
-    name: Centene CCM Communication API
-    tags:
-      - Care Management
-      - Communication
-      - Member Engagement
-    humanURL: https://partners.centene.com/apiDetail/0a778592-13dd-447b-80b3-c39539d7a993
-    baseURL: https://prod.api.centene.com/ccm/communication-jwt/api
-    description: Care and campaign management communication records — insert, update and merge operations
-      over member communications. OAuth client credentials with audience CCMAPIUSER. No delete, void or
-      correction operation is published.
-    properties:
-      - url: https://partners.centene.com/apiDetail/0a778592-13dd-447b-80b3-c39539d7a993
-        type: Documentation
-      - url: openapi/centene-ccm-communication-openapi.json
-        type: OpenAPI
-      - url: overlays/centene-ccm-communication-overlay.yaml
-        type: Overlay
-      - url: https://partners.centene.com/apis
-        type: Catalog
-  - aid: centene:centene-ccm-sms-userresponse
-    name: Centene CCM SMS User Response Webhook
-    tags:
-      - Webhooks
-      - SMS
-      - Care Management
-      - Member Engagement
-    humanURL: https://partners.centene.com/apiDetail/6868b4d9-c336-4f02-bfb6-3886215b5564
-    baseURL: https://prod.api.centene.com/ma/ccmsms/sms-userresponse/posttoccmqueue/SMS.UserResponse
-    description: An INBOUND receiver endpoint Centene exposes for its SMS vendor to post member replies
-      onto the care-management queue. Despite the name it does not send callbacks to third-party developers,
-      and its payload is declared as an untyped object.
-    properties:
-      - url: https://partners.centene.com/apiDetail/6868b4d9-c336-4f02-bfb6-3886215b5564
-        type: Documentation
-      - url: openapi/centene-ccm-sms-userresponse-openapi.json
-        type: OpenAPI
-      - url: overlays/centene-ccm-sms-userresponse-overlay.yaml
-        type: Overlay
-      - url: asyncapi/centene-webhooks.yml
-        type: Webhooks
-      - url: https://partners.centene.com/apis
-        type: Catalog
-  - aid: centene:centene-healow-health
-    name: Centene Healow Health API
-    tags:
-      - Gaps in Care
-      - Member Data
-      - Clinical
-    humanURL: https://partners.centene.com/apiDetail/b795fc7e-44ab-4e11-a99e-9f261c1d48e9
-    baseURL: https://prod.api.centene.com/test/searchhealow/api/searchhealowmembercg
-    description: Member gap-in-care search operations backing Centene’s integration with the Healow patient
-      platform. Published by Centene under its WellCare subsidiary; the OpenAPI still carries an internal
-      WellCare development hostname. OAuth client credentials with audience edas.
-    properties:
-      - url: https://partners.centene.com/apiDetail/b795fc7e-44ab-4e11-a99e-9f261c1d48e9
-        type: Documentation
-      - url: openapi/centene-healow-health-openapi.yaml
-        type: OpenAPI
-      - url: overlays/centene-healow-health-overlay.yaml
-        type: Overlay
-      - url: https://partners.centene.com/apis
-        type: Catalog
+- aid: centene:centene-allergyintolerance-api
+  name: Centene Allergy Intolerance API
+  description: The AllergyIntolerance API from Centene — 2 operation(s) for allergyintolerance.
+  humanURL: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  baseURL: https://iopc-pa.api.centene.com/iopc/pa
+  tags:
+  - AllergyIntolerance
+  properties:
+  - type: OpenAPI
+    url: openapi/centene-allergyintolerance-api-openapi.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Catalog
+    url: https://partners.centene.com/apis
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Sandbox
+    url: sandbox/centene-sandbox.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: APIReference
+    url: https://iopc-pd.api.centene.com/iopc/pd/fhir/providerdirectory/metadata
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6b5c0001-8b47-4f1c-864f-9193971f5c62
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/fa62cad4-34be-4b39-b599-30d8a8b7163b
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/a3cbbe9e-c2fe-4460-a248-6599e8b746be
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/badcf145-cbcb-4163-bace-bcadc1da3554
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/ee19c28c-cc90-4ea7-8181-512be50f210d
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/97211dcb-047f-4f94-94b9-bb15376eb6ef
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/c921dd2a-ed7a-40ca-9324-803c7f65c374
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/0a778592-13dd-447b-80b3-c39539d7a993
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6868b4d9-c336-4f02-bfb6-3886215b5564
+  - type: Webhooks
+    url: asyncapi/centene-webhooks.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/b795fc7e-44ab-4e11-a99e-9f261c1d48e9
+- aid: centene:centene-batchresultsacksubmittransaction-api
+  name: Centene Batch Results Ack Submit Transaction API
+  description: >-
+    The BatchResultsAckSubmitTransaction API from Centene — 1 operation(s) for batchresultsacksubmittransaction.
+  humanURL: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  baseURL: https://iopc-pa.api.centene.com/iopc/pa
+  tags:
+  - BatchResultsAckSubmitTransaction
+  properties:
+  - type: OpenAPI
+    url: openapi/centene-batchresultsacksubmittransaction-api-openapi.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Catalog
+    url: https://partners.centene.com/apis
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Sandbox
+    url: sandbox/centene-sandbox.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: APIReference
+    url: https://iopc-pd.api.centene.com/iopc/pd/fhir/providerdirectory/metadata
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6b5c0001-8b47-4f1c-864f-9193971f5c62
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/fa62cad4-34be-4b39-b599-30d8a8b7163b
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/a3cbbe9e-c2fe-4460-a248-6599e8b746be
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/badcf145-cbcb-4163-bace-bcadc1da3554
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/ee19c28c-cc90-4ea7-8181-512be50f210d
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/97211dcb-047f-4f94-94b9-bb15376eb6ef
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/c921dd2a-ed7a-40ca-9324-803c7f65c374
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/0a778592-13dd-447b-80b3-c39539d7a993
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6868b4d9-c336-4f02-bfb6-3886215b5564
+  - type: Webhooks
+    url: asyncapi/centene-webhooks.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/b795fc7e-44ab-4e11-a99e-9f261c1d48e9
+- aid: centene:centene-batchresultsretrievaltransaction-api
+  name: Centene Batch Results Retrieval Transaction API
+  description: >-
+    The BatchResultsRetrievalTransaction API from Centene — 1 operation(s) for batchresultsretrievaltransaction.
+  humanURL: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  baseURL: https://iopc-pa.api.centene.com/iopc/pa
+  tags:
+  - BatchResultsRetrievalTransaction
+  properties:
+  - type: OpenAPI
+    url: openapi/centene-batchresultsretrievaltransaction-api-openapi.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Catalog
+    url: https://partners.centene.com/apis
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Sandbox
+    url: sandbox/centene-sandbox.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: APIReference
+    url: https://iopc-pd.api.centene.com/iopc/pd/fhir/providerdirectory/metadata
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6b5c0001-8b47-4f1c-864f-9193971f5c62
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/fa62cad4-34be-4b39-b599-30d8a8b7163b
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/a3cbbe9e-c2fe-4460-a248-6599e8b746be
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/badcf145-cbcb-4163-bace-bcadc1da3554
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/ee19c28c-cc90-4ea7-8181-512be50f210d
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/97211dcb-047f-4f94-94b9-bb15376eb6ef
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/c921dd2a-ed7a-40ca-9324-803c7f65c374
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/0a778592-13dd-447b-80b3-c39539d7a993
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6868b4d9-c336-4f02-bfb6-3886215b5564
+  - type: Webhooks
+    url: asyncapi/centene-webhooks.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/b795fc7e-44ab-4e11-a99e-9f261c1d48e9
+- aid: centene:centene-batchsubmitackretrievaltransaction-api
+  name: Centene Batch Submit Ack Retrieval Transaction API
+  description: >-
+    The BatchSubmitAckRetrievalTransaction API from Centene — 1 operation(s) for batchsubmitackretrievaltransaction.
+  humanURL: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  baseURL: https://iopc-pa.api.centene.com/iopc/pa
+  tags:
+  - BatchSubmitAckRetrievalTransaction
+  properties:
+  - type: OpenAPI
+    url: openapi/centene-batchsubmitackretrievaltransaction-api-openapi.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Catalog
+    url: https://partners.centene.com/apis
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Sandbox
+    url: sandbox/centene-sandbox.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: APIReference
+    url: https://iopc-pd.api.centene.com/iopc/pd/fhir/providerdirectory/metadata
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6b5c0001-8b47-4f1c-864f-9193971f5c62
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/fa62cad4-34be-4b39-b599-30d8a8b7163b
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/a3cbbe9e-c2fe-4460-a248-6599e8b746be
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/badcf145-cbcb-4163-bace-bcadc1da3554
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/ee19c28c-cc90-4ea7-8181-512be50f210d
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/97211dcb-047f-4f94-94b9-bb15376eb6ef
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/c921dd2a-ed7a-40ca-9324-803c7f65c374
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/0a778592-13dd-447b-80b3-c39539d7a993
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6868b4d9-c336-4f02-bfb6-3886215b5564
+  - type: Webhooks
+    url: asyncapi/centene-webhooks.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/b795fc7e-44ab-4e11-a99e-9f261c1d48e9
+- aid: centene:centene-batchsubmittransaction-api
+  name: Centene Batch Submit Transaction API
+  description: The BatchSubmitTransaction API from Centene — 1 operation(s) for batchsubmittransaction.
+  humanURL: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  baseURL: https://iopc-pa.api.centene.com/iopc/pa
+  tags:
+  - BatchSubmitTransaction
+  properties:
+  - type: OpenAPI
+    url: openapi/centene-batchsubmittransaction-api-openapi.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Catalog
+    url: https://partners.centene.com/apis
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Sandbox
+    url: sandbox/centene-sandbox.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: APIReference
+    url: https://iopc-pd.api.centene.com/iopc/pd/fhir/providerdirectory/metadata
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6b5c0001-8b47-4f1c-864f-9193971f5c62
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/fa62cad4-34be-4b39-b599-30d8a8b7163b
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/a3cbbe9e-c2fe-4460-a248-6599e8b746be
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/badcf145-cbcb-4163-bace-bcadc1da3554
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/ee19c28c-cc90-4ea7-8181-512be50f210d
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/97211dcb-047f-4f94-94b9-bb15376eb6ef
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/c921dd2a-ed7a-40ca-9324-803c7f65c374
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/0a778592-13dd-447b-80b3-c39539d7a993
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6868b4d9-c336-4f02-bfb6-3886215b5564
+  - type: Webhooks
+    url: asyncapi/centene-webhooks.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/b795fc7e-44ab-4e11-a99e-9f261c1d48e9
+- aid: centene:centene-careplan-api
+  name: Centene Care Plan API
+  description: The CarePlan API from Centene — 2 operation(s) for careplan.
+  humanURL: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  baseURL: https://iopc-pa.api.centene.com/iopc/pa
+  tags:
+  - CarePlan
+  properties:
+  - type: OpenAPI
+    url: openapi/centene-careplan-api-openapi.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Catalog
+    url: https://partners.centene.com/apis
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Sandbox
+    url: sandbox/centene-sandbox.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: APIReference
+    url: https://iopc-pd.api.centene.com/iopc/pd/fhir/providerdirectory/metadata
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6b5c0001-8b47-4f1c-864f-9193971f5c62
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/fa62cad4-34be-4b39-b599-30d8a8b7163b
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/a3cbbe9e-c2fe-4460-a248-6599e8b746be
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/badcf145-cbcb-4163-bace-bcadc1da3554
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/ee19c28c-cc90-4ea7-8181-512be50f210d
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/97211dcb-047f-4f94-94b9-bb15376eb6ef
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/c921dd2a-ed7a-40ca-9324-803c7f65c374
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/0a778592-13dd-447b-80b3-c39539d7a993
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6868b4d9-c336-4f02-bfb6-3886215b5564
+  - type: Webhooks
+    url: asyncapi/centene-webhooks.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/b795fc7e-44ab-4e11-a99e-9f261c1d48e9
+- aid: centene:centene-careteam-api
+  name: Centene Care Team API
+  description: The CareTeam API from Centene — 2 operation(s) for careteam.
+  humanURL: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  baseURL: https://iopc-pa.api.centene.com/iopc/pa
+  tags:
+  - CareTeam
+  properties:
+  - type: OpenAPI
+    url: openapi/centene-careteam-api-openapi.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Catalog
+    url: https://partners.centene.com/apis
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Sandbox
+    url: sandbox/centene-sandbox.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: APIReference
+    url: https://iopc-pd.api.centene.com/iopc/pd/fhir/providerdirectory/metadata
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6b5c0001-8b47-4f1c-864f-9193971f5c62
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/fa62cad4-34be-4b39-b599-30d8a8b7163b
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/a3cbbe9e-c2fe-4460-a248-6599e8b746be
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/badcf145-cbcb-4163-bace-bcadc1da3554
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/ee19c28c-cc90-4ea7-8181-512be50f210d
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/97211dcb-047f-4f94-94b9-bb15376eb6ef
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/c921dd2a-ed7a-40ca-9324-803c7f65c374
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/0a778592-13dd-447b-80b3-c39539d7a993
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6868b4d9-c336-4f02-bfb6-3886215b5564
+  - type: Webhooks
+    url: asyncapi/centene-webhooks.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/b795fc7e-44ab-4e11-a99e-9f261c1d48e9
+- aid: centene:centene-communication-api
+  name: Centene Communication API
+  description: The Communication API from Centene — 6 operation(s) for communication.
+  humanURL: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  baseURL: https://iopc-pa.api.centene.com/iopc/pa
+  tags:
+  - Communication
+  properties:
+  - type: OpenAPI
+    url: openapi/centene-communication-api-openapi.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Catalog
+    url: https://partners.centene.com/apis
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Sandbox
+    url: sandbox/centene-sandbox.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: APIReference
+    url: https://iopc-pd.api.centene.com/iopc/pd/fhir/providerdirectory/metadata
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6b5c0001-8b47-4f1c-864f-9193971f5c62
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/fa62cad4-34be-4b39-b599-30d8a8b7163b
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/a3cbbe9e-c2fe-4460-a248-6599e8b746be
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/badcf145-cbcb-4163-bace-bcadc1da3554
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/ee19c28c-cc90-4ea7-8181-512be50f210d
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/97211dcb-047f-4f94-94b9-bb15376eb6ef
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/c921dd2a-ed7a-40ca-9324-803c7f65c374
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/0a778592-13dd-447b-80b3-c39539d7a993
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6868b4d9-c336-4f02-bfb6-3886215b5564
+  - type: Webhooks
+    url: asyncapi/centene-webhooks.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/b795fc7e-44ab-4e11-a99e-9f261c1d48e9
+- aid: centene:centene-condition-api
+  name: Centene Condition API
+  description: The Condition API from Centene — 2 operation(s) for condition.
+  humanURL: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  baseURL: https://iopc-pa.api.centene.com/iopc/pa
+  tags:
+  - Condition
+  properties:
+  - type: OpenAPI
+    url: openapi/centene-condition-api-openapi.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Catalog
+    url: https://partners.centene.com/apis
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Sandbox
+    url: sandbox/centene-sandbox.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: APIReference
+    url: https://iopc-pd.api.centene.com/iopc/pd/fhir/providerdirectory/metadata
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6b5c0001-8b47-4f1c-864f-9193971f5c62
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/fa62cad4-34be-4b39-b599-30d8a8b7163b
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/a3cbbe9e-c2fe-4460-a248-6599e8b746be
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/badcf145-cbcb-4163-bace-bcadc1da3554
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/ee19c28c-cc90-4ea7-8181-512be50f210d
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/97211dcb-047f-4f94-94b9-bb15376eb6ef
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/c921dd2a-ed7a-40ca-9324-803c7f65c374
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/0a778592-13dd-447b-80b3-c39539d7a993
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6868b4d9-c336-4f02-bfb6-3886215b5564
+  - type: Webhooks
+    url: asyncapi/centene-webhooks.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/b795fc7e-44ab-4e11-a99e-9f261c1d48e9
+- aid: centene:centene-coverage-api
+  name: Centene Coverage API
+  description: The Coverage API from Centene — 2 operation(s) for coverage.
+  humanURL: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  baseURL: https://iopc-pa.api.centene.com/iopc/pa
+  tags:
+  - Coverage
+  properties:
+  - type: OpenAPI
+    url: openapi/centene-coverage-api-openapi.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Catalog
+    url: https://partners.centene.com/apis
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Sandbox
+    url: sandbox/centene-sandbox.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: APIReference
+    url: https://iopc-pd.api.centene.com/iopc/pd/fhir/providerdirectory/metadata
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6b5c0001-8b47-4f1c-864f-9193971f5c62
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/fa62cad4-34be-4b39-b599-30d8a8b7163b
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/a3cbbe9e-c2fe-4460-a248-6599e8b746be
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/badcf145-cbcb-4163-bace-bcadc1da3554
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/ee19c28c-cc90-4ea7-8181-512be50f210d
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/97211dcb-047f-4f94-94b9-bb15376eb6ef
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/c921dd2a-ed7a-40ca-9324-803c7f65c374
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/0a778592-13dd-447b-80b3-c39539d7a993
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6868b4d9-c336-4f02-bfb6-3886215b5564
+  - type: Webhooks
+    url: asyncapi/centene-webhooks.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/b795fc7e-44ab-4e11-a99e-9f261c1d48e9
+- aid: centene:centene-custom-mapping-api
+  name: Centene Custom Mapping API
+  description: check local mapping
+  humanURL: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  baseURL: https://iopc-pa.api.centene.com/iopc/pa
+  tags:
+  - custom-mapping
+  properties:
+  - type: OpenAPI
+    url: openapi/centene-custom-mapping-api-openapi.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Catalog
+    url: https://partners.centene.com/apis
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Sandbox
+    url: sandbox/centene-sandbox.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: APIReference
+    url: https://iopc-pd.api.centene.com/iopc/pd/fhir/providerdirectory/metadata
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6b5c0001-8b47-4f1c-864f-9193971f5c62
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/fa62cad4-34be-4b39-b599-30d8a8b7163b
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/a3cbbe9e-c2fe-4460-a248-6599e8b746be
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/badcf145-cbcb-4163-bace-bcadc1da3554
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/ee19c28c-cc90-4ea7-8181-512be50f210d
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/97211dcb-047f-4f94-94b9-bb15376eb6ef
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/c921dd2a-ed7a-40ca-9324-803c7f65c374
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/0a778592-13dd-447b-80b3-c39539d7a993
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6868b4d9-c336-4f02-bfb6-3886215b5564
+  - type: Webhooks
+    url: asyncapi/centene-webhooks.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/b795fc7e-44ab-4e11-a99e-9f261c1d48e9
+- aid: centene:centene-custom-query-validator-api
+  name: Centene Custom Query Validator API
+  description: The custom-query-validator API from Centene — 1 operation(s) for custom-query-validator.
+  humanURL: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  baseURL: https://iopc-pa.api.centene.com/iopc/pa
+  tags:
+  - custom-query-validator
+  properties:
+  - type: OpenAPI
+    url: openapi/centene-custom-query-validator-api-openapi.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Catalog
+    url: https://partners.centene.com/apis
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Sandbox
+    url: sandbox/centene-sandbox.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: APIReference
+    url: https://iopc-pd.api.centene.com/iopc/pd/fhir/providerdirectory/metadata
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6b5c0001-8b47-4f1c-864f-9193971f5c62
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/fa62cad4-34be-4b39-b599-30d8a8b7163b
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/a3cbbe9e-c2fe-4460-a248-6599e8b746be
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/badcf145-cbcb-4163-bace-bcadc1da3554
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/ee19c28c-cc90-4ea7-8181-512be50f210d
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/97211dcb-047f-4f94-94b9-bb15376eb6ef
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/c921dd2a-ed7a-40ca-9324-803c7f65c374
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/0a778592-13dd-447b-80b3-c39539d7a993
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6868b4d9-c336-4f02-bfb6-3886215b5564
+  - type: Webhooks
+    url: asyncapi/centene-webhooks.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/b795fc7e-44ab-4e11-a99e-9f261c1d48e9
+- aid: centene:centene-device-api
+  name: Centene Device API
+  description: The Device API from Centene — 2 operation(s) for device.
+  humanURL: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  baseURL: https://iopc-pa.api.centene.com/iopc/pa
+  tags:
+  - Device
+  properties:
+  - type: OpenAPI
+    url: openapi/centene-device-api-openapi.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Catalog
+    url: https://partners.centene.com/apis
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Sandbox
+    url: sandbox/centene-sandbox.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: APIReference
+    url: https://iopc-pd.api.centene.com/iopc/pd/fhir/providerdirectory/metadata
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6b5c0001-8b47-4f1c-864f-9193971f5c62
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/fa62cad4-34be-4b39-b599-30d8a8b7163b
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/a3cbbe9e-c2fe-4460-a248-6599e8b746be
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/badcf145-cbcb-4163-bace-bcadc1da3554
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/ee19c28c-cc90-4ea7-8181-512be50f210d
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/97211dcb-047f-4f94-94b9-bb15376eb6ef
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/c921dd2a-ed7a-40ca-9324-803c7f65c374
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/0a778592-13dd-447b-80b3-c39539d7a993
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6868b4d9-c336-4f02-bfb6-3886215b5564
+  - type: Webhooks
+    url: asyncapi/centene-webhooks.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/b795fc7e-44ab-4e11-a99e-9f261c1d48e9
+- aid: centene:centene-diagnosticreport-api
+  name: Centene Diagnostic Report API
+  description: The DiagnosticReport API from Centene — 2 operation(s) for diagnosticreport.
+  humanURL: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  baseURL: https://iopc-pa.api.centene.com/iopc/pa
+  tags:
+  - DiagnosticReport
+  properties:
+  - type: OpenAPI
+    url: openapi/centene-diagnosticreport-api-openapi.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Catalog
+    url: https://partners.centene.com/apis
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Sandbox
+    url: sandbox/centene-sandbox.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: APIReference
+    url: https://iopc-pd.api.centene.com/iopc/pd/fhir/providerdirectory/metadata
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6b5c0001-8b47-4f1c-864f-9193971f5c62
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/fa62cad4-34be-4b39-b599-30d8a8b7163b
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/a3cbbe9e-c2fe-4460-a248-6599e8b746be
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/badcf145-cbcb-4163-bace-bcadc1da3554
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/ee19c28c-cc90-4ea7-8181-512be50f210d
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/97211dcb-047f-4f94-94b9-bb15376eb6ef
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/c921dd2a-ed7a-40ca-9324-803c7f65c374
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/0a778592-13dd-447b-80b3-c39539d7a993
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6868b4d9-c336-4f02-bfb6-3886215b5564
+  - type: Webhooks
+    url: asyncapi/centene-webhooks.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/b795fc7e-44ab-4e11-a99e-9f261c1d48e9
+- aid: centene:centene-encounter-api
+  name: Centene Encounter API
+  description: The Encounter API from Centene — 2 operation(s) for encounter.
+  humanURL: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  baseURL: https://iopc-pa.api.centene.com/iopc/pa
+  tags:
+  - Encounter
+  properties:
+  - type: OpenAPI
+    url: openapi/centene-encounter-api-openapi.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Catalog
+    url: https://partners.centene.com/apis
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Sandbox
+    url: sandbox/centene-sandbox.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: APIReference
+    url: https://iopc-pd.api.centene.com/iopc/pd/fhir/providerdirectory/metadata
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6b5c0001-8b47-4f1c-864f-9193971f5c62
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/fa62cad4-34be-4b39-b599-30d8a8b7163b
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/a3cbbe9e-c2fe-4460-a248-6599e8b746be
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/badcf145-cbcb-4163-bace-bcadc1da3554
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/ee19c28c-cc90-4ea7-8181-512be50f210d
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/97211dcb-047f-4f94-94b9-bb15376eb6ef
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/c921dd2a-ed7a-40ca-9324-803c7f65c374
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/0a778592-13dd-447b-80b3-c39539d7a993
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6868b4d9-c336-4f02-bfb6-3886215b5564
+  - type: Webhooks
+    url: asyncapi/centene-webhooks.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/b795fc7e-44ab-4e11-a99e-9f261c1d48e9
+- aid: centene:centene-endpoint-api
+  name: Centene Endpoint API
+  description: The Endpoint API from Centene — 2 operation(s) for endpoint.
+  humanURL: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  baseURL: https://iopc-pa.api.centene.com/iopc/pa
+  tags:
+  - Endpoint
+  properties:
+  - type: OpenAPI
+    url: openapi/centene-endpoint-api-openapi.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Catalog
+    url: https://partners.centene.com/apis
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Sandbox
+    url: sandbox/centene-sandbox.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: APIReference
+    url: https://iopc-pd.api.centene.com/iopc/pd/fhir/providerdirectory/metadata
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6b5c0001-8b47-4f1c-864f-9193971f5c62
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/fa62cad4-34be-4b39-b599-30d8a8b7163b
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/a3cbbe9e-c2fe-4460-a248-6599e8b746be
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/badcf145-cbcb-4163-bace-bcadc1da3554
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/ee19c28c-cc90-4ea7-8181-512be50f210d
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/97211dcb-047f-4f94-94b9-bb15376eb6ef
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/c921dd2a-ed7a-40ca-9324-803c7f65c374
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/0a778592-13dd-447b-80b3-c39539d7a993
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6868b4d9-c336-4f02-bfb6-3886215b5564
+  - type: Webhooks
+    url: asyncapi/centene-webhooks.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/b795fc7e-44ab-4e11-a99e-9f261c1d48e9
+- aid: centene:centene-explanationofbenefit-api
+  name: Centene Explanation Of Benefit API
+  description: The ExplanationOfBenefit API from Centene — 2 operation(s) for explanationofbenefit.
+  humanURL: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  baseURL: https://iopc-pa.api.centene.com/iopc/pa
+  tags:
+  - ExplanationOfBenefit
+  properties:
+  - type: OpenAPI
+    url: openapi/centene-explanationofbenefit-api-openapi.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Catalog
+    url: https://partners.centene.com/apis
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Sandbox
+    url: sandbox/centene-sandbox.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: APIReference
+    url: https://iopc-pd.api.centene.com/iopc/pd/fhir/providerdirectory/metadata
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6b5c0001-8b47-4f1c-864f-9193971f5c62
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/fa62cad4-34be-4b39-b599-30d8a8b7163b
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/a3cbbe9e-c2fe-4460-a248-6599e8b746be
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/badcf145-cbcb-4163-bace-bcadc1da3554
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/ee19c28c-cc90-4ea7-8181-512be50f210d
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/97211dcb-047f-4f94-94b9-bb15376eb6ef
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/c921dd2a-ed7a-40ca-9324-803c7f65c374
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/0a778592-13dd-447b-80b3-c39539d7a993
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6868b4d9-c336-4f02-bfb6-3886215b5564
+  - type: Webhooks
+    url: asyncapi/centene-webhooks.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/b795fc7e-44ab-4e11-a99e-9f261c1d48e9
+- aid: centene:centene-extract-api
+  name: Centene Extract API
+  description: The Extract API from Centene — 3 operation(s) for extract.
+  humanURL: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  baseURL: https://iopc-pa.api.centene.com/iopc/pa
+  tags:
+  - Extract
+  properties:
+  - type: OpenAPI
+    url: openapi/centene-extract-api-openapi.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Catalog
+    url: https://partners.centene.com/apis
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Sandbox
+    url: sandbox/centene-sandbox.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: APIReference
+    url: https://iopc-pd.api.centene.com/iopc/pd/fhir/providerdirectory/metadata
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6b5c0001-8b47-4f1c-864f-9193971f5c62
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/fa62cad4-34be-4b39-b599-30d8a8b7163b
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/a3cbbe9e-c2fe-4460-a248-6599e8b746be
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/badcf145-cbcb-4163-bace-bcadc1da3554
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/ee19c28c-cc90-4ea7-8181-512be50f210d
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/97211dcb-047f-4f94-94b9-bb15376eb6ef
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/c921dd2a-ed7a-40ca-9324-803c7f65c374
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/0a778592-13dd-447b-80b3-c39539d7a993
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6868b4d9-c336-4f02-bfb6-3886215b5564
+  - type: Webhooks
+    url: asyncapi/centene-webhooks.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/b795fc7e-44ab-4e11-a99e-9f261c1d48e9
+- aid: centene:centene-fhir-pdex-plan-net-api-api
+  name: Centene FHIR PDEX Plan Net API
+  description: >-
+    The FHIR-PDEX-Plan-Net-API API from Centene — 16 operation(s) for fhir-pdex-plan-net-api.
+  humanURL: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  baseURL: https://iopc-pa.api.centene.com/iopc/pa
+  tags:
+  - FHIR-PDEX-Plan-Net-API
+  properties:
+  - type: OpenAPI
+    url: openapi/centene-fhir-pdex-plan-net-api-api-openapi.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Catalog
+    url: https://partners.centene.com/apis
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Sandbox
+    url: sandbox/centene-sandbox.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: APIReference
+    url: https://iopc-pd.api.centene.com/iopc/pd/fhir/providerdirectory/metadata
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6b5c0001-8b47-4f1c-864f-9193971f5c62
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/fa62cad4-34be-4b39-b599-30d8a8b7163b
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/a3cbbe9e-c2fe-4460-a248-6599e8b746be
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/badcf145-cbcb-4163-bace-bcadc1da3554
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/ee19c28c-cc90-4ea7-8181-512be50f210d
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/97211dcb-047f-4f94-94b9-bb15376eb6ef
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/c921dd2a-ed7a-40ca-9324-803c7f65c374
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/0a778592-13dd-447b-80b3-c39539d7a993
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6868b4d9-c336-4f02-bfb6-3886215b5564
+  - type: Webhooks
+    url: asyncapi/centene-webhooks.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/b795fc7e-44ab-4e11-a99e-9f261c1d48e9
+- aid: centene:centene-genericbatchreceiptconfirmationtransaction-api
+  name: Centene Generic Batch Receipt Confirmation Transaction API
+  description: >-
+    The GenericBatchReceiptConfirmationTransaction API from Centene — 1 operation(s) for genericbatchreceiptconfirmationtransaction.
+  humanURL: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  baseURL: https://iopc-pa.api.centene.com/iopc/pa
+  tags:
+  - GenericBatchReceiptConfirmationTransaction
+  properties:
+  - type: OpenAPI
+    url: openapi/centene-genericbatchreceiptconfirmationtransaction-api-openapi.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Catalog
+    url: https://partners.centene.com/apis
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Sandbox
+    url: sandbox/centene-sandbox.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: APIReference
+    url: https://iopc-pd.api.centene.com/iopc/pd/fhir/providerdirectory/metadata
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6b5c0001-8b47-4f1c-864f-9193971f5c62
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/fa62cad4-34be-4b39-b599-30d8a8b7163b
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/a3cbbe9e-c2fe-4460-a248-6599e8b746be
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/badcf145-cbcb-4163-bace-bcadc1da3554
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/ee19c28c-cc90-4ea7-8181-512be50f210d
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/97211dcb-047f-4f94-94b9-bb15376eb6ef
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/c921dd2a-ed7a-40ca-9324-803c7f65c374
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/0a778592-13dd-447b-80b3-c39539d7a993
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6868b4d9-c336-4f02-bfb6-3886215b5564
+  - type: Webhooks
+    url: asyncapi/centene-webhooks.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/b795fc7e-44ab-4e11-a99e-9f261c1d48e9
+- aid: centene:centene-genericbatchretrievaltransaction-api
+  name: Centene Generic Batch Retrieval Transaction API
+  description: >-
+    The GenericBatchRetrievalTransaction API from Centene — 1 operation(s) for genericbatchretrievaltransaction.
+  humanURL: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  baseURL: https://iopc-pa.api.centene.com/iopc/pa
+  tags:
+  - GenericBatchRetrievalTransaction
+  properties:
+  - type: OpenAPI
+    url: openapi/centene-genericbatchretrievaltransaction-api-openapi.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Catalog
+    url: https://partners.centene.com/apis
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Sandbox
+    url: sandbox/centene-sandbox.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: APIReference
+    url: https://iopc-pd.api.centene.com/iopc/pd/fhir/providerdirectory/metadata
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6b5c0001-8b47-4f1c-864f-9193971f5c62
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/fa62cad4-34be-4b39-b599-30d8a8b7163b
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/a3cbbe9e-c2fe-4460-a248-6599e8b746be
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/badcf145-cbcb-4163-bace-bcadc1da3554
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/ee19c28c-cc90-4ea7-8181-512be50f210d
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/97211dcb-047f-4f94-94b9-bb15376eb6ef
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/c921dd2a-ed7a-40ca-9324-803c7f65c374
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/0a778592-13dd-447b-80b3-c39539d7a993
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6868b4d9-c336-4f02-bfb6-3886215b5564
+  - type: Webhooks
+    url: asyncapi/centene-webhooks.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/b795fc7e-44ab-4e11-a99e-9f261c1d48e9
+- aid: centene:centene-genericbatchsubmissiontransaction-api
+  name: Centene Generic Batch Submission Transaction API
+  description: >-
+    The GenericBatchSubmissionTransaction API from Centene — 1 operation(s) for genericbatchsubmissiontransaction.
+  humanURL: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  baseURL: https://iopc-pa.api.centene.com/iopc/pa
+  tags:
+  - GenericBatchSubmissionTransaction
+  properties:
+  - type: OpenAPI
+    url: openapi/centene-genericbatchsubmissiontransaction-api-openapi.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Catalog
+    url: https://partners.centene.com/apis
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Sandbox
+    url: sandbox/centene-sandbox.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: APIReference
+    url: https://iopc-pd.api.centene.com/iopc/pd/fhir/providerdirectory/metadata
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6b5c0001-8b47-4f1c-864f-9193971f5c62
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/fa62cad4-34be-4b39-b599-30d8a8b7163b
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/a3cbbe9e-c2fe-4460-a248-6599e8b746be
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/badcf145-cbcb-4163-bace-bcadc1da3554
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/ee19c28c-cc90-4ea7-8181-512be50f210d
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/97211dcb-047f-4f94-94b9-bb15376eb6ef
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/c921dd2a-ed7a-40ca-9324-803c7f65c374
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/0a778592-13dd-447b-80b3-c39539d7a993
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6868b4d9-c336-4f02-bfb6-3886215b5564
+  - type: Webhooks
+    url: asyncapi/centene-webhooks.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/b795fc7e-44ab-4e11-a99e-9f261c1d48e9
+- aid: centene:centene-geo-api
+  name: Centene Geo API
+  description: The Geo API from Centene — 1 operation(s) for geo.
+  humanURL: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  baseURL: https://iopc-pa.api.centene.com/iopc/pa
+  tags:
+  - Geo
+  properties:
+  - type: OpenAPI
+    url: openapi/centene-geo-api-openapi.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Catalog
+    url: https://partners.centene.com/apis
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Sandbox
+    url: sandbox/centene-sandbox.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: APIReference
+    url: https://iopc-pd.api.centene.com/iopc/pd/fhir/providerdirectory/metadata
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6b5c0001-8b47-4f1c-864f-9193971f5c62
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/fa62cad4-34be-4b39-b599-30d8a8b7163b
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/a3cbbe9e-c2fe-4460-a248-6599e8b746be
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/badcf145-cbcb-4163-bace-bcadc1da3554
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/ee19c28c-cc90-4ea7-8181-512be50f210d
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/97211dcb-047f-4f94-94b9-bb15376eb6ef
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/c921dd2a-ed7a-40ca-9324-803c7f65c374
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/0a778592-13dd-447b-80b3-c39539d7a993
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6868b4d9-c336-4f02-bfb6-3886215b5564
+  - type: Webhooks
+    url: asyncapi/centene-webhooks.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/b795fc7e-44ab-4e11-a99e-9f261c1d48e9
+- aid: centene:centene-goal-api
+  name: Centene Goal API
+  description: The Goal API from Centene — 2 operation(s) for goal.
+  humanURL: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  baseURL: https://iopc-pa.api.centene.com/iopc/pa
+  tags:
+  - Goal
+  properties:
+  - type: OpenAPI
+    url: openapi/centene-goal-api-openapi.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Catalog
+    url: https://partners.centene.com/apis
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Sandbox
+    url: sandbox/centene-sandbox.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: APIReference
+    url: https://iopc-pd.api.centene.com/iopc/pd/fhir/providerdirectory/metadata
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6b5c0001-8b47-4f1c-864f-9193971f5c62
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/fa62cad4-34be-4b39-b599-30d8a8b7163b
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/a3cbbe9e-c2fe-4460-a248-6599e8b746be
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/badcf145-cbcb-4163-bace-bcadc1da3554
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/ee19c28c-cc90-4ea7-8181-512be50f210d
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/97211dcb-047f-4f94-94b9-bb15376eb6ef
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/c921dd2a-ed7a-40ca-9324-803c7f65c374
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/0a778592-13dd-447b-80b3-c39539d7a993
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6868b4d9-c336-4f02-bfb6-3886215b5564
+  - type: Webhooks
+    url: asyncapi/centene-webhooks.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/b795fc7e-44ab-4e11-a99e-9f261c1d48e9
+- aid: centene:centene-healthcareservice-api
+  name: Centene Healthcare Service API
+  description: The HealthcareService API from Centene — 2 operation(s) for healthcareservice.
+  humanURL: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  baseURL: https://iopc-pa.api.centene.com/iopc/pa
+  tags:
+  - HealthcareService
+  properties:
+  - type: OpenAPI
+    url: openapi/centene-healthcareservice-api-openapi.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Catalog
+    url: https://partners.centene.com/apis
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Sandbox
+    url: sandbox/centene-sandbox.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: APIReference
+    url: https://iopc-pd.api.centene.com/iopc/pd/fhir/providerdirectory/metadata
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6b5c0001-8b47-4f1c-864f-9193971f5c62
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/fa62cad4-34be-4b39-b599-30d8a8b7163b
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/a3cbbe9e-c2fe-4460-a248-6599e8b746be
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/badcf145-cbcb-4163-bace-bcadc1da3554
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/ee19c28c-cc90-4ea7-8181-512be50f210d
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/97211dcb-047f-4f94-94b9-bb15376eb6ef
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/c921dd2a-ed7a-40ca-9324-803c7f65c374
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/0a778592-13dd-447b-80b3-c39539d7a993
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6868b4d9-c336-4f02-bfb6-3886215b5564
+  - type: Webhooks
+    url: asyncapi/centene-webhooks.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/b795fc7e-44ab-4e11-a99e-9f261c1d48e9
+- aid: centene:centene-immunization-api
+  name: Centene Immunization API
+  description: The Immunization API from Centene — 2 operation(s) for immunization.
+  humanURL: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  baseURL: https://iopc-pa.api.centene.com/iopc/pa
+  tags:
+  - Immunization
+  properties:
+  - type: OpenAPI
+    url: openapi/centene-immunization-api-openapi.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Catalog
+    url: https://partners.centene.com/apis
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Sandbox
+    url: sandbox/centene-sandbox.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: APIReference
+    url: https://iopc-pd.api.centene.com/iopc/pd/fhir/providerdirectory/metadata
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6b5c0001-8b47-4f1c-864f-9193971f5c62
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/fa62cad4-34be-4b39-b599-30d8a8b7163b
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/a3cbbe9e-c2fe-4460-a248-6599e8b746be
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/badcf145-cbcb-4163-bace-bcadc1da3554
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/ee19c28c-cc90-4ea7-8181-512be50f210d
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/97211dcb-047f-4f94-94b9-bb15376eb6ef
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/c921dd2a-ed7a-40ca-9324-803c7f65c374
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/0a778592-13dd-447b-80b3-c39539d7a993
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6868b4d9-c336-4f02-bfb6-3886215b5564
+  - type: Webhooks
+    url: asyncapi/centene-webhooks.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/b795fc7e-44ab-4e11-a99e-9f261c1d48e9
+- aid: centene:centene-insuranceplan-api
+  name: Centene Insurance Plan API
+  description: The InsurancePlan API from Centene — 2 operation(s) for insuranceplan.
+  humanURL: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  baseURL: https://iopc-pa.api.centene.com/iopc/pa
+  tags:
+  - InsurancePlan
+  properties:
+  - type: OpenAPI
+    url: openapi/centene-insuranceplan-api-openapi.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Catalog
+    url: https://partners.centene.com/apis
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Sandbox
+    url: sandbox/centene-sandbox.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: APIReference
+    url: https://iopc-pd.api.centene.com/iopc/pd/fhir/providerdirectory/metadata
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6b5c0001-8b47-4f1c-864f-9193971f5c62
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/fa62cad4-34be-4b39-b599-30d8a8b7163b
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/a3cbbe9e-c2fe-4460-a248-6599e8b746be
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/badcf145-cbcb-4163-bace-bcadc1da3554
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/ee19c28c-cc90-4ea7-8181-512be50f210d
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/97211dcb-047f-4f94-94b9-bb15376eb6ef
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/c921dd2a-ed7a-40ca-9324-803c7f65c374
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/0a778592-13dd-447b-80b3-c39539d7a993
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6868b4d9-c336-4f02-bfb6-3886215b5564
+  - type: Webhooks
+    url: asyncapi/centene-webhooks.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/b795fc7e-44ab-4e11-a99e-9f261c1d48e9
+- aid: centene:centene-list-api
+  name: Centene List API
+  description: The List API from Centene — 2 operation(s) for list.
+  humanURL: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  baseURL: https://iopc-pa.api.centene.com/iopc/pa
+  tags:
+  - List
+  properties:
+  - type: OpenAPI
+    url: openapi/centene-list-api-openapi.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Catalog
+    url: https://partners.centene.com/apis
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Sandbox
+    url: sandbox/centene-sandbox.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: APIReference
+    url: https://iopc-pd.api.centene.com/iopc/pd/fhir/providerdirectory/metadata
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6b5c0001-8b47-4f1c-864f-9193971f5c62
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/fa62cad4-34be-4b39-b599-30d8a8b7163b
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/a3cbbe9e-c2fe-4460-a248-6599e8b746be
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/badcf145-cbcb-4163-bace-bcadc1da3554
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/ee19c28c-cc90-4ea7-8181-512be50f210d
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/97211dcb-047f-4f94-94b9-bb15376eb6ef
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/c921dd2a-ed7a-40ca-9324-803c7f65c374
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/0a778592-13dd-447b-80b3-c39539d7a993
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6868b4d9-c336-4f02-bfb6-3886215b5564
+  - type: Webhooks
+    url: asyncapi/centene-webhooks.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/b795fc7e-44ab-4e11-a99e-9f261c1d48e9
+- aid: centene:centene-location-api
+  name: Centene Location API
+  description: The Location API from Centene — 2 operation(s) for location.
+  humanURL: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  baseURL: https://iopc-pa.api.centene.com/iopc/pa
+  tags:
+  - Location
+  properties:
+  - type: OpenAPI
+    url: openapi/centene-location-api-openapi.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Catalog
+    url: https://partners.centene.com/apis
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Sandbox
+    url: sandbox/centene-sandbox.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: APIReference
+    url: https://iopc-pd.api.centene.com/iopc/pd/fhir/providerdirectory/metadata
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6b5c0001-8b47-4f1c-864f-9193971f5c62
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/fa62cad4-34be-4b39-b599-30d8a8b7163b
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/a3cbbe9e-c2fe-4460-a248-6599e8b746be
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/badcf145-cbcb-4163-bace-bcadc1da3554
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/ee19c28c-cc90-4ea7-8181-512be50f210d
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/97211dcb-047f-4f94-94b9-bb15376eb6ef
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/c921dd2a-ed7a-40ca-9324-803c7f65c374
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/0a778592-13dd-447b-80b3-c39539d7a993
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6868b4d9-c336-4f02-bfb6-3886215b5564
+  - type: Webhooks
+    url: asyncapi/centene-webhooks.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/b795fc7e-44ab-4e11-a99e-9f261c1d48e9
+- aid: centene:centene-medication-api
+  name: Centene Medication API
+  description: The Medication API from Centene — 1 operation(s) for medication.
+  humanURL: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  baseURL: https://iopc-pa.api.centene.com/iopc/pa
+  tags:
+  - Medication
+  properties:
+  - type: OpenAPI
+    url: openapi/centene-medication-api-openapi.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Catalog
+    url: https://partners.centene.com/apis
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Sandbox
+    url: sandbox/centene-sandbox.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: APIReference
+    url: https://iopc-pd.api.centene.com/iopc/pd/fhir/providerdirectory/metadata
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6b5c0001-8b47-4f1c-864f-9193971f5c62
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/fa62cad4-34be-4b39-b599-30d8a8b7163b
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/a3cbbe9e-c2fe-4460-a248-6599e8b746be
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/badcf145-cbcb-4163-bace-bcadc1da3554
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/ee19c28c-cc90-4ea7-8181-512be50f210d
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/97211dcb-047f-4f94-94b9-bb15376eb6ef
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/c921dd2a-ed7a-40ca-9324-803c7f65c374
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/0a778592-13dd-447b-80b3-c39539d7a993
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6868b4d9-c336-4f02-bfb6-3886215b5564
+  - type: Webhooks
+    url: asyncapi/centene-webhooks.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/b795fc7e-44ab-4e11-a99e-9f261c1d48e9
+- aid: centene:centene-medicationknowledge-api
+  name: Centene Medication Knowledge API
+  description: The MedicationKnowledge API from Centene — 2 operation(s) for medicationknowledge.
+  humanURL: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  baseURL: https://iopc-pa.api.centene.com/iopc/pa
+  tags:
+  - MedicationKnowledge
+  properties:
+  - type: OpenAPI
+    url: openapi/centene-medicationknowledge-api-openapi.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Catalog
+    url: https://partners.centene.com/apis
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Sandbox
+    url: sandbox/centene-sandbox.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: APIReference
+    url: https://iopc-pd.api.centene.com/iopc/pd/fhir/providerdirectory/metadata
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6b5c0001-8b47-4f1c-864f-9193971f5c62
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/fa62cad4-34be-4b39-b599-30d8a8b7163b
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/a3cbbe9e-c2fe-4460-a248-6599e8b746be
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/badcf145-cbcb-4163-bace-bcadc1da3554
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/ee19c28c-cc90-4ea7-8181-512be50f210d
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/97211dcb-047f-4f94-94b9-bb15376eb6ef
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/c921dd2a-ed7a-40ca-9324-803c7f65c374
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/0a778592-13dd-447b-80b3-c39539d7a993
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6868b4d9-c336-4f02-bfb6-3886215b5564
+  - type: Webhooks
+    url: asyncapi/centene-webhooks.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/b795fc7e-44ab-4e11-a99e-9f261c1d48e9
+- aid: centene:centene-medicationrequest-api
+  name: Centene Medication Request API
+  description: The MedicationRequest API from Centene — 2 operation(s) for medicationrequest.
+  humanURL: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  baseURL: https://iopc-pa.api.centene.com/iopc/pa
+  tags:
+  - MedicationRequest
+  properties:
+  - type: OpenAPI
+    url: openapi/centene-medicationrequest-api-openapi.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Catalog
+    url: https://partners.centene.com/apis
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Sandbox
+    url: sandbox/centene-sandbox.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: APIReference
+    url: https://iopc-pd.api.centene.com/iopc/pd/fhir/providerdirectory/metadata
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6b5c0001-8b47-4f1c-864f-9193971f5c62
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/fa62cad4-34be-4b39-b599-30d8a8b7163b
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/a3cbbe9e-c2fe-4460-a248-6599e8b746be
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/badcf145-cbcb-4163-bace-bcadc1da3554
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/ee19c28c-cc90-4ea7-8181-512be50f210d
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/97211dcb-047f-4f94-94b9-bb15376eb6ef
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/c921dd2a-ed7a-40ca-9324-803c7f65c374
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/0a778592-13dd-447b-80b3-c39539d7a993
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6868b4d9-c336-4f02-bfb6-3886215b5564
+  - type: Webhooks
+    url: asyncapi/centene-webhooks.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/b795fc7e-44ab-4e11-a99e-9f261c1d48e9
+- aid: centene:centene-member-api
+  name: Centene Member API
+  description: The Member API from Centene — 1 operation(s) for member.
+  humanURL: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  baseURL: https://iopc-pa.api.centene.com/iopc/pa
+  tags:
+  - Member
+  properties:
+  - type: OpenAPI
+    url: openapi/centene-member-api-openapi.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Catalog
+    url: https://partners.centene.com/apis
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Sandbox
+    url: sandbox/centene-sandbox.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: APIReference
+    url: https://iopc-pd.api.centene.com/iopc/pd/fhir/providerdirectory/metadata
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6b5c0001-8b47-4f1c-864f-9193971f5c62
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/fa62cad4-34be-4b39-b599-30d8a8b7163b
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/a3cbbe9e-c2fe-4460-a248-6599e8b746be
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/badcf145-cbcb-4163-bace-bcadc1da3554
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/ee19c28c-cc90-4ea7-8181-512be50f210d
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/97211dcb-047f-4f94-94b9-bb15376eb6ef
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/c921dd2a-ed7a-40ca-9324-803c7f65c374
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/0a778592-13dd-447b-80b3-c39539d7a993
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6868b4d9-c336-4f02-bfb6-3886215b5564
+  - type: Webhooks
+    url: asyncapi/centene-webhooks.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/b795fc7e-44ab-4e11-a99e-9f261c1d48e9
+- aid: centene:centene-metadata-api
+  name: Centene Metadata API
+  description: The metadata API from Centene — 1 operation(s) for metadata.
+  humanURL: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  baseURL: https://iopc-pa.api.centene.com/iopc/pa
+  tags:
+  - metadata
+  properties:
+  - type: OpenAPI
+    url: openapi/centene-metadata-api-openapi.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Catalog
+    url: https://partners.centene.com/apis
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Sandbox
+    url: sandbox/centene-sandbox.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: APIReference
+    url: https://iopc-pd.api.centene.com/iopc/pd/fhir/providerdirectory/metadata
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6b5c0001-8b47-4f1c-864f-9193971f5c62
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/fa62cad4-34be-4b39-b599-30d8a8b7163b
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/a3cbbe9e-c2fe-4460-a248-6599e8b746be
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/badcf145-cbcb-4163-bace-bcadc1da3554
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/ee19c28c-cc90-4ea7-8181-512be50f210d
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/97211dcb-047f-4f94-94b9-bb15376eb6ef
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/c921dd2a-ed7a-40ca-9324-803c7f65c374
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/0a778592-13dd-447b-80b3-c39539d7a993
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6868b4d9-c336-4f02-bfb6-3886215b5564
+  - type: Webhooks
+    url: asyncapi/centene-webhooks.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/b795fc7e-44ab-4e11-a99e-9f261c1d48e9
+- aid: centene:centene-network-api
+  name: Centene Network API
+  description: The network API from Centene — 1 operation(s) for network.
+  humanURL: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  baseURL: https://iopc-pa.api.centene.com/iopc/pa
+  tags:
+  - network
+  properties:
+  - type: OpenAPI
+    url: openapi/centene-network-api-openapi.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Catalog
+    url: https://partners.centene.com/apis
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Sandbox
+    url: sandbox/centene-sandbox.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: APIReference
+    url: https://iopc-pd.api.centene.com/iopc/pd/fhir/providerdirectory/metadata
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6b5c0001-8b47-4f1c-864f-9193971f5c62
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/fa62cad4-34be-4b39-b599-30d8a8b7163b
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/a3cbbe9e-c2fe-4460-a248-6599e8b746be
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/badcf145-cbcb-4163-bace-bcadc1da3554
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/ee19c28c-cc90-4ea7-8181-512be50f210d
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/97211dcb-047f-4f94-94b9-bb15376eb6ef
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/c921dd2a-ed7a-40ca-9324-803c7f65c374
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/0a778592-13dd-447b-80b3-c39539d7a993
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6868b4d9-c336-4f02-bfb6-3886215b5564
+  - type: Webhooks
+    url: asyncapi/centene-webhooks.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/b795fc7e-44ab-4e11-a99e-9f261c1d48e9
+- aid: centene:centene-observation-api
+  name: Centene Observation API
+  description: The Observation API from Centene — 2 operation(s) for observation.
+  humanURL: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  baseURL: https://iopc-pa.api.centene.com/iopc/pa
+  tags:
+  - Observation
+  properties:
+  - type: OpenAPI
+    url: openapi/centene-observation-api-openapi.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Catalog
+    url: https://partners.centene.com/apis
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Sandbox
+    url: sandbox/centene-sandbox.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: APIReference
+    url: https://iopc-pd.api.centene.com/iopc/pd/fhir/providerdirectory/metadata
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6b5c0001-8b47-4f1c-864f-9193971f5c62
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/fa62cad4-34be-4b39-b599-30d8a8b7163b
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/a3cbbe9e-c2fe-4460-a248-6599e8b746be
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/badcf145-cbcb-4163-bace-bcadc1da3554
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/ee19c28c-cc90-4ea7-8181-512be50f210d
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/97211dcb-047f-4f94-94b9-bb15376eb6ef
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/c921dd2a-ed7a-40ca-9324-803c7f65c374
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/0a778592-13dd-447b-80b3-c39539d7a993
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6868b4d9-c336-4f02-bfb6-3886215b5564
+  - type: Webhooks
+    url: asyncapi/centene-webhooks.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/b795fc7e-44ab-4e11-a99e-9f261c1d48e9
+- aid: centene:centene-organization-api
+  name: Centene Organization API
+  description: The Organization API from Centene — 2 operation(s) for organization.
+  humanURL: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  baseURL: https://iopc-pa.api.centene.com/iopc/pa
+  tags:
+  - Organization
+  properties:
+  - type: OpenAPI
+    url: openapi/centene-organization-api-openapi.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Catalog
+    url: https://partners.centene.com/apis
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Sandbox
+    url: sandbox/centene-sandbox.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: APIReference
+    url: https://iopc-pd.api.centene.com/iopc/pd/fhir/providerdirectory/metadata
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6b5c0001-8b47-4f1c-864f-9193971f5c62
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/fa62cad4-34be-4b39-b599-30d8a8b7163b
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/a3cbbe9e-c2fe-4460-a248-6599e8b746be
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/badcf145-cbcb-4163-bace-bcadc1da3554
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/ee19c28c-cc90-4ea7-8181-512be50f210d
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/97211dcb-047f-4f94-94b9-bb15376eb6ef
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/c921dd2a-ed7a-40ca-9324-803c7f65c374
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/0a778592-13dd-447b-80b3-c39539d7a993
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6868b4d9-c336-4f02-bfb6-3886215b5564
+  - type: Webhooks
+    url: asyncapi/centene-webhooks.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/b795fc7e-44ab-4e11-a99e-9f261c1d48e9
+- aid: centene:centene-organizationaffiliation-api
+  name: Centene Organization Affiliation API
+  description: >-
+    The OrganizationAffiliation API from Centene — 2 operation(s) for organizationaffiliation.
+  humanURL: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  baseURL: https://iopc-pa.api.centene.com/iopc/pa
+  tags:
+  - OrganizationAffiliation
+  properties:
+  - type: OpenAPI
+    url: openapi/centene-organizationaffiliation-api-openapi.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Catalog
+    url: https://partners.centene.com/apis
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Sandbox
+    url: sandbox/centene-sandbox.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: APIReference
+    url: https://iopc-pd.api.centene.com/iopc/pd/fhir/providerdirectory/metadata
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6b5c0001-8b47-4f1c-864f-9193971f5c62
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/fa62cad4-34be-4b39-b599-30d8a8b7163b
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/a3cbbe9e-c2fe-4460-a248-6599e8b746be
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/badcf145-cbcb-4163-bace-bcadc1da3554
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/ee19c28c-cc90-4ea7-8181-512be50f210d
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/97211dcb-047f-4f94-94b9-bb15376eb6ef
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/c921dd2a-ed7a-40ca-9324-803c7f65c374
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/0a778592-13dd-447b-80b3-c39539d7a993
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6868b4d9-c336-4f02-bfb6-3886215b5564
+  - type: Webhooks
+    url: asyncapi/centene-webhooks.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/b795fc7e-44ab-4e11-a99e-9f261c1d48e9
+- aid: centene:centene-patient-api
+  name: Centene Patient API
+  description: The Patient API from Centene — 2 operation(s) for patient.
+  humanURL: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  baseURL: https://iopc-pa.api.centene.com/iopc/pa
+  tags:
+  - Patient
+  properties:
+  - type: OpenAPI
+    url: openapi/centene-patient-api-openapi.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Catalog
+    url: https://partners.centene.com/apis
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Sandbox
+    url: sandbox/centene-sandbox.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: APIReference
+    url: https://iopc-pd.api.centene.com/iopc/pd/fhir/providerdirectory/metadata
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6b5c0001-8b47-4f1c-864f-9193971f5c62
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/fa62cad4-34be-4b39-b599-30d8a8b7163b
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/a3cbbe9e-c2fe-4460-a248-6599e8b746be
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/badcf145-cbcb-4163-bace-bcadc1da3554
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/ee19c28c-cc90-4ea7-8181-512be50f210d
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/97211dcb-047f-4f94-94b9-bb15376eb6ef
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/c921dd2a-ed7a-40ca-9324-803c7f65c374
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/0a778592-13dd-447b-80b3-c39539d7a993
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6868b4d9-c336-4f02-bfb6-3886215b5564
+  - type: Webhooks
+    url: asyncapi/centene-webhooks.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/b795fc7e-44ab-4e11-a99e-9f261c1d48e9
+- aid: centene:centene-practitioner-api-api
+  name: Centene Practitioner API
+  description: "RESTful API endpoints for search Practitioners' and their networks/locations related information.\
+    \ \n\n More information can be found on the corresponding Alation page: https://alation.centene.com/table/538094/"
+  humanURL: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  baseURL: https://iopc-pa.api.centene.com/iopc/pa
+  tags:
+  - Practitioner-API
+  properties:
+  - type: OpenAPI
+    url: openapi/centene-practitioner-api-api-openapi.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Catalog
+    url: https://partners.centene.com/apis
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Sandbox
+    url: sandbox/centene-sandbox.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: APIReference
+    url: https://iopc-pd.api.centene.com/iopc/pd/fhir/providerdirectory/metadata
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6b5c0001-8b47-4f1c-864f-9193971f5c62
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/fa62cad4-34be-4b39-b599-30d8a8b7163b
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/a3cbbe9e-c2fe-4460-a248-6599e8b746be
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/badcf145-cbcb-4163-bace-bcadc1da3554
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/ee19c28c-cc90-4ea7-8181-512be50f210d
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/97211dcb-047f-4f94-94b9-bb15376eb6ef
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/c921dd2a-ed7a-40ca-9324-803c7f65c374
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/0a778592-13dd-447b-80b3-c39539d7a993
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6868b4d9-c336-4f02-bfb6-3886215b5564
+  - type: Webhooks
+    url: asyncapi/centene-webhooks.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/b795fc7e-44ab-4e11-a99e-9f261c1d48e9
+- aid: centene:centene-practitioner-api
+  name: Centene Practitioner API
+  description: The Practitioner API from Centene — 2 operation(s) for practitioner.
+  humanURL: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  baseURL: https://iopc-pa.api.centene.com/iopc/pa
+  tags:
+  - Practitioner
+  properties:
+  - type: OpenAPI
+    url: openapi/centene-practitioner-api-openapi.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Catalog
+    url: https://partners.centene.com/apis
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Sandbox
+    url: sandbox/centene-sandbox.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: APIReference
+    url: https://iopc-pd.api.centene.com/iopc/pd/fhir/providerdirectory/metadata
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6b5c0001-8b47-4f1c-864f-9193971f5c62
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/fa62cad4-34be-4b39-b599-30d8a8b7163b
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/a3cbbe9e-c2fe-4460-a248-6599e8b746be
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/badcf145-cbcb-4163-bace-bcadc1da3554
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/ee19c28c-cc90-4ea7-8181-512be50f210d
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/97211dcb-047f-4f94-94b9-bb15376eb6ef
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/c921dd2a-ed7a-40ca-9324-803c7f65c374
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/0a778592-13dd-447b-80b3-c39539d7a993
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6868b4d9-c336-4f02-bfb6-3886215b5564
+  - type: Webhooks
+    url: asyncapi/centene-webhooks.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/b795fc7e-44ab-4e11-a99e-9f261c1d48e9
+- aid: centene:centene-practitioner-date-api-api
+  name: Centene Practitioner Date API
+  description: "RESTful API endpoints for search Practitioners' date related information. \n\n More information\
+    \ can be found on the corresponding Alation page: https://alation.centene.com/table/538096/"
+  humanURL: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  baseURL: https://iopc-pa.api.centene.com/iopc/pa
+  tags:
+  - Practitioner-Date-API
+  properties:
+  - type: OpenAPI
+    url: openapi/centene-practitioner-date-api-api-openapi.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Catalog
+    url: https://partners.centene.com/apis
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Sandbox
+    url: sandbox/centene-sandbox.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: APIReference
+    url: https://iopc-pd.api.centene.com/iopc/pd/fhir/providerdirectory/metadata
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6b5c0001-8b47-4f1c-864f-9193971f5c62
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/fa62cad4-34be-4b39-b599-30d8a8b7163b
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/a3cbbe9e-c2fe-4460-a248-6599e8b746be
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/badcf145-cbcb-4163-bace-bcadc1da3554
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/ee19c28c-cc90-4ea7-8181-512be50f210d
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/97211dcb-047f-4f94-94b9-bb15376eb6ef
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/c921dd2a-ed7a-40ca-9324-803c7f65c374
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/0a778592-13dd-447b-80b3-c39539d7a993
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6868b4d9-c336-4f02-bfb6-3886215b5564
+  - type: Webhooks
+    url: asyncapi/centene-webhooks.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/b795fc7e-44ab-4e11-a99e-9f261c1d48e9
+- aid: centene:centene-practitioner-network-api-api
+  name: Centene Practitioner Network API
+  description: "RESTful API endpoints for search Practitioners' network related information. \n\n More\
+    \ information can be found on the corresponding Alation page: https://alation.centene.com/table/538096/"
+  humanURL: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  baseURL: https://iopc-pa.api.centene.com/iopc/pa
+  tags:
+  - Practitioner-Network-API
+  properties:
+  - type: OpenAPI
+    url: openapi/centene-practitioner-network-api-api-openapi.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Catalog
+    url: https://partners.centene.com/apis
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Sandbox
+    url: sandbox/centene-sandbox.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: APIReference
+    url: https://iopc-pd.api.centene.com/iopc/pd/fhir/providerdirectory/metadata
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6b5c0001-8b47-4f1c-864f-9193971f5c62
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/fa62cad4-34be-4b39-b599-30d8a8b7163b
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/a3cbbe9e-c2fe-4460-a248-6599e8b746be
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/badcf145-cbcb-4163-bace-bcadc1da3554
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/ee19c28c-cc90-4ea7-8181-512be50f210d
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/97211dcb-047f-4f94-94b9-bb15376eb6ef
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/c921dd2a-ed7a-40ca-9324-803c7f65c374
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/0a778592-13dd-447b-80b3-c39539d7a993
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6868b4d9-c336-4f02-bfb6-3886215b5564
+  - type: Webhooks
+    url: asyncapi/centene-webhooks.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/b795fc7e-44ab-4e11-a99e-9f261c1d48e9
+- aid: centene:centene-practitioner-search-api-api
+  name: Centene Practitioner Search API
+  description: "RESTful API endpoints for search Practitioners' related information. \n\n More information\
+    \ can be found on the corresponding Alation page: https://alation.centene.com/table/538096/"
+  humanURL: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  baseURL: https://iopc-pa.api.centene.com/iopc/pa
+  tags:
+  - Practitioner-Search-API
+  properties:
+  - type: OpenAPI
+    url: openapi/centene-practitioner-search-api-api-openapi.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Catalog
+    url: https://partners.centene.com/apis
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Sandbox
+    url: sandbox/centene-sandbox.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: APIReference
+    url: https://iopc-pd.api.centene.com/iopc/pd/fhir/providerdirectory/metadata
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6b5c0001-8b47-4f1c-864f-9193971f5c62
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/fa62cad4-34be-4b39-b599-30d8a8b7163b
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/a3cbbe9e-c2fe-4460-a248-6599e8b746be
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/badcf145-cbcb-4163-bace-bcadc1da3554
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/ee19c28c-cc90-4ea7-8181-512be50f210d
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/97211dcb-047f-4f94-94b9-bb15376eb6ef
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/c921dd2a-ed7a-40ca-9324-803c7f65c374
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/0a778592-13dd-447b-80b3-c39539d7a993
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6868b4d9-c336-4f02-bfb6-3886215b5564
+  - type: Webhooks
+    url: asyncapi/centene-webhooks.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/b795fc7e-44ab-4e11-a99e-9f261c1d48e9
+- aid: centene:centene-practitionerrole-api
+  name: Centene Practitioner Role API
+  description: The PractitionerRole API from Centene — 2 operation(s) for practitionerrole.
+  humanURL: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  baseURL: https://iopc-pa.api.centene.com/iopc/pa
+  tags:
+  - PractitionerRole
+  properties:
+  - type: OpenAPI
+    url: openapi/centene-practitionerrole-api-openapi.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Catalog
+    url: https://partners.centene.com/apis
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Sandbox
+    url: sandbox/centene-sandbox.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: APIReference
+    url: https://iopc-pd.api.centene.com/iopc/pd/fhir/providerdirectory/metadata
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6b5c0001-8b47-4f1c-864f-9193971f5c62
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/fa62cad4-34be-4b39-b599-30d8a8b7163b
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/a3cbbe9e-c2fe-4460-a248-6599e8b746be
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/badcf145-cbcb-4163-bace-bcadc1da3554
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/ee19c28c-cc90-4ea7-8181-512be50f210d
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/97211dcb-047f-4f94-94b9-bb15376eb6ef
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/c921dd2a-ed7a-40ca-9324-803c7f65c374
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/0a778592-13dd-447b-80b3-c39539d7a993
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6868b4d9-c336-4f02-bfb6-3886215b5564
+  - type: Webhooks
+    url: asyncapi/centene-webhooks.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/b795fc7e-44ab-4e11-a99e-9f261c1d48e9
+- aid: centene:centene-procedure-api
+  name: Centene Procedure API
+  description: The Procedure API from Centene — 2 operation(s) for procedure.
+  humanURL: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  baseURL: https://iopc-pa.api.centene.com/iopc/pa
+  tags:
+  - Procedure
+  properties:
+  - type: OpenAPI
+    url: openapi/centene-procedure-api-openapi.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Catalog
+    url: https://partners.centene.com/apis
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Sandbox
+    url: sandbox/centene-sandbox.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: APIReference
+    url: https://iopc-pd.api.centene.com/iopc/pd/fhir/providerdirectory/metadata
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6b5c0001-8b47-4f1c-864f-9193971f5c62
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/fa62cad4-34be-4b39-b599-30d8a8b7163b
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/a3cbbe9e-c2fe-4460-a248-6599e8b746be
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/badcf145-cbcb-4163-bace-bcadc1da3554
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/ee19c28c-cc90-4ea7-8181-512be50f210d
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/97211dcb-047f-4f94-94b9-bb15376eb6ef
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/c921dd2a-ed7a-40ca-9324-803c7f65c374
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/0a778592-13dd-447b-80b3-c39539d7a993
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6868b4d9-c336-4f02-bfb6-3886215b5564
+  - type: Webhooks
+    url: asyncapi/centene-webhooks.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/b795fc7e-44ab-4e11-a99e-9f261c1d48e9
+- aid: centene:centene-provenance-api
+  name: Centene Provenance API
+  description: The Provenance API from Centene — 1 operation(s) for provenance.
+  humanURL: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  baseURL: https://iopc-pa.api.centene.com/iopc/pa
+  tags:
+  - Provenance
+  properties:
+  - type: OpenAPI
+    url: openapi/centene-provenance-api-openapi.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Catalog
+    url: https://partners.centene.com/apis
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Sandbox
+    url: sandbox/centene-sandbox.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: APIReference
+    url: https://iopc-pd.api.centene.com/iopc/pd/fhir/providerdirectory/metadata
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6b5c0001-8b47-4f1c-864f-9193971f5c62
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/fa62cad4-34be-4b39-b599-30d8a8b7163b
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/a3cbbe9e-c2fe-4460-a248-6599e8b746be
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/badcf145-cbcb-4163-bace-bcadc1da3554
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/ee19c28c-cc90-4ea7-8181-512be50f210d
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/97211dcb-047f-4f94-94b9-bb15376eb6ef
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/c921dd2a-ed7a-40ca-9324-803c7f65c374
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/0a778592-13dd-447b-80b3-c39539d7a993
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6868b4d9-c336-4f02-bfb6-3886215b5564
+  - type: Webhooks
+    url: asyncapi/centene-webhooks.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/b795fc7e-44ab-4e11-a99e-9f261c1d48e9
+- aid: centene:centene-provider-api-api
+  name: Centene Provider API
+  description: "RESTful API endpoints for search Providers' and their networks/locations related information.\
+    \ \n\n More information can be found on the corresponding Alation page: https://alation.centene.com/table/538093/"
+  humanURL: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  baseURL: https://iopc-pa.api.centene.com/iopc/pa
+  tags:
+  - Provider-API
+  properties:
+  - type: OpenAPI
+    url: openapi/centene-provider-api-api-openapi.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Catalog
+    url: https://partners.centene.com/apis
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Sandbox
+    url: sandbox/centene-sandbox.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: APIReference
+    url: https://iopc-pd.api.centene.com/iopc/pd/fhir/providerdirectory/metadata
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6b5c0001-8b47-4f1c-864f-9193971f5c62
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/fa62cad4-34be-4b39-b599-30d8a8b7163b
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/a3cbbe9e-c2fe-4460-a248-6599e8b746be
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/badcf145-cbcb-4163-bace-bcadc1da3554
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/ee19c28c-cc90-4ea7-8181-512be50f210d
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/97211dcb-047f-4f94-94b9-bb15376eb6ef
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/c921dd2a-ed7a-40ca-9324-803c7f65c374
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/0a778592-13dd-447b-80b3-c39539d7a993
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6868b4d9-c336-4f02-bfb6-3886215b5564
+  - type: Webhooks
+    url: asyncapi/centene-webhooks.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/b795fc7e-44ab-4e11-a99e-9f261c1d48e9
+- aid: centene:centene-provider-date-api-api
+  name: Centene Provider Date API
+  description: "RESTful API endpoints for search Providers' date related information. \n\n More information\
+    \ can be found on the corresponding Alation page: https://alation.centene.com/table/538089/"
+  humanURL: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  baseURL: https://iopc-pa.api.centene.com/iopc/pa
+  tags:
+  - Provider-Date-API
+  properties:
+  - type: OpenAPI
+    url: openapi/centene-provider-date-api-api-openapi.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Catalog
+    url: https://partners.centene.com/apis
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Sandbox
+    url: sandbox/centene-sandbox.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: APIReference
+    url: https://iopc-pd.api.centene.com/iopc/pd/fhir/providerdirectory/metadata
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6b5c0001-8b47-4f1c-864f-9193971f5c62
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/fa62cad4-34be-4b39-b599-30d8a8b7163b
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/a3cbbe9e-c2fe-4460-a248-6599e8b746be
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/badcf145-cbcb-4163-bace-bcadc1da3554
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/ee19c28c-cc90-4ea7-8181-512be50f210d
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/97211dcb-047f-4f94-94b9-bb15376eb6ef
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/c921dd2a-ed7a-40ca-9324-803c7f65c374
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/0a778592-13dd-447b-80b3-c39539d7a993
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6868b4d9-c336-4f02-bfb6-3886215b5564
+  - type: Webhooks
+    url: asyncapi/centene-webhooks.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/b795fc7e-44ab-4e11-a99e-9f261c1d48e9
+- aid: centene:centene-provider-network-api-api
+  name: Centene Provider Network API
+  description: "RESTful API endpoints for search Providers' network related information. \n\n More information\
+    \ can be found on the corresponding Alation page: https://alation.centene.com/table/538089/"
+  humanURL: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  baseURL: https://iopc-pa.api.centene.com/iopc/pa
+  tags:
+  - Provider-Network-API
+  properties:
+  - type: OpenAPI
+    url: openapi/centene-provider-network-api-api-openapi.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Catalog
+    url: https://partners.centene.com/apis
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Sandbox
+    url: sandbox/centene-sandbox.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: APIReference
+    url: https://iopc-pd.api.centene.com/iopc/pd/fhir/providerdirectory/metadata
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6b5c0001-8b47-4f1c-864f-9193971f5c62
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/fa62cad4-34be-4b39-b599-30d8a8b7163b
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/a3cbbe9e-c2fe-4460-a248-6599e8b746be
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/badcf145-cbcb-4163-bace-bcadc1da3554
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/ee19c28c-cc90-4ea7-8181-512be50f210d
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/97211dcb-047f-4f94-94b9-bb15376eb6ef
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/c921dd2a-ed7a-40ca-9324-803c7f65c374
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/0a778592-13dd-447b-80b3-c39539d7a993
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6868b4d9-c336-4f02-bfb6-3886215b5564
+  - type: Webhooks
+    url: asyncapi/centene-webhooks.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/b795fc7e-44ab-4e11-a99e-9f261c1d48e9
+- aid: centene:centene-provider-search-api-api
+  name: Centene Provider Search API
+  description: "RESTful API endpoints for search Providers' related information. \n\n More information\
+    \ can be found on the corresponding Alation page: https://alation.centene.com/table/538089/"
+  humanURL: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  baseURL: https://iopc-pa.api.centene.com/iopc/pa
+  tags:
+  - Provider-Search-API
+  properties:
+  - type: OpenAPI
+    url: openapi/centene-provider-search-api-api-openapi.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Catalog
+    url: https://partners.centene.com/apis
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Sandbox
+    url: sandbox/centene-sandbox.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: APIReference
+    url: https://iopc-pd.api.centene.com/iopc/pd/fhir/providerdirectory/metadata
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6b5c0001-8b47-4f1c-864f-9193971f5c62
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/fa62cad4-34be-4b39-b599-30d8a8b7163b
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/a3cbbe9e-c2fe-4460-a248-6599e8b746be
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/badcf145-cbcb-4163-bace-bcadc1da3554
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/ee19c28c-cc90-4ea7-8181-512be50f210d
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/97211dcb-047f-4f94-94b9-bb15376eb6ef
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/c921dd2a-ed7a-40ca-9324-803c7f65c374
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/0a778592-13dd-447b-80b3-c39539d7a993
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6868b4d9-c336-4f02-bfb6-3886215b5564
+  - type: Webhooks
+    url: asyncapi/centene-webhooks.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/b795fc7e-44ab-4e11-a99e-9f261c1d48e9
+- aid: centene:centene-query-api
+  name: Centene Query API
+  description: query elasticsearch
+  humanURL: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  baseURL: https://iopc-pa.api.centene.com/iopc/pa
+  tags:
+  - query
+  properties:
+  - type: OpenAPI
+    url: openapi/centene-query-api-openapi.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Catalog
+    url: https://partners.centene.com/apis
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Sandbox
+    url: sandbox/centene-sandbox.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: APIReference
+    url: https://iopc-pd.api.centene.com/iopc/pd/fhir/providerdirectory/metadata
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6b5c0001-8b47-4f1c-864f-9193971f5c62
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/fa62cad4-34be-4b39-b599-30d8a8b7163b
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/a3cbbe9e-c2fe-4460-a248-6599e8b746be
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/badcf145-cbcb-4163-bace-bcadc1da3554
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/ee19c28c-cc90-4ea7-8181-512be50f210d
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/97211dcb-047f-4f94-94b9-bb15376eb6ef
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/c921dd2a-ed7a-40ca-9324-803c7f65c374
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/0a778592-13dd-447b-80b3-c39539d7a993
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6868b4d9-c336-4f02-bfb6-3886215b5564
+  - type: Webhooks
+    url: asyncapi/centene-webhooks.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/b795fc7e-44ab-4e11-a99e-9f261c1d48e9
+- aid: centene:centene-query-v2-api
+  name: Centene query v2 API
+  description: The query v2 API from Centene — 1 operation(s) for query v2.
+  humanURL: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  baseURL: https://iopc-pa.api.centene.com/iopc/pa
+  tags:
+  - query v2
+  properties:
+  - type: OpenAPI
+    url: openapi/centene-query-v2-api-openapi.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Catalog
+    url: https://partners.centene.com/apis
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Sandbox
+    url: sandbox/centene-sandbox.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: APIReference
+    url: https://iopc-pd.api.centene.com/iopc/pd/fhir/providerdirectory/metadata
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6b5c0001-8b47-4f1c-864f-9193971f5c62
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/fa62cad4-34be-4b39-b599-30d8a8b7163b
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/a3cbbe9e-c2fe-4460-a248-6599e8b746be
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/badcf145-cbcb-4163-bace-bcadc1da3554
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/ee19c28c-cc90-4ea7-8181-512be50f210d
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/97211dcb-047f-4f94-94b9-bb15376eb6ef
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/c921dd2a-ed7a-40ca-9324-803c7f65c374
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/0a778592-13dd-447b-80b3-c39539d7a993
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6868b4d9-c336-4f02-bfb6-3886215b5564
+  - type: Webhooks
+    url: asyncapi/centene-webhooks.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/b795fc7e-44ab-4e11-a99e-9f261c1d48e9
+- aid: centene:centene-query-validator-api
+  name: Centene Query Validator API
+  description: The query-validator API from Centene — 1 operation(s) for query-validator.
+  humanURL: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  baseURL: https://iopc-pa.api.centene.com/iopc/pa
+  tags:
+  - query-validator
+  properties:
+  - type: OpenAPI
+    url: openapi/centene-query-validator-api-openapi.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Catalog
+    url: https://partners.centene.com/apis
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Sandbox
+    url: sandbox/centene-sandbox.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: APIReference
+    url: https://iopc-pd.api.centene.com/iopc/pd/fhir/providerdirectory/metadata
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6b5c0001-8b47-4f1c-864f-9193971f5c62
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/fa62cad4-34be-4b39-b599-30d8a8b7163b
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/a3cbbe9e-c2fe-4460-a248-6599e8b746be
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/badcf145-cbcb-4163-bace-bcadc1da3554
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/ee19c28c-cc90-4ea7-8181-512be50f210d
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/97211dcb-047f-4f94-94b9-bb15376eb6ef
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/c921dd2a-ed7a-40ca-9324-803c7f65c374
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/0a778592-13dd-447b-80b3-c39539d7a993
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6868b4d9-c336-4f02-bfb6-3886215b5564
+  - type: Webhooks
+    url: asyncapi/centene-webhooks.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/b795fc7e-44ab-4e11-a99e-9f261c1d48e9
+- aid: centene:centene-questionnaireresponse-api
+  name: Centene Questionnaire Response API
+  description: The QuestionnaireResponse API from Centene — 2 operation(s) for questionnaireresponse.
+  humanURL: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  baseURL: https://iopc-pa.api.centene.com/iopc/pa
+  tags:
+  - QuestionnaireResponse
+  properties:
+  - type: OpenAPI
+    url: openapi/centene-questionnaireresponse-api-openapi.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Catalog
+    url: https://partners.centene.com/apis
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Sandbox
+    url: sandbox/centene-sandbox.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: APIReference
+    url: https://iopc-pd.api.centene.com/iopc/pd/fhir/providerdirectory/metadata
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6b5c0001-8b47-4f1c-864f-9193971f5c62
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/fa62cad4-34be-4b39-b599-30d8a8b7163b
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/a3cbbe9e-c2fe-4460-a248-6599e8b746be
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/badcf145-cbcb-4163-bace-bcadc1da3554
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/ee19c28c-cc90-4ea7-8181-512be50f210d
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/97211dcb-047f-4f94-94b9-bb15376eb6ef
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/c921dd2a-ed7a-40ca-9324-803c7f65c374
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/0a778592-13dd-447b-80b3-c39539d7a993
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6868b4d9-c336-4f02-bfb6-3886215b5564
+  - type: Webhooks
+    url: asyncapi/centene-webhooks.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/b795fc7e-44ab-4e11-a99e-9f261c1d48e9
+- aid: centene:centene-realtimetransaction-api
+  name: Centene Real Time Transaction API
+  description: The RealTimeTransaction API from Centene — 1 operation(s) for realtimetransaction.
+  humanURL: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  baseURL: https://iopc-pa.api.centene.com/iopc/pa
+  tags:
+  - RealTimeTransaction
+  properties:
+  - type: OpenAPI
+    url: openapi/centene-realtimetransaction-api-openapi.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Catalog
+    url: https://partners.centene.com/apis
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Sandbox
+    url: sandbox/centene-sandbox.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: APIReference
+    url: https://iopc-pd.api.centene.com/iopc/pd/fhir/providerdirectory/metadata
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6b5c0001-8b47-4f1c-864f-9193971f5c62
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/fa62cad4-34be-4b39-b599-30d8a8b7163b
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/a3cbbe9e-c2fe-4460-a248-6599e8b746be
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/badcf145-cbcb-4163-bace-bcadc1da3554
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/ee19c28c-cc90-4ea7-8181-512be50f210d
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/97211dcb-047f-4f94-94b9-bb15376eb6ef
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/c921dd2a-ed7a-40ca-9324-803c7f65c374
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/0a778592-13dd-447b-80b3-c39539d7a993
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6868b4d9-c336-4f02-bfb6-3886215b5564
+  - type: Webhooks
+    url: asyncapi/centene-webhooks.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/b795fc7e-44ab-4e11-a99e-9f261c1d48e9
+- aid: centene:centene-searchhealowmembercg-api
+  name: Centene Search Healow Member CG API
+  description: The SearchHealowMemberCG API from Centene — 4 operation(s) for searchhealowmembercg.
+  humanURL: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  baseURL: https://iopc-pa.api.centene.com/iopc/pa
+  tags:
+  - SearchHealowMemberCG
+  properties:
+  - type: OpenAPI
+    url: openapi/centene-searchhealowmembercg-api-openapi.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Catalog
+    url: https://partners.centene.com/apis
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Sandbox
+    url: sandbox/centene-sandbox.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: APIReference
+    url: https://iopc-pd.api.centene.com/iopc/pd/fhir/providerdirectory/metadata
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6b5c0001-8b47-4f1c-864f-9193971f5c62
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/fa62cad4-34be-4b39-b599-30d8a8b7163b
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/a3cbbe9e-c2fe-4460-a248-6599e8b746be
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/badcf145-cbcb-4163-bace-bcadc1da3554
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/ee19c28c-cc90-4ea7-8181-512be50f210d
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/97211dcb-047f-4f94-94b9-bb15376eb6ef
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/c921dd2a-ed7a-40ca-9324-803c7f65c374
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/0a778592-13dd-447b-80b3-c39539d7a993
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6868b4d9-c336-4f02-bfb6-3886215b5564
+  - type: Webhooks
+    url: asyncapi/centene-webhooks.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/b795fc7e-44ab-4e11-a99e-9f261c1d48e9
+- aid: centene:centene-utilities-api
+  name: Centene Utilities API
+  description: The Utilities API from Centene — 2 operation(s) for utilities.
+  humanURL: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  baseURL: https://iopc-pa.api.centene.com/iopc/pa
+  tags:
+  - Utilities
+  properties:
+  - type: OpenAPI
+    url: openapi/centene-utilities-api-openapi.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Catalog
+    url: https://partners.centene.com/apis
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
+  - type: Sandbox
+    url: sandbox/centene-sandbox.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: GettingStarted
+    url: https://partners.centene.com/apiDetail/8122bc9c-43d6-4a2a-b6be-2272df8b8566
+  - type: APIReference
+    url: https://iopc-pd.api.centene.com/iopc/pd/fhir/providerdirectory/metadata
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6b5c0001-8b47-4f1c-864f-9193971f5c62
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/fa62cad4-34be-4b39-b599-30d8a8b7163b
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/a3cbbe9e-c2fe-4460-a248-6599e8b746be
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/badcf145-cbcb-4163-bace-bcadc1da3554
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/ee19c28c-cc90-4ea7-8181-512be50f210d
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/97211dcb-047f-4f94-94b9-bb15376eb6ef
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/c921dd2a-ed7a-40ca-9324-803c7f65c374
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/0a778592-13dd-447b-80b3-c39539d7a993
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/6868b4d9-c336-4f02-bfb6-3886215b5564
+  - type: Webhooks
+    url: asyncapi/centene-webhooks.yml
+  - type: Documentation
+    url: https://partners.centene.com/apiDetail/b795fc7e-44ab-4e11-a99e-9f261c1d48e9
 common:
+  - type: Overlay
+    url: overlays/centene-fhir-patient-access-overlay.yaml
+  - type: AgentSkill
+    url: skills/centene-member-record-access.md
+  - type: Overlay
+    url: overlays/centene-fhir-provider-directory-overlay.yaml
+  - type: AgentSkill
+    url: skills/centene-find-in-network-provider.md
+  - type: Overlay
+    url: overlays/centene-provider-rtr-fhir-pdex-overlay.yaml
+  - type: AgentSkill
+    url: skills/centene-payer-to-payer-pdex.md
+  - type: Overlay
+    url: overlays/centene-provider-rtr-demographics-overlay.yaml
+  - type: Overlay
+    url: overlays/centene-pces-overlay.yaml
+  - type: Overlay
+    url: overlays/centene-pces-extract-overlay.yaml
+  - type: Overlay
+    url: overlays/centene-provider-search-suggest-overlay.yaml
+  - type: Overlay
+    url: overlays/centene-product-mapping-v2-overlay.yaml
+  - type: Overlay
+    url: overlays/centene-edi-core-realtime-overlay.yaml
+  - type: Overlay
+    url: overlays/centene-ccm-communication-overlay.yaml
+  - type: Overlay
+    url: overlays/centene-ccm-sms-userresponse-overlay.yaml
+  - type: Overlay
+    url: overlays/centene-healow-health-overlay.yaml
   - type: OAuthScopes
     url: scopes/centene-scopes.yml
   - type: Authentication
