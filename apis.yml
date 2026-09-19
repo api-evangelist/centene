@@ -35,6 +35,27 @@ tags:
   - CMS Interoperability
   - Patient Access
   - Provider Directory
+  - Payers
+  - Medicaid
+  - Medicare
+  - Interoperability
+  - SMART on FHIR
+  - PDEX
+  - CARIN Blue Button
+  - US Core
+  - Formulary
+  - X12
+  - EDI
+  - Fortune 500
+tags_raw:
+  - Healthcare
+  - Insurance
+  - Managed Care
+  - FHIR
+  - HL7
+  - CMS Interoperability
+  - Patient Access
+  - Provider Directory
   - Payer
   - Medicaid
   - Medicare
@@ -302,6 +323,8 @@ apis:
   humanURL: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
   baseURL: https://iopc-pa.api.centene.com/iopc/pa
   tags:
+  - Communications
+  tags_raw:
   - Communication
   properties:
   - type: OpenAPI
@@ -669,7 +692,8 @@ apis:
   description: The Endpoint API from Centene — 2 operation(s) for endpoint.
   humanURL: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
   baseURL: https://iopc-pa.api.centene.com/iopc/pa
-  tags:
+  tags: []
+  tags_raw:
   - Endpoint
   properties:
   - type: OpenAPI
@@ -1364,6 +1388,8 @@ apis:
   humanURL: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
   baseURL: https://iopc-pa.api.centene.com/iopc/pa
   tags:
+  - Metadata
+  tags_raw:
   - metadata
   properties:
   - type: OpenAPI
@@ -1410,6 +1436,8 @@ apis:
   humanURL: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
   baseURL: https://iopc-pa.api.centene.com/iopc/pa
   tags:
+  - Networks
+  tags_raw:
   - network
   properties:
   - type: OpenAPI
@@ -1595,6 +1623,8 @@ apis:
   humanURL: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
   baseURL: https://iopc-pa.api.centene.com/iopc/pa
   tags:
+  - Patients
+  tags_raw:
   - Patient
   properties:
   - type: OpenAPI
@@ -2155,6 +2185,8 @@ apis:
   humanURL: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
   baseURL: https://iopc-pa.api.centene.com/iopc/pa
   tags:
+  - Query
+  tags_raw:
   - query
   properties:
   - type: OpenAPI
@@ -2477,6 +2509,8 @@ apis:
   humanURL: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
   baseURL: https://iopc-pa.api.centene.com/iopc/pa
   tags:
+  - AllergyIntolerance
+  tags_raw:
   - Allergy Intolerance
   properties:
   - type: OpenAPI
@@ -2523,6 +2557,8 @@ apis:
   humanURL: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
   baseURL: https://iopc-pa.api.centene.com/iopc/pa
   tags:
+  - CarePlan
+  tags_raw:
   - Care plan
   properties:
   - type: OpenAPI
@@ -2569,6 +2605,8 @@ apis:
   humanURL: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
   baseURL: https://iopc-pa.api.centene.com/iopc/pa
   tags:
+  - HealthcareService
+  tags_raw:
   - Healthcare Service
   properties:
   - type: OpenAPI
@@ -2615,6 +2653,8 @@ apis:
   humanURL: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
   baseURL: https://iopc-pa.api.centene.com/iopc/pa
   tags:
+  - InsurancePlan
+  tags_raw:
   - Insurance Plan
   properties:
   - type: OpenAPI
@@ -2661,6 +2701,8 @@ apis:
   humanURL: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
   baseURL: https://iopc-pa.api.centene.com/iopc/pa
   tags:
+  - MedicationRequest
+  tags_raw:
   - Medication Request
   properties:
   - type: OpenAPI
@@ -2707,6 +2749,8 @@ apis:
   humanURL: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
   baseURL: https://iopc-pa.api.centene.com/iopc/pa
   tags:
+  - PractitionerRole
+  tags_raw:
   - Practitioner Role
   properties:
   - type: OpenAPI
