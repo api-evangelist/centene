@@ -1,0 +1,216 @@
+openapi: 3.2.0
+info:
+  title: Patient Access Medication API
+  description: Patient Access Endpoints for FHIR Resources
+  version: '1.0'
+servers:
+- url: https://dev-int-api-gw.centene.com/fhir/v4/patientaccess
+tags:
+- name: Medication
+paths:
+  /Medication/{id}:
+    get:
+      tags:
+      - Medication
+      summary: Read the current state of the resource
+      operationId: readMedication
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Medication'
+        '400':
+          description: Bad request
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: invalid
+                  details:
+                    text: Invalid or badly formed Medication ID .
+        '401':
+          description: Unauthorized
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Unauthorized
+                  details:
+                    text: You are not authorized to view this Medication.
+        '403':
+          description: Forbidden
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: forbidden
+                  details:
+                    text: You are not allowed to view this Medication.
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Not Found
+                  details:
+                    text: No Medication found with the provided ID.
+        '500':
+          description: InternalServerError
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: fatal
+                  code: exception
+                  details:
+                    text: Internal server error. Please try again later
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Too Many Requests
+                  details:
+                    text: Too Many Requests for Medication with the provided ID.
+        '501':
+          description: Not Implemented
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Not Implemented
+                  details:
+                    text: The request for Medication is Not Implemented
+        '502':
+          description: Bad gateway
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Bad gateway
+                  details:
+                    text: Bad gateway
+        '503':
+          description: Service Unavailable
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Service Unavailable
+                  details:
+                    text: Service Unavailable
+        '504':
+          description: Gateway Timeout
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Gateway Timeout
+                  details:
+                    text: Gateway Timeout
+      security:
+      - Bearer: []
+components:
+  schemas:
+    Medication:
+      required:
+      - resourceType
+      - id
+      - meta
+      - text
+      - code
+      type: object
+      properties:
+        resourceType:
+          type: string
+        id:
+          type: string
+        meta:
+          type: object
+          properties:
+            extension:
+              type: array
+              items:
+                type: object
+                properties:
+                  url:
+                    type: string
+                  valueString:
+                    type: string
+                required:
+                - url
+                - valueString
+            profile:
+              type: array
+              items:
+                type: string
+          required:
+          - extension
+          - profile
+        text:
+          type: object
+          properties:
+            status:
+              type: string
+            div:
+              type: string
+          required:
+          - status
+          - div
+        code:
+          type: object
+          properties:
+            coding:
+              type: array
+              items:
+                type: object
+                properties:
+                  system:
+                    type: string
+                  code:
+                    type: string
+                  display:
+                    type: string
+                required:
+                - system
+                - code
+                - display
+            text:
+              type: string
+          required:
+          - coding
+          - text
+      description: ''
+  securitySchemes:
+    Bearer:
+      type: http
+      scheme: bearer

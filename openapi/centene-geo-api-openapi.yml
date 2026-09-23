@@ -1,0 +1,118 @@
+openapi: 3.2.0
+info:
+  title: Product Mapping V2 Geo API
+  description: Application to get network data and active networks based on location.
+  version: 2.0.0
+servers:
+- url: https://dev-int-api-gw.centene.com/productmapping/v2/
+  description: Dev Internal
+- url: https://prod.api.centene.com/incoming/dev/productmapping/v2
+  description: Dev DMZ External
+- url: https://test-int-api-gw.centene.com/productmapping/v2/
+  description: Test Internal
+- url: https://prod.api.centene.com/incoming/test/productmapping/v2
+  description: Test DMZ External
+- url: https://api-gateway-01.centene.com/productmapping/v2/
+  description: Prod Internal
+- url: https://prod.api.centene.com/incoming/productmapping/v2
+  description: Prod DMZ External
+security:
+- basicAuth: []
+tags:
+- name: Geo
+paths:
+  /countiesForAddress:
+    post:
+      tags:
+      - Geo
+      summary: Determine the list of counties that apply for a given address and address type
+      operationId: determineCounties
+      requestBody:
+        description: Accepted parameters.
+        content:
+          application/json:
+            schema:
+              anyOf:
+              - $ref: '#/components/schemas/countiesRequest'
+            examples:
+              County:
+                description: Determine if the address is a valid county
+                value:
+                  value: Sacramento, CA
+                  addressType: county
+              City:
+                description: Determine the counties the city is in
+                value:
+                  value: San Francisco, CA
+                  addressType: city
+              Street Address:
+                description: Determine the counties for the address
+                value:
+                  value: 105 NW 13th Ave, Portland, OR 97209
+                  addressType: street_address
+              Postal Code:
+                description: Determine the counties for the postal code
+                value:
+                  value: '75001'
+                  addressType: postal
+        required: false
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/countiesResponseObject'
+components:
+  schemas:
+    countiesRequest:
+      type: object
+      properties:
+        streetAddress:
+          type: string
+          example: 1261 W 76th St
+        url:
+          type: string
+          example: county
+    countyResult:
+      type: object
+      properties:
+        countyName:
+          type: string
+          example: King
+        countyFIPSCode:
+          type: string
+          example: 53033
+        state:
+          type: string
+          example: WA
+    countiesResponseObject:
+      type: array
+      items:
+        $ref: '#/components/schemas/countyResult'
+      properties:
+        '7001':
+          type: string
+          example: Medicaid Plan
+        '37803':
+          type: string
+          example: Allwell Dual Medicare HMO SNP
+        '37804':
+          type: string
+          example: Allwell Dual Medicare HMO SNP
+        '65601':
+          type: string
+          example: Florida Long Term Care
+        '343703':
+          type: string
+          example: Allwell Medicare HMO MAPD
+        '343704':
+          type: string
+          example: Allwell Medicare HMO MAPD
+        '803601':
+          type: string
+          example: Child Welfare Specialty Plan
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic

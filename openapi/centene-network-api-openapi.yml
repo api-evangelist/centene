@@ -1,0 +1,182 @@
+openapi: 3.2.0
+info:
+  title: Product Mapping V2 Network API
+  description: Application to get network data and active networks based on location.
+  version: 2.0.0
+servers:
+- url: https://dev-int-api-gw.centene.com/productmapping/v2/
+  description: Dev Internal
+- url: https://prod.api.centene.com/incoming/dev/productmapping/v2
+  description: Dev DMZ External
+- url: https://test-int-api-gw.centene.com/productmapping/v2/
+  description: Test Internal
+- url: https://prod.api.centene.com/incoming/test/productmapping/v2
+  description: Test DMZ External
+- url: https://api-gateway-01.centene.com/productmapping/v2/
+  description: Prod Internal
+- url: https://prod.api.centene.com/incoming/productmapping/v2
+  description: Prod DMZ External
+security:
+- basicAuth: []
+tags:
+- name: Network
+paths:
+  /network:
+    get:
+      tags:
+      - Network
+      summary: A GET that fetches the Network Data for a given Network Code
+      operationId: getNetwork
+      parameters:
+      - name: fapNetworkIdentifier
+        in: query
+        description: code
+        required: true
+        schema:
+          type: string
+          default: '9001'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/fapNetworkServiceArea'
+components:
+  schemas:
+    fapNetworkServiceArea:
+      type: object
+      properties:
+        dataSourceIdentifier:
+          type: string
+          example: 259
+        fapNetworkCode:
+          type: string
+          example: 558103
+        fapNetworkDisplayEndDate:
+          type: string
+          example: '4000-01-01'
+        fapNetworkDisplayStartDate:
+          type: string
+          format: date
+          example: '2020-07-01'
+        fapNetworkEndDate:
+          type: string
+          example: '4000-01-01'
+        fapNetworkStartDate:
+          type: string
+          format: date
+          example: '2020-07-01'
+        fapNetworkIdentifier:
+          type: string
+          example: 558103
+        fapNetworkName:
+          type: string
+          example: Seniority Plus Sapphire Premier II (HMO)
+        fapNetworkStatusCode:
+          type: string
+          example: ACTIVE
+        fapNetworkTypeCode:
+          type: string
+          example: Medicaid
+        fapNetworkURLText:
+          type: string
+          example: healthnetadvantage.com
+        memberAttributes:
+          type: array
+          items:
+            type: object
+            properties:
+              counties:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    countyName:
+                      type: string
+                      example: Alameda
+                    dataSourceidentifier:
+                      type: string
+                      example: 259
+                    fipsCountyCode:
+                      type: string
+                      example: 3073
+                    stateCode:
+                      type: string
+                      example: CA
+              memberAttributeCode:
+                type: string
+                example: 1731
+              memberAttributeDescription:
+                type: string
+                example: Migrated Member
+              memberAttributeIdentifier:
+                type: string
+                example: 333622
+              memberAttributeName:
+                type: string
+                example: Seniority Plus Sapphire Premier II (HMO)
+              memberAttributeType:
+                type: string
+                example: Benefit Package Code
+        providerPrograms:
+          type: array
+          items:
+            type: object
+            properties:
+              dataSourceIdentifier:
+                type: string
+                example: 259
+              providerProgramCode:
+                type: string
+                example: 5581
+              providerProgramIdentifier:
+                type: string
+                example: 220091
+              providerProgramName:
+                type: string
+                example: 5581
+              providerProgramTypeCode:
+                type: string
+                example: MED
+              providerProgramDescription:
+                type: string
+                example: Some Description
+        serviceAreaRestrictionFlag:
+          type: string
+          example: Y
+        sites:
+          type: array
+          items:
+            type: object
+            properties:
+              domainUrl:
+                type: string
+                example: findaprovider.superiorhealthplan.com/something_else
+              root_url:
+                type: string
+                example: sfindaprovider.superiorhealthplan.com
+              tag:
+                type: string
+                example: someTag
+              modes:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    mode:
+                      type: string
+                      example: someMode
+        ppgIndicator:
+          type: string
+          example: Y
+        noteText:
+          type: string
+          example: Initial Load 07282020
+        stateCode:
+          type: string
+          example: CA
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic

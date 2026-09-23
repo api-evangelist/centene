@@ -1,0 +1,1108 @@
+openapi: 3.2.0
+info:
+  title: Centene Practitioner API
+  version: '1.0'
+  description: 'Operations tagged Practitioner across 2 of this provider''s published API definitions: centene-fhir-patient-access-openapi.json, centene-fhir-provider-directory-openapi.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://dev-int-api-gw.centene.com/fhir/v4/patientaccess
+- url: https://dev-int-api-gw.centene.com/fhir/v4/providerdirectory
+tags:
+- name: Practitioner
+paths:
+  /Practitioner:
+    get:
+      tags:
+      - Practitioner
+      summary: Search all resources of type Practitioner based on a set of criteria
+      operationId: searchPractitioner
+      parameters:
+      - name: _id
+        in: query
+        description: Logical id of this artifact
+        schema:
+          type: string
+      - name: identifier
+        in: query
+        description: A practitioner's Identifier
+        schema:
+          type: string
+      - name: name
+        in: query
+        description: A server defined search that may match any of the string fields in the HumanName, including family, give, prefix, suffix, suffix, and/or text
+        schema:
+          type: string
+      - name: name:contains
+        in: query
+        description: A server defined search that may match any of the string fields in the HumanName, including family, give, prefix, suffix, suffix, and/or text
+        schema:
+          type: string
+      - name: name:exact
+        in: query
+        description: A server defined search that would match the exact name
+        schema:
+          type: string
+      - name: _page
+        in: query
+        schema:
+          type: number
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Practitioner-search'
+        '400':
+          description: Bad request
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: invalid
+                  details:
+                    text: Invalid or badly formed Practitioner ID .
+        '401':
+          description: Unauthorized
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Unauthorized
+                  details:
+                    text: You are not authorized to view this Practitioner.
+        '403':
+          description: Forbidden
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: forbidden
+                  details:
+                    text: You are not allowed to view this Practitioner.
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Not Found
+                  details:
+                    text: No Practitioner found with the provided ID.
+        '500':
+          description: InternalServerError
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: fatal
+                  code: exception
+                  details:
+                    text: Internal server error. Please try again later
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Too Many Requests
+                  details:
+                    text: Too Many Requests for practitioner with the provided ID.
+        '501':
+          description: Not Implemented
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Not Implemented
+                  details:
+                    text: The request for practitioner is Not Implemented
+        '502':
+          description: Bad gateway
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Bad gateway
+                  details:
+                    text: Bad gateway
+        '503':
+          description: Service Unavailable
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Service Unavailable
+                  details:
+                    text: Service Unavailable
+        '504':
+          description: Gateway Timeout
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Gateway Timeout
+                  details:
+                    text: Gateway Timeout
+      security:
+      - Bearer: []
+    summary: manage the collection of resources of type Practitioner
+    description: Access to services to manage the collection of all resources of type Practitioner
+    servers:
+    - url: https://dev-int-api-gw.centene.com/fhir/v4/patientaccess
+  /Practitioner/{id}:
+    get:
+      tags:
+      - Practitioner
+      summary: Read the current state of the resource
+      operationId: readPractitioner
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: _page
+        in: query
+        schema:
+          type: number
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Practitioner'
+        '400':
+          description: Bad request
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: invalid
+                  details:
+                    text: Invalid or badly formed Practitioner ID .
+        '401':
+          description: Unauthorized
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Unauthorized
+                  details:
+                    text: You are not authorized to view this Practitioner.
+        '403':
+          description: Forbidden
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: forbidden
+                  details:
+                    text: You are not allowed to view this Practitioner.
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Not Found
+                  details:
+                    text: No Practitioner found with the provided ID.
+        '500':
+          description: InternalServerError
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: fatal
+                  code: exception
+                  details:
+                    text: Internal server error. Please try again later
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Too Many Requests
+                  details:
+                    text: Too Many Requests for practitioner with the provided ID.
+        '501':
+          description: Not Implemented
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Not Implemented
+                  details:
+                    text: The request for practitioner is Not Implemented
+        '502':
+          description: Bad gateway
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Bad gateway
+                  details:
+                    text: Bad gateway
+        '503':
+          description: Service Unavailable
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Service Unavailable
+                  details:
+                    text: Service Unavailable
+        '504':
+          description: Gateway Timeout
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Gateway Timeout
+                  details:
+                    text: Gateway Timeout
+      security:
+      - Bearer: []
+    summary: Read resource instance of type Practitioner
+    description: Access to services to manage the state of a single resource of type Practitioner
+    servers:
+    - url: https://dev-int-api-gw.centene.com/fhir/v4/patientaccess
+components:
+  schemas:
+    Practitioner:
+      required:
+      - active
+      - id
+      - identifier
+      - meta
+      - name
+      - resourceType
+      - text
+      type: object
+      properties:
+        resourceType:
+          minLength: 1
+          type: string
+        id:
+          minLength: 1
+          type: string
+        meta:
+          required:
+          - lastUpdated
+          - profile
+          type: object
+          properties:
+            lastUpdated:
+              minLength: 1
+              type: string
+            profile:
+              type: array
+              items:
+                type: object
+                properties: {}
+        text:
+          required:
+          - div
+          - status
+          type: object
+          properties:
+            status:
+              minLength: 1
+              type: string
+            div:
+              minLength: 1
+              type: string
+        identifier:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            required:
+            - system
+            - value
+            type: object
+            properties:
+              type:
+                required:
+                - coding
+                - text
+                type: object
+                properties:
+                  coding:
+                    minItems: 1
+                    uniqueItems: true
+                    type: array
+                    items:
+                      required:
+                      - code
+                      - display
+                      - system
+                      type: object
+                      properties:
+                        system:
+                          minLength: 1
+                          type: string
+                        code:
+                          minLength: 1
+                          type: string
+                        display:
+                          minLength: 1
+                          type: string
+                  text:
+                    minLength: 1
+                    type: string
+              system:
+                minLength: 1
+                type: string
+              value:
+                minLength: 1
+                type: string
+        active:
+          type: boolean
+        name:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            required:
+            - family
+            type: object
+            properties:
+              family:
+                minLength: 1
+                type: string
+              given:
+                type: array
+                items:
+                  type: object
+                  properties: {}
+              prefix:
+                type: array
+                items:
+                  type: object
+                  properties: {}
+      description: ''
+    Practitioner-search:
+      required:
+      - entry
+      - id
+      - link
+      - meta
+      - resourceType
+      - total
+      - type
+      type: object
+      properties:
+        resourceType:
+          minLength: 1
+          type: string
+        id:
+          minLength: 1
+          type: string
+        meta:
+          required:
+          - lastUpdated
+          type: object
+          properties:
+            lastUpdated:
+              minLength: 1
+              type: string
+        type:
+          minLength: 1
+          type: string
+        total:
+          type: number
+        link:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            required:
+            - relation
+            - url
+            type: object
+            properties:
+              relation:
+                minLength: 1
+                type: string
+              url:
+                minLength: 1
+                type: string
+        entry:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            required:
+            - fullUrl
+            type: object
+            properties:
+              fullUrl:
+                minLength: 1
+                type: string
+              resource:
+                required:
+                - active
+                - id
+                - identifier
+                - meta
+                - name
+                - resourceType
+                - text
+                type: object
+                properties:
+                  resourceType:
+                    minLength: 1
+                    type: string
+                  id:
+                    minLength: 1
+                    type: string
+                  meta:
+                    required:
+                    - lastUpdated
+                    - profile
+                    type: object
+                    properties:
+                      lastUpdated:
+                        minLength: 1
+                        type: string
+                      profile:
+                        type: array
+                        items:
+                          type: object
+                          properties: {}
+                  text:
+                    required:
+                    - div
+                    - status
+                    type: object
+                    properties:
+                      status:
+                        minLength: 1
+                        type: string
+                      div:
+                        minLength: 1
+                        type: string
+                  identifier:
+                    minItems: 1
+                    uniqueItems: true
+                    type: array
+                    items:
+                      required:
+                      - system
+                      - value
+                      type: object
+                      properties:
+                        type:
+                          required:
+                          - coding
+                          - text
+                          type: object
+                          properties:
+                            coding:
+                              minItems: 1
+                              uniqueItems: true
+                              type: array
+                              items:
+                                required:
+                                - code
+                                - display
+                                - system
+                                type: object
+                                properties:
+                                  system:
+                                    minLength: 1
+                                    type: string
+                                  code:
+                                    minLength: 1
+                                    type: string
+                                  display:
+                                    minLength: 1
+                                    type: string
+                            text:
+                              minLength: 1
+                              type: string
+                        system:
+                          minLength: 1
+                          type: string
+                        value:
+                          minLength: 1
+                          type: string
+                  active:
+                    type: boolean
+                  name:
+                    minItems: 1
+                    uniqueItems: true
+                    type: array
+                    items:
+                      required:
+                      - family
+                      type: object
+                      properties:
+                        family:
+                          minLength: 1
+                          type: string
+                        given:
+                          type: array
+                          items:
+                            type: object
+                            properties: {}
+                        prefix:
+                          type: array
+                          items:
+                            type: object
+                            properties: {}
+      description: ''
+    Practitioner_2:
+      required:
+      - active
+      - communication
+      - extension
+      - id
+      - identifier
+      - language
+      - meta
+      - name
+      - qualification
+      - resourceType
+      - text
+      type: object
+      properties:
+        resourceType:
+          minLength: 1
+          type: string
+        id:
+          minLength: 1
+          type: string
+        meta:
+          required:
+          - lastUpdated
+          - profile
+          type: object
+          properties:
+            lastUpdated:
+              minLength: 1
+              type: string
+            profile:
+              type: array
+              items:
+                type: object
+                properties: {}
+        language:
+          minLength: 1
+          type: string
+        text:
+          required:
+          - div
+          - status
+          type: object
+          properties:
+            status:
+              minLength: 1
+              type: string
+            div:
+              minLength: 1
+              type: string
+        extension:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            required:
+            - url
+            type: object
+            properties:
+              url:
+                minLength: 1
+                type: string
+              valueCodeableConcept:
+                required:
+                - coding
+                type: object
+                properties:
+                  coding:
+                    minItems: 1
+                    uniqueItems: true
+                    type: array
+                    items:
+                      required:
+                      - code
+                      - system
+                      type: object
+                      properties:
+                        system:
+                          minLength: 1
+                          type: string
+                        code:
+                          minLength: 1
+                          type: string
+        identifier:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            required:
+            - system
+            - value
+            type: object
+            properties:
+              system:
+                minLength: 1
+                type: string
+              value:
+                minLength: 1
+                type: string
+        active:
+          type: boolean
+        name:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            required:
+            - family
+            - text
+            type: object
+            properties:
+              text:
+                minLength: 1
+                type: string
+              family:
+                minLength: 1
+                type: string
+              given:
+                type: array
+                items:
+                  type: object
+                  properties: {}
+        qualification:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            type: object
+            properties:
+              extension:
+                minItems: 1
+                uniqueItems: true
+                type: array
+                items:
+                  required:
+                  - url
+                  type: object
+                  properties:
+                    extension:
+                      minItems: 1
+                      uniqueItems: true
+                      type: array
+                      items:
+                        required:
+                        - url
+                        - valueCode
+                        type: object
+                        properties:
+                          url:
+                            minLength: 1
+                            type: string
+                          valueCode:
+                            minLength: 1
+                            type: string
+                    url:
+                      minLength: 1
+                      type: string
+              code:
+                required:
+                - coding
+                - text
+                type: object
+                properties:
+                  coding:
+                    minItems: 1
+                    uniqueItems: true
+                    type: array
+                    items:
+                      required:
+                      - display
+                      type: object
+                      properties:
+                        display:
+                          minLength: 1
+                          type: string
+                  text:
+                    minLength: 1
+                    type: string
+              issuer:
+                required:
+                - display
+                type: object
+                properties:
+                  display:
+                    minLength: 1
+                    type: string
+        communication:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            type: object
+            properties:
+              coding:
+                minItems: 1
+                uniqueItems: true
+                type: array
+                items:
+                  required:
+                  - code
+                  - system
+                  type: object
+                  properties:
+                    system:
+                      minLength: 1
+                      type: string
+                    code:
+                      minLength: 1
+                      type: string
+      description: ''
+    GeneralError:
+      required:
+      - resourceType
+      - issue
+      type: object
+      properties:
+        resourceType:
+          minLength: 1
+          type: string
+        issue:
+          required:
+          - severity
+          - code
+          - details
+          type: object
+          properties:
+            severity:
+              minLength: 1
+              type: string
+            code:
+              minLength: 1
+              type: string
+            details:
+              minLength: 1
+              type: string
+    Practitioner-search_2:
+      required:
+      - entry
+      - id
+      - link
+      - meta
+      - resourceType
+      - total
+      - type
+      type: object
+      properties:
+        resourceType:
+          minLength: 1
+          type: string
+        id:
+          minLength: 1
+          type: string
+        meta:
+          required:
+          - lastUpdated
+          type: object
+          properties:
+            lastUpdated:
+              minLength: 1
+              type: string
+        type:
+          minLength: 1
+          type: string
+        total:
+          type: number
+        link:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            required:
+            - relation
+            - url
+            type: object
+            properties:
+              relation:
+                minLength: 1
+                type: string
+              url:
+                minLength: 1
+                type: string
+        entry:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            required:
+            - fullUrl
+            type: object
+            properties:
+              fullUrl:
+                minLength: 1
+                type: string
+              resource:
+                required:
+                - active
+                - communication
+                - extension
+                - id
+                - identifier
+                - language
+                - meta
+                - name
+                - qualification
+                - resourceType
+                - text
+                type: object
+                properties:
+                  resourceType:
+                    minLength: 1
+                    type: string
+                  id:
+                    minLength: 1
+                    type: string
+                  meta:
+                    required:
+                    - lastUpdated
+                    - profile
+                    type: object
+                    properties:
+                      lastUpdated:
+                        minLength: 1
+                        type: string
+                      profile:
+                        type: array
+                        items:
+                          type: object
+                          properties: {}
+                  language:
+                    minLength: 1
+                    type: string
+                  text:
+                    required:
+                    - div
+                    - status
+                    type: object
+                    properties:
+                      status:
+                        minLength: 1
+                        type: string
+                      div:
+                        minLength: 1
+                        type: string
+                  extension:
+                    minItems: 1
+                    uniqueItems: true
+                    type: array
+                    items:
+                      required:
+                      - url
+                      type: object
+                      properties:
+                        url:
+                          minLength: 1
+                          type: string
+                        valueCodeableConcept:
+                          required:
+                          - coding
+                          type: object
+                          properties:
+                            coding:
+                              minItems: 1
+                              uniqueItems: true
+                              type: array
+                              items:
+                                required:
+                                - code
+                                - system
+                                type: object
+                                properties:
+                                  system:
+                                    minLength: 1
+                                    type: string
+                                  code:
+                                    minLength: 1
+                                    type: string
+                  identifier:
+                    minItems: 1
+                    uniqueItems: true
+                    type: array
+                    items:
+                      required:
+                      - system
+                      - value
+                      type: object
+                      properties:
+                        system:
+                          minLength: 1
+                          type: string
+                        value:
+                          minLength: 1
+                          type: string
+                  active:
+                    type: boolean
+                  name:
+                    minItems: 1
+                    uniqueItems: true
+                    type: array
+                    items:
+                      required:
+                      - family
+                      - text
+                      type: object
+                      properties:
+                        text:
+                          minLength: 1
+                          type: string
+                        family:
+                          minLength: 1
+                          type: string
+                        given:
+                          type: array
+                          items:
+                            type: object
+                            properties: {}
+                  qualification:
+                    minItems: 1
+                    uniqueItems: true
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        extension:
+                          minItems: 1
+                          uniqueItems: true
+                          type: array
+                          items:
+                            required:
+                            - url
+                            type: object
+                            properties:
+                              extension:
+                                minItems: 1
+                                uniqueItems: true
+                                type: array
+                                items:
+                                  required:
+                                  - url
+                                  - valueCode
+                                  type: object
+                                  properties:
+                                    url:
+                                      minLength: 1
+                                      type: string
+                                    valueCode:
+                                      minLength: 1
+                                      type: string
+                              url:
+                                minLength: 1
+                                type: string
+                        code:
+                          required:
+                          - coding
+                          - text
+                          type: object
+                          properties:
+                            coding:
+                              minItems: 1
+                              uniqueItems: true
+                              type: array
+                              items:
+                                required:
+                                - display
+                                type: object
+                                properties:
+                                  display:
+                                    minLength: 1
+                                    type: string
+                            text:
+                              minLength: 1
+                              type: string
+                        issuer:
+                          required:
+                          - display
+                          type: object
+                          properties:
+                            display:
+                              minLength: 1
+                              type: string
+                  communication:
+                    minItems: 1
+                    uniqueItems: true
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        coding:
+                          minItems: 1
+                          uniqueItems: true
+                          type: array
+                          items:
+                            required:
+                            - code
+                            - system
+                            type: object
+                            properties:
+                              system:
+                                minLength: 1
+                                type: string
+                              code:
+                                minLength: 1
+                                type: string
+      description: ''
+  securitySchemes:
+    Bearer:
+      type: http
+      scheme: bearer
+    Basic:
+      type: http
+      scheme: basic
+x-refined-from:
+- centene-fhir-patient-access-openapi.json
+- centene-fhir-provider-directory-openapi.json

@@ -1,0 +1,1265 @@
+openapi: 3.2.0
+info:
+  title: Centene Practitioner Role API
+  version: '1.0'
+  description: 'Operations tagged PractitionerRole across 2 of this provider''s published API definitions: centene-fhir-patient-access-openapi.json, centene-fhir-provider-directory-openapi.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://dev-int-api-gw.centene.com/fhir/v4/patientaccess
+- url: https://dev-int-api-gw.centene.com/fhir/v4/providerdirectory
+tags:
+- name: Practitioner Role
+paths:
+  /PractitionerRole:
+    get:
+      tags:
+      - Practitioner Role
+      summary: Search all resources of type PractitionerRole based on a set of criteria
+      operationId: searchPractitionerRole
+      parameters:
+      - name: practitioner
+        in: query
+        description: Practitioner that is able to provide the defined services for the organization
+        schema:
+          type: string
+      - name: practitioner.name
+        in: query
+        description: Practitioner name that is able to provide the defined services for the organization
+        schema:
+          type: string
+      - name: practitioner.identifier
+        in: query
+        description: Practitioner identifier that is able to provide the defined services for the organization
+        schema:
+          type: string
+      - name: specialty
+        in: query
+        description: The practitioner has this specialty at an organization
+        schema:
+          type: string
+      - name: _page
+        in: query
+        schema:
+          type: number
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PractitionerRole-search'
+        '400':
+          description: Bad request
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: invalid
+                  details:
+                    text: Invalid or badly formed PractitionerRole ID .
+        '401':
+          description: Unauthorized
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Unauthorized
+                  details:
+                    text: You are not authorized to view this PractitionerRole.
+        '403':
+          description: Forbidden
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: forbidden
+                  details:
+                    text: You are not allowed to view this PractitionerRole.
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Not Found
+                  details:
+                    text: No PractitionerRole found with the provided ID.
+        '500':
+          description: InternalServerError
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: fatal
+                  code: exception
+                  details:
+                    text: Internal server error. Please try again later
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Too Many Requests
+                  details:
+                    text: Too Many Requests for Practitioner Role with the provided ID.
+        '501':
+          description: Not Implemented
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Not Implemented
+                  details:
+                    text: The request for paractitioner role is Not Implemented
+        '502':
+          description: Bad gateway
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Bad gateway
+                  details:
+                    text: Bad gateway
+        '503':
+          description: Service Unavailable
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Service Unavailable
+                  details:
+                    text: Service Unavailable
+        '504':
+          description: Gateway Timeout
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Gateway Timeout
+                  details:
+                    text: Gateway Timeout
+      security:
+      - Bearer: []
+    summary: manage the collection of resources of type PractitionerRole
+    description: Access to services to manage the collection of all resources of type PractitionerRole
+    servers:
+    - url: https://dev-int-api-gw.centene.com/fhir/v4/patientaccess
+  /PractitionerRole/{id}:
+    get:
+      tags:
+      - Practitioner Role
+      summary: Read the current state of the resource
+      operationId: readPractitionerRole
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: _page
+        in: query
+        schema:
+          type: number
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PractitionerRole'
+        '400':
+          description: Bad request
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: invalid
+                  details:
+                    text: Invalid or badly formed PractitionerRole ID .
+        '401':
+          description: Unauthorized
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Unauthorized
+                  details:
+                    text: You are not authorized to view this PractitionerRole.
+        '403':
+          description: Forbidden
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: forbidden
+                  details:
+                    text: You are not allowed to view this PractitionerRole.
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Not Found
+                  details:
+                    text: No PractitionerRole found with the provided ID.
+        '500':
+          description: InternalServerError
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: fatal
+                  code: exception
+                  details:
+                    text: Internal server error. Please try again later
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Too Many Requests
+                  details:
+                    text: Too Many Requests for practitioner role with the provided ID.
+        '501':
+          description: Not Implemented
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Not Implemented
+                  details:
+                    text: The request for practitioner role is Not Implemented
+        '502':
+          description: Bad gateway
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Bad gateway
+                  details:
+                    text: Bad gateway
+        '503':
+          description: Service Unavailable
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Service Unavailable
+                  details:
+                    text: Service Unavailable
+        '504':
+          description: Gateway Timeout
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Gateway Timeout
+                  details:
+                    text: Gateway Timeout
+      security:
+      - Bearer: []
+    summary: Read resource instance of type PractitionerRole
+    description: Access to services to manage the state of a single resource of type PractitionerRole
+    servers:
+    - url: https://dev-int-api-gw.centene.com/fhir/v4/patientaccess
+components:
+  schemas:
+    PractitionerRole:
+      required:
+      - active
+      - availabilityExceptions
+      - availableTime
+      - code
+      - endpoint
+      - healthcareService
+      - id
+      - identifier
+      - location
+      - notAvailable
+      - organization
+      - period
+      - practitioner
+      - resourceType
+      - specialty
+      - telecom
+      - text
+      type: object
+      properties:
+        resourceType:
+          minLength: 1
+          type: string
+        id:
+          minLength: 1
+          type: string
+        text:
+          required:
+          - div
+          - status
+          type: object
+          properties:
+            status:
+              minLength: 1
+              type: string
+            div:
+              minLength: 1
+              type: string
+        identifier:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            required:
+            - system
+            - value
+            type: object
+            properties:
+              system:
+                minLength: 1
+                type: string
+              value:
+                minLength: 1
+                type: string
+        active:
+          type: boolean
+        period:
+          required:
+          - end
+          - start
+          type: object
+          properties:
+            start:
+              minLength: 1
+              type: string
+            end:
+              minLength: 1
+              type: string
+        practitioner:
+          required:
+          - display
+          - reference
+          type: object
+          properties:
+            reference:
+              minLength: 1
+              type: string
+            display:
+              minLength: 1
+              type: string
+        organization:
+          required:
+          - reference
+          type: object
+          properties:
+            reference:
+              minLength: 1
+              type: string
+        code:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            type: object
+            properties:
+              coding:
+                minItems: 1
+                uniqueItems: true
+                type: array
+                items:
+                  required:
+                  - code
+                  - system
+                  type: object
+                  properties:
+                    system:
+                      minLength: 1
+                      type: string
+                    code:
+                      minLength: 1
+                      type: string
+        specialty:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            type: object
+            properties:
+              coding:
+                minItems: 1
+                uniqueItems: true
+                type: array
+                items:
+                  required:
+                  - code
+                  - display
+                  - system
+                  type: object
+                  properties:
+                    system:
+                      minLength: 1
+                      type: string
+                    code:
+                      minLength: 1
+                      type: string
+                    display:
+                      minLength: 1
+                      type: string
+        location:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            required:
+            - display
+            - reference
+            type: object
+            properties:
+              reference:
+                minLength: 1
+                type: string
+              display:
+                minLength: 1
+                type: string
+        healthcareService:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            required:
+            - reference
+            type: object
+            properties:
+              reference:
+                minLength: 1
+                type: string
+        telecom:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            required:
+            - system
+            - use
+            - value
+            type: object
+            properties:
+              system:
+                minLength: 1
+                type: string
+              value:
+                minLength: 1
+                type: string
+              use:
+                minLength: 1
+                type: string
+        availableTime:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            required:
+            - availableEndTime
+            - availableStartTime
+            type: object
+            properties:
+              daysOfWeek:
+                type: array
+                items:
+                  type: object
+                  properties: {}
+              availableStartTime:
+                minLength: 1
+                type: string
+              availableEndTime:
+                minLength: 1
+                type: string
+        notAvailable:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            required:
+            - description
+            type: object
+            properties:
+              description:
+                minLength: 1
+                type: string
+              during:
+                required:
+                - end
+                - start
+                type: object
+                properties:
+                  start:
+                    minLength: 1
+                    type: string
+                  end:
+                    minLength: 1
+                    type: string
+        availabilityExceptions:
+          minLength: 1
+          type: string
+        endpoint:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            required:
+            - reference
+            type: object
+            properties:
+              reference:
+                minLength: 1
+                type: string
+      description: ''
+    PractitionerRole-search:
+      required:
+      - entry
+      - id
+      - link
+      - meta
+      - resourceType
+      - total
+      - type
+      type: object
+      properties:
+        resourceType:
+          minLength: 1
+          type: string
+        id:
+          minLength: 1
+          type: string
+        meta:
+          required:
+          - lastUpdated
+          type: object
+          properties:
+            lastUpdated:
+              minLength: 1
+              type: string
+        type:
+          minLength: 1
+          type: string
+        total:
+          type: number
+        link:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            required:
+            - relation
+            - url
+            type: object
+            properties:
+              relation:
+                minLength: 1
+                type: string
+              url:
+                minLength: 1
+                type: string
+        entry:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            required:
+            - fullUrl
+            type: object
+            properties:
+              fullUrl:
+                minLength: 1
+                type: string
+              resource:
+                required:
+                - active
+                - availabilityExceptions
+                - availableTime
+                - code
+                - endpoint
+                - healthcareService
+                - id
+                - identifier
+                - location
+                - notAvailable
+                - organization
+                - period
+                - practitioner
+                - resourceType
+                - specialty
+                - telecom
+                - text
+                type: object
+                properties:
+                  resourceType:
+                    minLength: 1
+                    type: string
+                  id:
+                    minLength: 1
+                    type: string
+                  text:
+                    required:
+                    - div
+                    - status
+                    type: object
+                    properties:
+                      status:
+                        minLength: 1
+                        type: string
+                      div:
+                        minLength: 1
+                        type: string
+                  identifier:
+                    minItems: 1
+                    uniqueItems: true
+                    type: array
+                    items:
+                      required:
+                      - system
+                      - value
+                      type: object
+                      properties:
+                        system:
+                          minLength: 1
+                          type: string
+                        value:
+                          minLength: 1
+                          type: string
+                  active:
+                    type: boolean
+                  period:
+                    required:
+                    - end
+                    - start
+                    type: object
+                    properties:
+                      start:
+                        minLength: 1
+                        type: string
+                      end:
+                        minLength: 1
+                        type: string
+                  practitioner:
+                    required:
+                    - display
+                    - reference
+                    type: object
+                    properties:
+                      reference:
+                        minLength: 1
+                        type: string
+                      display:
+                        minLength: 1
+                        type: string
+                  organization:
+                    required:
+                    - reference
+                    type: object
+                    properties:
+                      reference:
+                        minLength: 1
+                        type: string
+                  code:
+                    minItems: 1
+                    uniqueItems: true
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        coding:
+                          minItems: 1
+                          uniqueItems: true
+                          type: array
+                          items:
+                            required:
+                            - code
+                            - system
+                            type: object
+                            properties:
+                              system:
+                                minLength: 1
+                                type: string
+                              code:
+                                minLength: 1
+                                type: string
+                  specialty:
+                    minItems: 1
+                    uniqueItems: true
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        coding:
+                          minItems: 1
+                          uniqueItems: true
+                          type: array
+                          items:
+                            required:
+                            - code
+                            - display
+                            - system
+                            type: object
+                            properties:
+                              system:
+                                minLength: 1
+                                type: string
+                              code:
+                                minLength: 1
+                                type: string
+                              display:
+                                minLength: 1
+                                type: string
+                  location:
+                    minItems: 1
+                    uniqueItems: true
+                    type: array
+                    items:
+                      required:
+                      - display
+                      - reference
+                      type: object
+                      properties:
+                        reference:
+                          minLength: 1
+                          type: string
+                        display:
+                          minLength: 1
+                          type: string
+                  healthcareService:
+                    minItems: 1
+                    uniqueItems: true
+                    type: array
+                    items:
+                      required:
+                      - reference
+                      type: object
+                      properties:
+                        reference:
+                          minLength: 1
+                          type: string
+                  telecom:
+                    minItems: 1
+                    uniqueItems: true
+                    type: array
+                    items:
+                      required:
+                      - system
+                      - use
+                      - value
+                      type: object
+                      properties:
+                        system:
+                          minLength: 1
+                          type: string
+                        value:
+                          minLength: 1
+                          type: string
+                        use:
+                          minLength: 1
+                          type: string
+                  availableTime:
+                    minItems: 1
+                    uniqueItems: true
+                    type: array
+                    items:
+                      required:
+                      - availableEndTime
+                      - availableStartTime
+                      type: object
+                      properties:
+                        daysOfWeek:
+                          type: array
+                          items:
+                            type: object
+                            properties: {}
+                        availableStartTime:
+                          minLength: 1
+                          type: string
+                        availableEndTime:
+                          minLength: 1
+                          type: string
+                  notAvailable:
+                    minItems: 1
+                    uniqueItems: true
+                    type: array
+                    items:
+                      required:
+                      - description
+                      type: object
+                      properties:
+                        description:
+                          minLength: 1
+                          type: string
+                        during:
+                          required:
+                          - end
+                          - start
+                          type: object
+                          properties:
+                            start:
+                              minLength: 1
+                              type: string
+                            end:
+                              minLength: 1
+                              type: string
+                  availabilityExceptions:
+                    minLength: 1
+                    type: string
+                  endpoint:
+                    minItems: 1
+                    uniqueItems: true
+                    type: array
+                    items:
+                      required:
+                      - reference
+                      type: object
+                      properties:
+                        reference:
+                          minLength: 1
+                          type: string
+      description: ''
+    GeneralError:
+      required:
+      - resourceType
+      - issue
+      type: object
+      properties:
+        resourceType:
+          minLength: 1
+          type: string
+        issue:
+          required:
+          - severity
+          - code
+          - details
+          type: object
+          properties:
+            severity:
+              minLength: 1
+              type: string
+            code:
+              minLength: 1
+              type: string
+            details:
+              minLength: 1
+              type: string
+    PractitionerRole_2:
+      required:
+      - active
+      - code
+      - extension
+      - healthcareService
+      - id
+      - language
+      - location
+      - meta
+      - organization
+      - resourceType
+      - specialty
+      - text
+      type: object
+      properties:
+        resourceType:
+          minLength: 1
+          type: string
+        id:
+          minLength: 1
+          type: string
+        meta:
+          required:
+          - lastUpdated
+          - profile
+          type: object
+          properties:
+            lastUpdated:
+              minLength: 1
+              type: string
+            profile:
+              type: array
+              items:
+                type: object
+                properties: {}
+        language:
+          minLength: 1
+          type: string
+        text:
+          required:
+          - div
+          - status
+          type: object
+          properties:
+            status:
+              minLength: 1
+              type: string
+            div:
+              minLength: 1
+              type: string
+        extension:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            required:
+            - url
+            type: object
+            properties:
+              url:
+                minLength: 1
+                type: string
+              valueReference:
+                required:
+                - reference
+                type: object
+                properties:
+                  reference:
+                    minLength: 1
+                    type: string
+        active:
+          type: boolean
+        organization:
+          required:
+          - reference
+          type: object
+          properties:
+            reference:
+              minLength: 1
+              type: string
+        code:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            type: object
+            properties:
+              coding:
+                minItems: 1
+                uniqueItems: true
+                type: array
+                items:
+                  required:
+                  - code
+                  - system
+                  type: object
+                  properties:
+                    system:
+                      minLength: 1
+                      type: string
+                    code:
+                      minLength: 1
+                      type: string
+        specialty:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            type: object
+            properties:
+              coding:
+                minItems: 1
+                uniqueItems: true
+                type: array
+                items:
+                  required:
+                  - code
+                  - display
+                  - system
+                  type: object
+                  properties:
+                    system:
+                      minLength: 1
+                      type: string
+                    code:
+                      minLength: 1
+                      type: string
+                    display:
+                      minLength: 1
+                      type: string
+        location:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            required:
+            - reference
+            type: object
+            properties:
+              reference:
+                minLength: 1
+                type: string
+        healthcareService:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            required:
+            - reference
+            type: object
+            properties:
+              reference:
+                minLength: 1
+                type: string
+      description: ''
+    PractitionerRole-search_2:
+      required:
+      - entry
+      - id
+      - link
+      - meta
+      - resourceType
+      - total
+      - type
+      type: object
+      properties:
+        resourceType:
+          minLength: 1
+          type: string
+        id:
+          minLength: 1
+          type: string
+        meta:
+          required:
+          - lastUpdated
+          type: object
+          properties:
+            lastUpdated:
+              minLength: 1
+              type: string
+        type:
+          minLength: 1
+          type: string
+        total:
+          type: number
+        link:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            required:
+            - relation
+            - url
+            type: object
+            properties:
+              relation:
+                minLength: 1
+                type: string
+              url:
+                minLength: 1
+                type: string
+        entry:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            required:
+            - fullUrl
+            type: object
+            properties:
+              fullUrl:
+                minLength: 1
+                type: string
+              resource:
+                required:
+                - active
+                - code
+                - extension
+                - healthcareService
+                - id
+                - language
+                - location
+                - meta
+                - organization
+                - resourceType
+                - specialty
+                - text
+                type: object
+                properties:
+                  resourceType:
+                    minLength: 1
+                    type: string
+                  id:
+                    minLength: 1
+                    type: string
+                  meta:
+                    required:
+                    - lastUpdated
+                    - profile
+                    type: object
+                    properties:
+                      lastUpdated:
+                        minLength: 1
+                        type: string
+                      profile:
+                        type: array
+                        items:
+                          type: object
+                          properties: {}
+                  language:
+                    minLength: 1
+                    type: string
+                  text:
+                    required:
+                    - div
+                    - status
+                    type: object
+                    properties:
+                      status:
+                        minLength: 1
+                        type: string
+                      div:
+                        minLength: 1
+                        type: string
+                  extension:
+                    minItems: 1
+                    uniqueItems: true
+                    type: array
+                    items:
+                      required:
+                      - url
+                      type: object
+                      properties:
+                        url:
+                          minLength: 1
+                          type: string
+                        valueReference:
+                          required:
+                          - reference
+                          type: object
+                          properties:
+                            reference:
+                              minLength: 1
+                              type: string
+                  active:
+                    type: boolean
+                  organization:
+                    required:
+                    - reference
+                    type: object
+                    properties:
+                      reference:
+                        minLength: 1
+                        type: string
+                  code:
+                    minItems: 1
+                    uniqueItems: true
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        coding:
+                          minItems: 1
+                          uniqueItems: true
+                          type: array
+                          items:
+                            required:
+                            - code
+                            - system
+                            type: object
+                            properties:
+                              system:
+                                minLength: 1
+                                type: string
+                              code:
+                                minLength: 1
+                                type: string
+                  specialty:
+                    minItems: 1
+                    uniqueItems: true
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        coding:
+                          minItems: 1
+                          uniqueItems: true
+                          type: array
+                          items:
+                            required:
+                            - code
+                            - display
+                            - system
+                            type: object
+                            properties:
+                              system:
+                                minLength: 1
+                                type: string
+                              code:
+                                minLength: 1
+                                type: string
+                              display:
+                                minLength: 1
+                                type: string
+                  location:
+                    minItems: 1
+                    uniqueItems: true
+                    type: array
+                    items:
+                      required:
+                      - reference
+                      type: object
+                      properties:
+                        reference:
+                          minLength: 1
+                          type: string
+                  healthcareService:
+                    minItems: 1
+                    uniqueItems: true
+                    type: array
+                    items:
+                      required:
+                      - reference
+                      type: object
+                      properties:
+                        reference:
+                          minLength: 1
+                          type: string
+      description: ''
+  securitySchemes:
+    Bearer:
+      type: http
+      scheme: bearer
+    Basic:
+      type: http
+      scheme: basic
+x-refined-from:
+- centene-fhir-patient-access-openapi.json
+- centene-fhir-provider-directory-openapi.json

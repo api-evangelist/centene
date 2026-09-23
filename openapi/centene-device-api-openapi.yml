@@ -1,0 +1,560 @@
+openapi: 3.2.0
+info:
+  title: Patient Access Device API
+  description: Patient Access Endpoints for FHIR Resources
+  version: '1.0'
+servers:
+- url: https://dev-int-api-gw.centene.com/fhir/v4/patientaccess
+tags:
+- name: Device
+paths:
+  /Device:
+    get:
+      tags:
+      - Device
+      summary: Search all resources of type Device based on a set of criteria
+      operationId: searchDevice
+      parameters:
+      - name: patient
+        in: query
+        description: Patient information, if the resource is affixed to a person
+        schema:
+          type: string
+      - name: _revinclude
+        in: query
+        schema:
+          type: string
+          x-consoleDefault: application/json
+        x-consoleDefault: application/json
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Device-search'
+        '400':
+          description: Bad request
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: invalid
+                  details:
+                    text: Invalid or badly formed Device ID .
+        '401':
+          description: Unauthorized
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Unauthorized
+                  details:
+                    text: You are not authorized to view this Device.
+        '403':
+          description: Forbidden
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: forbidden
+                  details:
+                    text: You are not allowed to view this Device.
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Not Found
+                  details:
+                    text: No Device found with the provided ID.
+        '500':
+          description: InternalServerError
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: fatal
+                  code: exception
+                  details:
+                    text: Internal server error. Please try again later
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Too Many Requests
+                  details:
+                    text: Too Many Requests for device with the provided ID.
+        '501':
+          description: Not Implemented
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Not Implemented
+                  details:
+                    text: The request for device is Not Implemented
+        '502':
+          description: Bad gateway
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Bad gateway
+                  details:
+                    text: Bad gateway
+        '503':
+          description: Service Unavailable
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Service Unavailable
+                  details:
+                    text: Service Unavailable
+        '504':
+          description: Gateway Timeout
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Gateway Timeout
+                  details:
+                    text: Gateway Timeout
+      security:
+      - Bearer: []
+  /Device/{id}:
+    get:
+      tags:
+      - Device
+      summary: Read the current state of the resource
+      operationId: readDevice
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Device'
+        '400':
+          description: Bad request
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: invalid
+                  details:
+                    text: Invalid or badly formed Device ID .
+        '401':
+          description: Unauthorized
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Unauthorized
+                  details:
+                    text: You are not authorized to view this Device.
+        '403':
+          description: Forbidden
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: forbidden
+                  details:
+                    text: You are not allowed to view this Device.
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Not Found
+                  details:
+                    text: No Device found with the provided ID.
+        '500':
+          description: InternalServerError
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: fatal
+                  code: exception
+                  details:
+                    text: Internal server error. Please try again later
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Too Many Requests
+                  details:
+                    text: Too Many Requests for device with the provided ID.
+        '501':
+          description: Not Implemented
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Not Implemented
+                  details:
+                    text: The request for device is Not Implemented
+        '502':
+          description: Bad gateway
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Bad gateway
+                  details:
+                    text: Bad gateway
+        '503':
+          description: Service Unavailable
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Service Unavailable
+                  details:
+                    text: Service Unavailable
+        '504':
+          description: Gateway Timeout
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Gateway Timeout
+                  details:
+                    text: Gateway Timeout
+      security:
+      - Bearer: []
+components:
+  schemas:
+    Device:
+      required:
+      - expirationDate
+      - id
+      - lotNumber
+      - meta
+      - patient
+      - resourceType
+      - serialNumber
+      - status
+      - text
+      - type
+      - udiCarrier
+      type: object
+      properties:
+        resourceType:
+          minLength: 1
+          type: string
+        id:
+          minLength: 1
+          type: string
+        meta:
+          required:
+          - profile
+          type: object
+          properties:
+            profile:
+              type: array
+              items:
+                type: object
+                properties: {}
+        text:
+          required:
+          - div
+          - status
+          type: object
+          properties:
+            status:
+              minLength: 1
+              type: string
+            div:
+              minLength: 1
+              type: string
+        udiCarrier:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            required:
+            - carrierHRF
+            - deviceIdentifier
+            type: object
+            properties:
+              deviceIdentifier:
+                minLength: 1
+                type: string
+              carrierHRF:
+                minLength: 1
+                type: string
+        status:
+          minLength: 1
+          type: string
+        expirationDate:
+          minLength: 1
+          type: string
+        lotNumber:
+          minLength: 1
+          type: string
+        serialNumber:
+          minLength: 1
+          type: string
+        type:
+          required:
+          - coding
+          type: object
+          properties:
+            coding:
+              minItems: 1
+              uniqueItems: true
+              type: array
+              items:
+                required:
+                - code
+                - display
+                - system
+                type: object
+                properties:
+                  system:
+                    minLength: 1
+                    type: string
+                  code:
+                    minLength: 1
+                    type: string
+                  display:
+                    minLength: 1
+                    type: string
+        patient:
+          required:
+          - display
+          - reference
+          type: object
+          properties:
+            reference:
+              minLength: 1
+              type: string
+            display:
+              minLength: 1
+              type: string
+      description: ''
+    Device-search:
+      required:
+      - entry
+      - id
+      - link
+      - meta
+      - resourceType
+      - total
+      - type
+      type: object
+      properties:
+        resourceType:
+          minLength: 1
+          type: string
+        id:
+          minLength: 1
+          type: string
+        meta:
+          required:
+          - lastUpdated
+          type: object
+          properties:
+            lastUpdated:
+              minLength: 1
+              type: string
+        type:
+          minLength: 1
+          type: string
+        total:
+          type: number
+        link:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            required:
+            - relation
+            - url
+            type: object
+            properties:
+              relation:
+                minLength: 1
+                type: string
+              url:
+                minLength: 1
+                type: string
+        entry:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            required:
+            - fullUrl
+            type: object
+            properties:
+              fullUrl:
+                minLength: 1
+                type: string
+              resource:
+                required:
+                - expirationDate
+                - id
+                - lotNumber
+                - meta
+                - patient
+                - resourceType
+                - serialNumber
+                - status
+                - text
+                - type
+                - udiCarrier
+                type: object
+                properties:
+                  resourceType:
+                    minLength: 1
+                    type: string
+                  id:
+                    minLength: 1
+                    type: string
+                  meta:
+                    required:
+                    - profile
+                    type: object
+                    properties:
+                      profile:
+                        type: array
+                        items:
+                          type: object
+                          properties: {}
+                  text:
+                    required:
+                    - div
+                    - status
+                    type: object
+                    properties:
+                      status:
+                        minLength: 1
+                        type: string
+                      div:
+                        minLength: 1
+                        type: string
+                  udiCarrier:
+                    minItems: 1
+                    uniqueItems: true
+                    type: array
+                    items:
+                      required:
+                      - carrierHRF
+                      - deviceIdentifier
+                      type: object
+                      properties:
+                        deviceIdentifier:
+                          minLength: 1
+                          type: string
+                        carrierHRF:
+                          minLength: 1
+                          type: string
+                  status:
+                    minLength: 1
+                    type: string
+                  expirationDate:
+                    minLength: 1
+                    type: string
+                  lotNumber:
+                    minLength: 1
+                    type: string
+                  serialNumber:
+                    minLength: 1
+                    type: string
+                  type:
+                    required:
+                    - coding
+                    type: object
+                    properties:
+                      coding:
+                        minItems: 1
+                        uniqueItems: true
+                        type: array
+                        items:
+                          required:
+                          - code
+                          - display
+                          - system
+                          type: object
+                          properties:
+                            system:
+                              minLength: 1
+                              type: string
+                            code:
+                              minLength: 1
+                              type: string
+                            display:
+                              minLength: 1
+                              type: string
+                  patient:
+                    required:
+                    - display
+                    - reference
+                    type: object
+                    properties:
+                      reference:
+                        minLength: 1
+                        type: string
+                      display:
+                        minLength: 1
+                        type: string
+      description: ''
+  securitySchemes:
+    Bearer:
+      type: http
+      scheme: bearer

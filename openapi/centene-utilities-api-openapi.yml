@@ -1,0 +1,111 @@
+openapi: 3.2.0
+info:
+  description: These external facing (DMZ) endpoints allow users to retrieve information on different FHIR PDEX Plan Net Resources.
+  title: Provider RTR - FHIR PDEX Directory API (External) Utilities…
+  version: '1.2'
+  contact:
+    email: Provider_RTR_Support@centene.com
+servers:
+- description: Test environment
+  url: https://prod.api.centene.com/tst/prtc/external/fhir-pdex-plan-net/v1/
+- url: https://prod.api.centene.com/prtc/external/fhir-pdex-plan-net/v1/
+  description: Prod environment
+security:
+- oauth2:
+  - resource.READ
+tags:
+- name: Utilities
+paths:
+  /health:
+    get:
+      description: Health Check
+      operationId: Health
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/healthResponse'
+          description: Valid response
+        '403':
+          description: Unauthorized Request Error. In this scenario, please ensure your teams' authorization key is correctly configured in the calling application. If problem persists, please contact IT-POTS-Team@CENTENE.COM (cc STL_Provider_RTR_Support@CENTENE.COM).
+        '424':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/healthResponse'
+          description: Unable to establish connection with MongoDB server.
+        '500':
+          description: Internal Server Error. In this scenario, please contact STL_Provider_RTR_Support@CENTENE.COM.
+        '504':
+          description: Gateway Timeout Error. In this scenario, please contact STL_Provider_RTR_Support@CENTENE.COM.
+      tags:
+      - Utilities
+      summary: Health
+      x-summary-source: derived
+  /version:
+    get:
+      description: Version Information
+      operationId: Version
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/versionResponse'
+          description: Valid response
+        '403':
+          description: Unauthorized Request Error. In this scenario, please ensure your teams' authorization key is correctly configured in the calling application. If problem persists, please contact IT-POTS-Team@CENTENE.COM (cc STL_Provider_RTR_Support@CENTENE.COM).
+        '500':
+          description: Internal Server Error. In this scenario, please contact STL_Provider_RTR_Support@CENTENE.COM.
+        '504':
+          description: Gateway Timeout Error. In this scenario, please contact STL_Provider_RTR_Support@CENTENE.COM.
+      tags:
+      - Utilities
+      summary: Version
+      x-summary-source: derived
+components:
+  schemas:
+    versionResponse:
+      description: Version response containing build information of the current api
+      properties:
+        branch:
+          type: string
+          x-go-name: Branch
+        buildTime:
+          type: string
+          x-go-name: BuildTime
+        commitSHA:
+          type: string
+          x-go-name: CommitSHA
+      type: object
+      x-go-name: version
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/api-framework/api/handlers
+    healthResponse:
+      description: Health response containing the status of the mongo database
+      properties:
+        databaseReady:
+          type: boolean
+          x-go-name: DatabaseReady
+        dbhost:
+          type: string
+          x-go-name: Host
+        endpoint:
+          type: string
+          x-go-name: Endpoint
+        reason:
+          type: string
+          x-go-name: Reason
+      type: object
+      x-go-name: health
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/api-framework/api/handlers
+  securitySchemes:
+    oauth2:
+      flows:
+        clientCredentials:
+          scopes:
+            resource.READ: read access
+          tokenUrl: https://stage.entrykeyid.com/as/token.oauth2
+      type: oauth2
+x-stoplight:
+  id: z4saz5y45f192

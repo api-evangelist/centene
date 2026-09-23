@@ -1,0 +1,3088 @@
+openapi: 3.2.0
+info:
+  description: 'These endpoints allow users to retrieve information on different datasets that originated from the Centenes'' Provider source system.
+
+
+    All endpoints available on this micro-service are http-based GET operations and produce a JSON response.'
+  title: Provider RTR Demographics Practitioner Date API
+  version: '2.0'
+servers:
+- description: Development environment
+  url: https://dev-int-api-gw.centene.com/provider-rtr/demographics/
+- description: Test environment
+  url: https://test-int-api-gw.centene.com/provider-rtr/demographics/
+- description: Production environment
+  url: https://api-gateway-01.centene.com/provider-rtr/demographics/
+security:
+- oauth2:
+  - resource.READ
+tags:
+- description: 'RESTful API endpoints for search Practitioners'' date related information.
+
+
+    More information can be found on the corresponding Alation page: https://alation.centene.com/table/538096/'
+  name: Practitioner-Date-API
+paths:
+  /businessfunction/v1/practitioner/date:
+    get:
+      description: 'Find Active Practitioners given a combination of different dates at different levels, such as: location, network location, network, affiliations. At least npi, tin, affiliationNumber, affiliationMedicaidId, affiliationMedicareId, provNpi, firstName or lastName are required to use'
+      operationId: GetPractitionersByDate
+      parameters:
+      - description: Practitioner's NPI Number.
+        in: query
+        name: npi
+        schema:
+          type: string
+      - description: Practitioner Locations TIN.
+        in: query
+        name: tin
+        schema:
+          type: string
+      - description: Practitioner Locations Affiliation Number.
+        in: query
+        name: affiliationNumber
+        schema:
+          type: string
+      - description: NPI for the Provider operating the Practitioner Location.
+        in: query
+        name: provNpi
+        schema:
+          type: string
+      - description: Practioners' affiliation medicaid id.
+        in: query
+        name: affiliationMedicaidId
+        schema:
+          type: string
+      - description: Practioners' affiliation medicare id.
+        in: query
+        name: affiliationMedicareId
+        schema:
+          type: string
+      - description: Practioners' network business unit code.
+        in: query
+        name: businessUnitCode
+        schema:
+          type: string
+      - description: Practioners' first name. At least one valid 'npi', 'tin', 'provNpi', 'affiliationNumber', 'affiliationMedicaidId', or 'affiliationMedicareId' is required to use.
+        in: query
+        name: firstName
+        schema:
+          type: string
+      - description: Practioners' last name. At least one valid 'npi', 'tin', 'provNpi', 'affiliationNumber', 'affiliationMedicaidId', or 'affiliationMedicareId' is required to use.
+        in: query
+        name: lastName
+        schema:
+          type: string
+      - description: Practioners' network status.
+        in: query
+        name: networkStatus
+        schema:
+          type: string
+      - description: Practioners' affiliations status.
+        in: query
+        name: affilStatus
+        schema:
+          type: string
+      - description: Practioners' carrier NetworkId.
+        in: query
+        name: carrierNetworkId
+        schema:
+          type: string
+      - description: allows to select the location date level to be considered for different date inputs.
+        in: query
+        name: useLocationDate
+        schema:
+          type: boolean
+      - description: allows to select the network location date level to be considered for different date inputs.
+        in: query
+        name: useNetworkLocationDate
+        schema:
+          type: boolean
+      - description: allows to select the network date level to be considered for different date inputs.
+        in: query
+        name: useNetworkDate
+        schema:
+          type: boolean
+      - description: allows to select the affiliation date level to be considered for different date inputs.
+        in: query
+        name: useAffiliationDate
+        schema:
+          type: boolean
+      - description: startDateOnOrAfter is to be used to look up choosen date levels (i.e. location, network location, network, and/or affiliation) for start dates on or after (in the future).
+        in: query
+        name: startDateOnOrAfter
+        schema:
+          type: string
+      - description: endDateOnOrBefore is to be used to look up choosen date levels (i.e. location, network location, network, and/or affiliation) for start dates on or before (in the past).
+        in: query
+        name: endDateOnOrBefore
+        schema:
+          type: string
+      - description: dateOnOrInStartEndDateSpan is to be used to check that the it is inclusively between the choosen date levels (i.e. location, network location, network, and/or affiliation).
+        in: query
+        name: dateOnOrInStartEndDateSpan
+        schema:
+          type: string
+      - description: The page of results to return.
+        in: query
+        name: page
+        schema:
+          type: string
+      - description: The number of practitioners matching the search criteria to return per page.
+        in: query
+        name: pageCount
+        schema:
+          type: string
+      - description: Select fields to display. Separate each field with a comma.
+        in: query
+        name: select
+        schema: {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PractitionerResponse'
+          description: Valid response
+        '400':
+          description: Invalid Search Criteria
+        '403':
+          description: Unauthorized Request Error. In this scenario, please ensure your teams' authorization key is correctly configured in the calling application. If problem persists, please contact IT-POTS-Team@CENTENE.COM (cc STL_Provider_RTR_Support@CENTENE.COM).
+        '500':
+          description: Internal Server Error. In this scenario, please contact STL_Provider_RTR_Support@CENTENE.COM.
+        '504':
+          description: Gateway Timeout Error. In this scenario, please contact STL_Provider_RTR_Support@CENTENE.COM.
+      tags:
+      - Practitioner-Date-API
+      summary: Get practitioners by date
+      x-summary-source: derived
+  /businessfunction/v1/practitioner/date/health:
+    get:
+      description: Health Check
+      operationId: GetPractitionerDateHealth
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/healthResponse'
+          description: Valid response
+        '403':
+          description: Unauthorized Request Error. In this scenario, please ensure your teams' authorization key is correctly configured in the calling application. If problem persists, please contact IT-POTS-Team@CENTENE.COM (cc STL_Provider_RTR_Support@CENTENE.COM).
+        '424':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/healthResponse'
+          description: Unable to establish connection with MongoDB server.
+        '500':
+          description: Internal Server Error. In this scenario, please contact STL_Provider_RTR_Support@CENTENE.COM.
+        '504':
+          description: Gateway Timeout Error. In this scenario, please contact STL_Provider_RTR_Support@CENTENE.COM.
+      tags:
+      - Practitioner-Date-API
+      summary: Get practitioner date health
+      x-summary-source: derived
+  /businessfunction/v1/practitioner/date/version:
+    get:
+      description: Version Information
+      operationId: GetPractitionerDateVersion
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/versionResponse'
+          description: Valid response
+        '403':
+          description: Unauthorized Request Error. In this scenario, please ensure your teams' authorization key is correctly configured in the calling application. If problem persists, please contact IT-POTS-Team@CENTENE.COM (cc STL_Provider_RTR_Support@CENTENE.COM).
+        '500':
+          description: Internal Server Error. In this scenario, please contact STL_Provider_RTR_Support@CENTENE.COM.
+        '504':
+          description: Gateway Timeout Error. In this scenario, please contact STL_Provider_RTR_Support@CENTENE.COM.
+      tags:
+      - Practitioner-Date-API
+      summary: Get practitioner date version
+      x-summary-source: derived
+components:
+  schemas:
+    MedicalHome:
+      properties:
+        AAAHCcmhExpired:
+          format: date-time
+          type: string
+          x-go-name: AAAHCpcmhExpired
+        AAAHCpcmhAccred:
+          type: string
+        AAAHCpcmhEffective:
+          format: date-time
+          type: string
+        HHorPCMHAccred:
+          type: string
+        HHorPCMHExpired:
+          format: date-time
+          type: string
+        JAHCOpcmhAccred:
+          type: string
+        JAHCOpcmhEffective:
+          format: date-time
+          type: string
+        JAHCOpcmhExpired:
+          format: date-time
+          type: string
+        NCQApcmhAccred:
+          type: string
+        NCQApcmhEffective:
+          format: date-time
+          type: string
+        NCQApcmhSiteID:
+          type: string
+        NCUApcmhExpired:
+          format: date-time
+          type: string
+        PCMHRecognition:
+          type: string
+        SSHPpcmhAccred:
+          type: string
+        SSHPpcmhEffective:
+          format: date-time
+          type: string
+        SSHPpcmhExpired:
+          format: date-time
+          type: string
+        URACpcmhAccred:
+          type: string
+        URACpcmhEffective:
+          format: date-time
+          type: string
+        capacity:
+          type: string
+          x-go-name: Capacity
+        healthPlan:
+          type: string
+          x-go-name: HealthPlan
+        isHHorPCMHEffective:
+          type: boolean
+          x-go-name: IsHHorPCMHEffective
+        medHomeType:
+          type: string
+          x-go-name: MedHomeType
+        populationLimits:
+          type: string
+          x-go-name: PopulationLimits
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/shared
+    ProgramEnrollment:
+      properties:
+        actionReasonCode:
+          type: string
+          x-go-name: ActionReasonCode
+        endDate:
+          format: date-time
+          type: string
+          x-go-name: EndDate
+        healthPlan:
+          type: string
+          x-go-name: HealthPlan
+        programName:
+          type: string
+          x-go-name: ProgramName
+        startDate:
+          format: date-time
+          type: string
+          x-go-name: StartDate
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/shared
+    Malpractice:
+      properties:
+        NPDBCase:
+          type: string
+        additionalInfo:
+          type: string
+          x-go-name: AdditionalInfo
+        addressId:
+          type: string
+          x-go-name: AddressId
+        allegationDescription:
+          type: string
+          x-go-name: AllegationDescription
+        allegedInjuryDescription:
+          type: string
+          x-go-name: AllegedInjuryDescription
+        caseInvolvement:
+          type: string
+          x-go-name: CaseInvolvement
+        claimFileDate:
+          format: date-time
+          type: string
+          x-go-name: ClaimFileDate
+        defendantType:
+          type: string
+          x-go-name: DefendantType
+        insuranceCarrier:
+          type: string
+          x-go-name: InsuranceCarrier
+        numberOfCoDefendants:
+          type: string
+          x-go-name: NumberOfCoDefendants
+        occurenceDate:
+          format: date-time
+          type: string
+          x-go-name: OccurenceDate
+        policyNumber:
+          type: string
+          x-go-name: PolicyNumber
+        resolutionCost:
+          type: string
+          x-go-name: ResolutionCost
+        resolutionDate:
+          format: date-time
+          type: string
+          x-go-name: ResolutionDate
+        resolutionDescription:
+          type: string
+          x-go-name: ResolutionDescription
+        resolutionMethod:
+          type: string
+          x-go-name: ResolutionMethod
+        status:
+          type: string
+          x-go-name: Status
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/practitioner
+    Practitioner:
+      properties:
+        ACAEligibility:
+          items:
+            $ref: '#/components/schemas/ACAEligibility'
+          type: array
+        AHFCFosterCareOnly:
+          type: string
+        CAPrisonSubSpecialties:
+          $ref: '#/components/schemas/CAPrisonSubSpecialties'
+        CBAS:
+          $ref: '#/components/schemas/CBAS'
+        CDS:
+          $ref: '#/components/schemas/CDS'
+        CHDIndicator:
+          type: string
+        DEAInformation:
+          items:
+            $ref: '#/components/schemas/DEAInformation'
+          type: array
+        ECFMG:
+          items:
+            $ref: '#/components/schemas/ECFMG'
+          type: array
+        EHR:
+          $ref: '#/components/schemas/EHR'
+        EINNumbers:
+          items:
+            type: string
+          type: array
+        HCBS:
+          $ref: '#/components/schemas/HCBS'
+        HIVAIDS:
+          $ref: '#/components/schemas/HIVAIDS'
+        MMAPhysicianIncentive:
+          items:
+            $ref: '#/components/schemas/MMAPhysicianIncentive'
+          type: array
+        OBGYN:
+          $ref: '#/components/schemas/OBGYN'
+        PPGID:
+          type: string
+        VFCProgram:
+          $ref: '#/components/schemas/VFCProgram'
+        alternateName:
+          $ref: '#/components/schemas/AlternateName'
+        amisysInfo:
+          items:
+            $ref: '#/components/schemas/AmisysInfo'
+          type: array
+          x-go-name: AmisysInfo
+        audit:
+          $ref: '#/components/schemas/Audit'
+        badgeCert:
+          type: string
+          x-go-name: BadgeCert
+        badgesCertifications:
+          items:
+            type: string
+          type: array
+          x-go-name: BadgesCertifications
+        caqh:
+          $ref: '#/components/schemas/CAQH'
+        childrensSpecialHealthCareServices:
+          type: string
+          x-go-name: ChildrensSpecialHealthCareServices
+        commonPracId:
+          items:
+            type: string
+          type: array
+          x-go-name: CommonPracId
+        compPerinatalServiceProgram:
+          items:
+            $ref: '#/components/schemas/CompPerinatalServiceProgram'
+          type: array
+          x-go-name: CompPerinatalServiceProgram
+        contracts:
+          items:
+            $ref: '#/components/schemas/Contract'
+          type: array
+          x-go-name: Contracts
+        credentialing:
+          items:
+            $ref: '#/components/schemas/Credential'
+          type: array
+          x-go-name: Credentialing
+        credentialingLegacyId:
+          type: string
+          x-go-name: CredentialingLegacyId
+        culturalCompetenceTraining:
+          $ref: '#/components/schemas/CulturalCompetenceTraining'
+        degree:
+          type: string
+          x-go-name: Degree
+        disclosureOfOwnership:
+          $ref: '#/components/schemas/DisclosureOfOwnership'
+        disorders:
+          items:
+            type: string
+          type: array
+          x-go-name: Disorders
+        dob:
+          format: date-time
+          type: string
+          x-go-name: DateOfBirth
+        education:
+          items:
+            $ref: '#/components/schemas/Education'
+          type: array
+          x-go-name: Education
+        email:
+          type: string
+          x-go-name: Email
+        ethnicMinorityRaceStatus:
+          $ref: '#/components/schemas/EthnicMinorityRaceStatus'
+        ethnicity:
+          type: string
+          x-go-name: Ethnicity
+        firstName:
+          type: string
+          x-go-name: FirstName
+        gender:
+          type: string
+          x-go-name: Gender
+        hatCode:
+          type: string
+          x-go-name: HatCode
+        hatCodeDescription:
+          type: string
+          x-go-name: HatCodeDescription
+        healthNetLegacyPhyId:
+          type: string
+          x-go-name: HealthNetLegacyPhyId
+        hospitalPrivileges:
+          items:
+            $ref: '#/components/schemas/HospitalPrivilege'
+          type: array
+          x-go-name: HospitalPrivileges
+        hospitals:
+          items:
+            $ref: '#/components/schemas/Hospital'
+          type: array
+          x-go-name: Hospitals
+        insurance:
+          items:
+            $ref: '#/components/schemas/Insurance'
+          type: array
+          x-go-name: Insurance
+        isEPSDTEligible:
+          type: boolean
+          x-go-name: IsEPSDTEligible
+        isEPrescribe:
+          type: string
+          x-go-name: IsEPrescribe
+        isTeleHealth:
+          type: boolean
+          x-go-name: IsTeleHealth
+        isTelemonitor:
+          type: boolean
+          x-go-name: IsTelemonitor
+        languages:
+          items:
+            type: string
+          type: array
+          x-go-name: Languages
+        lastName:
+          type: string
+          x-go-name: LastName
+        legacyIds:
+          items:
+            $ref: '#/components/schemas/LegacyIds'
+          type: array
+          x-go-name: LegacyIds
+        locations:
+          items:
+            $ref: '#/components/schemas/PractitionerLocation'
+          type: array
+          x-go-name: Locations
+        malpractice:
+          items:
+            $ref: '#/components/schemas/Malpractice'
+          type: array
+          x-go-name: Malpractice
+        medicaidInfo:
+          items:
+            $ref: '#/components/schemas/MedicaidInfo'
+          type: array
+          x-go-name: MedicaidInfo
+        medicalLicenses:
+          items:
+            $ref: '#/components/schemas/MedicalLicense'
+          type: array
+          x-go-name: MedicalLicenses
+        medicareNumbers:
+          items:
+            type: string
+          type: array
+          x-go-name: MedicareNumbers
+        middleName:
+          type: string
+          x-go-name: MiddleName
+        minority:
+          type: string
+          x-go-name: Minority
+        modalities:
+          items:
+            type: string
+          type: array
+          x-go-name: Modalities
+        nationalId:
+          $ref: '#/components/schemas/NationalId'
+        npi:
+          items:
+            $ref: '#/components/schemas/NPI'
+          type: array
+          x-go-name: NPI
+        personalProfile:
+          $ref: '#/components/schemas/PersonalProfile'
+        pracId:
+          type: string
+          x-go-name: PracId
+        pracVirtualExclusion:
+          type: string
+          x-go-name: PracVirtualExclusion
+        prescriber:
+          type: string
+          x-go-name: Prescriber
+        professionalProfile:
+          $ref: '#/components/schemas/ProfessionalProfile'
+        providerType:
+          $ref: '#/components/schemas/ProviderType'
+        qualityRating:
+          $ref: '#/components/schemas/QualityRating'
+        resilienceIntegratedSystemsExcellence:
+          items:
+            $ref: '#/components/schemas/ResilienceIntegratedSystemsExcellence'
+          type: array
+          x-go-name: ResilienceIntegratedSystemsExcellence
+        salutation:
+          type: string
+          x-go-name: Salutation
+        secondaryEmail:
+          type: string
+          x-go-name: SecondaryEmail
+        socialSecurityNumber:
+          type: string
+          x-go-name: SocialSecurityNumber
+        specialties:
+          items:
+            $ref: '#/components/schemas/Specialty'
+          type: array
+          x-go-name: Specialties
+        suffix:
+          type: string
+          x-go-name: Suffix
+        taxonomies:
+          items:
+            $ref: '#/components/schemas/PractitionerTaxonomy'
+          type: array
+          x-go-name: Taxonomies
+        telepsychiatryParticipant:
+          type: string
+          x-go-name: TelepsychiatryParticipant
+        tier:
+          type: string
+          x-go-name: Tier
+        vendorInformation:
+          $ref: '#/components/schemas/VendorInformation'
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/practitioner
+    PractitionerTaxonomy:
+      properties:
+        code:
+          type: string
+          x-go-name: Code
+        specialty:
+          type: string
+          x-go-name: Specialty
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/practitioner
+    HCBSAccreditation:
+      properties:
+        HCBSService:
+          type: string
+        countyServed:
+          type: string
+          x-go-name: CountyServed
+        healthPlan:
+          type: string
+          x-go-name: HealthPlan
+        isActiveService:
+          type: boolean
+          x-go-name: IsActiveService
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/shared
+    ProfessionalProfile:
+      properties:
+        activities:
+          type: string
+          x-go-name: Activities
+        awards:
+          type: string
+          x-go-name: Awards
+        membership:
+          type: string
+          x-go-name: Membership
+        researchArticles:
+          type: string
+          x-go-name: ResearchArticles
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/practitioner
+    Education:
+      properties:
+        cmeCredits:
+          type: string
+          x-go-name: CmeCredits
+        degree:
+          type: string
+          x-go-name: Degree
+        endDate:
+          format: date-time
+          type: string
+          x-go-name: EndDate
+        institutionId:
+          type: string
+          x-go-name: InstitutionId
+        institutionName:
+          type: string
+          x-go-name: InstitutionName
+        isComplete:
+          type: string
+          x-go-name: IsComplete
+        notes:
+          type: string
+          x-go-name: Notes
+        specialty:
+          type: string
+          x-go-name: Specialty
+        startDate:
+          format: date-time
+          type: string
+          x-go-name: StartDate
+        type:
+          type: string
+          x-go-name: Type
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/practitioner
+    CDS:
+      properties:
+        expirationDate:
+          format: date-time
+          type: string
+          x-go-name: ExpirationDate
+        number:
+          type: string
+          x-go-name: Number
+        state:
+          type: string
+          x-go-name: State
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/practitioner
+    LocationProvider:
+      properties:
+        accreditations:
+          $ref: '#/components/schemas/Accreditations'
+        essentialCommunityProviderTypes:
+          items:
+            $ref: '#/components/schemas/EssentialCommunityProviderTypes'
+          type: array
+          x-go-name: EssentialCommunityProviderTypes
+        hatCodes:
+          items:
+            type: string
+          type: array
+          x-go-name: HatCodes
+        healthNetLegacySiteId:
+          type: string
+          x-go-name: HealthNetLegacySiteId
+        npi:
+          $ref: '#/components/schemas/NPI'
+        participatingPhysicianGroup:
+          $ref: '#/components/schemas/PPG'
+        provId:
+          type: string
+          x-go-name: ProvId
+        provName:
+          type: string
+          x-go-name: ProvName
+        providerType:
+          $ref: '#/components/schemas/ProviderType'
+        tin:
+          type: string
+          x-go-name: TIN
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/practitionerLocation
+    PanelQuestion:
+      properties:
+        acceptNew:
+          type: string
+          x-go-name: AcceptNew
+        adaIndicators:
+          $ref: '#/components/schemas/ADAIndicator'
+        authorizationRequired:
+          type: string
+          x-go-name: AuthorizationRequired
+        closedPanel:
+          type: string
+          x-go-name: ClosedPanel
+        existingPatientsOnly:
+          type: string
+          x-go-name: ExistingPatientsOnly
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/shared
+    VendorInformation:
+      properties:
+        code:
+          type: string
+          x-go-name: Code
+        name:
+          type: string
+          x-go-name: Name
+        nameDescription:
+          type: string
+          x-go-name: NameDescription
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/shared
+    ResilienceIntegratedSystemsExcellence:
+      properties:
+        endDate:
+          format: date-time
+          type: string
+          x-go-name: EndDate
+        healthPlan:
+          type: string
+          x-go-name: HealthPlan
+        service:
+          type: string
+          x-go-name: Service
+        startDate:
+          format: date-time
+          type: string
+          x-go-name: EtartDate
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/shared
+    GeoCoords:
+      properties:
+        geoJSONPoint:
+          $ref: '#/components/schemas/GeoJSONPoint'
+        latitude:
+          type: string
+          x-go-name: Latitude
+        longitude:
+          type: string
+          x-go-name: Longitude
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/shared
+    Panel:
+      properties:
+        ageRestriction:
+          type: string
+          x-go-name: AgeRestriction
+        code:
+          type: string
+          x-go-name: Code
+        endDate:
+          format: date-time
+          type: string
+          x-go-name: EndDate
+        genderLimitation:
+          type: string
+          x-go-name: GenderLimitation
+        genderLimitationDescription:
+          type: string
+          x-go-name: GenderLimitationDescription
+        highestAge:
+          type: string
+          x-go-name: HighestAge
+        highestUnit:
+          type: string
+          x-go-name: HigherUnit
+        highestUnitDescription:
+          type: string
+          x-go-name: HighestUnitDescription
+        lowestAge:
+          type: string
+          x-go-name: LowestAge
+        lowestUnit:
+          type: string
+          x-go-name: LowerUnit
+        lowestUnitDescription:
+          type: string
+          x-go-name: LowestUnitDescription
+        panelLimit:
+          type: string
+          x-go-name: PanelLimit
+        startDate:
+          format: date-time
+          type: string
+          x-go-name: StartDate
+        status:
+          type: string
+          x-go-name: Status
+        statusDescription:
+          type: string
+          x-go-name: StatusDescription
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/shared
+    PPG:
+      properties:
+        capitatedPPG:
+          type: string
+          x-go-name: CapitatedPPG
+        effectiveDate:
+          format: date-time
+          type: string
+          x-go-name: EffectiveDate
+        isPCPrequired:
+          type: string
+          x-go-name: IsPCPrequired
+        parentPpgId:
+          type: string
+          x-go-name: ParentPpgId
+        ppgId:
+          type: string
+          x-go-name: PpgId
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/shared
+    Affiliation:
+      properties:
+        absSuffix:
+          type: string
+          x-go-name: AbsSuffix
+        accept:
+          type: string
+          x-go-name: Accept
+        active:
+          type: string
+          x-go-name: Active
+        affiliatedAgency:
+          type: string
+          x-go-name: AffiliatedAgency
+        affiliationNumber:
+          type: string
+          x-go-name: AffiliationNumber
+        altProviderType:
+          type: string
+          x-go-name: AltProviderType
+        altProviderTypeDescription:
+          type: string
+          x-go-name: AltProviderTypeDescription
+        altSpec1:
+          type: string
+          x-go-name: AltSpec1
+        altSpec1Description:
+          type: string
+          x-go-name: AltSpec1Description
+        alternateQualifier:
+          type: string
+          x-go-name: AlternateQualifier
+        area:
+          type: string
+          x-go-name: Area
+        businessUnit:
+          type: string
+          x-go-name: BusinessUnit
+        capCycle:
+          type: string
+          x-go-name: CapCycle
+        capKey:
+          type: string
+          x-go-name: CapKey
+        capMethod:
+          type: string
+          x-go-name: CapMethod
+        capStatus:
+          type: string
+          x-go-name: CapStatus
+        capType:
+          type: string
+          x-go-name: CapType
+        carrier:
+          type: string
+          x-go-name: Carrier
+        claimType:
+          type: string
+          x-go-name: ClaimType
+        classX:
+          type: string
+          x-go-name: ClassX
+        cnrReason:
+          type: string
+          x-go-name: CnrReason
+        cnrReasonDescription:
+          type: string
+          x-go-name: CnrReasonDescription
+        county:
+          type: string
+          x-go-name: County
+        credRequired:
+          type: string
+          x-go-name: CredRequired
+        deaNumber:
+          type: string
+          x-go-name: DeaNumber
+        endDate:
+          format: date-time
+          type: string
+          x-go-name: EndDate
+        exceptionFee:
+          type: string
+          x-go-name: ExceptionFee
+        fundClass:
+          type: string
+          x-go-name: FundClass
+        groupPracticeNumber:
+          type: string
+          x-go-name: GroupPracticeNumber
+        hatCode:
+          type: string
+          x-go-name: HatCode
+        hatCodeDescription:
+          type: string
+          x-go-name: HatCodeDescription
+        irsNumber:
+          type: string
+          x-go-name: IRSNumber
+        lag:
+          type: string
+          x-go-name: Lag
+        losRegion:
+          type: string
+          x-go-name: LosRegion
+        medicaidNumber:
+          type: string
+          x-go-name: MedicaidNumber
+        medicareNumber:
+          type: string
+          x-go-name: MedicareNumber
+        npi:
+          type: string
+          x-go-name: NPI
+        officeNumber:
+          type: string
+          x-go-name: OfficeNumber
+        overrideKey:
+          type: string
+          x-go-name: OverrideKey
+        patientLoad:
+          type: string
+          x-go-name: PatientLoad
+        payClass:
+          type: string
+          x-go-name: PayClass
+        payDiscount:
+          type: string
+          x-go-name: PayDiscount
+        payTo:
+          type: string
+          x-go-name: PayTo
+        periodTable:
+          type: string
+          x-go-name: PeriodTable
+        pnlcAId:
+          type: string
+          x-go-name: PnlcAID
+        pnlcId:
+          type: string
+          x-go-name: PnlcID
+        poolClass:
+          type: string
+          x-go-name: PoolClass
+        program:
+          type: string
+          x-go-name: Program
+        providerId:
+          type: string
+          x-go-name: ProviderId
+        providerType:
+          type: string
+          x-go-name: ProviderType
+        providerTypeDescription:
+          type: string
+          x-go-name: ProviderTypeDescription
+        region:
+          type: string
+          x-go-name: Region
+        scaleClass:
+          type: string
+          x-go-name: ScaleClass
+        spec1:
+          type: string
+          x-go-name: Spec1
+        spec1Description:
+          type: string
+          x-go-name: Spec1Description
+        startDate:
+          format: date-time
+          type: string
+          x-go-name: StartDate
+        status:
+          type: string
+          x-go-name: Status
+        statusDescription:
+          type: string
+          x-go-name: StatusDescription
+        subProgram:
+          type: string
+          x-go-name: SubProgram
+        taxonomy:
+          $ref: '#/components/schemas/Taxonomy'
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/shared
+    EthnicMinorityRaceStatus:
+      properties:
+        ethnicity:
+          type: string
+          x-go-name: Ethnicity
+        minority:
+          type: string
+          x-go-name: Minority
+        race:
+          type: string
+          x-go-name: Race
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/shared
+    EligibleForDisplay:
+      properties:
+        eligibleIndicator:
+          type: string
+          x-go-name: EligibleIndicator
+        endDate:
+          format: date-time
+          type: string
+          x-go-name: EndDate
+        geoCoordsDisplay:
+          type: string
+          x-go-name: GeoCoordsDisplay
+        parDisplay:
+          type: string
+          x-go-name: ParDisplay
+        printDisplay:
+          type: string
+          x-go-name: PrintDisplay
+        specialtyDisplay:
+          type: string
+          x-go-name: SpecialtyDisplay
+        startDate:
+          format: date-time
+          type: string
+          x-go-name: StartDate
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/shared
+    QualityRating:
+      properties:
+        clinicalExcellence:
+          type: string
+          x-go-name: ClinicalExcellence
+        patientSatisfaction:
+          type: string
+          x-go-name: PatientSatisfaction
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/practitioner
+    ProviderKansasIdentifiers:
+      properties:
+        NPIEndDate:
+          format: date-time
+          type: string
+        NPIStartDate:
+          format: date-time
+          type: string
+        endDate:
+          format: date-time
+          type: string
+          x-go-name: EndDate
+        groupKMMSID:
+          type: string
+          x-go-name: GroupKMMSID
+        groupServiceLoc:
+          type: string
+          x-go-name: GroupServiceLoc
+        kansasProviderType:
+          type: string
+          x-go-name: KansasProviderType
+        kansasproviderSpec:
+          type: string
+          x-go-name: KansasproviderSpec
+        legacyKMAPID:
+          type: string
+          x-go-name: LegacyKMAPID
+        providerKMMSID:
+          type: string
+          x-go-name: ProviderKMMSID
+        providerServiceLoc:
+          type: string
+          x-go-name: ProviderServiceLoc
+        specialtyEndDate:
+          format: date-time
+          type: string
+          x-go-name: SpecialtyEndDate
+        specialtyStartDate:
+          format: date-time
+          type: string
+          x-go-name: SpecialtyStartDate
+        startDate:
+          format: date-time
+          type: string
+          x-go-name: StartDate
+        taxonomy:
+          type: string
+          x-go-name: Taxonomy
+        taxonomyDesc:
+          type: string
+          x-go-name: TaxonomyDesc
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/shared
+    MedicalLicense:
+      properties:
+        effectiveDate:
+          format: date-time
+          type: string
+          x-go-name: EffectiveDate
+        expirationDate:
+          format: date-time
+          type: string
+          x-go-name: ExpirationDate
+        number:
+          type: string
+          x-go-name: Number
+        state:
+          type: string
+          x-go-name: State
+        status:
+          type: string
+          x-go-name: Status
+        type:
+          type: string
+          x-go-name: Type
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/practitioner
+    BillingPhoneNumbers:
+      properties:
+        areaCode:
+          type: string
+          x-go-name: AreaCode
+        countryCode:
+          type: string
+          x-go-name: CountryCode
+        exchange:
+          type: string
+          x-go-name: Exchange
+        extension:
+          type: string
+          x-go-name: Extension
+        number:
+          type: string
+          x-go-name: Number
+        phoneId:
+          type: string
+          x-go-name: PhoneId
+        type:
+          type: string
+          x-go-name: Type
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/shared
+    CCSCertificate:
+      properties:
+        certNumber:
+          type: string
+          x-go-name: CertNumber
+        effectiveDate:
+          format: date-time
+          type: string
+          x-go-name: EffectiveDate
+        endDate:
+          format: date-time
+          type: string
+          x-go-name: EndDate
+        status:
+          type: string
+          x-go-name: Status
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/shared
+    MedicareAdvantageRequired:
+      properties:
+        PHChain:
+          type: string
+        PHHomeInfusion:
+          type: string
+        PHIndianTribal:
+          type: string
+        PHLongTermCare:
+          type: string
+        PHMailOrder:
+          type: string
+        PHRetail:
+          type: string
+        providerEPrescribe:
+          type: string
+          x-go-name: ProviderEPrescribe
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/shared
+    ExtenderInformation:
+      properties:
+        effectiveDate:
+          format: date-time
+          type: string
+          x-go-name: EffectiveDate
+        expirationDate:
+          format: date-time
+          type: string
+          x-go-name: ExpirationDate
+        extenderId:
+          type: string
+          x-go-name: ExtenderId
+        nameOrTitle:
+          type: string
+          x-go-name: NameOrTitle
+        status:
+          type: string
+          x-go-name: Status
+        totalWorkHours:
+          type: string
+          x-go-name: TotalWorkHours
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/shared
+    MMAPhysicianIncentive:
+      properties:
+        effectiveDate:
+          format: date-time
+          type: string
+          x-go-name: EffectiveDate
+        endDate:
+          format: date-time
+          type: string
+          x-go-name: EndDate
+        physicianEligible:
+          type: string
+          x-go-name: PhysicianEligible
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/shared
+    Termination:
+      properties:
+        description:
+          type: string
+          x-go-name: Description
+        reason:
+          type: string
+          x-go-name: Reason
+        voluntary:
+          type: string
+          x-go-name: Voluntary
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/shared
+    CAPrisonCred:
+      properties:
+        ACLSBLSExpDate:
+          format: date-time
+          type: string
+        CDCRHandbookSigDate:
+          format: date-time
+          type: string
+        CVUExpDate:
+          format: date-time
+          type: string
+        DEAExpDate:
+          format: date-time
+          type: string
+        DEAIndicator:
+          type: string
+        TBExpDate:
+          format: date-time
+          type: string
+        boardCertExpDate:
+          format: date-time
+          type: string
+          x-go-name: BoardCertExpDate
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/shared
+    HCBS:
+      properties:
+        healthPlan:
+          type: string
+          x-go-name: HealthPlan
+        isActive:
+          type: boolean
+          x-go-name: IsActive
+        service:
+          type: string
+          x-go-name: Service
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/practitioner
+    HIVAIDS:
+      properties:
+        healthPlan:
+          type: string
+          x-go-name: HealthPlan
+        isHighRisk:
+          type: boolean
+          x-go-name: IsHighRisk
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/practitioner
+    versionResponse:
+      description: Version response containing build information of the current api
+      properties:
+        branch:
+          type: string
+          x-go-name: Branch
+        buildTime:
+          type: string
+          x-go-name: BuildTime
+        commit:
+          type: string
+          x-go-name: Commit
+      type: object
+      x-go-name: version
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/rtr-api-provider/api/handlers
+    EssentialCommunityProviderTypes:
+      properties:
+        isFQHCrhc:
+          type: string
+          x-go-name: IsFQHCrhc
+        isFamilyPlanning:
+          type: string
+          x-go-name: IsFamilyPlanning
+        isHospital:
+          type: string
+          x-go-name: IsHospital
+        isIndianTribal:
+          type: string
+          x-go-name: IsIndianTribal
+        isOtherECP:
+          type: string
+          x-go-name: IsOtherECP
+        isRyanWhiteHIV:
+          type: string
+          x-go-name: IsRyanWhiteHIV
+        isSchoolBased:
+          type: string
+          x-go-name: IsSchoolBased
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/shared
+    CAQH:
+      properties:
+        anniversaryDate:
+          format: date-time
+          type: string
+          x-go-name: AnniversaryDate
+        attestationDate:
+          format: date-time
+          type: string
+          x-go-name: AttestationDate
+        authorizationFlag:
+          type: string
+          x-go-name: AuthorizationFlag
+        caqhId:
+          type: string
+          x-go-name: CAQHId
+        certificationStatus:
+          type: string
+          x-go-name: CertificationStatus
+        effectiveDate:
+          format: date-time
+          type: string
+          x-go-name: EffectiveDate
+        nonResponderFlag:
+          type: string
+          x-go-name: NonResponderFlag
+        planProviderId:
+          type: string
+          x-go-name: PlanProviderId
+        practiceState:
+          type: string
+          x-go-name: PracticeState
+        providerStatus:
+          type: string
+          x-go-name: ProviderStatus
+        rosterStatus:
+          type: string
+          x-go-name: RosterStatus
+        termDate:
+          format: date-time
+          type: string
+          x-go-name: TermDate
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/practitioner
+    EHR:
+      properties:
+        MUEP:
+          format: int64
+          type: integer
+        MUExclude:
+          type: string
+        MUIncentives:
+          type: string
+        isConnectedToHIE:
+          type: boolean
+          x-go-name: IsConnectedToHIE
+        isQualityMeasures:
+          type: boolean
+          x-go-name: IsQualityMeasures
+        isSecureMessaging:
+          type: boolean
+          x-go-name: IsSecureMessaging
+        populations:
+          items:
+            type: string
+          type: array
+          x-go-name: Populations
+        submissionYear:
+          type: string
+          x-go-name: SubmissionYear
+        vendor:
+          type: string
+          x-go-name: Vendor
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/practitioner
+    Address:
+      properties:
+        addressId:
+          type: string
+          x-go-name: AddressID
+        addressLine1:
+          type: string
+          x-go-name: AddressLine1
+        addressLine2:
+          type: string
+          x-go-name: AddressLine2
+        billingPhoneNumbers:
+          items:
+            $ref: '#/components/schemas/BillingPhoneNumbers'
+          type: array
+          x-go-name: BillingPhoneNumbers
+        city:
+          type: string
+          x-go-name: City
+        cityId:
+          type: string
+          x-go-name: CityId
+        country:
+          type: string
+          x-go-name: Country
+        county:
+          type: string
+          x-go-name: County
+        countyId:
+          type: string
+          x-go-name: CountyId
+        endDate:
+          format: date-time
+          type: string
+          x-go-name: EndDate
+        fipsCountyCode:
+          type: string
+          x-go-name: FipsCountyCode
+        geoCoords:
+          $ref: '#/components/schemas/GeoCoords'
+        startDate:
+          format: date-time
+          type: string
+          x-go-name: StartDate
+        state:
+          type: string
+          x-go-name: State
+        stateCode:
+          type: string
+          x-go-name: StateCode
+        type:
+          type: string
+          x-go-name: Type
+        zipCode:
+          type: string
+          x-go-name: ZipCode
+        zipPlus4:
+          type: string
+          x-go-name: Zip4
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/shared
+    Network:
+      properties:
+        IPANetworks:
+          items:
+            type: string
+          type: array
+        agreement:
+          items:
+            $ref: '#/components/schemas/Agreement'
+          type: array
+          x-go-name: Agreement
+        businessUnit:
+          $ref: '#/components/schemas/NetworkComponent'
+        carrier:
+          $ref: '#/components/schemas/NetworkComponent'
+        company:
+          $ref: '#/components/schemas/NetworkComponent'
+        healthPlan:
+          $ref: '#/components/schemas/NetworkComponent'
+        medicareAdvantageRequired:
+          items:
+            $ref: '#/components/schemas/MedicareAdvantageRequired'
+          type: array
+          x-go-name: MedicareAdvantageRequired
+        product:
+          $ref: '#/components/schemas/NetworkComponent'
+        terminationReasons:
+          items:
+            type: string
+          type: array
+          x-go-name: TerminationReasons
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/shared
+    AmisysInfo:
+      properties:
+        amisysProviderNumber:
+          type: string
+          x-go-name: AmisysProviderNumber
+        healthPlan:
+          type: string
+          x-go-name: HealthPlan
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/practitioner
+    NetworkLocationAttributes:
+      properties:
+        ascensionOwnership:
+          items:
+            $ref: '#/components/schemas/AscensionOwnership'
+          type: array
+          x-go-name: AscensionOwnership
+        indianHealthCareProvider:
+          items:
+            $ref: '#/components/schemas/IndianHealthCareProvider'
+          type: array
+          x-go-name: IndianHealthCareProvider
+        oneCareKansas:
+          $ref: '#/components/schemas/OneCareKansas'
+        providerKansasIdentifiers:
+          items:
+            $ref: '#/components/schemas/ProviderKansasIdentifiers'
+          type: array
+          x-go-name: ProviderKansasIdentifiers
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/shared
+    CHDPCertificate:
+      properties:
+        certNumber:
+          type: string
+          x-go-name: CertNumber
+        effectiveDate:
+          format: date-time
+          type: string
+          x-go-name: EffectiveDate
+        endDate:
+          format: date-time
+          type: string
+          x-go-name: EndDate
+        status:
+          type: string
+          x-go-name: Status
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/shared
+    CLIAAccreditation:
+      properties:
+        CLIANumber:
+          type: string
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/shared
+    NationalId:
+      properties:
+        countryOfIssue:
+          type: string
+          x-go-name: CountryOfIssue
+        number:
+          type: string
+          x-go-name: Number
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/practitioner
+    NetworkComponent:
+      properties:
+        code:
+          type: string
+          x-go-name: Code
+        name:
+          type: string
+          x-go-name: Name
+        networkId:
+          type: string
+          x-go-name: NetworkId
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/shared
+    Phone:
+      properties:
+        coverageType:
+          type: string
+          x-go-name: CoverageType
+        is247Coverage:
+          type: string
+          x-go-name: Is247Coverage
+        isAnsweringService:
+          type: string
+          x-go-name: IsAnsweringService
+        isVoicemailWithMessage:
+          type: string
+          x-go-name: IsVoicemailWithMessage
+        isVoicemailWithOther:
+          type: string
+          x-go-name: IsVoicemailWithOther
+        phoneNumbers:
+          items:
+            $ref: '#/components/schemas/PhoneNumber'
+          type: array
+          x-go-name: PhoneNumber
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/shared
+    Agreement:
+      properties:
+        agreementId:
+          type: string
+          x-go-name: AgreementId
+        agreementType:
+          type: string
+          x-go-name: AgreementType
+        endDate:
+          format: date-time
+          type: string
+          x-go-name: EndDate
+        facetsPracId:
+          type: string
+          x-go-name: FacetsPracId
+        primaryLoc:
+          type: string
+          x-go-name: PrimaryLoc
+        startDate:
+          format: date-time
+          type: string
+          x-go-name: StartDate
+        taxonomy:
+          type: string
+          x-go-name: Taxonomy
+        termReason:
+          type: string
+          x-go-name: TermReason
+        termReasonDescription:
+          type: string
+          x-go-name: TermReasonDescription
+        title:
+          type: string
+          x-go-name: Title
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/shared
+    VFCProgram:
+      properties:
+        effectiveDate:
+          format: date-time
+          type: string
+          x-go-name: EffectiveDate
+        endDate:
+          format: date-time
+          type: string
+          x-go-name: EndDate
+        healthPlan:
+          type: string
+          x-go-name: HealthPlan
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/shared
+    Accreditation:
+      properties:
+        accredLevel:
+          type: string
+          x-go-name: AccredLevel
+        accredType:
+          type: string
+          x-go-name: AccredType
+        effectiveDate:
+          format: date-time
+          type: string
+          x-go-name: EffectiveDate
+        expirationDate:
+          format: date-time
+          type: string
+          x-go-name: ExpirationDate
+        isAccredited:
+          type: string
+          x-go-name: IsAccredited
+        type:
+          type: string
+          x-go-name: Type
+        validationDate:
+          format: date-time
+          type: string
+          x-go-name: ValidationDate
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/shared
+    Metadata:
+      properties:
+        page:
+          format: int64
+          type: integer
+          x-go-name: Page
+        pageCount:
+          format: int64
+          type: integer
+          x-go-name: PageCount
+        totalCount:
+          format: int64
+          type: integer
+          x-go-name: TotalCount
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/rtr-api-provider/api/response
+    BusinessEntityAffiliations:
+      properties:
+        affiliateBusinessTo:
+          type: string
+          x-go-name: AffiliateBusinessTo
+        endDate:
+          format: date-time
+          type: string
+          x-go-name: EndDate
+        startDate:
+          format: date-time
+          type: string
+          x-go-name: StartDate
+        type:
+          type: string
+          x-go-name: Type
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/shared
+    OfficeHours:
+      properties:
+        friday:
+          $ref: '#/components/schemas/OfficeHourComponent'
+        is24Hours:
+          type: boolean
+          x-go-name: Is24Hours
+        isSaturdayByApptOnly:
+          type: boolean
+          x-go-name: IsSaturdayByApptOnly
+        isSundayByApptOnly:
+          type: boolean
+          x-go-name: IsSundayByApptOnly
+        monday:
+          $ref: '#/components/schemas/OfficeHourComponent'
+        saturday:
+          $ref: '#/components/schemas/OfficeHourComponent'
+        sunday:
+          $ref: '#/components/schemas/OfficeHourComponent'
+        thursday:
+          $ref: '#/components/schemas/OfficeHourComponent'
+        tuesday:
+          $ref: '#/components/schemas/OfficeHourComponent'
+        wednesday:
+          $ref: '#/components/schemas/OfficeHourComponent'
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/shared
+    DisclosureOfOwnership:
+      properties:
+        effectiveDate:
+          format: date-time
+          type: string
+          x-go-name: EffectiveDate
+        healthPlan:
+          type: string
+          x-go-name: HealthPlan
+        isDisclosureReceived:
+          type: boolean
+          x-go-name: IsDisclosureReceived
+        ownerFirstName:
+          type: string
+          x-go-name: OwnerFirstName
+        ownerGroupName:
+          type: string
+          x-go-name: OwnerGroupName
+        ownerLastName:
+          type: string
+          x-go-name: OwnerLastName
+        ownerMiddleName:
+          type: string
+          x-go-name: OwnerMiddleName
+        ownershipCode:
+          type: string
+          x-go-name: OwnershipCode
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/shared
+    PhoneNumber:
+      properties:
+        areaCode:
+          type: string
+          x-go-name: AreaCode
+        countryCode:
+          type: string
+          x-go-name: CountryCode
+        exchange:
+          type: string
+          x-go-name: Exchange
+        extension:
+          type: string
+          x-go-name: Extension
+        number:
+          type: string
+          x-go-name: Number
+        phoneId:
+          type: string
+          x-go-name: PhoneId
+        type:
+          type: string
+          x-go-name: Type
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/shared
+    HospitalPrivilege:
+      properties:
+        effectiveDate:
+          format: date-time
+          type: string
+          x-go-name: EffectiveDate
+        expirationDate:
+          format: date-time
+          type: string
+          x-go-name: ExpirationDate
+        hospitalProvId:
+          type: string
+          x-go-name: HospitalProvID
+        isPrimary:
+          type: string
+          x-go-name: IsPrimary
+        privilege:
+          type: string
+          x-go-name: Privilege
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/practitioner
+    Taxonomies:
+      properties:
+        affiliationNumber:
+          type: string
+          x-go-name: AffiliationNumber
+        primary:
+          type: string
+          x-go-name: Primary
+        secondaries:
+          items:
+            type: string
+          type: array
+          x-go-name: Secondaries
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/shared
+    Audit:
+      properties:
+        createdBy:
+          type: string
+          x-go-name: CreatedBy
+        createdOn:
+          format: date-time
+          type: string
+          x-go-name: CreatedOn
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/shared
+    DEAInformation:
+      properties:
+        expirationDate:
+          format: date-time
+          type: string
+          x-go-name: ExpirationDate
+        number:
+          type: string
+          x-go-name: Number
+        state:
+          type: string
+          x-go-name: State
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/shared
+    Taxonomy:
+      properties:
+        classDescription:
+          type: string
+          x-go-name: ClassDescription
+        code:
+          type: string
+          x-go-name: Code
+        fullDescription:
+          type: string
+          x-go-name: FullDescription
+        specializationDescription:
+          type: string
+          x-go-name: SpecializationDescription
+        typeDescription:
+          type: string
+          x-go-name: TypeDescription
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/shared
+    NPI:
+      properties:
+        effectiveDate:
+          format: date-time
+          type: string
+          x-go-name: EffectiveDate
+        number:
+          type: string
+          x-go-name: Number
+        termDate:
+          format: date-time
+          type: string
+          x-go-name: TermDate
+        termReason:
+          type: string
+          x-go-name: TermReason
+        type:
+          type: string
+          x-go-name: Type
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/shared
+    OfficeHourComponent:
+      properties:
+        close:
+          type: string
+          x-go-name: Close
+        isByApptOnly:
+          type: boolean
+          x-go-name: IsByApptOnly
+        open:
+          type: string
+          x-go-name: Open
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/shared
+    ADAIndicator:
+      properties:
+        isASL:
+          type: string
+          x-go-name: IsASL
+        isBasicAccess:
+          type: string
+          x-go-name: IsBasicAccess
+        isExamTableScale:
+          type: string
+          x-go-name: IsExamTableScale
+        isExterior:
+          type: string
+          x-go-name: IsExterior
+        isInterior:
+          type: string
+          x-go-name: IsInterior
+        isLimitedAccess:
+          type: string
+          x-go-name: IsLimitedAccess
+        isMedEquipAccess:
+          type: string
+          x-go-name: IsMedEquipAccess
+        isMeetsAdaAccessibility:
+          type: string
+          x-go-name: IsMeetsADAAccessibility
+        isParking:
+          type: string
+          x-go-name: IsParking
+        isPatientArea:
+          type: string
+          x-go-name: IsPatientArea
+        isPatientDiagnost:
+          type: string
+          x-go-name: IsPatientDiagnost
+        isRestroom:
+          type: string
+          x-go-name: IsRestroom
+        isTTY:
+          type: string
+          x-go-name: IsTTY
+        isTransHalfMile:
+          type: string
+          x-go-name: IsTransHalfMile
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/shared
+    LegacyIds:
+      properties:
+        effectiveDate:
+          format: date-time
+          type: string
+          x-go-name: EffectiveDate
+        endDate:
+          format: date-time
+          type: string
+          x-go-name: EndDate
+        healthPlan:
+          type: string
+          x-go-name: HealthPlan
+        legacyId:
+          type: string
+          x-go-name: LegacyId
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/shared
+    AlternateName:
+      properties:
+        firstName:
+          type: string
+          x-go-name: FirstName
+        lastName:
+          type: string
+          x-go-name: LastName
+        middleName:
+          type: string
+          x-go-name: MiddleName
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/shared
+    PractitionerResponse:
+      properties:
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+        result:
+          items:
+            $ref: '#/components/schemas/Practitioner'
+          type: array
+          x-go-name: Result
+      title: Response object containing practitioner information.
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/utilities/api/response
+    MedicareAdvantage:
+      properties:
+        isChain:
+          type: boolean
+          x-go-name: IsChain
+        isEPrescribe:
+          type: boolean
+          x-go-name: IsEPrescribe
+        isExtendDaySupply:
+          type: boolean
+          x-go-name: IsExtendDaySupply
+        isHomeInfusion:
+          type: boolean
+          x-go-name: IsHomeInfusion
+        isIndianTribal:
+          type: boolean
+          x-go-name: IsIndianTribal
+        isLongTermCare:
+          type: boolean
+          x-go-name: IsLongTermCare
+        isMailOrder:
+          type: boolean
+          x-go-name: IsMailOrder
+        isRetail:
+          type: boolean
+          x-go-name: IsRetail
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/shared
+    Hospital:
+      properties:
+        hospitalPrivilege:
+          $ref: '#/components/schemas/HospitalPrivilege'
+        name:
+          type: string
+          x-go-name: Name
+        provId:
+          type: string
+          x-go-name: ProvId
+        rank:
+          type: string
+          x-go-name: Rank
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/practitioner
+    NCAdvancedMedicaidHomeClinicallyIntegratedNetworkDataSharing:
+      properties:
+        AMHCIN:
+          type: string
+        endDate:
+          format: date-time
+          type: string
+          x-go-name: EndDate
+        plan:
+          type: string
+          x-go-name: Plan
+        startDate:
+          format: date-time
+          type: string
+          x-go-name: StartDate
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/shared
+    CertificationIssue:
+      properties:
+        duration:
+          type: string
+          x-go-name: Duration
+        durationDescription:
+          type: string
+          x-go-name: DurationDescription
+        expireDate:
+          format: date-time
+          type: string
+          x-go-name: ExpireDate
+        issueDate:
+          format: date-time
+          type: string
+          x-go-name: IssueDate
+        occurrence:
+          type: string
+          x-go-name: Occurrence
+        occurrenceDescription:
+          type: string
+          x-go-name: OccurrenceDescription
+        pracSpecCertID:
+          type: string
+          x-go-name: PracSpecCertID
+        status:
+          type: string
+          x-go-name: Status
+        statusDescription:
+          type: string
+          x-go-name: StatusDescription
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/shared
+    CAPrisonSubSpecialties:
+      properties:
+        subSpecialty1:
+          type: string
+          x-go-name: SubSpecialty1
+        subSpecialty2:
+          type: string
+          x-go-name: SubSpecialty2
+        subSpecialty3:
+          type: string
+          x-go-name: SubSpecialty3
+        subSpecialty4:
+          type: string
+          x-go-name: SubSpecialty4
+        subSpecialty5:
+          type: string
+          x-go-name: SubSpecialty5
+        subSpecialty6:
+          type: string
+          x-go-name: SubSpecialty6
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/shared
+    Attributes:
+      properties:
+        NCAdvancedMedicaidHomeClinicallyIntegratedNetworkDataSharing:
+          items:
+            $ref: '#/components/schemas/NCAdvancedMedicaidHomeClinicallyIntegratedNetworkDataSharing'
+          type: array
+        facetsPracticeType:
+          type: string
+          x-go-name: FacetsPracticeType
+        oneCareKansas:
+          $ref: '#/components/schemas/OneCareKansas'
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/shared
+    IndianHealthCareProvider:
+      properties:
+        endDate:
+          format: date-time
+          type: string
+          x-go-name: EndDate
+        plan:
+          type: string
+          x-go-name: Plan
+        providerType:
+          type: string
+          x-go-name: ProviderType
+        startDate:
+          format: date-time
+          type: string
+          x-go-name: StartDate
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/shared
+    OneCareKansas:
+      properties:
+        IDDMembersOnly:
+          type: string
+        capacity:
+          type: string
+          x-go-name: Capacity
+        endDate:
+          format: date-time
+          type: string
+          x-go-name: EndDate
+        oneCareKansas:
+          type: string
+          x-go-name: OneCareKansas
+        pediatricOnly:
+          type: string
+          x-go-name: PediatricOnly
+        startDate:
+          format: date-time
+          type: string
+          x-go-name: StartDate
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/shared
+    PracNetLocSpecialties:
+      properties:
+        primarySpec:
+          type: string
+          x-go-name: PrimarySpec
+        specDescription:
+          type: string
+          x-go-name: SpecDescription
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/shared
+    healthResponse:
+      description: Health response containing the status of the mongo database
+      properties:
+        databaseReady:
+          type: boolean
+          x-go-name: DatabaseReady
+        endpoint:
+          type: string
+          x-go-name: Endpoint
+        reason:
+          type: string
+          x-go-name: Reason
+      type: object
+      x-go-name: health
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/rtr-api-provider/api/handlers
+    OBGYN:
+      properties:
+        healthPlan:
+          type: string
+          x-go-name: HealthPlan
+        isHighRisk:
+          type: boolean
+          x-go-name: IsHighRisk
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/practitioner
+    PractitionerLocation:
+      properties:
+        advancedMedicalHomeTier:
+          items:
+            $ref: '#/components/schemas/AdvancedMedicalHomeTier'
+          type: array
+          x-go-name: AdvancedMedicalHomeTier
+        affiliations:
+          items:
+            $ref: '#/components/schemas/Affiliation'
+          type: array
+          x-go-name: Affiliations
+        appointmentAvailability:
+          type: string
+          x-go-name: AppointmentAvailability
+        associatedPPGIPAIds:
+          items:
+            type: string
+          type: array
+          x-go-name: AssociatedPPGIPAIds
+        audit:
+          $ref: '#/components/schemas/Audit'
+        businessEntityAffiliations:
+          items:
+            $ref: '#/components/schemas/BusinessEntityAffiliations'
+          type: array
+          x-go-name: BusinessEntityAffiliations
+        caPrisonCred:
+          $ref: '#/components/schemas/CAPrisonCred'
+        eligibleForDisplay:
+          items:
+            $ref: '#/components/schemas/EligibleForDisplay'
+          type: array
+          x-go-name: EligibleForDisplay
+        endDate:
+          format: date-time
+          type: string
+          x-go-name: EndDate
+        excludeFromPPGs:
+          items:
+            type: string
+          type: array
+          x-go-name: ExcludeFromPPGs
+        healthNetLegacyProvId:
+          type: string
+          x-go-name: HealthNetLegacyProvId
+        healthNetLegacySiteId:
+          type: string
+          x-go-name: HealthNetLegacySiteId
+        location:
+          $ref: '#/components/schemas/Location'
+        locationId:
+          type: string
+          x-go-name: LocationId
+        networkLocationAttributes:
+          $ref: '#/components/schemas/NetworkLocationAttributes'
+        networkOrigin:
+          type: string
+          x-go-name: NetworkOrigin
+        officeHours:
+          items:
+            $ref: '#/components/schemas/OfficeHours'
+          type: array
+          x-go-name: OfficeHours
+        panel:
+          items:
+            $ref: '#/components/schemas/Panel'
+          type: array
+          x-go-name: Panel
+        phone:
+          $ref: '#/components/schemas/Phone'
+        pncId:
+          type: string
+          x-go-name: PncId
+        pnlcId:
+          type: string
+          x-go-name: PnlcId
+        population:
+          type: string
+          x-go-name: Population
+        populations:
+          items:
+            type: string
+          type: array
+          x-go-name: Populations
+        pracId:
+          type: string
+          x-go-name: PracId
+        pracIds:
+          items:
+            type: string
+          type: array
+          x-go-name: PracIds
+        pracNetLocSpecialties:
+          items:
+            $ref: '#/components/schemas/PracNetLocSpecialties'
+          type: array
+          x-go-name: PracNetLocSpecialties
+        pracPrisonIndicator:
+          $ref: '#/components/schemas/PracPrisonIndicator'
+        practitionerNetworkCycle:
+          $ref: '#/components/schemas/NetworkCycle'
+        primary:
+          type: boolean
+          x-go-name: Primary
+        provId:
+          type: string
+          x-go-name: ProvId
+        providerLocationLegacy:
+          items:
+            $ref: '#/components/schemas/ProviderLocationLegacy'
+          type: array
+          x-go-name: ProviderLocationLegacy
+        startDate:
+          format: date-time
+          type: string
+          x-go-name: StartDate
+        status:
+          type: string
+          x-go-name: Status
+        taxonomies:
+          items:
+            $ref: '#/components/schemas/Taxonomies'
+          type: array
+          x-go-name: Taxonomies
+        termination:
+          $ref: '#/components/schemas/Termination'
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/practitionerLocation
+    Accreditations:
+      properties:
+        cliaAccreditation:
+          items:
+            $ref: '#/components/schemas/CLIAAccreditation'
+          type: array
+          x-go-name: CLIA
+        hcbsAccreditation:
+          items:
+            $ref: '#/components/schemas/HCBSAccreditation'
+          type: array
+          x-go-name: HCBS
+        hcfAccreditation:
+          items:
+            $ref: '#/components/schemas/Accreditation'
+          type: array
+          x-go-name: HCF
+        ncqAccreditation:
+          items:
+            $ref: '#/components/schemas/Accreditation'
+          type: array
+          x-go-name: NCQ
+        tjcAccreditation:
+          items:
+            $ref: '#/components/schemas/Accreditation'
+          type: array
+          x-go-name: TJC
+        uraAccreditation:
+          items:
+            $ref: '#/components/schemas/Accreditation'
+          type: array
+          x-go-name: URA
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/shared
+    Specialties:
+      properties:
+        specDescription:
+          type: string
+          x-go-name: SpecDescription
+        specId:
+          type: string
+          x-go-name: SpecId
+        specPrimary:
+          type: string
+          x-go-name: SpecPrimary
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/shared
+    ACAEligibility:
+      properties:
+        ACAymdtrans:
+          format: date-time
+          type: string
+        attestationDate:
+          format: date-time
+          type: string
+          x-go-name: AttestationDate
+        effectiveDate:
+          format: date-time
+          type: string
+          x-go-name: EffectiveDate
+        healthPlan:
+          type: string
+          x-go-name: HealthPlan
+        isACAPaymentEligible:
+          type: string
+          x-go-name: IsACAPaymentEligible
+        qualifier:
+          type: string
+          x-go-name: Qualifier
+        region:
+          type: string
+          x-go-name: Region
+        termDate:
+          format: date-time
+          type: string
+          x-go-name: TermDate
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/practitioner
+    AscensionOwnership:
+      properties:
+        clinicallyIntNet:
+          type: string
+          x-go-name: ClinicallyIntNet
+        effectiveDate:
+          format: date-time
+          type: string
+          x-go-name: EffectiveDate
+        endDate:
+          format: date-time
+          type: string
+          x-go-name: EndDate
+        nonClinicallyIntNet:
+          type: string
+          x-go-name: NonClinicallyIntNet
+        owned:
+          type: string
+          x-go-name: Owned
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/shared
+    ProviderType:
+      properties:
+        category:
+          type: string
+          x-go-name: Category
+        code:
+          type: string
+          x-go-name: Code
+        description:
+          type: string
+          x-go-name: Description
+        fmgLock:
+          type: string
+          x-go-name: FmgLock
+        labelClusterId:
+          type: string
+          x-go-name: LabelClusterID
+        subCategory:
+          type: string
+          x-go-name: SubCategory
+        usage:
+          type: string
+          x-go-name: Usage
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/shared
+    ECFMG:
+      properties:
+        certStatus:
+          type: string
+          x-go-name: CertStatus
+        endDate:
+          format: date-time
+          type: string
+          x-go-name: EndDate
+        issueDate:
+          format: date-time
+          type: string
+          x-go-name: IssueDate
+        number:
+          type: string
+          x-go-name: Number
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/practitioner
+    CulturalCompetenceTraining:
+      properties:
+        isAfricanAmericanTrained:
+          type: string
+          x-go-name: IsAfricanAmericanTrained
+        isAlaskanNativeTrained:
+          type: string
+          x-go-name: IsAlaskanNativeTrained
+        isAmericanNativeTrained:
+          type: string
+          x-go-name: IsAmericanNativeTrained
+        isAsianTrained:
+          type: string
+          x-go-name: IsAsianTrained
+        isCulturalTrainingCompleted:
+          type: string
+          x-go-name: IsCulturalTrainingCompleted
+        isHispanicLatinoTrained:
+          type: string
+          x-go-name: IsHispanicLatinoTrained
+        isOtherTrained:
+          type: string
+          x-go-name: IsOtherTrained
+        isPacificIslanderTrained:
+          type: string
+          x-go-name: IsPacificIslanderTrained
+        isTrainingCompleted:
+          type: string
+          x-go-name: IsTrainingCompleted
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/practitioner
+    Credential:
+      properties:
+        affiliatedAgency:
+          type: string
+          x-go-name: AffiliatedAgency
+        affiliatedAgencyDescription:
+          type: string
+          x-go-name: AffiliatedAgencyDescription
+        committeeDate:
+          format: date-time
+          type: string
+          x-go-name: CommitteeDate
+        credentialId:
+          type: string
+          x-go-name: CredentialId
+        credentialer:
+          type: string
+          x-go-name: Credentialer
+        endDate:
+          format: date-time
+          type: string
+          x-go-name: EndDate
+        isDelegatedCred:
+          type: boolean
+          x-go-name: IsDelegatedCred
+        note:
+          type: string
+          x-go-name: Note
+        pracId:
+          type: string
+          x-go-name: PracId
+        recruitedBy:
+          type: string
+          x-go-name: RecruitedBy
+        startDate:
+          format: date-time
+          type: string
+          x-go-name: StartDate
+        status:
+          type: string
+          x-go-name: Status
+        type:
+          type: string
+          x-go-name: Type
+        updateBy:
+          type: string
+          x-go-name: UpdateBy
+        updateDate:
+          format: date-time
+          type: string
+          x-go-name: UpdateDate
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/practitioner
+    Location:
+      properties:
+        CCSCertificate:
+          $ref: '#/components/schemas/CCSCertificate'
+        CHDPCertificate:
+          $ref: '#/components/schemas/CHDPCertificate'
+        DEAIndicator:
+          items:
+            type: string
+          type: array
+        DEASiteNumber:
+          type: string
+        additionalCountiesServedCountyCode:
+          items:
+            type: string
+          type: array
+          x-go-name: AdditionalCountiesServedCountyCode
+        address:
+          $ref: '#/components/schemas/Address'
+        attributes:
+          $ref: '#/components/schemas/Attributes'
+        bus:
+          type: string
+          x-go-name: Bus
+        directoryDisplay:
+          $ref: '#/components/schemas/DirectoryDisplay'
+        endDate:
+          format: date-time
+          type: string
+          x-go-name: EndDate
+        extenderInformation:
+          items:
+            $ref: '#/components/schemas/ExtenderInformation'
+          type: array
+          x-go-name: ExtenderInformation
+        handicap:
+          type: string
+          x-go-name: Handicap
+        healthNetLegacyProvId:
+          type: string
+          x-go-name: HealthNetLegacyProvId
+        independentPhysicianAssociation:
+          $ref: '#/components/schemas/IndependentPhysicianAssociation'
+        isDoNotMail:
+          type: boolean
+          x-go-name: IsDoNotMail
+        isEMR:
+          type: boolean
+          x-go-name: IsEMR
+        isTranslationServices:
+          type: boolean
+          x-go-name: IsTranslationServices
+        isVaccineAvailable:
+          type: boolean
+          x-go-name: IsVaccineAvailable
+        languages:
+          items:
+            type: string
+          type: array
+          x-go-name: Languages
+        medicaidLocInfo:
+          $ref: '#/components/schemas/MedicaidInfo'
+        medicalHome:
+          $ref: '#/components/schemas/MedicalHome'
+        medicareAdvantage:
+          $ref: '#/components/schemas/MedicareAdvantage'
+        name:
+          type: string
+          x-go-name: Name
+        nameUsage:
+          type: string
+          x-go-name: NameUsage
+        officeHours:
+          $ref: '#/components/schemas/OfficeHours'
+        panel:
+          $ref: '#/components/schemas/Panel'
+        panelQuestions:
+          $ref: '#/components/schemas/PanelQuestion'
+        phones:
+          $ref: '#/components/schemas/Phone'
+        populations:
+          items:
+            type: string
+          type: array
+          x-go-name: Populations
+        practiceLocWebsite:
+          type: string
+          x-go-name: PracticeLocWebsite
+        primary:
+          type: boolean
+          x-go-name: Primary
+        programEnrollment:
+          items:
+            $ref: '#/components/schemas/ProgramEnrollment'
+          type: array
+          x-go-name: ProgramEnrollment
+        provider:
+          $ref: '#/components/schemas/LocationProvider'
+        secondaryEmail:
+          type: string
+          x-go-name: SecondaryEmail
+        startDate:
+          format: date-time
+          type: string
+          x-go-name: StartDate
+        status:
+          description: ProvId                             string                              `json:"provId,omitempty" bson:"provId" graphql:"provId"`
+          type: string
+          x-go-name: Status
+        terminationReasons:
+          items:
+            type: string
+          type: array
+          x-go-name: TerminationReasons
+        vendorNPI:
+          type: string
+          x-go-name: VendorNPI
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/practitionerLocation
+    CBAS:
+      properties:
+        CBASPaneled:
+          type: string
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/shared
+    PersonalProfile:
+      properties:
+        awards:
+          type: string
+          x-go-name: Awards
+        communityService:
+          type: string
+          x-go-name: CommunityService
+        hobbies:
+          type: string
+          x-go-name: Hobbies
+        statement:
+          type: string
+          x-go-name: Statement
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/practitioner
+    IndependentPhysicianAssociation:
+      properties:
+        IPA:
+          type: string
+        endDate:
+          format: date-time
+          type: string
+          x-go-name: EndDate
+        startDate:
+          format: date-time
+          type: string
+          x-go-name: StartDate
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/shared
+    Certification:
+      properties:
+        certificationId:
+          type: string
+          x-go-name: CertificationId
+        issueDetail:
+          $ref: '#/components/schemas/CertificationIssue'
+        name:
+          type: string
+          x-go-name: Name
+        specialtyId:
+          type: string
+          x-go-name: SpecialtyId
+        type:
+          type: string
+          x-go-name: Type
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/shared
+    GeoJSONPoint:
+      properties:
+        coordinates:
+          items:
+            format: double
+            type: number
+          type: array
+          x-go-name: Coordinates
+        type:
+          type: string
+          x-go-name: Type
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/shared
+    Insurance:
+      properties:
+        carrier:
+          type: string
+          x-go-name: Carrier
+        coverageAmount:
+          type: string
+          x-go-name: CoverageAmount
+        coverageType:
+          type: string
+          x-go-name: CoverageType
+        effectiveDate:
+          format: date-time
+          type: string
+          x-go-name: EffectiveDate
+        expirationDate:
+          format: date-time
+          type: string
+          x-go-name: ExpirationDate
+        isCoverageUnlimited:
+          type: string
+          x-go-name: IsCoverageUnlimited
+        originalEffectiveDate:
+          format: date-time
+          type: string
+          x-go-name: OriginalEffectiveDate
+        policyNumber:
+          type: string
+          x-go-name: PolicyNumber
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/shared
+    CompPerinatalServiceProgram:
+      properties:
+        certStatus:
+          type: string
+          x-go-name: CertStatus
+        certification:
+          type: string
+          x-go-name: Certification
+        endDate:
+          format: date-time
+          type: string
+          x-go-name: EndDate
+        issuedDate:
+          format: date-time
+          type: string
+          x-go-name: IssuedDate
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/practitioner
+    NetworkCycle:
+      properties:
+        endDate:
+          format: date-time
+          type: string
+          x-go-name: EndDate
+        healthNetNetwork:
+          type: string
+          x-go-name: HealthNetNetwork
+        network:
+          $ref: '#/components/schemas/Network'
+        pracId:
+          type: string
+          x-go-name: PracId
+        provId:
+          type: string
+          x-go-name: ProvId
+        specialties:
+          items:
+            $ref: '#/components/schemas/Specialties'
+          type: array
+          x-go-name: Specialties
+        startDate:
+          format: date-time
+          type: string
+          x-go-name: StartDate
+        tin:
+          type: string
+          x-go-name: Tin
+        vendorNetwork:
+          type: string
+          x-go-name: VendorNetwork
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/shared
+    MedicaidInfo:
+      properties:
+        effectiveDate:
+          format: date-time
+          type: string
+          x-go-name: EffectiveDate
+        expirationDate:
+          format: date-time
+          type: string
+          x-go-name: ExpirationDate
+        number:
+          type: string
+          x-go-name: Number
+        state:
+          type: string
+          x-go-name: State
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/shared
+    PracPrisonIndicator:
+      properties:
+        mobile:
+          type: string
+          x-go-name: Mobile
+        offsite:
+          type: string
+          x-go-name: Offsite
+        onsite:
+          type: string
+          x-go-name: Onsite
+        phoneNumber:
+          type: string
+          x-go-name: PhoneNumber
+        telemedicineAndOffsite:
+          type: string
+          x-go-name: TelemedicineAndOffsite
+        telemedicineOnly:
+          type: string
+          x-go-name: TelemedicineOnly
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/shared
+    DirectoryDisplay:
+      properties:
+        changeDate:
+          format: date-time
+          type: string
+          x-go-name: ChangeDate
+        excludeFromDirectory:
+          type: string
+          x-go-name: ExcludeFromDirectory
+        reason:
+          type: string
+          x-go-name: Reason
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/shared
+    Specialty:
+      properties:
+        atypicalIndicator:
+          type: string
+          x-go-name: AtypicalIndicator
+        b5ends:
+          format: date-time
+          type: string
+          x-go-name: B5ends
+        boardCertExpired:
+          format: date-time
+          type: string
+          x-go-name: BoardCertExpired
+        boardCertIssued:
+          format: date-time
+          type: string
+          x-go-name: BoardCertIssued
+        boardStatus:
+          type: string
+          x-go-name: BoardStatus
+        boardsTakenDate:
+          format: date-time
+          type: string
+          x-go-name: BoardsTakenDate
+        certNumber:
+          type: string
+          x-go-name: CertNumber
+        certification:
+          $ref: '#/components/schemas/Certification'
+        code:
+          type: string
+          x-go-name: Code
+        isPrimary:
+          type: string
+          x-go-name: IsPrimary
+        issuerName:
+          type: string
+          x-go-name: IssuerName
+        netLocEligible_derived:
+          type: string
+          x-go-name: NetLocEligible_derived
+        specialtyId:
+          type: string
+          x-go-name: SpecialtyId
+        specialtyName:
+          type: string
+          x-go-name: SpecialtyName
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/shared
+    AdvancedMedicalHomeTier:
+      properties:
+        effectiveDate:
+          format: date-time
+          type: string
+          x-go-name: EffectiveDate
+        endDate:
+          format: date-time
+          type: string
+          x-go-name: EndDate
+        healthPlan:
+          type: string
+          x-go-name: HealthPlan
+        tier:
+          type: string
+          x-go-name: Tier
+        tierType:
+          type: string
+          x-go-name: TierType
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/shared
+    Contract:
+      properties:
+        comments:
+          type: string
+          x-go-name: Comments
+        contractArea:
+          type: string
+          x-go-name: ContractArea
+        contractStatus:
+          type: string
+          x-go-name: ContractStatus
+        contractType:
+          type: string
+          x-go-name: ContractType
+        endDate:
+          format: date-time
+          type: string
+          x-go-name: EndDate
+        feeCode:
+          type: string
+          x-go-name: FeeCode
+        labelClusterId:
+          type: string
+          x-go-name: LabelClusterId
+        negotiator:
+          type: string
+          x-go-name: Negotiator
+        rateTable:
+          type: string
+          x-go-name: RateTable
+        signatureDate:
+          format: date-time
+          type: string
+          x-go-name: SignatureDate
+        startDate:
+          format: date-time
+          type: string
+          x-go-name: StartDate
+        state:
+          type: string
+          x-go-name: State
+        terminationReason:
+          type: string
+          x-go-name: TerminationReason
+        version:
+          type: string
+          x-go-name: Version
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/practitioner
+    ProviderLocationLegacy:
+      properties:
+        endDate:
+          format: date-time
+          type: string
+          x-go-name: EndDate
+        healthPlan:
+          type: string
+          x-go-name: HealthPlan
+        identifier:
+          type: string
+          x-go-name: Identifier
+        startDate:
+          format: date-time
+          type: string
+          x-go-name: StartDate
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/provider-rtr-apis/models/shared
+  securitySchemes:
+    oauth2:
+      flows:
+        clientCredentials:
+          scopes:
+            resource.READ: read access
+          tokenUrl: https://stage.entrykeyid.com/as/token.oauth2
+      type: oauth2

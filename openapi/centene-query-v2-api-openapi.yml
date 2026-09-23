@@ -1,0 +1,232 @@
+openapi: 3.2.0
+info:
+  title: Product Mapping V2 query v2 API
+  description: Application to get network data and active networks based on location.
+  version: 2.0.0
+servers:
+- url: https://dev-int-api-gw.centene.com/productmapping/v2/
+  description: Dev Internal
+- url: https://prod.api.centene.com/incoming/dev/productmapping/v2
+  description: Dev DMZ External
+- url: https://test-int-api-gw.centene.com/productmapping/v2/
+  description: Test Internal
+- url: https://prod.api.centene.com/incoming/test/productmapping/v2
+  description: Test DMZ External
+- url: https://api-gateway-01.centene.com/productmapping/v2/
+  description: Prod Internal
+- url: https://prod.api.centene.com/incoming/productmapping/v2
+  description: Prod DMZ External
+security:
+- basicAuth: []
+tags:
+- name: query v2
+paths:
+  /v2/query:
+    post:
+      tags:
+      - query v2
+      summary: Search for a particular set of active networks and retrieve their names and…
+      operationId: postQueryV2Networks
+      requestBody:
+        description: Accepted parameters.
+        content:
+          application/json:
+            schema:
+              anyOf:
+              - $ref: '#/components/schemas/query'
+              - $ref: '#/components/schemas/queryWithAddress'
+              - $ref: '#/components/schemas/queryWithFapNetworkTypeCode'
+              - $ref: '#/components/schemas/queryV2ResponseNetworkObject'
+            examples:
+              Network Query:
+                description: Query legacy Centene plans without county code restrictions.
+                value:
+                  url: cahealthwellness.com
+                  displayDate: '2020-12-02'
+              Network with Address Query:
+                description: Query legacy Centene plans WITH county code restrictions.
+                value:
+                  url: cahealthwellness.com
+                  displayDate: '2020-12-02'
+                  streetAddress: 1 infinite loop
+                  city: cupertino
+                  state: CA
+                  zip: '95014'
+              Network with fapNetworkTypeCode Query:
+                description: Query legacy Centene plans WITH fapNetworkTypeCode restrictions.
+                value:
+                  url: https://healthnetcalifornia.com
+                  city: Santa Clara
+                  zip: '95050'
+                  state: CA
+                  effectiveDate: '2020-08-01'
+                  countyFIPSCode: '06011'
+                  fapNetworkTypeCode: Commercial Group Off Exchange
+              Network with includeProviderProgramCodesAggs Query:
+                description: Query legacy Centene plans to include Provider Program Codes.
+                value:
+                  url: https://healthnetcalifornia.com
+                  city: Santa Clara
+                  zip: '95050'
+                  state: CA
+                  effectiveDate: '2020-08-01'
+                  countyFIPSCode: '06011'
+                  fapNetworkTypeCode: Commercial Group Off Exchange
+                  includeProviderProgramCodesAggs: Y
+        required: false
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/networkResults'
+components:
+  schemas:
+    fapNetworkServiceAreaWithoutMemberOrProvider:
+      type: object
+      properties:
+        dataSourceIdentifier:
+          type: string
+          example: 259
+        fapNetworkCode:
+          type: string
+          example: 558103
+        fapNetworkDisplayEndDate:
+          type: string
+          example: '4000-01-01'
+        fapNetworkDisplayStartDate:
+          type: string
+          format: date
+          example: '2020-07-01'
+        fapNetworkEndDate:
+          type: string
+          example: '4000-01-01'
+        fapNetworkStartDate:
+          type: string
+          format: date
+          example: '2020-07-01'
+        fapNetworkIdentifier:
+          type: string
+          example: 558103
+        fapNetworkName:
+          type: string
+          example: Seniority Plus Sapphire Premier II (HMO)
+        fapNetworkStatusCode:
+          type: string
+          example: ACTIVE
+        fapNetworkTypeCode:
+          type: string
+          example: Medicaid
+        fapNetworkURLText:
+          type: string
+          example: healthnetadvantage.com
+        serviceAreaRestrictionFlag:
+          type: string
+          example: Y
+        ppgIndicator:
+          type: string
+          example: Y
+        noteText:
+          type: string
+          example: Initial Load 07282020
+        stateCode:
+          type: string
+          example: CA
+    queryV2ResponseNetworkObject:
+      $ref: '#/components/schemas/fapNetworkServiceAreaWithoutMemberOrProvider'
+    networkResults:
+      type: object
+      properties:
+        network:
+          items:
+            $ref: '#/components/schemas/queryV2ResponseNetworkObject'
+        providerProgramCodes:
+          items:
+            $ref: '#/components/schemas/providerProgramCodes'
+    queryWithAddress:
+      type: object
+      properties:
+        streetAddress:
+          type: string
+          example: 1261 W 76th St
+        url:
+          type: string
+          example: sunshinehealth.com
+        city:
+          type: string
+          example: Los Angeles
+        state:
+          type: string
+          example: CA
+        zip:
+          type: string
+          example: 90044
+        effectiveDate:
+          type: string
+          format: date
+          example: '2020-09-01'
+    queryWithFapNetworkTypeCode:
+      type: object
+      required:
+      - url
+      - city
+      - state
+      - zip
+      - effectiveDate
+      - countyFIPSCode
+      - fapNetworkTypeCode
+      properties:
+        url:
+          type: string
+          example: https://healthnetcalifornia.com
+        city:
+          type: string
+          example: Santa Clara
+        state:
+          type: string
+          example: CA
+        zip:
+          type: string
+          example: 95050
+        effectiveDate:
+          type: string
+          format: date
+          example: '2020-08-01'
+        countyFIPSCode:
+          type: string
+          example: 3081
+        fapNetworkTypeCode:
+          type: string
+          example: Commercial Group Off Exchange
+        includeProviderProgramCodesAggs:
+          type: string
+          enum:
+          - Y
+          - N
+          example: Y
+    query:
+      type: object
+      properties:
+        streetAddress:
+          type: string
+          example: 1261 W 76th St
+        url:
+          type: string
+          example: sunshinehealth.com
+    providerProgramCodes:
+      type: object
+      properties:
+        providerProgramCode:
+          type: string
+          example: 1234
+        fapNetworkIdentifier:
+          type: string
+          example:
+          - '123401'
+          - '123402'
+          - '123403'
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic

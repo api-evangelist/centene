@@ -1,0 +1,299 @@
+openapi: 3.2.0
+info:
+  version: v1
+  title: ccm Communication API
+servers:
+- url: http://localhost/MDSS/v1
+tags:
+- name: Communication
+paths:
+  /api/communication:
+    get:
+      tags:
+      - Communication
+      operationId: Communication_GetCommunicationByUri
+      parameters:
+      - name: uri
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+            text/json:
+              schema:
+                type: object
+      summary: Communication get communication by uri
+      x-summary-source: derived
+    put:
+      tags:
+      - Communication
+      operationId: Communication_PutMergeCommunicationByIdOrSysId
+      parameters:
+      - name: mergerHandler
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          enum:
+          - 0
+          - 1
+          - 2
+          - 3
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+            text/json:
+              schema:
+                type: object
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+          text/json:
+            schema:
+              type: object
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+        required: true
+      summary: Communication put merge communication by id or sys id
+      x-summary-source: derived
+    post:
+      tags:
+      - Communication
+      operationId: Communication_PostInsertUpdateCommunication
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+            text/json:
+              schema:
+                type: object
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+          text/json:
+            schema:
+              type: object
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+        required: true
+      summary: Communication post insert update communication
+      x-summary-source: derived
+    head:
+      tags:
+      - Communication
+      operationId: Communication_HeadCommunicationByUri
+      parameters:
+      - name: uri
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+            text/json:
+              schema:
+                type: object
+      summary: Communication head communication by uri
+      x-summary-source: derived
+  /api/communication/{id}:
+    get:
+      tags:
+      - Communication
+      operationId: Communication_GetCommunicationById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+            text/json:
+              schema:
+                type: object
+      summary: Communication get communication by id
+      x-summary-source: derived
+    head:
+      tags:
+      - Communication
+      operationId: Communication_HeadCommunicationById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+            text/json:
+              schema:
+                type: object
+      summary: Communication head communication by id
+      x-summary-source: derived
+  /api/communication/{source_sys}/{source_id}:
+    get:
+      tags:
+      - Communication
+      operationId: Communication_GetCommunicationBySource
+      parameters:
+      - name: source_sys
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: source_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+            text/json:
+              schema:
+                type: object
+      summary: Communication get communication by source
+      x-summary-source: derived
+    head:
+      tags:
+      - Communication
+      operationId: Communication_HeadCommunicationBySource
+      parameters:
+      - name: source_sys
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: source_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+            text/json:
+              schema:
+                type: object
+      summary: Communication head communication by source
+      x-summary-source: derived
+  /api/communication/image:
+    get:
+      tags:
+      - Communication
+      operationId: Communication_GetCommunicationImageByUri
+      parameters:
+      - name: uri
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+            text/json:
+              schema:
+                type: object
+      summary: Communication get communication image by uri
+      x-summary-source: derived
+  /api/communication/image/{id}:
+    get:
+      tags:
+      - Communication
+      operationId: Communication_GetCommunicationImageById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+            text/json:
+              schema:
+                type: object
+      summary: Communication get communication image by id
+      x-summary-source: derived
+  /api/communication/image/{source_sys}/{source_id}:
+    get:
+      tags:
+      - Communication
+      operationId: Communication_GetCommunicationImageBySource
+      parameters:
+      - name: source_sys
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: source_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+            text/json:
+              schema:
+                type: object
+      summary: Communication get communication image by source
+      x-summary-source: derived

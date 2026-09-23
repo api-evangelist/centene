@@ -1,0 +1,832 @@
+openapi: 3.2.0
+info:
+  title: Provider Directory Healthcare Service API
+  description: Provider directory endpoints for FHIR resources
+  version: '1.0'
+servers:
+- url: https://dev-int-api-gw.centene.com/fhir/v4/providerdirectory
+tags:
+- name: Healthcare Service
+paths:
+  /HealthcareService:
+    summary: manage the collection of resources of type HealthcareService
+    description: Access to services to manage the collection of all resources of type HealthcareService
+    get:
+      summary: Search all resources of type HealthcareService based on a set of criteria
+      operationId: searchHealthcareService
+      tags:
+      - Healthcare Service
+      parameters:
+      - name: coverage-area
+        in: query
+        description: Location(s) service is intended for/available to
+        schema:
+          type: string
+      - name: _id
+        in: query
+        description: The ID of the resource
+        schema:
+          type: string
+      - name: _lastUpdated
+        in: query
+        schema:
+          type: string
+          format: date
+      - name: location
+        in: query
+        description: The location of the Healthcare Service
+        schema:
+          type: string
+      - name: name
+        in: query
+        description: A portion of the Healthcare service name
+        schema:
+          type: string
+      - name: name:contains
+        in: query
+        description: Contains a portion of the Healthcare service name
+        schema:
+          type: string
+      - name: name:exact
+        in: query
+        description: An exact Healthcare service name
+        schema:
+          type: string
+      - name: organization
+        in: query
+        description: The organization that provides this Healthcare Service
+        schema:
+          type: string
+      - name: service-category
+        in: query
+        description: Service Category of the Healthcare Service
+        schema:
+          type: string
+      - name: service-category:text
+        in: query
+        schema:
+          type: string
+      - name: service-type
+        in: query
+        description: The type of service provided by this healthcare service
+        schema:
+          type: string
+      - name: service-type:text
+        in: query
+        schema:
+          type: string
+      - name: specialty
+        in: query
+        description: The specialty of the service provided by this healthcare service
+        schema:
+          type: string
+      - name: specialty:text
+        in: query
+        schema:
+          type: string
+      - name: endpoint
+        in: query
+        description: Search for HealthcareServices with specified endpoint
+        schema:
+          type: string
+      - name: _include
+        in: query
+        schema:
+          type: string
+          x-consoleDefault: application/json
+        x-consoleDefault: application/json
+      - name: _revinclude
+        in: query
+        schema:
+          type: string
+          x-consoleDefault: application/json
+        x-consoleDefault: application/json
+      - name: _source
+        in: query
+        schema:
+          type: string
+      - name: _next
+        in: query
+        schema:
+          type: string
+      - name: _page
+        in: query
+        schema:
+          type: number
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/HealthcareService-search'
+        '400':
+          description: Bad request
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                - severity: error
+                  code: invalid
+                  details:
+                    text: Invalid or badly formed HealthcareService ID .
+              schema:
+                $ref: '#/components/schemas/GeneralError'
+        '401':
+          description: Unauthorized
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GeneralError'
+              example:
+                resourceType: OperationOutcome
+                issue:
+                - severity: error
+                  code: Unauthorized
+                  details:
+                    text: You are not authorized to view this HealthcareService.
+        '403':
+          description: Forbidden
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GeneralError'
+              example:
+                resourceType: OperationOutcome
+                issue:
+                - severity: error
+                  code: forbidden
+                  details:
+                    text: You are not allowed to view this HealthcareService.
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GeneralError'
+              example:
+                resourceType: OperationOutcome
+                issue:
+                - severity: error
+                  code: Not Found
+                  details:
+                    text: No HealthcareService found with the provided ID.
+        '500':
+          description: InternalServerError
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GeneralError'
+              example:
+                resourceType: OperationOutcome
+                issue:
+                - severity: fatal
+                  code: exception
+                  details:
+                    text: Internal server error. Please try again later
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GeneralError'
+              example:
+                resourceType: OperationOutcome
+                issue:
+                - severity: error
+                  code: Too Many Requests
+                  details:
+                    text: Too Many Requests for HealthcareService with the provided ID.
+        '501':
+          description: Not Implemented
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GeneralError'
+              example:
+                resourceType: OperationOutcome
+                issue:
+                - severity: error
+                  code: Not Implemented
+                  details:
+                    text: The request for HealthcareService is Not Implemented
+        '502':
+          description: Bad gateway
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GeneralError'
+              example:
+                resourceType: OperationOutcome
+                issue:
+                - severity: error
+                  code: Bad gateway
+                  details:
+                    text: Bad gateway
+        '503':
+          description: Service Unavailable
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GeneralError'
+              example:
+                resourceType: OperationOutcome
+                issue:
+                - severity: error
+                  code: Service Unavailable
+                  details:
+                    text: Service Unavailable
+        '504':
+          description: Gateway Timeout
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GeneralError'
+              example:
+                resourceType: OperationOutcome
+                issue:
+                - severity: error
+                  code: Gateway Timeout
+                  details:
+                    text: Gateway Timeout
+      security:
+      - Basic: []
+  /HealthcareService/{id}:
+    summary: Read resource instance of type HealthcareService
+    description: Access to services to manage the state of a single resource of type HealthcareService
+    get:
+      summary: Read the current state of the resource
+      operationId: readHealthcareService
+      tags:
+      - Healthcare Service
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/HealthcareService'
+        '400':
+          description: Bad request
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                - severity: error
+                  code: invalid
+                  details:
+                    text: Invalid or badly formed HealthcareService ID .
+              schema:
+                $ref: '#/components/schemas/GeneralError'
+        '401':
+          description: Unauthorized
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GeneralError'
+              example:
+                resourceType: OperationOutcome
+                issue:
+                - severity: error
+                  code: Unauthorized
+                  details:
+                    text: You are not authorized to view this HealthcareService.
+        '403':
+          description: Forbidden
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GeneralError'
+              example:
+                resourceType: OperationOutcome
+                issue:
+                - severity: error
+                  code: forbidden
+                  details:
+                    text: You are not allowed to view this HealthcareService.
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GeneralError'
+              example:
+                resourceType: OperationOutcome
+                issue:
+                - severity: error
+                  code: Not Found
+                  details:
+                    text: No HealthcareService found with the provided ID.
+        '500':
+          description: InternalServerError
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GeneralError'
+              example:
+                resourceType: OperationOutcome
+                issue:
+                - severity: fatal
+                  code: exception
+                  details:
+                    text: Internal server error. Please try again later
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GeneralError'
+              example:
+                resourceType: OperationOutcome
+                issue:
+                - severity: error
+                  code: Too Many Requests
+                  details:
+                    text: Too Many Requests for HealthcareService with the provided ID.
+        '501':
+          description: Not Implemented
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GeneralError'
+              example:
+                resourceType: OperationOutcome
+                issue:
+                - severity: error
+                  code: Not Implemented
+                  details:
+                    text: The request for HealthcareService is Not Implemented
+        '502':
+          description: Bad gateway
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GeneralError'
+              example:
+                resourceType: OperationOutcome
+                issue:
+                - severity: error
+                  code: Bad gateway
+                  details:
+                    text: Bad gateway
+        '503':
+          description: Service Unavailable
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GeneralError'
+              example:
+                resourceType: OperationOutcome
+                issue:
+                - severity: error
+                  code: Service Unavailable
+                  details:
+                    text: Service Unavailable
+        '504':
+          description: Gateway Timeout
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GeneralError'
+              example:
+                resourceType: OperationOutcome
+                issue:
+                - severity: error
+                  code: Gateway Timeout
+                  details:
+                    text: Gateway Timeout
+      security:
+      - Basic: []
+components:
+  schemas:
+    GeneralError:
+      required:
+      - resourceType
+      - issue
+      type: object
+      properties:
+        resourceType:
+          minLength: 1
+          type: string
+        issue:
+          required:
+          - severity
+          - code
+          - details
+          type: object
+          properties:
+            severity:
+              minLength: 1
+              type: string
+            code:
+              minLength: 1
+              type: string
+            details:
+              minLength: 1
+              type: string
+    HealthcareService:
+      required:
+      - active
+      - category
+      - extension
+      - id
+      - language
+      - location
+      - meta
+      - providedBy
+      - resourceType
+      - specialty
+      - text
+      type: object
+      properties:
+        resourceType:
+          minLength: 1
+          type: string
+        id:
+          minLength: 1
+          type: string
+        meta:
+          required:
+          - lastUpdated
+          - profile
+          type: object
+          properties:
+            lastUpdated:
+              minLength: 1
+              type: string
+            profile:
+              type: array
+              items:
+                type: object
+                properties: {}
+        language:
+          minLength: 1
+          type: string
+        text:
+          required:
+          - div
+          - status
+          type: object
+          properties:
+            status:
+              minLength: 1
+              type: string
+            div:
+              minLength: 1
+              type: string
+        extension:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            required:
+            - url
+            type: object
+            properties:
+              extension:
+                minItems: 1
+                uniqueItems: true
+                type: array
+                items:
+                  required:
+                  - url
+                  type: object
+                  properties:
+                    url:
+                      minLength: 1
+                      type: string
+                    valueCodeableConcept:
+                      required:
+                      - coding
+                      type: object
+                      properties:
+                        coding:
+                          minItems: 1
+                          uniqueItems: true
+                          type: array
+                          items:
+                            required:
+                            - code
+                            - system
+                            type: object
+                            properties:
+                              system:
+                                minLength: 1
+                                type: string
+                              code:
+                                minLength: 1
+                                type: string
+              url:
+                minLength: 1
+                type: string
+        active:
+          type: boolean
+        providedBy:
+          required:
+          - reference
+          type: object
+          properties:
+            reference:
+              minLength: 1
+              type: string
+        category:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            type: object
+            properties:
+              coding:
+                minItems: 1
+                uniqueItems: true
+                type: array
+                items:
+                  required:
+                  - code
+                  - system
+                  type: object
+                  properties:
+                    system:
+                      minLength: 1
+                      type: string
+                    code:
+                      minLength: 1
+                      type: string
+        specialty:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            type: object
+            properties:
+              coding:
+                minItems: 1
+                uniqueItems: true
+                type: array
+                items:
+                  required:
+                  - code
+                  - display
+                  - system
+                  type: object
+                  properties:
+                    system:
+                      minLength: 1
+                      type: string
+                    code:
+                      minLength: 1
+                      type: string
+                    display:
+                      minLength: 1
+                      type: string
+        location:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            required:
+            - reference
+            type: object
+            properties:
+              reference:
+                minLength: 1
+                type: string
+      description: ''
+    HealthcareService-search:
+      required:
+      - entry
+      - id
+      - link
+      - meta
+      - resourceType
+      - total
+      - type
+      type: object
+      properties:
+        resourceType:
+          minLength: 1
+          type: string
+        id:
+          minLength: 1
+          type: string
+        meta:
+          required:
+          - lastUpdated
+          type: object
+          properties:
+            lastUpdated:
+              minLength: 1
+              type: string
+        type:
+          minLength: 1
+          type: string
+        total:
+          type: number
+        link:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            required:
+            - relation
+            - url
+            type: object
+            properties:
+              relation:
+                minLength: 1
+                type: string
+              url:
+                minLength: 1
+                type: string
+        entry:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            required:
+            - fullUrl
+            type: object
+            properties:
+              fullUrl:
+                minLength: 1
+                type: string
+              resource:
+                required:
+                - active
+                - category
+                - extension
+                - id
+                - language
+                - location
+                - meta
+                - providedBy
+                - resourceType
+                - specialty
+                - text
+                type: object
+                properties:
+                  resourceType:
+                    minLength: 1
+                    type: string
+                  id:
+                    minLength: 1
+                    type: string
+                  meta:
+                    required:
+                    - lastUpdated
+                    - profile
+                    type: object
+                    properties:
+                      lastUpdated:
+                        minLength: 1
+                        type: string
+                      profile:
+                        type: array
+                        items:
+                          type: object
+                          properties: {}
+                  language:
+                    minLength: 1
+                    type: string
+                  text:
+                    required:
+                    - div
+                    - status
+                    type: object
+                    properties:
+                      status:
+                        minLength: 1
+                        type: string
+                      div:
+                        minLength: 1
+                        type: string
+                  extension:
+                    minItems: 1
+                    uniqueItems: true
+                    type: array
+                    items:
+                      required:
+                      - url
+                      type: object
+                      properties:
+                        extension:
+                          minItems: 1
+                          uniqueItems: true
+                          type: array
+                          items:
+                            required:
+                            - url
+                            type: object
+                            properties:
+                              url:
+                                minLength: 1
+                                type: string
+                              valueCodeableConcept:
+                                required:
+                                - coding
+                                type: object
+                                properties:
+                                  coding:
+                                    minItems: 1
+                                    uniqueItems: true
+                                    type: array
+                                    items:
+                                      required:
+                                      - code
+                                      - system
+                                      type: object
+                                      properties:
+                                        system:
+                                          minLength: 1
+                                          type: string
+                                        code:
+                                          minLength: 1
+                                          type: string
+                        url:
+                          minLength: 1
+                          type: string
+                  active:
+                    type: boolean
+                  providedBy:
+                    required:
+                    - reference
+                    type: object
+                    properties:
+                      reference:
+                        minLength: 1
+                        type: string
+                  category:
+                    minItems: 1
+                    uniqueItems: true
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        coding:
+                          minItems: 1
+                          uniqueItems: true
+                          type: array
+                          items:
+                            required:
+                            - code
+                            - system
+                            type: object
+                            properties:
+                              system:
+                                minLength: 1
+                                type: string
+                              code:
+                                minLength: 1
+                                type: string
+                  specialty:
+                    minItems: 1
+                    uniqueItems: true
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        coding:
+                          minItems: 1
+                          uniqueItems: true
+                          type: array
+                          items:
+                            required:
+                            - code
+                            - display
+                            - system
+                            type: object
+                            properties:
+                              system:
+                                minLength: 1
+                                type: string
+                              code:
+                                minLength: 1
+                                type: string
+                              display:
+                                minLength: 1
+                                type: string
+                  location:
+                    minItems: 1
+                    uniqueItems: true
+                    type: array
+                    items:
+                      required:
+                      - reference
+                      type: object
+                      properties:
+                        reference:
+                          minLength: 1
+                          type: string
+      description: ''
+  securitySchemes:
+    Basic:
+      type: http
+      scheme: basic

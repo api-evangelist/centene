@@ -1,0 +1,56 @@
+openapi: 3.2.0
+info:
+  title: Provider Carrier Entity Search (PCES) Custom Mapping API
+  description: PCES Description
+  contact:
+    email: provider_search_support@centene.com
+  version: 0.0.6
+servers:
+- url: https://dev-int-api-gw.centene.com/pces
+  description: Dev
+- url: https://prod.api.centene.com/incoming/dev/pces
+  description: Dev DMZ
+- url: https://test-int-api-gw.centene.com/pces
+  description: Test
+- url: https://prod.api.centene.com/incoming/test/pces
+  description: Test DMZ
+- url: https://api-gateway-01.centene.com/pces
+  description: Prod
+- url: https://prod.api.centene.com/incoming/pces
+  description: Prod DMZ
+tags:
+- name: custom-mapping
+  description: check local mapping
+paths:
+  /custom-mapping:
+    get:
+      tags:
+      - custom-mapping
+      summary: local mapping file for PCES validations
+      operationId: custom-mapping
+      responses:
+        '200':
+          description: responds with the local pces mapping json file
+          content:
+            application/json: {}
+        '400':
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                type: object
+        '500':
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                type: string
+components:
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: api_key
+      in: header
+externalDocs:
+  description: Centene Search DSL Documentation
+  url: https://centene-search-dsl.ckp-dev.centene.com/

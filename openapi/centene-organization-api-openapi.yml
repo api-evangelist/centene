@@ -1,0 +1,970 @@
+openapi: 3.2.0
+info:
+  title: Centene Organization API
+  version: '1.0'
+  description: 'Operations tagged Organization across 2 of this provider''s published API definitions: centene-fhir-patient-access-openapi.json, centene-fhir-provider-directory-openapi.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://dev-int-api-gw.centene.com/fhir/v4/patientaccess
+- url: https://dev-int-api-gw.centene.com/fhir/v4/providerdirectory
+tags:
+- name: Organization
+paths:
+  /Organization:
+    get:
+      tags:
+      - Organization
+      summary: Search all resources of type Organization based on a set of criteria
+      operationId: searchOrganization
+      parameters:
+      - name: _id
+        in: query
+        description: Logical id of this artifact
+        schema:
+          type: string
+      - name: address
+        in: query
+        description: A server defined search that may match any of the string fields in the Address, including line, city, district, state, country, postalCode, and/or text
+        schema:
+          type: string
+      - name: address:contains
+        in: query
+        description: A server defined search that may match any of the string fields in the Address, including line, city, district, state, country, postalCode, and/or text
+        schema:
+          type: string
+      - name: address:exact
+        in: query
+        description: A server defined search that would match the exact address
+        schema:
+          type: string
+      - name: name
+        in: query
+        description: A portion of the organization's name or alias
+        schema:
+          type: string
+      - name: name:contains
+        in: query
+        description: A portion of the organization's name or alias
+        schema:
+          type: string
+      - name: name:exact
+        in: query
+        description: A server defined search that would match the exact name
+        schema:
+          type: string
+      - name: _page
+        in: query
+        schema:
+          type: number
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Organization-search'
+        '400':
+          description: Bad request
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: invalid
+                  details:
+                    text: Invalid or badly formed Organization ID .
+        '401':
+          description: Unauthorized
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Unauthorized
+                  details:
+                    text: You are not authorized to view this Organization.
+        '403':
+          description: Forbidden
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: forbidden
+                  details:
+                    text: You are not allowed to view this Organization.
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Not Found
+                  details:
+                    text: No Organization found with the provided ID.
+        '500':
+          description: InternalServerError
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: fatal
+                  code: exception
+                  details:
+                    text: Internal server error. Please try again later
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Too Many Requests
+                  details:
+                    text: Too Many Requests for organization with the provided ID.
+        '501':
+          description: Not Implemented
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Not Implemented
+                  details:
+                    text: The request for organization is Not Implemented
+        '502':
+          description: Bad gateway
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Bad gateway
+                  details:
+                    text: Bad gateway
+        '503':
+          description: Service Unavailable
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Service Unavailable
+                  details:
+                    text: Service Unavailable
+        '504':
+          description: Gateway Timeout
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Gateway Timeout
+                  details:
+                    text: Gateway Timeout
+      security:
+      - Bearer: []
+    summary: manage the collection of resources of type Organization
+    description: Access to services to manage the collection of all resources of type Organization
+    servers:
+    - url: https://dev-int-api-gw.centene.com/fhir/v4/patientaccess
+  /Organization/{id}:
+    get:
+      tags:
+      - Organization
+      summary: Read the current state of the resource
+      operationId: readOrganization
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: _page
+        in: query
+        schema:
+          type: number
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Organization'
+        '400':
+          description: Bad request
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: invalid
+                  details:
+                    text: Invalid or badly formed Organization ID .
+        '401':
+          description: Unauthorized
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Unauthorized
+                  details:
+                    text: You are not authorized to view this Organization.
+        '403':
+          description: Forbidden
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: forbidden
+                  details:
+                    text: You are not allowed to view this Organization.
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Not Found
+                  details:
+                    text: No Organization found with the provided ID.
+        '500':
+          description: InternalServerError
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: fatal
+                  code: exception
+                  details:
+                    text: Internal server error. Please try again later
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Too Many Requests
+                  details:
+                    text: Too Many Requests for organization with the provided ID.
+        '501':
+          description: Not Implemented
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Not Implemented
+                  details:
+                    text: The request for organization is Not Implemented
+        '502':
+          description: Bad gateway
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Bad gateway
+                  details:
+                    text: Bad gateway
+        '503':
+          description: Service Unavailable
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Service Unavailable
+                  details:
+                    text: Service Unavailable
+        '504':
+          description: Gateway Timeout
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Gateway Timeout
+                  details:
+                    text: Gateway Timeout
+      security:
+      - Bearer: []
+    summary: Read resource instance of type Organization
+    description: Access to services to manage the state of a single resource of type Organization
+    servers:
+    - url: https://dev-int-api-gw.centene.com/fhir/v4/patientaccess
+components:
+  schemas:
+    Organization:
+      required:
+      - active
+      - id
+      - identifier
+      - language
+      - meta
+      - name
+      - resourceType
+      - text
+      type: object
+      properties:
+        resourceType:
+          minLength: 1
+          type: string
+        id:
+          minLength: 1
+          type: string
+        meta:
+          required:
+          - lastUpdated
+          - profile
+          type: object
+          properties:
+            lastUpdated:
+              minLength: 1
+              type: string
+            profile:
+              type: array
+              items:
+                type: object
+                properties: {}
+        language:
+          minLength: 1
+          type: string
+        text:
+          required:
+          - div
+          - status
+          type: object
+          properties:
+            status:
+              minLength: 1
+              type: string
+            div:
+              minLength: 1
+              type: string
+        identifier:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            required:
+            - system
+            - value
+            type: object
+            properties:
+              type:
+                required:
+                - coding
+                type: object
+                properties:
+                  coding:
+                    minItems: 1
+                    uniqueItems: true
+                    type: array
+                    items:
+                      required:
+                      - code
+                      - system
+                      type: object
+                      properties:
+                        system:
+                          minLength: 1
+                          type: string
+                        code:
+                          minLength: 1
+                          type: string
+              system:
+                minLength: 1
+                type: string
+              value:
+                minLength: 1
+                type: string
+        active:
+          type: boolean
+        name:
+          minLength: 1
+          type: string
+      description: ''
+    Organization-search:
+      required:
+      - entry
+      - id
+      - link
+      - meta
+      - resourceType
+      - total
+      - type
+      type: object
+      properties:
+        resourceType:
+          minLength: 1
+          type: string
+        id:
+          minLength: 1
+          type: string
+        meta:
+          required:
+          - lastUpdated
+          type: object
+          properties:
+            lastUpdated:
+              minLength: 1
+              type: string
+        type:
+          minLength: 1
+          type: string
+        total:
+          type: number
+        link:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            required:
+            - relation
+            - url
+            type: object
+            properties:
+              relation:
+                minLength: 1
+                type: string
+              url:
+                minLength: 1
+                type: string
+        entry:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            required:
+            - fullUrl
+            type: object
+            properties:
+              fullUrl:
+                minLength: 1
+                type: string
+              resource:
+                required:
+                - active
+                - id
+                - identifier
+                - language
+                - meta
+                - name
+                - resourceType
+                - text
+                type: object
+                properties:
+                  resourceType:
+                    minLength: 1
+                    type: string
+                  id:
+                    minLength: 1
+                    type: string
+                  meta:
+                    required:
+                    - lastUpdated
+                    - profile
+                    type: object
+                    properties:
+                      lastUpdated:
+                        minLength: 1
+                        type: string
+                      profile:
+                        type: array
+                        items:
+                          type: object
+                          properties: {}
+                  language:
+                    minLength: 1
+                    type: string
+                  text:
+                    required:
+                    - div
+                    - status
+                    type: object
+                    properties:
+                      status:
+                        minLength: 1
+                        type: string
+                      div:
+                        minLength: 1
+                        type: string
+                  identifier:
+                    minItems: 1
+                    uniqueItems: true
+                    type: array
+                    items:
+                      required:
+                      - system
+                      - value
+                      type: object
+                      properties:
+                        type:
+                          required:
+                          - coding
+                          type: object
+                          properties:
+                            coding:
+                              minItems: 1
+                              uniqueItems: true
+                              type: array
+                              items:
+                                required:
+                                - code
+                                - system
+                                type: object
+                                properties:
+                                  system:
+                                    minLength: 1
+                                    type: string
+                                  code:
+                                    minLength: 1
+                                    type: string
+                        system:
+                          minLength: 1
+                          type: string
+                        value:
+                          minLength: 1
+                          type: string
+                  active:
+                    type: boolean
+                  name:
+                    minLength: 1
+                    type: string
+      description: ''
+    GeneralError:
+      required:
+      - resourceType
+      - issue
+      type: object
+      properties:
+        resourceType:
+          minLength: 1
+          type: string
+        issue:
+          required:
+          - severity
+          - code
+          - details
+          type: object
+          properties:
+            severity:
+              minLength: 1
+              type: string
+            code:
+              minLength: 1
+              type: string
+            details:
+              minLength: 1
+              type: string
+    Organization_2:
+      required:
+      - active
+      - contact
+      - extension
+      - id
+      - language
+      - meta
+      - name
+      - partOf
+      - resourceType
+      - text
+      - type
+      type: object
+      properties:
+        resourceType:
+          minLength: 1
+          type: string
+        id:
+          minLength: 1
+          type: string
+        meta:
+          required:
+          - lastUpdated
+          - profile
+          type: object
+          properties:
+            lastUpdated:
+              minLength: 1
+              type: string
+            profile:
+              type: array
+              items:
+                type: object
+                properties: {}
+        language:
+          minLength: 1
+          type: string
+        text:
+          required:
+          - div
+          - status
+          type: object
+          properties:
+            status:
+              minLength: 1
+              type: string
+            div:
+              minLength: 1
+              type: string
+        extension:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            required:
+            - url
+            type: object
+            properties:
+              url:
+                minLength: 1
+                type: string
+              valueReference:
+                required:
+                - reference
+                type: object
+                properties:
+                  reference:
+                    minLength: 1
+                    type: string
+        active:
+          type: boolean
+        type:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            type: object
+            properties:
+              coding:
+                minItems: 1
+                uniqueItems: true
+                type: array
+                items:
+                  required:
+                  - code
+                  - display
+                  - system
+                  type: object
+                  properties:
+                    system:
+                      minLength: 1
+                      type: string
+                    code:
+                      minLength: 1
+                      type: string
+                    display:
+                      minLength: 1
+                      type: string
+        name:
+          minLength: 1
+          type: string
+        partOf:
+          required:
+          - reference
+          type: object
+          properties:
+            reference:
+              minLength: 1
+              type: string
+        contact:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                required:
+                - family
+                - given
+                type: object
+                properties:
+                  family:
+                    minLength: 1
+                    type: string
+                  given:
+                    type: array
+                    items:
+                      type: object
+                      properties: {}
+              telecom:
+                minItems: 1
+                uniqueItems: true
+                type: array
+                items:
+                  type: object
+                  properties:
+                    extension:
+                      minItems: 1
+                      uniqueItems: true
+                      type: array
+                      items:
+                        required:
+                        - url
+                        type: object
+                        properties:
+                          url:
+                            minLength: 1
+                            type: string
+                          valueReference:
+                            required:
+                            - reference
+                            type: object
+                            properties:
+                              reference:
+                                minLength: 1
+                                type: string
+      description: ''
+    Organization-search_2:
+      required:
+      - entry
+      - id
+      - link
+      - meta
+      - resourceType
+      - total
+      - type
+      type: object
+      properties:
+        resourceType:
+          minLength: 1
+          type: string
+        id:
+          minLength: 1
+          type: string
+        meta:
+          required:
+          - lastUpdated
+          type: object
+          properties:
+            lastUpdated:
+              minLength: 1
+              type: string
+        type:
+          minLength: 1
+          type: string
+        total:
+          type: number
+        link:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            required:
+            - relation
+            - url
+            type: object
+            properties:
+              relation:
+                minLength: 1
+                type: string
+              url:
+                minLength: 1
+                type: string
+        entry:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            required:
+            - fullUrl
+            type: object
+            properties:
+              fullUrl:
+                minLength: 1
+                type: string
+              resource:
+                required:
+                - active
+                - contact
+                - extension
+                - id
+                - language
+                - meta
+                - name
+                - partOf
+                - resourceType
+                - text
+                - type
+                type: object
+                properties:
+                  resourceType:
+                    minLength: 1
+                    type: string
+                  id:
+                    minLength: 1
+                    type: string
+                  meta:
+                    required:
+                    - lastUpdated
+                    - profile
+                    type: object
+                    properties:
+                      lastUpdated:
+                        minLength: 1
+                        type: string
+                      profile:
+                        type: array
+                        items:
+                          type: object
+                          properties: {}
+                  language:
+                    minLength: 1
+                    type: string
+                  text:
+                    required:
+                    - div
+                    - status
+                    type: object
+                    properties:
+                      status:
+                        minLength: 1
+                        type: string
+                      div:
+                        minLength: 1
+                        type: string
+                  extension:
+                    minItems: 1
+                    uniqueItems: true
+                    type: array
+                    items:
+                      required:
+                      - url
+                      type: object
+                      properties:
+                        url:
+                          minLength: 1
+                          type: string
+                        valueReference:
+                          required:
+                          - reference
+                          type: object
+                          properties:
+                            reference:
+                              minLength: 1
+                              type: string
+                  active:
+                    type: boolean
+                  type:
+                    minItems: 1
+                    uniqueItems: true
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        coding:
+                          minItems: 1
+                          uniqueItems: true
+                          type: array
+                          items:
+                            required:
+                            - code
+                            - display
+                            - system
+                            type: object
+                            properties:
+                              system:
+                                minLength: 1
+                                type: string
+                              code:
+                                minLength: 1
+                                type: string
+                              display:
+                                minLength: 1
+                                type: string
+                  name:
+                    minLength: 1
+                    type: string
+                  partOf:
+                    required:
+                    - reference
+                    type: object
+                    properties:
+                      reference:
+                        minLength: 1
+                        type: string
+                  contact:
+                    minItems: 1
+                    uniqueItems: true
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          required:
+                          - family
+                          - given
+                          type: object
+                          properties:
+                            family:
+                              minLength: 1
+                              type: string
+                            given:
+                              type: array
+                              items:
+                                type: object
+                                properties: {}
+                        telecom:
+                          minItems: 1
+                          uniqueItems: true
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              extension:
+                                minItems: 1
+                                uniqueItems: true
+                                type: array
+                                items:
+                                  required:
+                                  - url
+                                  type: object
+                                  properties:
+                                    url:
+                                      minLength: 1
+                                      type: string
+                                    valueReference:
+                                      required:
+                                      - reference
+                                      type: object
+                                      properties:
+                                        reference:
+                                          minLength: 1
+                                          type: string
+      description: ''
+  securitySchemes:
+    Bearer:
+      type: http
+      scheme: bearer
+    Basic:
+      type: http
+      scheme: basic
+x-refined-from:
+- centene-fhir-patient-access-openapi.json
+- centene-fhir-provider-directory-openapi.json

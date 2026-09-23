@@ -1,0 +1,300 @@
+openapi: 3.2.0
+info:
+  title: EDI Realtime CORE Web Service Real Time Transaction API
+  description: ''
+  x-ibm-name: EDI Realtime CORE
+  version: 1.0.0
+servers:
+- url: /Core
+security:
+- clientID: []
+tags:
+- name: RealTimeTransaction
+paths:
+  /RealTimeTransaction:
+    post:
+      summary: Operation RealTimeTransaction
+      description: ''
+      operationId: RealTimeTransaction
+      x-ibm-soap:
+        soap-action: RealTimeTransaction
+        soap-operation: '{http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd}COREEnvelopeRealTimeRequest'
+      responses:
+        default:
+          description: ''
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/RealTimeTransactionOutput'
+      requestBody:
+        content:
+          application/xop+xml:
+            schema:
+              $ref: '#/components/schemas/RealTimeTransactionInput'
+        required: true
+      tags:
+      - RealTimeTransaction
+components:
+  schemas:
+    RealTimeTransactionInput:
+      description: Input message for wsdl operation COREEnvelopeRealTimeRequest
+      type: object
+      properties:
+        Envelope:
+          xml:
+            namespace: http://www.w3.org/2003/05/soap-envelope
+            prefix: soapenv
+          type: object
+          properties:
+            Header:
+              $ref: '#/components/schemas/RealTimeTransactionHeader'
+            Body:
+              xml:
+                namespace: http://www.w3.org/2003/05/soap-envelope
+                prefix: soapenv
+              type: object
+              properties:
+                COREEnvelopeRealTimeRequest:
+                  $ref: '#/components/schemas/COREEnvelopeRealTimeRequest_element_CORE-XSD'
+              required:
+              - COREEnvelopeRealTimeRequest
+          required:
+          - Body
+      required:
+      - Envelope
+      x-ibm-schema:
+        wsdl-port: '{http://www.caqh.org/SOAP/WSDL/}CoreSoapPort'
+        wsdl-operation: COREEnvelopeRealTimeRequest
+        wsdl-message-direction-or-name: COREEnvelopeRealTimeRequestRequest
+      example: "\n<soapenv:Envelope xmlns:soapenv=\"http://www.w3.org/2003/05/soap-envelope\">\n <soapenv:Header>\n  <!-- The Security element should be removed if WS-Security is not enabled on the SOAP target-url -->\n  <wsse:Security xmlns:wsse=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\" xmlns:wsu=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd\">\n   <wsse:UsernameToken>\n    <wsse:Username>string</wsse:Username>\n    <wsse:Password>string</wsse:Password>\n    <wsse:Nonce EncodingType=\"string\">string</wsse:Nonce>\n    <wsu:Created>string</wsu:Created>\n   </wsse:UsernameToken>\n   <wsu:Timestamp wsu:Id=\"string\">\n    <wsu:Created>string</wsu:Created>\n    <wsu:Expires>string</wsu:Expires>\n   </wsu:Timestamp>\n  </wsse:Security>\n </soapenv:Header>\n <soapenv:Body>\n  <CORE-XSD:COREEnvelopeRealTimeRequest xmlns:CORE-XSD=\"http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd\"><!-- mandatory -->\n   <PayloadType><!-- mandatory -->string</PayloadType>\n   <ProcessingMode><!-- mandatory -->string</ProcessingMode>\n   <PayloadID><!-- mandatory -->string</PayloadID>\n   <TimeStamp><!-- mandatory -->string</TimeStamp>\n   <SenderID><!-- mandatory -->string</SenderID>\n   <ReceiverID><!-- mandatory -->string</ReceiverID>\n   <CORERuleVersion><!-- mandatory -->string</CORERuleVersion>\n   <Payload><!-- mandatory -->string</Payload>\n  </CORE-XSD:COREEnvelopeRealTimeRequest>\n </soapenv:Body>\n</soapenv:Envelope>"
+    RealTimeTransactionHeader:
+      description: Input headers for wsdl operation COREEnvelopeRealTimeRequest
+      type: object
+      properties:
+        Security:
+          $ref: '#/components/schemas/Security'
+    RealTimeMode_type_CORE-XSD:
+      xml:
+        namespace: ''
+      type: string
+      pattern: RealTime
+      x-xsi-type: RealTimeMode
+      x-xsi-type-xml:
+        namespace: http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd
+        prefix: CORE-XSD
+      x-xsi-type-uniquename: RealTimeMode_type_CORE-XSD
+    RealTimeTransactionOutput:
+      description: Output message for wsdl operation COREEnvelopeRealTimeRequest
+      type: object
+      properties:
+        Envelope:
+          xml:
+            namespace: http://www.w3.org/2003/05/soap-envelope
+            prefix: soapenv
+          type: object
+          properties:
+            Body:
+              xml:
+                namespace: http://www.w3.org/2003/05/soap-envelope
+                prefix: soapenv
+              type: object
+              properties:
+                COREEnvelopeRealTimeResponse:
+                  $ref: '#/components/schemas/COREEnvelopeRealTimeResponse_element_CORE-XSD'
+          required:
+          - Body
+      required:
+      - Envelope
+      x-ibm-schema:
+        wsdl-port: '{http://www.caqh.org/SOAP/WSDL/}CoreSoapPort'
+        wsdl-operation: COREEnvelopeRealTimeRequest
+        wsdl-message-direction-or-name: COREEnvelopeRealTimeRequestResponse
+      example: "\n<soapenv:Envelope xmlns:soapenv=\"http://www.w3.org/2003/05/soap-envelope\">\n <soapenv:Body>\n  <CORE-XSD:COREEnvelopeRealTimeResponse xmlns:CORE-XSD=\"http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd\">\n   <PayloadType><!-- mandatory -->string</PayloadType>\n   <ProcessingMode><!-- mandatory -->string</ProcessingMode>\n   <PayloadID><!-- mandatory -->string</PayloadID>\n   <TimeStamp><!-- mandatory -->string</TimeStamp>\n   <SenderID><!-- mandatory -->string</SenderID>\n   <ReceiverID><!-- mandatory -->string</ReceiverID>\n   <CORERuleVersion><!-- mandatory -->string</CORERuleVersion>\n   <Payload>string</Payload>\n   <ErrorCode><!-- mandatory -->string</ErrorCode>\n   <ErrorMessage><!-- mandatory -->string</ErrorMessage>\n  </CORE-XSD:COREEnvelopeRealTimeResponse>\n </soapenv:Body>\n</soapenv:Envelope>"
+    COREEnvelopeRealTimeResponse_element_CORE-XSD:
+      xml:
+        namespace: http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd
+        prefix: CORE-XSD
+        name: COREEnvelopeRealTimeResponse
+      type: object
+      properties:
+        PayloadType:
+          xml:
+            namespace: ''
+          type: string
+        ProcessingMode:
+          $ref: '#/components/schemas/RealTimeMode_type_CORE-XSD'
+        PayloadID:
+          xml:
+            namespace: ''
+          type: string
+        TimeStamp:
+          xml:
+            namespace: ''
+          type: string
+        SenderID:
+          xml:
+            namespace: ''
+          type: string
+        ReceiverID:
+          xml:
+            namespace: ''
+          type: string
+        CORERuleVersion:
+          xml:
+            namespace: ''
+          type: string
+        Payload:
+          xml:
+            namespace: ''
+          type: string
+        ErrorCode:
+          xml:
+            namespace: ''
+          type: string
+        ErrorMessage:
+          xml:
+            namespace: ''
+          type: string
+      required:
+      - PayloadType
+      - ProcessingMode
+      - PayloadID
+      - TimeStamp
+      - SenderID
+      - ReceiverID
+      - CORERuleVersion
+      - ErrorCode
+      - ErrorMessage
+      example: "\n<CORE-XSD:COREEnvelopeRealTimeResponse xmlns:CORE-XSD=\"http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd\">\n <PayloadType><!-- mandatory -->string</PayloadType>\n <ProcessingMode><!-- mandatory -->string</ProcessingMode>\n <PayloadID><!-- mandatory -->string</PayloadID>\n <TimeStamp><!-- mandatory -->string</TimeStamp>\n <SenderID><!-- mandatory -->string</SenderID>\n <ReceiverID><!-- mandatory -->string</ReceiverID>\n <CORERuleVersion><!-- mandatory -->string</CORERuleVersion>\n <Payload>string</Payload>\n <ErrorCode><!-- mandatory -->string</ErrorCode>\n <ErrorMessage><!-- mandatory -->string</ErrorMessage>\n</CORE-XSD:COREEnvelopeRealTimeResponse>"
+    Security:
+      xml:
+        namespace: http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd
+        prefix: wsse
+      description: Header for WS-Security
+      type: object
+      properties:
+        UsernameToken:
+          xml:
+            namespace: http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd
+            prefix: wsse
+          type: object
+          properties:
+            Username:
+              xml:
+                namespace: http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd
+                prefix: wsse
+              type: string
+            Password:
+              xml:
+                namespace: http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd
+                prefix: wsse
+              type: string
+            Nonce:
+              xml:
+                namespace: http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd
+                prefix: wsse
+              type: string
+              properties:
+                EncodingType:
+                  xml:
+                    namespace: ''
+                    attribute: true
+                  type: string
+            Created:
+              xml:
+                namespace: http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd
+                prefix: wsu
+              type: string
+        Timestamp:
+          xml:
+            namespace: http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd
+            prefix: wsu
+          type: object
+          properties:
+            Created:
+              xml:
+                namespace: http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd
+                prefix: wsu
+              type: string
+            Expires:
+              xml:
+                namespace: http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd
+                prefix: wsu
+              type: string
+            Id:
+              xml:
+                namespace: http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd
+                prefix: wsu
+                attribute: true
+              type: string
+    COREEnvelopeRealTimeRequest_element_CORE-XSD:
+      xml:
+        namespace: http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd
+        prefix: CORE-XSD
+        name: COREEnvelopeRealTimeRequest
+      type: object
+      properties:
+        PayloadType:
+          xml:
+            namespace: ''
+          type: string
+        ProcessingMode:
+          $ref: '#/components/schemas/RealTimeMode_type_CORE-XSD'
+        PayloadID:
+          xml:
+            namespace: ''
+          type: string
+        TimeStamp:
+          xml:
+            namespace: ''
+          type: string
+        SenderID:
+          xml:
+            namespace: ''
+          type: string
+        ReceiverID:
+          xml:
+            namespace: ''
+          type: string
+        CORERuleVersion:
+          xml:
+            namespace: ''
+          type: string
+        Payload:
+          xml:
+            namespace: ''
+          type: string
+      required:
+      - PayloadType
+      - ProcessingMode
+      - PayloadID
+      - TimeStamp
+      - SenderID
+      - ReceiverID
+      - CORERuleVersion
+      - Payload
+      example: "\n<CORE-XSD:COREEnvelopeRealTimeRequest xmlns:CORE-XSD=\"http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd\">\n <PayloadType><!-- mandatory -->string</PayloadType>\n <ProcessingMode><!-- mandatory -->string</ProcessingMode>\n <PayloadID><!-- mandatory -->string</PayloadID>\n <TimeStamp><!-- mandatory -->string</TimeStamp>\n <SenderID><!-- mandatory -->string</SenderID>\n <ReceiverID><!-- mandatory -->string</ReceiverID>\n <CORERuleVersion><!-- mandatory -->string</CORERuleVersion>\n <Payload><!-- mandatory -->string</Payload>\n</CORE-XSD:COREEnvelopeRealTimeRequest>"
+  securitySchemes:
+    clientID:
+      type: apiKey
+      name: APIKey
+      in: header
+      description: ''
+x-ibm-configuration:
+  type: wsdl
+  phase: realized
+  enforced: true
+  testable: true
+  gateway: datapower-gateway
+  cors:
+    enabled: true
+  wsdl-definition:
+    wsdl: EDI_Realtime_CORE_WS_Security.wsdl
+    service: Core
+    port: CoreSoapPort
+    soap-version: '1.2'
+  assembly:
+    execute:
+    - proxy:
+        title: proxy
+        target-url: http://URL_OF_WEB_SERVICE

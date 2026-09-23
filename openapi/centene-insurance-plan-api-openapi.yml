@@ -1,0 +1,795 @@
+openapi: 3.2.0
+info:
+  title: Provider Directory Insurance Plan API
+  description: Provider directory endpoints for FHIR resources
+  version: '1.0'
+servers:
+- url: https://dev-int-api-gw.centene.com/fhir/v4/providerdirectory
+tags:
+- name: Insurance Plan
+paths:
+  /InsurancePlan:
+    get:
+      tags:
+      - Insurance Plan
+      summary: Search all resources of type InsurancePlan based on a set of criteria
+      operationId: searchInsurancePlan
+      parameters:
+      - name: administered-by
+        in: query
+        description: Product administrator
+        schema:
+          type: string
+      - name: coverage-area
+        in: query
+        schema:
+          type: string
+      - name: identifier
+        in: query
+        description: Any identifier for the organization (not the accreditation issuer's identifier)
+        schema:
+          type: string
+      - name: _lastUpdated
+        in: query
+        schema:
+          type: string
+          format: date
+      - name: name
+        in: query
+        description: A portion of the organization's name or alias
+        schema:
+          type: string
+      - name: name:contains
+        in: query
+        description: Contains a portion of the organization's name or alias
+        schema:
+          type: string
+      - name: name:exact
+        in: query
+        description: An exact organization's name or alias
+        schema:
+          type: string
+      - name: owned-by
+        in: query
+        description: An organization of which this organization forms a part
+        schema:
+          type: string
+      - name: plan-type
+        in: query
+        schema:
+          type: string
+      - name: plan-type:text
+        in: query
+        schema:
+          type: string
+      - name: type
+        in: query
+        description: A code for the type of organization
+        schema:
+          type: string
+      - name: identifier:text
+        in: query
+        schema:
+          type: string
+      - name: type:text
+        in: query
+        schema:
+          type: string
+      - name: _id
+        in: query
+        description: The ID of the resource
+        schema:
+          type: string
+      - name: _include
+        in: query
+        schema:
+          type: string
+          x-consoleDefault: application/json
+        x-consoleDefault: application/json
+      - name: _source
+        in: query
+        schema:
+          type: string
+      - name: _next
+        in: query
+        schema:
+          type: string
+      - name: _page
+        in: query
+        schema:
+          type: number
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/InsurancePlan-search'
+        '400':
+          description: Bad request
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                - severity: error
+                  code: invalid
+                  details:
+                    text: Invalid or badly formed InsurancePlan ID .
+              schema:
+                $ref: '#/components/schemas/GeneralError'
+        '401':
+          description: Unauthorized
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GeneralError'
+              example:
+                resourceType: OperationOutcome
+                issue:
+                - severity: error
+                  code: Unauthorized
+                  details:
+                    text: You are not authorized to view this InsurancePlan.
+        '403':
+          description: Forbidden
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GeneralError'
+              example:
+                resourceType: OperationOutcome
+                issue:
+                - severity: error
+                  code: forbidden
+                  details:
+                    text: You are not allowed to view this InsurancePlan.
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GeneralError'
+              example:
+                resourceType: OperationOutcome
+                issue:
+                - severity: error
+                  code: Not Found
+                  details:
+                    text: No InsurancePlan found with the provided ID.
+        '500':
+          description: InternalServerError
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GeneralError'
+              example:
+                resourceType: OperationOutcome
+                issue:
+                - severity: fatal
+                  code: exception
+                  details:
+                    text: Internal server error. Please try again later
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GeneralError'
+              example:
+                resourceType: OperationOutcome
+                issue:
+                - severity: error
+                  code: Too Many Requests
+                  details:
+                    text: Too Many Requests for InsurancePlan with the provided ID.
+        '501':
+          description: Not Implemented
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GeneralError'
+              example:
+                resourceType: OperationOutcome
+                issue:
+                - severity: error
+                  code: Not Implemented
+                  details:
+                    text: The request for InsurancePlan is Not Implemented
+        '502':
+          description: Bad gateway
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GeneralError'
+              example:
+                resourceType: OperationOutcome
+                issue:
+                - severity: error
+                  code: Bad gateway
+                  details:
+                    text: Bad gateway
+        '503':
+          description: Service Unavailable
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GeneralError'
+              example:
+                resourceType: OperationOutcome
+                issue:
+                - severity: error
+                  code: Service Unavailable
+                  details:
+                    text: Service Unavailable
+        '504':
+          description: Gateway Timeout
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GeneralError'
+              example:
+                resourceType: OperationOutcome
+                issue:
+                - severity: error
+                  code: Gateway Timeout
+                  details:
+                    text: Gateway Timeout
+      security:
+      - Basic: []
+  /InsurancePlan/{id}:
+    get:
+      tags:
+      - Insurance Plan
+      summary: Read the current state of the resource
+      operationId: readInsurancePlan
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/InsurancePlan'
+        '400':
+          description: Bad request
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                - severity: error
+                  code: invalid
+                  details:
+                    text: Invalid or badly formed InsurancePlan ID .
+              schema:
+                $ref: '#/components/schemas/GeneralError'
+        '401':
+          description: Unauthorized
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GeneralError'
+              example:
+                resourceType: OperationOutcome
+                issue:
+                - severity: error
+                  code: Unauthorized
+                  details:
+                    text: You are not authorized to view this InsurancePlan.
+        '403':
+          description: Forbidden
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GeneralError'
+              example:
+                resourceType: OperationOutcome
+                issue:
+                - severity: error
+                  code: forbidden
+                  details:
+                    text: You are not allowed to view this InsurancePlan.
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GeneralError'
+              example:
+                resourceType: OperationOutcome
+                issue:
+                - severity: error
+                  code: Not Found
+                  details:
+                    text: No InsurancePlan found with the provided ID.
+        '500':
+          description: InternalServerError
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GeneralError'
+              example:
+                resourceType: OperationOutcome
+                issue:
+                - severity: fatal
+                  code: exception
+                  details:
+                    text: Internal server error. Please try again later
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GeneralError'
+              example:
+                resourceType: OperationOutcome
+                issue:
+                - severity: error
+                  code: Too Many Requests
+                  details:
+                    text: Too Many Requests for InsurancePlan with the provided ID.
+        '501':
+          description: Not Implemented
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GeneralError'
+              example:
+                resourceType: OperationOutcome
+                issue:
+                - severity: error
+                  code: Not Implemented
+                  details:
+                    text: The request for InsurancePlan is Not Implemented
+        '502':
+          description: Bad gateway
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GeneralError'
+              example:
+                resourceType: OperationOutcome
+                issue:
+                - severity: error
+                  code: Bad gateway
+                  details:
+                    text: Bad gateway
+        '503':
+          description: Service Unavailable
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GeneralError'
+              example:
+                resourceType: OperationOutcome
+                issue:
+                - severity: error
+                  code: Service Unavailable
+                  details:
+                    text: Service Unavailable
+        '504':
+          description: Gateway Timeout
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GeneralError'
+              example:
+                resourceType: OperationOutcome
+                issue:
+                - severity: error
+                  code: Gateway Timeout
+                  details:
+                    text: Gateway Timeout
+      security:
+      - Basic: []
+components:
+  schemas:
+    InsurancePlan-search:
+      required:
+      - entry
+      - id
+      - link
+      - meta
+      - resourceType
+      - total
+      - type
+      type: object
+      properties:
+        resourceType:
+          minLength: 1
+          type: string
+        id:
+          minLength: 1
+          type: string
+        meta:
+          required:
+          - lastUpdated
+          type: object
+          properties:
+            lastUpdated:
+              minLength: 1
+              type: string
+        type:
+          minLength: 1
+          type: string
+        total:
+          type: number
+        link:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            required:
+            - relation
+            - url
+            type: object
+            properties:
+              relation:
+                minLength: 1
+                type: string
+              url:
+                minLength: 1
+                type: string
+        entry:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            required:
+            - fullUrl
+            type: object
+            properties:
+              fullUrl:
+                minLength: 1
+                type: string
+              resource:
+                required:
+                - administeredBy
+                - coverageArea
+                - id
+                - language
+                - meta
+                - name
+                - network
+                - ownedBy
+                - plan
+                - resourceType
+                - status
+                - text
+                - type
+                type: object
+                properties:
+                  resourceType:
+                    minLength: 1
+                    type: string
+                  id:
+                    minLength: 1
+                    type: string
+                  meta:
+                    required:
+                    - lastUpdated
+                    - profile
+                    type: object
+                    properties:
+                      lastUpdated:
+                        minLength: 1
+                        type: string
+                      profile:
+                        type: array
+                        items:
+                          type: object
+                          properties: {}
+                  language:
+                    minLength: 1
+                    type: string
+                  text:
+                    required:
+                    - div
+                    - status
+                    type: object
+                    properties:
+                      status:
+                        minLength: 1
+                        type: string
+                      div:
+                        minLength: 1
+                        type: string
+                  status:
+                    minLength: 1
+                    type: string
+                  type:
+                    minItems: 1
+                    uniqueItems: true
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        coding:
+                          minItems: 1
+                          uniqueItems: true
+                          type: array
+                          items:
+                            required:
+                            - code
+                            - display
+                            - system
+                            type: object
+                            properties:
+                              system:
+                                minLength: 1
+                                type: string
+                              code:
+                                minLength: 1
+                                type: string
+                              display:
+                                minLength: 1
+                                type: string
+                  name:
+                    minLength: 1
+                    type: string
+                  ownedBy:
+                    required:
+                    - reference
+                    type: object
+                    properties:
+                      reference:
+                        minLength: 1
+                        type: string
+                  administeredBy:
+                    required:
+                    - reference
+                    type: object
+                    properties:
+                      reference:
+                        minLength: 1
+                        type: string
+                  coverageArea:
+                    minItems: 1
+                    uniqueItems: true
+                    type: array
+                    items:
+                      required:
+                      - reference
+                      type: object
+                      properties:
+                        reference:
+                          minLength: 1
+                          type: string
+                  network:
+                    minItems: 1
+                    uniqueItems: true
+                    type: array
+                    items:
+                      required:
+                      - reference
+                      type: object
+                      properties:
+                        reference:
+                          minLength: 1
+                          type: string
+                  plan:
+                    minItems: 1
+                    uniqueItems: true
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        type:
+                          required:
+                          - coding
+                          type: object
+                          properties:
+                            coding:
+                              minItems: 1
+                              uniqueItems: true
+                              type: array
+                              items:
+                                required:
+                                - code
+                                - display
+                                - system
+                                type: object
+                                properties:
+                                  system:
+                                    minLength: 1
+                                    type: string
+                                  code:
+                                    minLength: 1
+                                    type: string
+                                  display:
+                                    minLength: 1
+                                    type: string
+      description: ''
+    InsurancePlan:
+      required:
+      - administeredBy
+      - coverageArea
+      - id
+      - language
+      - meta
+      - name
+      - network
+      - ownedBy
+      - plan
+      - resourceType
+      - status
+      - text
+      - type
+      type: object
+      properties:
+        resourceType:
+          minLength: 1
+          type: string
+        id:
+          minLength: 1
+          type: string
+        meta:
+          required:
+          - lastUpdated
+          - profile
+          type: object
+          properties:
+            lastUpdated:
+              minLength: 1
+              type: string
+            profile:
+              type: array
+              items:
+                type: object
+                properties: {}
+        language:
+          minLength: 1
+          type: string
+        text:
+          required:
+          - div
+          - status
+          type: object
+          properties:
+            status:
+              minLength: 1
+              type: string
+            div:
+              minLength: 1
+              type: string
+        status:
+          minLength: 1
+          type: string
+        type:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            type: object
+            properties:
+              coding:
+                minItems: 1
+                uniqueItems: true
+                type: array
+                items:
+                  required:
+                  - code
+                  - display
+                  - system
+                  type: object
+                  properties:
+                    system:
+                      minLength: 1
+                      type: string
+                    code:
+                      minLength: 1
+                      type: string
+                    display:
+                      minLength: 1
+                      type: string
+        name:
+          minLength: 1
+          type: string
+        ownedBy:
+          required:
+          - reference
+          type: object
+          properties:
+            reference:
+              minLength: 1
+              type: string
+        administeredBy:
+          required:
+          - reference
+          type: object
+          properties:
+            reference:
+              minLength: 1
+              type: string
+        coverageArea:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            required:
+            - reference
+            type: object
+            properties:
+              reference:
+                minLength: 1
+                type: string
+        network:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            required:
+            - reference
+            type: object
+            properties:
+              reference:
+                minLength: 1
+                type: string
+        plan:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                required:
+                - coding
+                type: object
+                properties:
+                  coding:
+                    minItems: 1
+                    uniqueItems: true
+                    type: array
+                    items:
+                      required:
+                      - code
+                      - display
+                      - system
+                      type: object
+                      properties:
+                        system:
+                          minLength: 1
+                          type: string
+                        code:
+                          minLength: 1
+                          type: string
+                        display:
+                          minLength: 1
+                          type: string
+      description: ''
+    GeneralError:
+      required:
+      - resourceType
+      - issue
+      type: object
+      properties:
+        resourceType:
+          minLength: 1
+          type: string
+        issue:
+          required:
+          - severity
+          - code
+          - details
+          type: object
+          properties:
+            severity:
+              minLength: 1
+              type: string
+            code:
+              minLength: 1
+              type: string
+            details:
+              minLength: 1
+              type: string
+  securitySchemes:
+    Basic:
+      type: http
+      scheme: basic

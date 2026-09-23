@@ -1,0 +1,447 @@
+openapi: 3.2.0
+info:
+  title: Patient Access Procedure API
+  description: Patient Access Endpoints for FHIR Resources
+  version: '1.0'
+servers:
+- url: https://dev-int-api-gw.centene.com/fhir/v4/patientaccess
+tags:
+- name: Procedure
+paths:
+  /Procedure:
+    get:
+      tags:
+      - Procedure
+      summary: Search all resources of type Procedure based on a set of criteria
+      operationId: searchProcedure
+      parameters:
+      - name: patient
+        in: query
+        description: Search by subject - a patient
+        schema:
+          type: string
+      - name: date
+        in: query
+        description: When the procedure was performed
+        schema:
+          type: string
+          format: date
+      - name: _revinclude
+        in: query
+        schema:
+          type: string
+          x-consoleDefault: application/json
+        x-consoleDefault: application/json
+      - name: _page
+        in: query
+        schema:
+          type: number
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Procedure-search'
+        '400':
+          description: Bad request
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: invalid
+                  details:
+                    text: Invalid or badly formed Procedure ID .
+        '401':
+          description: Unauthorized
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Unauthorized
+                  details:
+                    text: You are not authorized to view this Procedure.
+        '403':
+          description: Forbidden
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: forbidden
+                  details:
+                    text: You are not allowed to view this Procedure.
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Not Found
+                  details:
+                    text: No Procedure found with the provided ID.
+        '500':
+          description: InternalServerError
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: fatal
+                  code: exception
+                  details:
+                    text: Internal server error. Please try again later
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Too Many Requests
+                  details:
+                    text: Too Many Requests for procedure with the provided ID.
+        '501':
+          description: Not Implemented
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Not Implemented
+                  details:
+                    text: The request for procedure is Not Implemented
+        '502':
+          description: Bad gateway
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Bad gateway
+                  details:
+                    text: Bad gateway
+        '503':
+          description: Service Unavailable
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Service Unavailable
+                  details:
+                    text: Service Unavailable
+        '504':
+          description: Gateway Timeout
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Gateway Timeout
+                  details:
+                    text: Gateway Timeout
+      security:
+      - Bearer: []
+  /Procedure/{id}:
+    get:
+      tags:
+      - Procedure
+      summary: Read the current state of the resource
+      operationId: readProcedure
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: _page
+        in: query
+        schema:
+          type: number
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Procedure'
+        '400':
+          description: Bad request
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: invalid
+                  details:
+                    text: Invalid or badly formed Procedure ID .
+        '401':
+          description: Unauthorized
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Unauthorized
+                  details:
+                    text: You are not authorized to view this Procedure.
+        '403':
+          description: Forbidden
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: forbidden
+                  details:
+                    text: You are not allowed to view this Procedure.
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Not Found
+                  details:
+                    text: No Procedure found with the provided ID.
+        '500':
+          description: InternalServerError
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: fatal
+                  code: exception
+                  details:
+                    text: Internal server error. Please try again later
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Too Many Requests
+                  details:
+                    text: Too Many Requests for procedure with the provided ID.
+        '501':
+          description: Not Implemented
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Not Implemented
+                  details:
+                    text: The request for procedure is Not Implemented
+        '502':
+          description: Bad gateway
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Bad gateway
+                  details:
+                    text: Bad gateway
+        '503':
+          description: Service Unavailable
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Service Unavailable
+                  details:
+                    text: Service Unavailable
+        '504':
+          description: Gateway Timeout
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Gateway Timeout
+                  details:
+                    text: Gateway Timeout
+      security:
+      - Bearer: []
+components:
+  schemas:
+    Procedure:
+      description: ''
+      type: object
+      properties:
+        resourceType:
+          type: string
+          minLength: 1
+        id:
+          type: string
+          minLength: 1
+        status:
+          type: string
+          minLength: 1
+        code:
+          type: object
+          properties:
+            coding:
+              type: array
+              uniqueItems: true
+              minItems: 1
+              items:
+                required:
+                - system
+                - version
+                - code
+                - display
+                properties:
+                  system:
+                    type: string
+                    minLength: 1
+                  version:
+                    type: string
+                    minLength: 1
+                  code:
+                    type: string
+                    minLength: 1
+                  display:
+                    type: string
+                    minLength: 1
+          required:
+          - coding
+        subject:
+          type: object
+          properties:
+            reference:
+              type: string
+              minLength: 1
+            type:
+              type: string
+              minLength: 1
+          required:
+          - reference
+          - type
+        performedDateTime:
+          type: string
+          minLength: 1
+        performer:
+          type: array
+          uniqueItems: true
+          minItems: 1
+          items:
+            properties:
+              actor:
+                type: object
+                properties:
+                  reference:
+                    type: string
+                    minLength: 1
+                required:
+                - reference
+              onBehalfOf:
+                type: object
+                properties:
+                  reference:
+                    type: string
+                    minLength: 1
+                required:
+                - reference
+      required:
+      - resourceType
+      - id
+      - status
+      - code
+      - subject
+      - performedDateTime
+      - performer
+    Procedure-search:
+      required:
+      - entry
+      - id
+      - link
+      - meta
+      - resourceType
+      - total
+      - type
+      type: object
+      properties:
+        resourceType:
+          minLength: 1
+          type: string
+        id:
+          minLength: 1
+          type: string
+        meta:
+          required:
+          - lastUpdated
+          type: object
+          properties:
+            lastUpdated:
+              minLength: 1
+              type: string
+        type:
+          minLength: 1
+          type: string
+        total:
+          type: number
+        link:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            required:
+            - relation
+            - url
+            type: object
+            properties:
+              relation:
+                minLength: 1
+                type: string
+              url:
+                minLength: 1
+                type: string
+        entry:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            required:
+            - fullUrl
+            - resource
+            type: object
+            properties:
+              fullUrl:
+                minLength: 1
+                type: string
+              resource:
+                minLength: 1
+                type: string
+      description: ''
+  securitySchemes:
+    Bearer:
+      type: http
+      scheme: bearer

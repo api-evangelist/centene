@@ -1,0 +1,527 @@
+openapi: 3.2.0
+info:
+  title: Patient Access Medication Knowledge API
+  description: Patient Access Endpoints for FHIR Resources
+  version: '1.0'
+servers:
+- url: https://dev-int-api-gw.centene.com/fhir/v4/patientaccess
+tags:
+- name: MedicationKnowledge
+paths:
+  /MedicationKnowledge:
+    get:
+      tags:
+      - MedicationKnowledge
+      summary: Search all resources of type MedicationKnowledge based on a set of criteria
+      operationId: searchMedicationKnowledge
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/MedicationKnowledge-search'
+        '400':
+          description: Bad request
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: invalid
+                  details:
+                    text: Invalid or badly formed MedicationKnowledge ID .
+        '401':
+          description: Unauthorized
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Unauthorized
+                  details:
+                    text: You are not authorized to view this MedicationKnowledge.
+        '403':
+          description: Forbidden
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: forbidden
+                  details:
+                    text: You are not allowed to view this MedicationKnowledge.
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Not Found
+                  details:
+                    text: No MedicationKnowledge found with the provided ID.
+        '500':
+          description: InternalServerError
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: fatal
+                  code: exception
+                  details:
+                    text: Internal server error. Please try again later
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Too Many Requests
+                  details:
+                    text: Too Many Requests for Medication knowledge with the provided ID.
+        '501':
+          description: Not Implemented
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Not Implemented
+                  details:
+                    text: The request for Medication knowledge is Not Implemented
+        '502':
+          description: Bad gateway
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Bad gateway
+                  details:
+                    text: Bad gateway
+        '503':
+          description: Service Unavailable
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Service Unavailable
+                  details:
+                    text: Service Unavailable
+        '504':
+          description: Gateway Timeout
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Gateway Timeout
+                  details:
+                    text: Gateway Timeout
+      parameters:
+      - name: DrugTier
+        in: query
+        schema:
+          type: string
+        description: Identifier for DrugTier
+      - name: DrugPlan
+        in: query
+        schema:
+          type: string
+        description: Identifier for DrugPlan
+      - name: code
+        in: query
+        schema:
+          type: string
+        description: RX Norm code
+      - name: _id
+        in: query
+        schema:
+          type: string
+        description: Logical identifier for record
+      - name: DrugName
+        in: query
+        schema:
+          type: string
+        description: String query (starts with or contains) for the drug name associated with the RxNorm code
+      - name: _page
+        in: query
+        schema:
+          type: number
+        description: Page for paginated results
+      security:
+      - Bearer: []
+  /MedicationKnowledge/{id}:
+    get:
+      tags:
+      - MedicationKnowledge
+      summary: Read the current state of the resource
+      operationId: readMedicationKnowledge
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/MedicationKnowledge-read'
+        '400':
+          description: Bad request
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: invalid
+                  details:
+                    text: Invalid or badly formed MedicationKnowledge ID .
+        '401':
+          description: Unauthorized
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Unauthorized
+                  details:
+                    text: You are not authorized to view this MedicationKnowledge.
+        '403':
+          description: Forbidden
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: forbidden
+                  details:
+                    text: You are not allowed to view this MedicationKnowledge.
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Not Found
+                  details:
+                    text: No MedicationKnowledge found with the provided ID.
+        '500':
+          description: InternalServerError
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: fatal
+                  code: exception
+                  details:
+                    text: Internal server error. Please try again later
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Too Many Requests
+                  details:
+                    text: Too Many Requests for MedicationKnowledge with the provided ID.
+        '501':
+          description: Not Implemented
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Not Implemented
+                  details:
+                    text: The request for MedicationKnowledge is Not Implemented
+        '502':
+          description: Bad gateway
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Bad gateway
+                  details:
+                    text: Bad gateway
+        '503':
+          description: Service Unavailable
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Service Unavailable
+                  details:
+                    text: Service Unavailable
+        '504':
+          description: Gateway Timeout
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Gateway Timeout
+                  details:
+                    text: Gateway Timeout
+      security:
+      - Bearer: []
+components:
+  schemas:
+    MedicationKnowledge-search:
+      description: ''
+      type: object
+      properties:
+        resourceType:
+          type: string
+          minLength: 1
+        id:
+          type: string
+          minLength: 1
+        meta:
+          type: object
+          properties:
+            lastUpdated:
+              type: string
+              minLength: 1
+          required:
+          - lastUpdated
+        type:
+          type: string
+          minLength: 1
+        total:
+          type: number
+        link:
+          type: array
+          uniqueItems: true
+          minItems: 1
+          items:
+            required:
+            - relation
+            - url
+            properties:
+              relation:
+                type: string
+                minLength: 1
+              url:
+                type: string
+                minLength: 1
+        entry:
+          type: array
+          uniqueItems: true
+          minItems: 1
+          items:
+            required:
+            - fullUrl
+            properties:
+              fullUrl:
+                type: string
+                minLength: 1
+              resource:
+                type: object
+                properties:
+                  resourceType:
+                    type: string
+                    minLength: 1
+                  id:
+                    type: string
+                    minLength: 1
+                  meta:
+                    type: object
+                    properties:
+                      profile:
+                        type: array
+                        items:
+                          properties: {}
+                    required:
+                    - profile
+                  extension:
+                    type: array
+                    uniqueItems: true
+                    minItems: 1
+                    items:
+                      required:
+                      - url
+                      properties:
+                        url:
+                          type: string
+                          minLength: 1
+                        valueCodeableConcept:
+                          type: object
+                          properties:
+                            coding:
+                              type: array
+                              uniqueItems: true
+                              minItems: 1
+                              items:
+                                required:
+                                - system
+                                - code
+                                - display
+                                properties:
+                                  system:
+                                    type: string
+                                    minLength: 1
+                                  code:
+                                    type: string
+                                    minLength: 1
+                                  display:
+                                    type: string
+                                    minLength: 1
+                          required:
+                          - coding
+                  code:
+                    type: object
+                    properties:
+                      coding:
+                        type: array
+                        uniqueItems: true
+                        minItems: 1
+                        items:
+                          required:
+                          - system
+                          - code
+                          - display
+                          properties:
+                            system:
+                              type: string
+                              minLength: 1
+                            code:
+                              type: string
+                              minLength: 1
+                            display:
+                              type: string
+                              minLength: 1
+                    required:
+                    - coding
+                required:
+                - resourceType
+                - id
+                - meta
+                - extension
+                - code
+      required:
+      - resourceType
+      - id
+      - meta
+      - type
+      - total
+      - link
+      - entry
+    MedicationKnowledge-read:
+      description: ''
+      type: object
+      properties:
+        resourceType:
+          type: string
+          minLength: 1
+        id:
+          type: string
+          minLength: 1
+        meta:
+          type: object
+          properties:
+            profile:
+              type: array
+              items:
+                properties: {}
+          required:
+          - profile
+        extension:
+          type: array
+          uniqueItems: true
+          minItems: 1
+          items:
+            required:
+            - url
+            properties:
+              url:
+                type: string
+                minLength: 1
+              valueCodeableConcept:
+                type: object
+                properties:
+                  coding:
+                    type: array
+                    uniqueItems: true
+                    minItems: 1
+                    items:
+                      required:
+                      - system
+                      - code
+                      - display
+                      properties:
+                        system:
+                          type: string
+                          minLength: 1
+                        code:
+                          type: string
+                          minLength: 1
+                        display:
+                          type: string
+                          minLength: 1
+                required:
+                - coding
+        code:
+          type: object
+          properties:
+            coding:
+              type: array
+              uniqueItems: true
+              minItems: 1
+              items:
+                required:
+                - system
+                - code
+                - display
+                properties:
+                  system:
+                    type: string
+                    minLength: 1
+                  code:
+                    type: string
+                    minLength: 1
+                  display:
+                    type: string
+                    minLength: 1
+          required:
+          - coding
+      required:
+      - resourceType
+      - id
+      - meta
+      - extension
+      - code
+  securitySchemes:
+    Bearer:
+      type: http
+      scheme: bearer

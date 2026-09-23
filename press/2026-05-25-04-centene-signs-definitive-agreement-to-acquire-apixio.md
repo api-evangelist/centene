@@ -1,7 +1,9 @@
 ---
 title: Centene Signs Definitive Agreement to Acquire Apixio
 url: https://www.prnewswire.com/news-releases/centene-signs-definitive-agreement-to-acquire-apixio-301168433.html
-date: '2026-05-25'
+published: ''
+date_basis: harvested
+harvested: '2026-05-25'
 query: '"Centene" press release artificial intelligence'
 position: 4
 source: serpapi-google

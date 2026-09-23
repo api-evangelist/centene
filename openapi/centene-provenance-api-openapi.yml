@@ -1,0 +1,213 @@
+openapi: 3.2.0
+info:
+  title: Patient Access Provenance API
+  description: Patient Access Endpoints for FHIR Resources
+  version: '1.0'
+servers:
+- url: https://dev-int-api-gw.centene.com/fhir/v4/patientaccess
+tags:
+- name: Provenance
+paths:
+  /Provenance/{id}:
+    get:
+      tags:
+      - Provenance
+      summary: Read the current state of the resource
+      operationId: readProvenance
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Provenance'
+        '400':
+          description: Bad request
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: invalid
+                  details:
+                    text: Invalid or badly formed Provenance ID .
+        '401':
+          description: Unauthorized
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Unauthorized
+                  details:
+                    text: You are not authorized to view this Provenance.
+        '403':
+          description: Forbidden
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: forbidden
+                  details:
+                    text: You are not allowed to view this Provenance.
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Not Found
+                  details:
+                    text: No Provenance found with the provided ID.
+        '500':
+          description: InternalServerError
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: fatal
+                  code: exception
+                  details:
+                    text: Internal server error. Please try again later
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Too Many Requests
+                  details:
+                    text: Too Many Requests for Provenance with the provided ID.
+        '501':
+          description: Not Implemented
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Not Implemented
+                  details:
+                    text: The request for Provenance is Not Implemented
+        '502':
+          description: Bad gateway
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Bad gateway
+                  details:
+                    text: Bad gateway
+        '503':
+          description: Service Unavailable
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Service Unavailable
+                  details:
+                    text: Service Unavailable
+        '504':
+          description: Gateway Timeout
+          content:
+            '*/*':
+              example:
+                resourceType: OperationOutcome
+                issue:
+                  severity: error
+                  code: Gateway Timeout
+                  details:
+                    text: Gateway Timeout
+      security:
+      - Bearer: []
+components:
+  schemas:
+    Provenance:
+      type: object
+      properties:
+        resourceType:
+          type: string
+        id:
+          type: string
+        meta:
+          type: object
+          properties:
+            profile:
+              type: array
+              items:
+                type: string
+          required:
+          - profile
+        target:
+          type: array
+          items:
+            type: object
+            properties:
+              reference:
+                type: string
+            required:
+            - reference
+        recorded:
+          type: string
+        agent:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: object
+                properties:
+                  coding:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        system:
+                          type: string
+                        code:
+                          type: string
+                      required:
+                      - system
+                      - code
+                required:
+                - coding
+              who:
+                type: object
+                properties:
+                  display:
+                    type: string
+                required:
+                - display
+            required:
+            - type
+            - who
+      required:
+      - resourceType
+      - id
+      - meta
+      - target
+      - recorded
+      - agent
+  securitySchemes:
+    Bearer:
+      type: http
+      scheme: bearer
