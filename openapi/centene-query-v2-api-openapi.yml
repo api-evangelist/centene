@@ -83,6 +83,15 @@ paths:
                 $ref: '#/components/schemas/networkResults'
 components:
   schemas:
+    networkResults:
+      type: object
+      properties:
+        network:
+          items:
+            $ref: '#/components/schemas/queryV2ResponseNetworkObject'
+        providerProgramCodes:
+          items:
+            $ref: '#/components/schemas/providerProgramCodes'
     fapNetworkServiceAreaWithoutMemberOrProvider:
       type: object
       properties:
@@ -133,18 +142,21 @@ components:
         stateCode:
           type: string
           example: CA
-    queryV2ResponseNetworkObject:
-      $ref: '#/components/schemas/fapNetworkServiceAreaWithoutMemberOrProvider'
-    networkResults:
+    providerProgramCodes:
       type: object
       properties:
-        network:
-          items:
-            $ref: '#/components/schemas/queryV2ResponseNetworkObject'
-        providerProgramCodes:
-          items:
-            $ref: '#/components/schemas/providerProgramCodes'
-    queryWithAddress:
+        providerProgramCode:
+          type: string
+          example: 1234
+        fapNetworkIdentifier:
+          type: string
+          example:
+          - '123401'
+          - '123402'
+          - '123403'
+    queryV2ResponseNetworkObject:
+      $ref: '#/components/schemas/fapNetworkServiceAreaWithoutMemberOrProvider'
+    query:
       type: object
       properties:
         streetAddress:
@@ -153,19 +165,6 @@ components:
         url:
           type: string
           example: sunshinehealth.com
-        city:
-          type: string
-          example: Los Angeles
-        state:
-          type: string
-          example: CA
-        zip:
-          type: string
-          example: 90044
-        effectiveDate:
-          type: string
-          format: date
-          example: '2020-09-01'
     queryWithFapNetworkTypeCode:
       type: object
       required:
@@ -205,7 +204,7 @@ components:
           - Y
           - N
           example: Y
-    query:
+    queryWithAddress:
       type: object
       properties:
         streetAddress:
@@ -214,18 +213,19 @@ components:
         url:
           type: string
           example: sunshinehealth.com
-    providerProgramCodes:
-      type: object
-      properties:
-        providerProgramCode:
+        city:
           type: string
-          example: 1234
-        fapNetworkIdentifier:
+          example: Los Angeles
+        state:
           type: string
-          example:
-          - '123401'
-          - '123402'
-          - '123403'
+          example: CA
+        zip:
+          type: string
+          example: 90044
+        effectiveDate:
+          type: string
+          format: date
+          example: '2020-09-01'
   securitySchemes:
     basicAuth:
       type: http

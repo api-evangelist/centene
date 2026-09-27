@@ -36,73 +36,37 @@ paths:
       - BatchSubmitTransaction
 components:
   schemas:
-    BatchSubmitTransactionHeader:
-      description: Input headers for wsdl operation COREEnvelopeBatchSubmission
+    BatchSubmitTransactionInput:
+      description: Input message for wsdl operation COREEnvelopeBatchSubmission
       type: object
       properties:
-        Security:
-          $ref: '#/components/schemas/Security'
-    Security:
-      xml:
-        namespace: http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd
-        prefix: wsse
-      description: Header for WS-Security
-      type: object
-      properties:
-        UsernameToken:
+        Envelope:
           xml:
-            namespace: http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd
-            prefix: wsse
+            namespace: http://www.w3.org/2003/05/soap-envelope
+            prefix: soapenv
           type: object
           properties:
-            Username:
+            Header:
+              $ref: '#/components/schemas/BatchSubmitTransactionHeader'
+            Body:
               xml:
-                namespace: http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd
-                prefix: wsse
-              type: string
-            Password:
-              xml:
-                namespace: http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd
-                prefix: wsse
-              type: string
-            Nonce:
-              xml:
-                namespace: http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd
-                prefix: wsse
-              type: string
+                namespace: http://www.w3.org/2003/05/soap-envelope
+                prefix: soapenv
+              type: object
               properties:
-                EncodingType:
-                  xml:
-                    namespace: ''
-                    attribute: true
-                  type: string
-            Created:
-              xml:
-                namespace: http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd
-                prefix: wsu
-              type: string
-        Timestamp:
-          xml:
-            namespace: http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd
-            prefix: wsu
-          type: object
-          properties:
-            Created:
-              xml:
-                namespace: http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd
-                prefix: wsu
-              type: string
-            Expires:
-              xml:
-                namespace: http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd
-                prefix: wsu
-              type: string
-            Id:
-              xml:
-                namespace: http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd
-                prefix: wsu
-                attribute: true
-              type: string
+                COREEnvelopeBatchSubmission:
+                  $ref: '#/components/schemas/COREEnvelopeBatchSubmission_element_CORE-XSD'
+              required:
+              - COREEnvelopeBatchSubmission
+          required:
+          - Body
+      required:
+      - Envelope
+      x-ibm-schema:
+        wsdl-port: '{http://www.caqh.org/SOAP/WSDL/}CoreSoapPort'
+        wsdl-operation: COREEnvelopeBatchSubmission
+        wsdl-message-direction-or-name: COREEnvelopeBatchSubmissionRequest
+      example: "\n<soapenv:Envelope xmlns:soapenv=\"http://www.w3.org/2003/05/soap-envelope\">\n <soapenv:Header>\n  <!-- The Security element should be removed if WS-Security is not enabled on the SOAP target-url -->\n  <wsse:Security xmlns:wsse=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\" xmlns:wsu=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd\">\n   <wsse:UsernameToken>\n    <wsse:Username>string</wsse:Username>\n    <wsse:Password>string</wsse:Password>\n    <wsse:Nonce EncodingType=\"string\">string</wsse:Nonce>\n    <wsu:Created>string</wsu:Created>\n   </wsse:UsernameToken>\n   <wsu:Timestamp wsu:Id=\"string\">\n    <wsu:Created>string</wsu:Created>\n    <wsu:Expires>string</wsu:Expires>\n   </wsu:Timestamp>\n  </wsse:Security>\n </soapenv:Header>\n <soapenv:Body>\n  <CORE-XSD:COREEnvelopeBatchSubmission xmlns:CORE-XSD=\"http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd\"><!-- mandatory -->\n   <PayloadType><!-- mandatory -->string</PayloadType>\n   <ProcessingMode><!-- mandatory -->string</ProcessingMode>\n   <PayloadID><!-- mandatory -->string</PayloadID>\n   <PayloadLength><!-- mandatory -->3</PayloadLength>\n   <TimeStamp><!-- mandatory -->string</TimeStamp>\n   <SenderID><!-- mandatory -->string</SenderID>\n   <ReceiverID><!-- mandatory -->string</ReceiverID>\n   <CORERuleVersion><!-- mandatory -->string</CORERuleVersion>\n   <CheckSum><!-- mandatory -->string</CheckSum>\n   <Payload><!-- mandatory -->abcd</Payload>\n  </CORE-XSD:COREEnvelopeBatchSubmission>\n </soapenv:Body>\n</soapenv:Envelope>"
     COREEnvelopeBatchSubmission_element_CORE-XSD:
       xml:
         namespace: http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd
@@ -162,6 +126,16 @@ components:
       - CheckSum
       - Payload
       example: "\n<CORE-XSD:COREEnvelopeBatchSubmission xmlns:CORE-XSD=\"http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd\">\n <PayloadType><!-- mandatory -->string</PayloadType>\n <ProcessingMode><!-- mandatory -->string</ProcessingMode>\n <PayloadID><!-- mandatory -->string</PayloadID>\n <PayloadLength><!-- mandatory -->3</PayloadLength>\n <TimeStamp><!-- mandatory -->string</TimeStamp>\n <SenderID><!-- mandatory -->string</SenderID>\n <ReceiverID><!-- mandatory -->string</ReceiverID>\n <CORERuleVersion><!-- mandatory -->string</CORERuleVersion>\n <CheckSum><!-- mandatory -->string</CheckSum>\n <Payload><!-- mandatory -->abcd</Payload>\n</CORE-XSD:COREEnvelopeBatchSubmission>"
+    BatchMode_type_CORE-XSD:
+      xml:
+        namespace: ''
+      type: string
+      pattern: Batch
+      x-xsi-type: BatchMode
+      x-xsi-type-xml:
+        namespace: http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd
+        prefix: CORE-XSD
+      x-xsi-type-uniquename: BatchMode_type_CORE-XSD
     COREEnvelopeBatchSubmissionResponse_element_CORE-XSD:
       xml:
         namespace: http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd
@@ -228,47 +202,67 @@ components:
       - ErrorCode
       - ErrorMessage
       example: "\n<CORE-XSD:COREEnvelopeBatchSubmissionResponse xmlns:CORE-XSD=\"http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd\">\n <PayloadType><!-- mandatory -->string</PayloadType>\n <ProcessingMode><!-- mandatory -->string</ProcessingMode>\n <PayloadID><!-- mandatory -->string</PayloadID>\n <PayloadLength>3</PayloadLength>\n <TimeStamp><!-- mandatory -->string</TimeStamp>\n <SenderID><!-- mandatory -->string</SenderID>\n <ReceiverID><!-- mandatory -->string</ReceiverID>\n <CORERuleVersion><!-- mandatory -->string</CORERuleVersion>\n <CheckSum>string</CheckSum>\n <Payload>abcd</Payload>\n <ErrorCode><!-- mandatory -->string</ErrorCode>\n <ErrorMessage><!-- mandatory -->string</ErrorMessage>\n</CORE-XSD:COREEnvelopeBatchSubmissionResponse>"
-    BatchMode_type_CORE-XSD:
+    Security:
       xml:
-        namespace: ''
-      type: string
-      pattern: Batch
-      x-xsi-type: BatchMode
-      x-xsi-type-xml:
-        namespace: http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd
-        prefix: CORE-XSD
-      x-xsi-type-uniquename: BatchMode_type_CORE-XSD
-    BatchSubmitTransactionInput:
-      description: Input message for wsdl operation COREEnvelopeBatchSubmission
+        namespace: http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd
+        prefix: wsse
+      description: Header for WS-Security
       type: object
       properties:
-        Envelope:
+        UsernameToken:
           xml:
-            namespace: http://www.w3.org/2003/05/soap-envelope
-            prefix: soapenv
+            namespace: http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd
+            prefix: wsse
           type: object
           properties:
-            Header:
-              $ref: '#/components/schemas/BatchSubmitTransactionHeader'
-            Body:
+            Username:
               xml:
-                namespace: http://www.w3.org/2003/05/soap-envelope
-                prefix: soapenv
-              type: object
+                namespace: http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd
+                prefix: wsse
+              type: string
+            Password:
+              xml:
+                namespace: http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd
+                prefix: wsse
+              type: string
+            Nonce:
+              xml:
+                namespace: http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd
+                prefix: wsse
+              type: string
               properties:
-                COREEnvelopeBatchSubmission:
-                  $ref: '#/components/schemas/COREEnvelopeBatchSubmission_element_CORE-XSD'
-              required:
-              - COREEnvelopeBatchSubmission
-          required:
-          - Body
-      required:
-      - Envelope
-      x-ibm-schema:
-        wsdl-port: '{http://www.caqh.org/SOAP/WSDL/}CoreSoapPort'
-        wsdl-operation: COREEnvelopeBatchSubmission
-        wsdl-message-direction-or-name: COREEnvelopeBatchSubmissionRequest
-      example: "\n<soapenv:Envelope xmlns:soapenv=\"http://www.w3.org/2003/05/soap-envelope\">\n <soapenv:Header>\n  <!-- The Security element should be removed if WS-Security is not enabled on the SOAP target-url -->\n  <wsse:Security xmlns:wsse=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\" xmlns:wsu=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd\">\n   <wsse:UsernameToken>\n    <wsse:Username>string</wsse:Username>\n    <wsse:Password>string</wsse:Password>\n    <wsse:Nonce EncodingType=\"string\">string</wsse:Nonce>\n    <wsu:Created>string</wsu:Created>\n   </wsse:UsernameToken>\n   <wsu:Timestamp wsu:Id=\"string\">\n    <wsu:Created>string</wsu:Created>\n    <wsu:Expires>string</wsu:Expires>\n   </wsu:Timestamp>\n  </wsse:Security>\n </soapenv:Header>\n <soapenv:Body>\n  <CORE-XSD:COREEnvelopeBatchSubmission xmlns:CORE-XSD=\"http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd\"><!-- mandatory -->\n   <PayloadType><!-- mandatory -->string</PayloadType>\n   <ProcessingMode><!-- mandatory -->string</ProcessingMode>\n   <PayloadID><!-- mandatory -->string</PayloadID>\n   <PayloadLength><!-- mandatory -->3</PayloadLength>\n   <TimeStamp><!-- mandatory -->string</TimeStamp>\n   <SenderID><!-- mandatory -->string</SenderID>\n   <ReceiverID><!-- mandatory -->string</ReceiverID>\n   <CORERuleVersion><!-- mandatory -->string</CORERuleVersion>\n   <CheckSum><!-- mandatory -->string</CheckSum>\n   <Payload><!-- mandatory -->abcd</Payload>\n  </CORE-XSD:COREEnvelopeBatchSubmission>\n </soapenv:Body>\n</soapenv:Envelope>"
+                EncodingType:
+                  xml:
+                    namespace: ''
+                    attribute: true
+                  type: string
+            Created:
+              xml:
+                namespace: http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd
+                prefix: wsu
+              type: string
+        Timestamp:
+          xml:
+            namespace: http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd
+            prefix: wsu
+          type: object
+          properties:
+            Created:
+              xml:
+                namespace: http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd
+                prefix: wsu
+              type: string
+            Expires:
+              xml:
+                namespace: http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd
+                prefix: wsu
+              type: string
+            Id:
+              xml:
+                namespace: http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd
+                prefix: wsu
+                attribute: true
+              type: string
     BatchSubmitTransactionOutput:
       description: Output message for wsdl operation COREEnvelopeBatchSubmission
       type: object
@@ -296,6 +290,12 @@ components:
         wsdl-operation: COREEnvelopeBatchSubmission
         wsdl-message-direction-or-name: COREEnvelopeBatchSubmissionResponse
       example: "\n<soapenv:Envelope xmlns:soapenv=\"http://www.w3.org/2003/05/soap-envelope\">\n <soapenv:Body>\n  <CORE-XSD:COREEnvelopeBatchSubmissionResponse xmlns:CORE-XSD=\"http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd\">\n   <PayloadType><!-- mandatory -->string</PayloadType>\n   <ProcessingMode><!-- mandatory -->string</ProcessingMode>\n   <PayloadID><!-- mandatory -->string</PayloadID>\n   <PayloadLength>3</PayloadLength>\n   <TimeStamp><!-- mandatory -->string</TimeStamp>\n   <SenderID><!-- mandatory -->string</SenderID>\n   <ReceiverID><!-- mandatory -->string</ReceiverID>\n   <CORERuleVersion><!-- mandatory -->string</CORERuleVersion>\n   <CheckSum>string</CheckSum>\n   <Payload>abcd</Payload>\n   <ErrorCode><!-- mandatory -->string</ErrorCode>\n   <ErrorMessage><!-- mandatory -->string</ErrorMessage>\n  </CORE-XSD:COREEnvelopeBatchSubmissionResponse>\n </soapenv:Body>\n</soapenv:Envelope>"
+    BatchSubmitTransactionHeader:
+      description: Input headers for wsdl operation COREEnvelopeBatchSubmission
+      type: object
+      properties:
+        Security:
+          $ref: '#/components/schemas/Security'
   securitySchemes:
     clientID:
       type: apiKey

@@ -390,6 +390,189 @@ paths:
       - Basic: []
 components:
   schemas:
+    InsurancePlan:
+      required:
+      - administeredBy
+      - coverageArea
+      - id
+      - language
+      - meta
+      - name
+      - network
+      - ownedBy
+      - plan
+      - resourceType
+      - status
+      - text
+      - type
+      type: object
+      properties:
+        resourceType:
+          minLength: 1
+          type: string
+        id:
+          minLength: 1
+          type: string
+        meta:
+          required:
+          - lastUpdated
+          - profile
+          type: object
+          properties:
+            lastUpdated:
+              minLength: 1
+              type: string
+            profile:
+              type: array
+              items:
+                type: object
+                properties: {}
+        language:
+          minLength: 1
+          type: string
+        text:
+          required:
+          - div
+          - status
+          type: object
+          properties:
+            status:
+              minLength: 1
+              type: string
+            div:
+              minLength: 1
+              type: string
+        status:
+          minLength: 1
+          type: string
+        type:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            type: object
+            properties:
+              coding:
+                minItems: 1
+                uniqueItems: true
+                type: array
+                items:
+                  required:
+                  - code
+                  - display
+                  - system
+                  type: object
+                  properties:
+                    system:
+                      minLength: 1
+                      type: string
+                    code:
+                      minLength: 1
+                      type: string
+                    display:
+                      minLength: 1
+                      type: string
+        name:
+          minLength: 1
+          type: string
+        ownedBy:
+          required:
+          - reference
+          type: object
+          properties:
+            reference:
+              minLength: 1
+              type: string
+        administeredBy:
+          required:
+          - reference
+          type: object
+          properties:
+            reference:
+              minLength: 1
+              type: string
+        coverageArea:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            required:
+            - reference
+            type: object
+            properties:
+              reference:
+                minLength: 1
+                type: string
+        network:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            required:
+            - reference
+            type: object
+            properties:
+              reference:
+                minLength: 1
+                type: string
+        plan:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                required:
+                - coding
+                type: object
+                properties:
+                  coding:
+                    minItems: 1
+                    uniqueItems: true
+                    type: array
+                    items:
+                      required:
+                      - code
+                      - display
+                      - system
+                      type: object
+                      properties:
+                        system:
+                          minLength: 1
+                          type: string
+                        code:
+                          minLength: 1
+                          type: string
+                        display:
+                          minLength: 1
+                          type: string
+      description: ''
+    GeneralError:
+      required:
+      - resourceType
+      - issue
+      type: object
+      properties:
+        resourceType:
+          minLength: 1
+          type: string
+        issue:
+          required:
+          - severity
+          - code
+          - details
+          type: object
+          properties:
+            severity:
+              minLength: 1
+              type: string
+            code:
+              minLength: 1
+              type: string
+            details:
+              minLength: 1
+              type: string
     InsurancePlan-search:
       required:
       - entry
@@ -606,189 +789,6 @@ components:
                                     minLength: 1
                                     type: string
       description: ''
-    InsurancePlan:
-      required:
-      - administeredBy
-      - coverageArea
-      - id
-      - language
-      - meta
-      - name
-      - network
-      - ownedBy
-      - plan
-      - resourceType
-      - status
-      - text
-      - type
-      type: object
-      properties:
-        resourceType:
-          minLength: 1
-          type: string
-        id:
-          minLength: 1
-          type: string
-        meta:
-          required:
-          - lastUpdated
-          - profile
-          type: object
-          properties:
-            lastUpdated:
-              minLength: 1
-              type: string
-            profile:
-              type: array
-              items:
-                type: object
-                properties: {}
-        language:
-          minLength: 1
-          type: string
-        text:
-          required:
-          - div
-          - status
-          type: object
-          properties:
-            status:
-              minLength: 1
-              type: string
-            div:
-              minLength: 1
-              type: string
-        status:
-          minLength: 1
-          type: string
-        type:
-          minItems: 1
-          uniqueItems: true
-          type: array
-          items:
-            type: object
-            properties:
-              coding:
-                minItems: 1
-                uniqueItems: true
-                type: array
-                items:
-                  required:
-                  - code
-                  - display
-                  - system
-                  type: object
-                  properties:
-                    system:
-                      minLength: 1
-                      type: string
-                    code:
-                      minLength: 1
-                      type: string
-                    display:
-                      minLength: 1
-                      type: string
-        name:
-          minLength: 1
-          type: string
-        ownedBy:
-          required:
-          - reference
-          type: object
-          properties:
-            reference:
-              minLength: 1
-              type: string
-        administeredBy:
-          required:
-          - reference
-          type: object
-          properties:
-            reference:
-              minLength: 1
-              type: string
-        coverageArea:
-          minItems: 1
-          uniqueItems: true
-          type: array
-          items:
-            required:
-            - reference
-            type: object
-            properties:
-              reference:
-                minLength: 1
-                type: string
-        network:
-          minItems: 1
-          uniqueItems: true
-          type: array
-          items:
-            required:
-            - reference
-            type: object
-            properties:
-              reference:
-                minLength: 1
-                type: string
-        plan:
-          minItems: 1
-          uniqueItems: true
-          type: array
-          items:
-            type: object
-            properties:
-              type:
-                required:
-                - coding
-                type: object
-                properties:
-                  coding:
-                    minItems: 1
-                    uniqueItems: true
-                    type: array
-                    items:
-                      required:
-                      - code
-                      - display
-                      - system
-                      type: object
-                      properties:
-                        system:
-                          minLength: 1
-                          type: string
-                        code:
-                          minLength: 1
-                          type: string
-                        display:
-                          minLength: 1
-                          type: string
-      description: ''
-    GeneralError:
-      required:
-      - resourceType
-      - issue
-      type: object
-      properties:
-        resourceType:
-          minLength: 1
-          type: string
-        issue:
-          required:
-          - severity
-          - code
-          - details
-          type: object
-          properties:
-            severity:
-              minLength: 1
-              type: string
-            code:
-              minLength: 1
-              type: string
-            details:
-              minLength: 1
-              type: string
   securitySchemes:
     Basic:
       type: http

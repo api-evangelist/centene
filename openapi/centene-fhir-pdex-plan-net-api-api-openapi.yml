@@ -920,40 +920,16 @@ paths:
       x-summary-source: derived
 components:
   parameters:
-    name:
-      description: '*Search by the resource''s name value and return the matching resources. For example, {{base}}/{{resource}}?name=[name value]. For further information please visit http://hl7.org/fhir/r4/search.html#name*'
+    name_contains:
+      description: '*Search by the resource''s name with an partial match for the value and return the matching resources. For example, {{base}}/{{resource}}?name:contains=[name value]. For further information please visit http://hl7.org/fhir/r4/search.html#name:contains*'
       in: query
-      name: name
+      name: name:contains
       schema:
         type: string
-    role:
-      description: '*Role code for the resource*'
+    address_exact:
+      description: '*Search by address line values that exactly match the search term and return the matching resources. This search will span all applicable address lines. For example, {{base}}/{{resource}}?address:exact=[address.city/address.state/address.country/address.postalCode value]*. For further information please visit http://hl7.org/fhir/r4/search.html#address*'
       in: query
-      name: role
-      schema:
-        type: string
-    specialty:
-      description: '*The specialty code of the service provided by this resource.*'
-      in: query
-      name: specialty
-      schema:
-        type: string
-    _lastUpdated:
-      description: '*Search by the LastUpdated Date. This is the date when the content of the resource was last updated by the source creating the record. For example, {{base}}/{{resource}}?_lastUpdated=[meta.lastUpdated value]. The value can be prefixed for more flexible searching. For example {{base}}/{{resource}}?_lastUpdated=lt2023-11-22. The available prefixes are: ''eq'' for equal, ''ne'' for not equal, ''le'' for less than or equal, ''lt'' for less than, ''ge'' for greater than or equal, ''gt'' for greater than, ''sa'' for starts after, ''ap'' for approximately equal, ''eb'' for ends before. For further information please visit http://hl7.org/fhir/r4/search.html#lastUpdated*'
-      in: query
-      name: _lastUpdated
-      schema:
-        type: string
-    _page:
-      description: '*This parameter shows the next page number. For further information please visit https://confluence.centene.com/pages/viewpage.action?spaceKey=PR&title=Documentation+on+how+FHIR+Pagination+works*'
-      in: query
-      name: _page
-      schema:
-        type: string
-    _source:
-      description: '*User can get all the records of the source provided. _source will be equal to the value of meta.source within the body. The source will be the entity that created the content for the resource json document. For example, {{base}}/{{resource}}?_source=[meta.source value]. For further information please visit http://hl7.org/fhir/r4/search.html#source*'
-      in: query
-      name: _source
+      name: address:exact
       schema:
         type: string
     email:
@@ -962,16 +938,28 @@ components:
       name: email
       schema:
         type: string
-    telecom:
-      description: '*The value of any kind of contact*'
+    _lastUpdated:
+      description: '*Search by the LastUpdated Date. This is the date when the content of the resource was last updated by the source creating the record. For example, {{base}}/{{resource}}?_lastUpdated=[meta.lastUpdated value]. The value can be prefixed for more flexible searching. For example {{base}}/{{resource}}?_lastUpdated=lt2023-11-22. The available prefixes are: ''eq'' for equal, ''ne'' for not equal, ''le'' for less than or equal, ''lt'' for less than, ''ge'' for greater than or equal, ''gt'' for greater than, ''sa'' for starts after, ''ap'' for approximately equal, ''eb'' for ends before. For further information please visit http://hl7.org/fhir/r4/search.html#lastUpdated*'
       in: query
-      name: telecom
+      name: _lastUpdated
       schema:
         type: string
-    address:
-      description: '*Search by address line values that start with the search term and return the matching resources. This search will span all applicable address lines. For example, {{base}}/{{resource}}?address=[address.city/address.state/address.country/address.postalCode value]*. For further information please visit http://hl7.org/fhir/r4/search.html#address*'
+    role_text:
+      description: '*Role code text for the resource*'
       in: query
-      name: address
+      name: role:text
+      schema:
+        type: string
+    location:
+      description: '*The location of the resource*'
+      in: query
+      name: location
+      schema:
+        type: string
+    identifier_of_type:
+      description: '*External identifier type*'
+      in: query
+      name: identifier:of-type
       schema:
         type: string
     _id:
@@ -986,28 +974,10 @@ components:
       name: type
       schema:
         type: string
-    identifier_text:
-      description: '*External identifier type text for this item*'
+    address:
+      description: '*Search by address line values that start with the search term and return the matching resources. This search will span all applicable address lines. For example, {{base}}/{{resource}}?address=[address.city/address.state/address.country/address.postalCode value]*. For further information please visit http://hl7.org/fhir/r4/search.html#address*'
       in: query
-      name: identifier:text
-      schema:
-        type: string
-    _next:
-      description: '*The default value for total results in all profiles is 200. _next will appear under link array only when rendered data records count is >200 , with a unique id . Clicking that link will help to navigate to next page. For further information please visit https://confluence.centene.com/pages/viewpage.action?spaceKey=PR&title=Documentation+on+how+FHIR+Pagination+works*'
-      in: query
-      name: _next
-      schema:
-        type: string
-    service:
-      description: '*Search for a resource providing the specified service and return the matching resources. The value should passed to the parameter should be the logical _id for the HealthcareService desired. For example, {{base}}/{{resource}}?service=[service.reference value]. For further information please visit http://hl7.org/fhir/r4/search.html#service*'
-      in: query
-      name: service
-      schema:
-        type: string
-    identifier:
-      description: '*External identifier for this item*'
-      in: query
-      name: identifier
+      name: address
       schema:
         type: string
     name_exact:
@@ -1016,28 +986,22 @@ components:
       name: name:exact
       schema:
         type: string
-    _profile:
-      description: '*Find resources where the profile value equals a URI for the FHIR Profile. This will equal the URI representing the FHIR implementation of the resource. Each resource can have their own profile URI. For example, {{base}}/{{resource}}?_profile=[meta.profile value]. For further information please visit http://hl7.org/fhir/r4/search.html#profile*'
+    identifier:
+      description: '*External identifier for this item*'
       in: query
-      name: _profile
+      name: identifier
       schema:
         type: string
-    role_text:
-      description: '*Role code text for the resource*'
+    _next:
+      description: '*The default value for total results in all profiles is 200. _next will appear under link array only when rendered data records count is >200 , with a unique id . Clicking that link will help to navigate to next page. For further information please visit https://confluence.centene.com/pages/viewpage.action?spaceKey=PR&title=Documentation+on+how+FHIR+Pagination+works*'
       in: query
-      name: role:text
+      name: _next
       schema:
         type: string
-    active:
-      description: '*Find profiles that are currently marked as ''active''*'
+    specialty:
+      description: '*The specialty code of the service provided by this resource.*'
       in: query
-      name: active
-      schema:
-        type: boolean
-    address_contains:
-      description: '*Search by address line values that contain the search term and return the matching resources. This search will span all applicable address lines. For example, {{base}}/{{resource}}?address:contains=[address.city/address.state/address.country/address.postalCode value]*. For further information please visit http://hl7.org/fhir/r4/search.html#address*'
-      in: query
-      name: address:contains
+      name: specialty
       schema:
         type: string
     phone:
@@ -1046,28 +1010,10 @@ components:
       name: phone
       schema:
         type: string
-    _count:
-      description: The number of resources to return in a single page.
+    _profile:
+      description: '*Find resources where the profile value equals a URI for the FHIR Profile. This will equal the URI representing the FHIR implementation of the resource. Each resource can have their own profile URI. For example, {{base}}/{{resource}}?_profile=[meta.profile value]. For further information please visit http://hl7.org/fhir/r4/search.html#profile*'
       in: query
-      name: _count
-      schema:
-        type: integer
-    address_exact:
-      description: '*Search by address line values that exactly match the search term and return the matching resources. This search will span all applicable address lines. For example, {{base}}/{{resource}}?address:exact=[address.city/address.state/address.country/address.postalCode value]*. For further information please visit http://hl7.org/fhir/r4/search.html#address*'
-      in: query
-      name: address:exact
-      schema:
-        type: string
-    endpoint:
-      description: '*Technical endpoints providing access to electronic services operated for the resource*'
-      in: query
-      name: endpoint
-      schema:
-        type: string
-    identifier_of_type:
-      description: '*External identifier type*'
-      in: query
-      name: identifier:of-type
+      name: _profile
       schema:
         type: string
     specialty_text:
@@ -1076,16 +1022,46 @@ components:
       name: specialty:text
       schema:
         type: string
-    location:
-      description: '*The location of the resource*'
+    address_contains:
+      description: '*Search by address line values that contain the search term and return the matching resources. This search will span all applicable address lines. For example, {{base}}/{{resource}}?address:contains=[address.city/address.state/address.country/address.postalCode value]*. For further information please visit http://hl7.org/fhir/r4/search.html#address*'
       in: query
-      name: location
+      name: address:contains
       schema:
         type: string
-    name_contains:
-      description: '*Search by the resource''s name with an partial match for the value and return the matching resources. For example, {{base}}/{{resource}}?name:contains=[name value]. For further information please visit http://hl7.org/fhir/r4/search.html#name:contains*'
+    _count:
+      description: The number of resources to return in a single page.
       in: query
-      name: name:contains
+      name: _count
+      schema:
+        type: integer
+    _source:
+      description: '*User can get all the records of the source provided. _source will be equal to the value of meta.source within the body. The source will be the entity that created the content for the resource json document. For example, {{base}}/{{resource}}?_source=[meta.source value]. For further information please visit http://hl7.org/fhir/r4/search.html#source*'
+      in: query
+      name: _source
+      schema:
+        type: string
+    telecom:
+      description: '*The value of any kind of contact*'
+      in: query
+      name: telecom
+      schema:
+        type: string
+    active:
+      description: '*Find profiles that are currently marked as ''active''*'
+      in: query
+      name: active
+      schema:
+        type: boolean
+    identifier_text:
+      description: '*External identifier type text for this item*'
+      in: query
+      name: identifier:text
+      schema:
+        type: string
+    service:
+      description: '*Search for a resource providing the specified service and return the matching resources. The value should passed to the parameter should be the logical _id for the HealthcareService desired. For example, {{base}}/{{resource}}?service=[service.reference value]. For further information please visit http://hl7.org/fhir/r4/search.html#service*'
+      in: query
+      name: service
       schema:
         type: string
     type_text:
@@ -1094,255 +1070,31 @@ components:
       name: type:text
       schema:
         type: string
+    endpoint:
+      description: '*Technical endpoints providing access to electronic services operated for the resource*'
+      in: query
+      name: endpoint
+      schema:
+        type: string
+    name:
+      description: '*Search by the resource''s name value and return the matching resources. For example, {{base}}/{{resource}}?name=[name value]. For further information please visit http://hl7.org/fhir/r4/search.html#name*'
+      in: query
+      name: name
+      schema:
+        type: string
+    _page:
+      description: '*This parameter shows the next page number. For further information please visit https://confluence.centene.com/pages/viewpage.action?spaceKey=PR&title=Documentation+on+how+FHIR+Pagination+works*'
+      in: query
+      name: _page
+      schema:
+        type: string
+    role:
+      description: '*Role code for the resource*'
+      in: query
+      name: role
+      schema:
+        type: string
   schemas:
-    Code:
-      properties:
-        coding:
-          items:
-            $ref: '#/components/schemas/Coding'
-          type: array
-          x-go-name: Coding
-        extension:
-          items:
-            $ref: '#/components/schemas/Extension'
-          type: array
-          x-go-name: Extension
-        id:
-          type: string
-          x-go-name: ID
-        text:
-          type: string
-          x-go-name: Text
-      type: object
-      x-go-package: gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/models/shared
-    Link:
-      properties:
-        relation:
-          type: string
-          x-go-name: Relation
-        url:
-          type: string
-          x-go-name: URL
-      type: object
-      x-go-package: gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/response
-    Qualifiers:
-      properties:
-        coding:
-          items:
-            $ref: '#/components/schemas/Coding'
-          type: array
-          x-go-name: Coding
-        text:
-          type: string
-          x-go-name: Text
-      type: object
-      x-go-package: gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/models
-    Address:
-      properties:
-        city:
-          type: string
-          x-go-name: City
-        country:
-          type: string
-          x-go-name: Country
-        district:
-          type: string
-          x-go-name: District
-        extension:
-          items:
-            $ref: '#/components/schemas/Extension'
-          type: array
-          x-go-name: Extension
-        id:
-          type: string
-          x-go-name: ID
-        line:
-          items:
-            type: string
-          type: array
-          x-go-name: Line
-        period:
-          $ref: '#/components/schemas/Period'
-        postalCode:
-          type: string
-          x-go-name: PostalCode
-        state:
-          type: string
-          x-go-name: State
-        text:
-          type: string
-          x-go-name: Text
-        type:
-          type: string
-          x-go-name: Type
-        use:
-          type: string
-          x-go-name: Use
-      type: object
-      x-go-package: gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/models/shared
-    Coding:
-      properties:
-        code:
-          type: string
-          x-go-name: Code
-        display:
-          type: string
-          x-go-name: Display
-        system:
-          type: string
-          x-go-name: System
-      type: object
-      x-go-package: gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/models/shared
-    PractitionerRoleAPIResponse:
-      properties:
-        active:
-          type: boolean
-          x-go-name: Active
-        availabilityExceptions:
-          type: string
-          x-go-name: AvailabilityExceptions
-        availableTime:
-          items:
-            $ref: '#/components/schemas/AvailableTime'
-          type: array
-          x-go-name: AvailableTime
-        code:
-          items:
-            $ref: '#/components/schemas/Code'
-          type: array
-          x-go-name: Code
-        endpoint:
-          items:
-            $ref: '#/components/schemas/Reference'
-          type: array
-          x-go-name: Endpoint
-        extension:
-          items:
-            $ref: '#/components/schemas/Extension'
-          type: array
-          x-go-name: Extension
-        healthcareService:
-          items:
-            $ref: '#/components/schemas/Reference'
-          type: array
-          x-go-name: Healthcareservice
-        id:
-          type: string
-          x-go-name: ID
-        identifier:
-          items:
-            $ref: '#/components/schemas/Identifier'
-          type: array
-          x-go-name: Identifier
-        language:
-          type: string
-          x-go-name: Language
-        location:
-          items:
-            $ref: '#/components/schemas/Reference'
-          type: array
-          x-go-name: Location
-        meta:
-          $ref: '#/components/schemas/Meta'
-        notAvailable:
-          items:
-            $ref: '#/components/schemas/NotAvailable'
-          type: array
-          x-go-name: NotAvailable
-        organization:
-          $ref: '#/components/schemas/Reference'
-        period:
-          $ref: '#/components/schemas/Period'
-        practitioner:
-          $ref: '#/components/schemas/Reference'
-        resourceType:
-          type: string
-          x-go-name: ResourceType
-        specialty:
-          items:
-            $ref: '#/components/schemas/Code'
-          type: array
-          x-go-name: Specialty
-        telecom:
-          items:
-            $ref: '#/components/schemas/Telecom'
-          type: array
-          x-go-name: Telecom
-        text:
-          $ref: '#/components/schemas/Text'
-      type: object
-      x-go-name: PractitionerRole
-      x-go-package: gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/models
-    AvailableTime:
-      properties:
-        allDay:
-          type: boolean
-          x-go-name: AllDay
-        availableEndTime:
-          type: string
-          x-go-name: AvailableEndtime
-        availableStartTime:
-          type: string
-          x-go-name: AvailableStarttime
-        daysOfWeek:
-          items:
-            type: string
-          type: array
-          x-go-name: DaysOfWeek
-      type: object
-      x-go-package: gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/models/shared
-    Identifier:
-      properties:
-        assigner:
-          $ref: '#/components/schemas/Reference'
-        id:
-          type: string
-          x-go-name: ID
-        period:
-          $ref: '#/components/schemas/Period'
-        system:
-          type: string
-          x-go-name: System
-        type:
-          $ref: '#/components/schemas/Code'
-        use:
-          type: string
-          x-go-name: Use
-        value:
-          type: string
-          x-go-name: Value
-      type: object
-      x-go-package: gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/models/shared
-    HumanName:
-      properties:
-        family:
-          type: string
-          x-go-name: Family
-        given:
-          items:
-            type: string
-          type: array
-          x-go-name: Given
-        period:
-          $ref: '#/components/schemas/Period'
-        prefix:
-          items:
-            type: string
-          type: array
-          x-go-name: Prefix
-        suffix:
-          items:
-            type: string
-          type: array
-          x-go-name: Suffix
-        text:
-          type: string
-          x-go-name: Text
-        use:
-          type: string
-          x-go-name: Use
-      type: object
-      x-go-package: gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/models/shared
     EndpointAPIResponse:
       properties:
         address:
@@ -1406,312 +1158,92 @@ components:
       type: object
       x-go-name: Endpoint
       x-go-package: gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/models
-    Text:
+    Extension:
       properties:
-        div:
-          type: string
-          x-go-name: Div
-        status:
-          type: string
-          x-go-name: Status
-      type: object
-      x-go-package: gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/models/shared
-    HealthcareServiceAPIResponse:
-      properties:
-        active:
-          type: boolean
-          x-go-name: Active
-        appointmentRequired:
-          type: boolean
-          x-go-name: Appointmentrequired
-        availabilityExceptions:
-          type: string
-          x-go-name: AvailabilityExceptions
-        availableTime:
-          items:
-            $ref: '#/components/schemas/AvailableTime'
-          type: array
-          x-go-name: AvailableTime
-        category:
-          items:
-            $ref: '#/components/schemas/Code'
-          type: array
-          x-go-name: Category
-        characteristic:
-          items:
-            $ref: '#/components/schemas/Code'
-          type: array
-          x-go-name: Characteristic
-        comment:
-          type: string
-          x-go-name: Comment
-        communication:
-          items:
-            $ref: '#/components/schemas/Code'
-          type: array
-          x-go-name: Communication
-        coverageArea:
-          items:
-            $ref: '#/components/schemas/Reference'
-          type: array
-          x-go-name: CoverageArea
-        eligibility:
-          items:
-            properties:
-              code:
-                $ref: '#/components/schemas/Code'
-              comment:
-                type: string
-                x-go-name: Comment
-              id:
-                type: string
-                x-go-name: ID
-            type: object
-          type: array
-          x-go-name: Eligibility
-        endpoint:
-          items:
-            $ref: '#/components/schemas/Reference'
-          type: array
-          x-go-name: Endpoint
         extension:
           items:
-            $ref: '#/components/schemas/Extension'
-          type: array
-          x-go-name: Extension
-        extraDetails:
-          type: string
-          x-go-name: ExtraDetails
-        id:
-          type: string
-          x-go-name: ID
-        identifier:
-          items:
-            $ref: '#/components/schemas/Identifier'
-          type: array
-          x-go-name: Identifier
-        language:
-          type: string
-          x-go-name: Language
-        location:
-          items:
-            $ref: '#/components/schemas/Reference'
-          type: array
-          x-go-name: Location
-        meta:
-          $ref: '#/components/schemas/Meta'
-        name:
-          type: string
-          x-go-name: Name
-        notAvailable:
-          items:
-            $ref: '#/components/schemas/NotAvailable'
-          type: array
-          x-go-name: NotAvailable
-        program:
-          items:
-            $ref: '#/components/schemas/Code'
-          type: array
-          x-go-name: Program
-        providedBy:
-          $ref: '#/components/schemas/Reference'
-        referralMethod:
-          items:
-            $ref: '#/components/schemas/Code'
-          type: array
-          x-go-name: ReferralMethod
-        resourceType:
-          type: string
-          x-go-name: ResourceType
-        serviceProvisionCode:
-          items:
-            $ref: '#/components/schemas/Code'
-          type: array
-          x-go-name: ServiceProvisionCode
-        specialty:
-          items:
-            $ref: '#/components/schemas/Code'
-          type: array
-          x-go-name: Specialty
-        telecom:
-          items:
-            $ref: '#/components/schemas/Telecom'
-          type: array
-          x-go-name: Telecom
-        text:
-          $ref: '#/components/schemas/Text'
-        type:
-          items:
-            $ref: '#/components/schemas/Code'
-          type: array
-          x-go-name: Type
-      type: object
-      x-go-name: HealthcareService
-      x-go-package: gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/models
-    OrganizationAPIResponse:
-      properties:
-        active:
-          type: boolean
-          x-go-name: Active
-        address:
-          items:
-            $ref: '#/components/schemas/Address'
-          type: array
-          x-go-name: Address
-        alias:
-          items:
-            type: string
-          type: array
-          x-go-name: Alias
-        contact:
-          items:
-            $ref: '#/components/schemas/Contact'
-          type: array
-          x-go-name: Contact
-        description:
-          type: string
-          x-go-name: Description
-        endpoint:
-          items:
-            $ref: '#/components/schemas/Reference'
-          type: array
-          x-go-name: Endpoint
-        extension:
-          items:
-            $ref: '#/components/schemas/Extension'
-          type: array
-          x-go-name: Extension
-        id:
-          type: string
-          x-go-name: ID
-        identifier:
-          items:
-            $ref: '#/components/schemas/Identifier'
-          type: array
-          x-go-name: Identifier
-        language:
-          type: string
-          x-go-name: Language
-        meta:
-          $ref: '#/components/schemas/Meta'
-        name:
-          type: string
-          x-go-name: Name
-        partOf:
-          $ref: '#/components/schemas/Reference'
-        resourceType:
-          type: string
-          x-go-name: ResourceType
-        telecom:
-          items:
-            $ref: '#/components/schemas/Telecom'
-          type: array
-          x-go-name: Telecom
-        text:
-          $ref: '#/components/schemas/Text'
-        type:
-          items:
-            $ref: '#/components/schemas/Code'
-          type: array
-          x-go-name: Type
-      type: object
-      x-go-name: Organization
-      x-go-package: gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/models
-    Contact:
-      properties:
-        address:
-          $ref: '#/components/schemas/Address'
-        id:
-          type: string
-          x-go-name: ID
-        name:
-          $ref: '#/components/schemas/HumanName'
-        purpose:
-          $ref: '#/components/schemas/CodeableConcept'
-        telecom:
-          items:
-            $ref: '#/components/schemas/Telecom'
-          type: array
-          x-go-name: Telecom
-      type: object
-      x-go-package: gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/models/shared
-    PractitionerAPIResponse:
-      properties:
-        active:
-          type: boolean
-          x-go-name: Active
-        address:
-          items:
-            $ref: '#/components/schemas/Address'
-          type: array
-          x-go-name: Address
-        birthdate:
-          type: string
-          x-go-name: Birthdate
-        communication:
-          items:
-            $ref: '#/components/schemas/Code'
-          type: array
-          x-go-name: Communication
-        gender:
-          type: string
-          x-go-name: Gender
-        id:
-          type: string
-          x-go-name: ID
-        identifier:
-          items:
-            $ref: '#/components/schemas/Identifier'
-          type: array
-          x-go-name: Identifier
-        language:
-          type: string
-          x-go-name: Language
-        meta:
-          $ref: '#/components/schemas/Meta'
-        name:
-          items:
-            $ref: '#/components/schemas/HumanName'
-          type: array
-          x-go-name: Name
-        qualification:
-          items:
             properties:
-              code:
-                $ref: '#/components/schemas/Code'
-              extension:
-                items:
-                  $ref: '#/components/schemas/Extension'
-                type: array
-                x-go-name: Extension
-              id:
+              url:
                 type: string
-                x-go-name: ID
-              identifier:
-                items:
-                  $ref: '#/components/schemas/Identifier'
-                type: array
-                x-go-name: Identifier
-              issuer:
-                $ref: '#/components/schemas/Reference'
-              period:
+                x-go-name: URL
+              valueAttachment:
+                $ref: '#/components/schemas/Attachment'
+              valueBoolean:
+                type: boolean
+                x-go-name: ValueBoolean
+              valueCode:
+                type: string
+                x-go-name: ValueCode
+              valueCodeableConcept:
+                $ref: '#/components/schemas/CodeableConcept'
+              valueDecimal:
+                format: double
+                type: number
+                x-go-name: ValueDecimal
+              valueIdentifier:
+                $ref: '#/components/schemas/Identifier'
+              valuePeriod:
                 $ref: '#/components/schemas/Period'
+              valueReference:
+                $ref: '#/components/schemas/Reference'
+              valueString:
+                type: string
+                x-go-name: ValueString
+              valueTime:
+                type: string
+                x-go-name: ValueTime
+              valueUri:
+                type: string
+                x-go-name: ValueURI
             type: object
           type: array
-          x-go-name: Qualification
-        resourceType:
+          x-go-name: Extension
+        url:
           type: string
-          x-go-name: ResourceType
-        telecom:
-          items:
-            $ref: '#/components/schemas/Telecom'
-          type: array
-          x-go-name: Telecom
-        text:
-          $ref: '#/components/schemas/Text'
+          x-go-name: URL
+        valueAttachment:
+          $ref: '#/components/schemas/Attachment'
+        valueBoolean:
+          type: boolean
+          x-go-name: ValueBoolean
+        valueCode:
+          type: string
+          x-go-name: ValueCode
+        valueCodeableConcept:
+          $ref: '#/components/schemas/CodeableConcept'
+        valueDecimal:
+          format: double
+          type: number
+          x-go-name: ValueDecimal
+        valueIdentifier:
+          $ref: '#/components/schemas/Identifier'
+        valuePeriod:
+          $ref: '#/components/schemas/Period'
+        valueReference:
+          $ref: '#/components/schemas/Reference'
+        valueString:
+          type: string
+          x-go-name: ValueString
+        valueTime:
+          type: string
+          x-go-name: ValueTime
+        valueUri:
+          type: string
+          x-go-name: ValueURI
       type: object
-      x-go-name: Practitioner
-      x-go-package: gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/models
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/models/shared
+    CodeableConcept:
+      properties:
+        coding:
+          items:
+            $ref: '#/components/schemas/Coding'
+          type: array
+          x-go-name: Coding
+        text:
+          type: string
+          x-go-name: Text
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/models/shared
     InsurancePlanAPIResponse:
       properties:
         administeredBy:
@@ -1911,14 +1443,64 @@ components:
       type: object
       x-go-name: InsurancePlan
       x-go-package: gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/models
-    Period:
+    Quantity:
       properties:
-        end:
+        code:
           type: string
-          x-go-name: End
-        start:
+          x-go-name: Code
+        comparator:
           type: string
-          x-go-name: Start
+          x-go-name: Comparator
+        system:
+          type: string
+          x-go-name: System
+        unit:
+          type: string
+          x-go-name: Unit
+        value:
+          format: double
+          type: number
+          x-go-name: Value
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/models
+    Qualifiers:
+      properties:
+        coding:
+          items:
+            $ref: '#/components/schemas/Coding'
+          type: array
+          x-go-name: Coding
+        text:
+          type: string
+          x-go-name: Text
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/models
+    Text:
+      properties:
+        div:
+          type: string
+          x-go-name: Div
+        status:
+          type: string
+          x-go-name: Status
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/models/shared
+    Contact:
+      properties:
+        address:
+          $ref: '#/components/schemas/Address'
+        id:
+          type: string
+          x-go-name: ID
+        name:
+          $ref: '#/components/schemas/HumanName'
+        purpose:
+          $ref: '#/components/schemas/CodeableConcept'
+        telecom:
+          items:
+            $ref: '#/components/schemas/Telecom'
+          type: array
+          x-go-name: Telecom
       type: object
       x-go-package: gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/models/shared
     Attachment:
@@ -1977,27 +1559,144 @@ components:
           x-go-name: Value
       type: object
       x-go-package: gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/models/shared
-    Meta:
+    Address:
       properties:
+        city:
+          type: string
+          x-go-name: City
+        country:
+          type: string
+          x-go-name: Country
+        district:
+          type: string
+          x-go-name: District
         extension:
           items:
             $ref: '#/components/schemas/Extension'
           type: array
           x-go-name: Extension
-        lastUpdated:
+        id:
           type: string
-          x-go-name: Lastupdated
-        profile:
+          x-go-name: ID
+        line:
           items:
             type: string
           type: array
-          x-go-name: Profile
-        source:
+          x-go-name: Line
+        period:
+          $ref: '#/components/schemas/Period'
+        postalCode:
           type: string
-          x-go-name: Source
-        versionId:
+          x-go-name: PostalCode
+        state:
           type: string
-          x-go-name: Versionid
+          x-go-name: State
+        text:
+          type: string
+          x-go-name: Text
+        type:
+          type: string
+          x-go-name: Type
+        use:
+          type: string
+          x-go-name: Use
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/models/shared
+    PractitionerAPIResponse:
+      properties:
+        active:
+          type: boolean
+          x-go-name: Active
+        address:
+          items:
+            $ref: '#/components/schemas/Address'
+          type: array
+          x-go-name: Address
+        birthdate:
+          type: string
+          x-go-name: Birthdate
+        communication:
+          items:
+            $ref: '#/components/schemas/Code'
+          type: array
+          x-go-name: Communication
+        gender:
+          type: string
+          x-go-name: Gender
+        id:
+          type: string
+          x-go-name: ID
+        identifier:
+          items:
+            $ref: '#/components/schemas/Identifier'
+          type: array
+          x-go-name: Identifier
+        language:
+          type: string
+          x-go-name: Language
+        meta:
+          $ref: '#/components/schemas/Meta'
+        name:
+          items:
+            $ref: '#/components/schemas/HumanName'
+          type: array
+          x-go-name: Name
+        qualification:
+          items:
+            properties:
+              code:
+                $ref: '#/components/schemas/Code'
+              extension:
+                items:
+                  $ref: '#/components/schemas/Extension'
+                type: array
+                x-go-name: Extension
+              id:
+                type: string
+                x-go-name: ID
+              identifier:
+                items:
+                  $ref: '#/components/schemas/Identifier'
+                type: array
+                x-go-name: Identifier
+              issuer:
+                $ref: '#/components/schemas/Reference'
+              period:
+                $ref: '#/components/schemas/Period'
+            type: object
+          type: array
+          x-go-name: Qualification
+        resourceType:
+          type: string
+          x-go-name: ResourceType
+        telecom:
+          items:
+            $ref: '#/components/schemas/Telecom'
+          type: array
+          x-go-name: Telecom
+        text:
+          $ref: '#/components/schemas/Text'
+      type: object
+      x-go-name: Practitioner
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/models
+    Code:
+      properties:
+        coding:
+          items:
+            $ref: '#/components/schemas/Coding'
+          type: array
+          x-go-name: Coding
+        extension:
+          items:
+            $ref: '#/components/schemas/Extension'
+          type: array
+          x-go-name: Extension
+        id:
+          type: string
+          x-go-name: ID
+        text:
+          type: string
+          x-go-name: Text
       type: object
       x-go-package: gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/models/shared
     LocationAPIResponse:
@@ -2106,25 +1805,298 @@ components:
       type: object
       x-go-name: Location
       x-go-package: gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/models
-    Quantity:
+    Period:
+      properties:
+        end:
+          type: string
+          x-go-name: End
+        start:
+          type: string
+          x-go-name: Start
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/models/shared
+    apiResponse:
+      properties:
+        entry:
+          items:
+            type: object
+          type: array
+          x-go-name: Entry
+        link:
+          items:
+            $ref: '#/components/schemas/Link'
+          type: array
+          x-go-name: Link
+        meta:
+          $ref: '#/components/schemas/Meta'
+        resourceType:
+          type: string
+          x-go-name: ResourceType
+        total:
+          format: int64
+          type: integer
+          x-go-name: Total
+        type:
+          type: string
+          x-go-name: Type
+      type: object
+      x-go-name: APIResponse
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/response
+    Reference:
+      properties:
+        display:
+          type: string
+          x-go-name: Display
+        reference:
+          type: string
+          x-go-name: Reference
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/models/shared
+    NotAvailable:
+      properties:
+        description:
+          type: string
+          x-go-name: Description
+        during:
+          $ref: '#/components/schemas/Period'
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/models/shared
+    Identifier:
+      properties:
+        assigner:
+          $ref: '#/components/schemas/Reference'
+        id:
+          type: string
+          x-go-name: ID
+        period:
+          $ref: '#/components/schemas/Period'
+        system:
+          type: string
+          x-go-name: System
+        type:
+          $ref: '#/components/schemas/Code'
+        use:
+          type: string
+          x-go-name: Use
+        value:
+          type: string
+          x-go-name: Value
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/models/shared
+    HumanName:
+      properties:
+        family:
+          type: string
+          x-go-name: Family
+        given:
+          items:
+            type: string
+          type: array
+          x-go-name: Given
+        period:
+          $ref: '#/components/schemas/Period'
+        prefix:
+          items:
+            type: string
+          type: array
+          x-go-name: Prefix
+        suffix:
+          items:
+            type: string
+          type: array
+          x-go-name: Suffix
+        text:
+          type: string
+          x-go-name: Text
+        use:
+          type: string
+          x-go-name: Use
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/models/shared
+    Meta:
+      properties:
+        extension:
+          items:
+            $ref: '#/components/schemas/Extension'
+          type: array
+          x-go-name: Extension
+        lastUpdated:
+          type: string
+          x-go-name: Lastupdated
+        profile:
+          items:
+            type: string
+          type: array
+          x-go-name: Profile
+        source:
+          type: string
+          x-go-name: Source
+        versionId:
+          type: string
+          x-go-name: Versionid
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/models/shared
+    Coding:
       properties:
         code:
           type: string
           x-go-name: Code
-        comparator:
+        display:
           type: string
-          x-go-name: Comparator
+          x-go-name: Display
         system:
           type: string
           x-go-name: System
-        unit:
-          type: string
-          x-go-name: Unit
-        value:
-          format: double
-          type: number
-          x-go-name: Value
       type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/models/shared
+    OrganizationAPIResponse:
+      properties:
+        active:
+          type: boolean
+          x-go-name: Active
+        address:
+          items:
+            $ref: '#/components/schemas/Address'
+          type: array
+          x-go-name: Address
+        alias:
+          items:
+            type: string
+          type: array
+          x-go-name: Alias
+        contact:
+          items:
+            $ref: '#/components/schemas/Contact'
+          type: array
+          x-go-name: Contact
+        description:
+          type: string
+          x-go-name: Description
+        endpoint:
+          items:
+            $ref: '#/components/schemas/Reference'
+          type: array
+          x-go-name: Endpoint
+        extension:
+          items:
+            $ref: '#/components/schemas/Extension'
+          type: array
+          x-go-name: Extension
+        id:
+          type: string
+          x-go-name: ID
+        identifier:
+          items:
+            $ref: '#/components/schemas/Identifier'
+          type: array
+          x-go-name: Identifier
+        language:
+          type: string
+          x-go-name: Language
+        meta:
+          $ref: '#/components/schemas/Meta'
+        name:
+          type: string
+          x-go-name: Name
+        partOf:
+          $ref: '#/components/schemas/Reference'
+        resourceType:
+          type: string
+          x-go-name: ResourceType
+        telecom:
+          items:
+            $ref: '#/components/schemas/Telecom'
+          type: array
+          x-go-name: Telecom
+        text:
+          $ref: '#/components/schemas/Text'
+        type:
+          items:
+            $ref: '#/components/schemas/Code'
+          type: array
+          x-go-name: Type
+      type: object
+      x-go-name: Organization
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/models
+    PractitionerRoleAPIResponse:
+      properties:
+        active:
+          type: boolean
+          x-go-name: Active
+        availabilityExceptions:
+          type: string
+          x-go-name: AvailabilityExceptions
+        availableTime:
+          items:
+            $ref: '#/components/schemas/AvailableTime'
+          type: array
+          x-go-name: AvailableTime
+        code:
+          items:
+            $ref: '#/components/schemas/Code'
+          type: array
+          x-go-name: Code
+        endpoint:
+          items:
+            $ref: '#/components/schemas/Reference'
+          type: array
+          x-go-name: Endpoint
+        extension:
+          items:
+            $ref: '#/components/schemas/Extension'
+          type: array
+          x-go-name: Extension
+        healthcareService:
+          items:
+            $ref: '#/components/schemas/Reference'
+          type: array
+          x-go-name: Healthcareservice
+        id:
+          type: string
+          x-go-name: ID
+        identifier:
+          items:
+            $ref: '#/components/schemas/Identifier'
+          type: array
+          x-go-name: Identifier
+        language:
+          type: string
+          x-go-name: Language
+        location:
+          items:
+            $ref: '#/components/schemas/Reference'
+          type: array
+          x-go-name: Location
+        meta:
+          $ref: '#/components/schemas/Meta'
+        notAvailable:
+          items:
+            $ref: '#/components/schemas/NotAvailable'
+          type: array
+          x-go-name: NotAvailable
+        organization:
+          $ref: '#/components/schemas/Reference'
+        period:
+          $ref: '#/components/schemas/Period'
+        practitioner:
+          $ref: '#/components/schemas/Reference'
+        resourceType:
+          type: string
+          x-go-name: ResourceType
+        specialty:
+          items:
+            $ref: '#/components/schemas/Code'
+          type: array
+          x-go-name: Specialty
+        telecom:
+          items:
+            $ref: '#/components/schemas/Telecom'
+          type: array
+          x-go-name: Telecom
+        text:
+          $ref: '#/components/schemas/Text'
+      type: object
+      x-go-name: PractitionerRole
       x-go-package: gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/models
     OrganizationAffiliationAPIResponse:
       properties:
@@ -2193,136 +2165,164 @@ components:
       type: object
       x-go-name: OrganizationAffiliation
       x-go-package: gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/models
-    apiResponse:
+    HealthcareServiceAPIResponse:
       properties:
-        entry:
+        active:
+          type: boolean
+          x-go-name: Active
+        appointmentRequired:
+          type: boolean
+          x-go-name: Appointmentrequired
+        availabilityExceptions:
+          type: string
+          x-go-name: AvailabilityExceptions
+        availableTime:
           items:
+            $ref: '#/components/schemas/AvailableTime'
+          type: array
+          x-go-name: AvailableTime
+        category:
+          items:
+            $ref: '#/components/schemas/Code'
+          type: array
+          x-go-name: Category
+        characteristic:
+          items:
+            $ref: '#/components/schemas/Code'
+          type: array
+          x-go-name: Characteristic
+        comment:
+          type: string
+          x-go-name: Comment
+        communication:
+          items:
+            $ref: '#/components/schemas/Code'
+          type: array
+          x-go-name: Communication
+        coverageArea:
+          items:
+            $ref: '#/components/schemas/Reference'
+          type: array
+          x-go-name: CoverageArea
+        eligibility:
+          items:
+            properties:
+              code:
+                $ref: '#/components/schemas/Code'
+              comment:
+                type: string
+                x-go-name: Comment
+              id:
+                type: string
+                x-go-name: ID
             type: object
           type: array
-          x-go-name: Entry
-        link:
+          x-go-name: Eligibility
+        endpoint:
           items:
-            $ref: '#/components/schemas/Link'
+            $ref: '#/components/schemas/Reference'
           type: array
-          x-go-name: Link
+          x-go-name: Endpoint
+        extension:
+          items:
+            $ref: '#/components/schemas/Extension'
+          type: array
+          x-go-name: Extension
+        extraDetails:
+          type: string
+          x-go-name: ExtraDetails
+        id:
+          type: string
+          x-go-name: ID
+        identifier:
+          items:
+            $ref: '#/components/schemas/Identifier'
+          type: array
+          x-go-name: Identifier
+        language:
+          type: string
+          x-go-name: Language
+        location:
+          items:
+            $ref: '#/components/schemas/Reference'
+          type: array
+          x-go-name: Location
         meta:
           $ref: '#/components/schemas/Meta'
+        name:
+          type: string
+          x-go-name: Name
+        notAvailable:
+          items:
+            $ref: '#/components/schemas/NotAvailable'
+          type: array
+          x-go-name: NotAvailable
+        program:
+          items:
+            $ref: '#/components/schemas/Code'
+          type: array
+          x-go-name: Program
+        providedBy:
+          $ref: '#/components/schemas/Reference'
+        referralMethod:
+          items:
+            $ref: '#/components/schemas/Code'
+          type: array
+          x-go-name: ReferralMethod
         resourceType:
           type: string
           x-go-name: ResourceType
-        total:
-          format: int64
-          type: integer
-          x-go-name: Total
+        serviceProvisionCode:
+          items:
+            $ref: '#/components/schemas/Code'
+          type: array
+          x-go-name: ServiceProvisionCode
+        specialty:
+          items:
+            $ref: '#/components/schemas/Code'
+          type: array
+          x-go-name: Specialty
+        telecom:
+          items:
+            $ref: '#/components/schemas/Telecom'
+          type: array
+          x-go-name: Telecom
+        text:
+          $ref: '#/components/schemas/Text'
         type:
-          type: string
+          items:
+            $ref: '#/components/schemas/Code'
+          type: array
           x-go-name: Type
       type: object
-      x-go-name: APIResponse
-      x-go-package: gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/response
-    Reference:
+      x-go-name: HealthcareService
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/models
+    Link:
       properties:
-        display:
+        relation:
           type: string
-          x-go-name: Display
-        reference:
-          type: string
-          x-go-name: Reference
-      type: object
-      x-go-package: gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/models/shared
-    CodeableConcept:
-      properties:
-        coding:
-          items:
-            $ref: '#/components/schemas/Coding'
-          type: array
-          x-go-name: Coding
-        text:
-          type: string
-          x-go-name: Text
-      type: object
-      x-go-package: gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/models/shared
-    NotAvailable:
-      properties:
-        description:
-          type: string
-          x-go-name: Description
-        during:
-          $ref: '#/components/schemas/Period'
-      type: object
-      x-go-package: gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/models/shared
-    Extension:
-      properties:
-        extension:
-          items:
-            properties:
-              url:
-                type: string
-                x-go-name: URL
-              valueAttachment:
-                $ref: '#/components/schemas/Attachment'
-              valueBoolean:
-                type: boolean
-                x-go-name: ValueBoolean
-              valueCode:
-                type: string
-                x-go-name: ValueCode
-              valueCodeableConcept:
-                $ref: '#/components/schemas/CodeableConcept'
-              valueDecimal:
-                format: double
-                type: number
-                x-go-name: ValueDecimal
-              valueIdentifier:
-                $ref: '#/components/schemas/Identifier'
-              valuePeriod:
-                $ref: '#/components/schemas/Period'
-              valueReference:
-                $ref: '#/components/schemas/Reference'
-              valueString:
-                type: string
-                x-go-name: ValueString
-              valueTime:
-                type: string
-                x-go-name: ValueTime
-              valueUri:
-                type: string
-                x-go-name: ValueURI
-            type: object
-          type: array
-          x-go-name: Extension
+          x-go-name: Relation
         url:
           type: string
           x-go-name: URL
-        valueAttachment:
-          $ref: '#/components/schemas/Attachment'
-        valueBoolean:
+      type: object
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/response
+    AvailableTime:
+      properties:
+        allDay:
           type: boolean
-          x-go-name: ValueBoolean
-        valueCode:
+          x-go-name: AllDay
+        availableEndTime:
           type: string
-          x-go-name: ValueCode
-        valueCodeableConcept:
-          $ref: '#/components/schemas/CodeableConcept'
-        valueDecimal:
-          format: double
-          type: number
-          x-go-name: ValueDecimal
-        valueIdentifier:
-          $ref: '#/components/schemas/Identifier'
-        valuePeriod:
-          $ref: '#/components/schemas/Period'
-        valueReference:
-          $ref: '#/components/schemas/Reference'
-        valueString:
+          x-go-name: AvailableEndtime
+        availableStartTime:
           type: string
-          x-go-name: ValueString
-        valueTime:
-          type: string
-          x-go-name: ValueTime
-        valueUri:
-          type: string
-          x-go-name: ValueURI
+          x-go-name: AvailableStarttime
+        daysOfWeek:
+          items:
+            type: string
+          type: array
+          x-go-name: DaysOfWeek
       type: object
       x-go-package: gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/models/shared
   securitySchemes:

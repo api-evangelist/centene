@@ -65,27 +65,6 @@ paths:
                 $ref: '#/components/schemas/countiesResponseObject'
 components:
   schemas:
-    countiesRequest:
-      type: object
-      properties:
-        streetAddress:
-          type: string
-          example: 1261 W 76th St
-        url:
-          type: string
-          example: county
-    countyResult:
-      type: object
-      properties:
-        countyName:
-          type: string
-          example: King
-        countyFIPSCode:
-          type: string
-          example: 53033
-        state:
-          type: string
-          example: WA
     countiesResponseObject:
       type: array
       items:
@@ -112,6 +91,27 @@ components:
         '803601':
           type: string
           example: Child Welfare Specialty Plan
+    countyResult:
+      type: object
+      properties:
+        countyName:
+          type: string
+          example: King
+        countyFIPSCode:
+          type: string
+          example: 53033
+        state:
+          type: string
+          example: WA
+    countiesRequest:
+      type: object
+      properties:
+        streetAddress:
+          type: string
+          example: 1261 W 76th St
+        url:
+          type: string
+          example: county
   securitySchemes:
     basicAuth:
       type: http

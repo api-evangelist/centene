@@ -278,185 +278,6 @@ paths:
       - Bearer: []
 components:
   schemas:
-    AllergyIntolerance:
-      required:
-      - category
-      - clinicalStatus
-      - code
-      - criticality
-      - id
-      - meta
-      - patient
-      - reaction
-      - resourceType
-      - text
-      - verificationStatus
-      type: object
-      properties:
-        resourceType:
-          minLength: 1
-          type: string
-        id:
-          minLength: 1
-          type: string
-        meta:
-          required:
-          - profile
-          type: object
-          properties:
-            profile:
-              type: array
-              items:
-                type: object
-                properties: {}
-        text:
-          required:
-          - div
-          - status
-          type: object
-          properties:
-            status:
-              minLength: 1
-              type: string
-            div:
-              minLength: 1
-              type: string
-        clinicalStatus:
-          required:
-          - coding
-          type: object
-          properties:
-            coding:
-              minItems: 1
-              uniqueItems: true
-              type: array
-              items:
-                required:
-                - code
-                - system
-                type: object
-                properties:
-                  system:
-                    minLength: 1
-                    type: string
-                  code:
-                    minLength: 1
-                    type: string
-        verificationStatus:
-          required:
-          - coding
-          type: object
-          properties:
-            coding:
-              minItems: 1
-              uniqueItems: true
-              type: array
-              items:
-                required:
-                - code
-                - system
-                type: object
-                properties:
-                  system:
-                    minLength: 1
-                    type: string
-                  code:
-                    minLength: 1
-                    type: string
-        category:
-          type: array
-          items:
-            type: object
-            properties: {}
-        criticality:
-          minLength: 1
-          type: string
-        code:
-          required:
-          - coding
-          - text
-          type: object
-          properties:
-            coding:
-              minItems: 1
-              uniqueItems: true
-              type: array
-              items:
-                required:
-                - code
-                - display
-                - system
-                type: object
-                properties:
-                  system:
-                    minLength: 1
-                    type: string
-                  code:
-                    minLength: 1
-                    type: string
-                  display:
-                    minLength: 1
-                    type: string
-            text:
-              minLength: 1
-              type: string
-        patient:
-          required:
-          - display
-          - reference
-          type: object
-          properties:
-            reference:
-              minLength: 1
-              type: string
-            display:
-              minLength: 1
-              type: string
-        reaction:
-          minItems: 1
-          uniqueItems: true
-          type: array
-          items:
-            required:
-            - severity
-            type: object
-            properties:
-              manifestation:
-                minItems: 1
-                uniqueItems: true
-                type: array
-                items:
-                  required:
-                  - text
-                  type: object
-                  properties:
-                    coding:
-                      minItems: 1
-                      uniqueItems: true
-                      type: array
-                      items:
-                        required:
-                        - code
-                        - display
-                        - system
-                        type: object
-                        properties:
-                          system:
-                            minLength: 1
-                            type: string
-                          code:
-                            minLength: 1
-                            type: string
-                          display:
-                            minLength: 1
-                            type: string
-                    text:
-                      minLength: 1
-                      type: string
-              severity:
-                minLength: 1
-                type: string
-      description: ''
     AllergyIntolerance-search:
       required:
       - entry
@@ -693,6 +514,185 @@ components:
                         severity:
                           minLength: 1
                           type: string
+      description: ''
+    AllergyIntolerance:
+      required:
+      - category
+      - clinicalStatus
+      - code
+      - criticality
+      - id
+      - meta
+      - patient
+      - reaction
+      - resourceType
+      - text
+      - verificationStatus
+      type: object
+      properties:
+        resourceType:
+          minLength: 1
+          type: string
+        id:
+          minLength: 1
+          type: string
+        meta:
+          required:
+          - profile
+          type: object
+          properties:
+            profile:
+              type: array
+              items:
+                type: object
+                properties: {}
+        text:
+          required:
+          - div
+          - status
+          type: object
+          properties:
+            status:
+              minLength: 1
+              type: string
+            div:
+              minLength: 1
+              type: string
+        clinicalStatus:
+          required:
+          - coding
+          type: object
+          properties:
+            coding:
+              minItems: 1
+              uniqueItems: true
+              type: array
+              items:
+                required:
+                - code
+                - system
+                type: object
+                properties:
+                  system:
+                    minLength: 1
+                    type: string
+                  code:
+                    minLength: 1
+                    type: string
+        verificationStatus:
+          required:
+          - coding
+          type: object
+          properties:
+            coding:
+              minItems: 1
+              uniqueItems: true
+              type: array
+              items:
+                required:
+                - code
+                - system
+                type: object
+                properties:
+                  system:
+                    minLength: 1
+                    type: string
+                  code:
+                    minLength: 1
+                    type: string
+        category:
+          type: array
+          items:
+            type: object
+            properties: {}
+        criticality:
+          minLength: 1
+          type: string
+        code:
+          required:
+          - coding
+          - text
+          type: object
+          properties:
+            coding:
+              minItems: 1
+              uniqueItems: true
+              type: array
+              items:
+                required:
+                - code
+                - display
+                - system
+                type: object
+                properties:
+                  system:
+                    minLength: 1
+                    type: string
+                  code:
+                    minLength: 1
+                    type: string
+                  display:
+                    minLength: 1
+                    type: string
+            text:
+              minLength: 1
+              type: string
+        patient:
+          required:
+          - display
+          - reference
+          type: object
+          properties:
+            reference:
+              minLength: 1
+              type: string
+            display:
+              minLength: 1
+              type: string
+        reaction:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            required:
+            - severity
+            type: object
+            properties:
+              manifestation:
+                minItems: 1
+                uniqueItems: true
+                type: array
+                items:
+                  required:
+                  - text
+                  type: object
+                  properties:
+                    coding:
+                      minItems: 1
+                      uniqueItems: true
+                      type: array
+                      items:
+                        required:
+                        - code
+                        - display
+                        - system
+                        type: object
+                        properties:
+                          system:
+                            minLength: 1
+                            type: string
+                          code:
+                            minLength: 1
+                            type: string
+                          display:
+                            minLength: 1
+                            type: string
+                    text:
+                      minLength: 1
+                      type: string
+              severity:
+                minLength: 1
+                type: string
       description: ''
   securitySchemes:
     Bearer:

@@ -59,12 +59,46 @@ paths:
           description: Not Found
 components:
   schemas:
+    Condition:
+      type: object
     RelevancyCondition:
       title: RelevancyCondition
       type: object
       anyOf:
       - $ref: '#/components/schemas/RelevancyByDistanceCondition'
       - $ref: '#/components/schemas/AvailabilityCondition'
+    AggregationType:
+      title: AggregationType
+      type: object
+      properties:
+        filter:
+          $ref: '#/components/schemas/Condition'
+        valuesAgg:
+          $ref: '#/components/schemas/AggregationValues'
+    Responses:
+      title: Response
+      type: object
+      properties:
+        totalHits:
+          type: number
+        queryTime:
+          type: string
+        results:
+          type: array
+          items:
+            type: string
+        aggs:
+          type: array
+          items:
+            type: string
+        scrollId:
+          type: string
+    AvailabilityCondition:
+      title: AvailabilityCondition
+      allOf:
+      - $ref: '#/components/schemas/RelevancyCondition'
+      - title: AvailabilityCondition
+        type: object
     AggregationValues:
       title: AggregationValues
       type: object
@@ -74,8 +108,50 @@ components:
         size:
           type: integer
           format: int32
-    Condition:
+    Aggregation:
+      title: Aggregation
       type: object
+      properties:
+        aggType:
+          $ref: '#/components/schemas/AggregationType'
+        aggs:
+          type: array
+          items:
+            $ref: '#/components/schemas/Aggregation'
+        name:
+          type: string
+    CarrierEntityRequest:
+      title: CarrierEntityRequest
+      type: object
+      properties:
+        aggs:
+          type: array
+          items:
+            $ref: '#/components/schemas/Aggregation'
+        customQuery:
+          $ref: '#/components/schemas/Condition'
+        from:
+          type: integer
+          format: int32
+        matchedLists:
+          type: array
+          items:
+            $ref: '#/components/schemas/MatchedListsCondition'
+        relevancy:
+          type: array
+          items:
+            $ref: '#/components/schemas/RelevancyCondition'
+        size:
+          type: integer
+          format: int32
+    MatchedListsCondition:
+      title: MatchedListsCondition
+      type: object
+      properties:
+        filter:
+          type: string
+        list:
+          type: string
     RelevancyByDistanceCondition:
       title: RelevancyByDistanceCondition
       properties:
@@ -108,82 +184,6 @@ components:
             type: string
           scale:
             type: string
-    AvailabilityCondition:
-      title: AvailabilityCondition
-      allOf:
-      - $ref: '#/components/schemas/RelevancyCondition'
-      - title: AvailabilityCondition
-        type: object
-    AggregationType:
-      title: AggregationType
-      type: object
-      properties:
-        filter:
-          $ref: '#/components/schemas/Condition'
-        valuesAgg:
-          $ref: '#/components/schemas/AggregationValues'
-    MatchedListsCondition:
-      title: MatchedListsCondition
-      type: object
-      properties:
-        filter:
-          type: string
-        list:
-          type: string
-    CarrierEntityRequest:
-      title: CarrierEntityRequest
-      type: object
-      properties:
-        aggs:
-          type: array
-          items:
-            $ref: '#/components/schemas/Aggregation'
-        customQuery:
-          $ref: '#/components/schemas/Condition'
-        from:
-          type: integer
-          format: int32
-        matchedLists:
-          type: array
-          items:
-            $ref: '#/components/schemas/MatchedListsCondition'
-        relevancy:
-          type: array
-          items:
-            $ref: '#/components/schemas/RelevancyCondition'
-        size:
-          type: integer
-          format: int32
-    Responses:
-      title: Response
-      type: object
-      properties:
-        totalHits:
-          type: number
-        queryTime:
-          type: string
-        results:
-          type: array
-          items:
-            type: string
-        aggs:
-          type: array
-          items:
-            type: string
-        scrollId:
-          type: string
-    Aggregation:
-      title: Aggregation
-      type: object
-      properties:
-        aggType:
-          $ref: '#/components/schemas/AggregationType'
-        aggs:
-          type: array
-          items:
-            $ref: '#/components/schemas/Aggregation'
-        name:
-          type: string
   securitySchemes:
     api_key:
       type: apiKey

@@ -314,136 +314,6 @@ paths:
     - url: https://dev-int-api-gw.centene.com/fhir/v4/patientaccess
 components:
   schemas:
-    Location:
-      required:
-      - address
-      - description
-      - id
-      - identifier
-      - managingOrganization
-      - meta
-      - name
-      - position
-      - resourceType
-      - status
-      - telecom
-      - text
-      type: object
-      properties:
-        resourceType:
-          minLength: 1
-          type: string
-        id:
-          minLength: 1
-          type: string
-        meta:
-          required:
-          - profile
-          type: object
-          properties:
-            profile:
-              type: array
-              items:
-                type: object
-                properties: {}
-        text:
-          required:
-          - div
-          - status
-          type: object
-          properties:
-            status:
-              minLength: 1
-              type: string
-            div:
-              minLength: 1
-              type: string
-        identifier:
-          minItems: 1
-          uniqueItems: true
-          type: array
-          items:
-            required:
-            - system
-            - value
-            type: object
-            properties:
-              system:
-                minLength: 1
-                type: string
-              value:
-                minLength: 1
-                type: string
-        status:
-          minLength: 1
-          type: string
-        name:
-          minLength: 1
-          type: string
-        description:
-          minLength: 1
-          type: string
-        telecom:
-          minItems: 1
-          uniqueItems: true
-          type: array
-          items:
-            required:
-            - system
-            - value
-            type: object
-            properties:
-              system:
-                minLength: 1
-                type: string
-              value:
-                minLength: 1
-                type: string
-        address:
-          required:
-          - city
-          - country
-          - line
-          - postalCode
-          - state
-          type: object
-          properties:
-            line:
-              type: array
-              items:
-                type: object
-                properties: {}
-            city:
-              minLength: 1
-              type: string
-            state:
-              minLength: 1
-              type: string
-            postalCode:
-              minLength: 1
-              type: string
-            country:
-              minLength: 1
-              type: string
-        position:
-          required:
-          - latitude
-          - longitude
-          type: object
-          properties:
-            longitude:
-              type: number
-            latitude:
-              type: number
-        managingOrganization:
-          required:
-          - display
-          type: object
-          properties:
-            display:
-              minLength: 1
-              type: string
-      description: ''
     Location-search:
       required:
       - entry
@@ -632,13 +502,12 @@ components:
                         minLength: 1
                         type: string
       description: ''
-    Location_2:
+    Location:
       required:
       - address
-      - extension
-      - hoursOfOperation
+      - description
       - id
-      - language
+      - identifier
       - managingOrganization
       - meta
       - name
@@ -647,7 +516,6 @@ components:
       - status
       - telecom
       - text
-      - type
       type: object
       properties:
         resourceType:
@@ -658,21 +526,14 @@ components:
           type: string
         meta:
           required:
-          - lastUpdated
           - profile
           type: object
           properties:
-            lastUpdated:
-              minLength: 1
-              type: string
             profile:
               type: array
               items:
                 type: object
                 properties: {}
-        language:
-          minLength: 1
-          type: string
         text:
           required:
           - div
@@ -685,118 +546,51 @@ components:
             div:
               minLength: 1
               type: string
-        extension:
+        identifier:
           minItems: 1
           uniqueItems: true
           type: array
           items:
             required:
-            - url
-            type: object
-            properties:
-              url:
-                minLength: 1
-                type: string
-              valueCodeableConcept:
-                required:
-                - coding
-                type: object
-                properties:
-                  coding:
-                    minItems: 1
-                    uniqueItems: true
-                    type: array
-                    items:
-                      required:
-                      - code
-                      - system
-                      type: object
-                      properties:
-                        system:
-                          minLength: 1
-                          type: string
-                        code:
-                          minLength: 1
-                          type: string
-        status:
-          minLength: 1
-          type: string
-        name:
-          minLength: 1
-          type: string
-        type:
-          minItems: 1
-          uniqueItems: true
-          type: array
-          items:
-            type: object
-            properties:
-              coding:
-                minItems: 1
-                uniqueItems: true
-                type: array
-                items:
-                  required:
-                  - code
-                  - system
-                  type: object
-                  properties:
-                    system:
-                      minLength: 1
-                      type: string
-                    code:
-                      minLength: 1
-                      type: string
-        telecom:
-          minItems: 1
-          uniqueItems: true
-          type: array
-          items:
-            required:
-            - rank
             - system
             - value
             type: object
             properties:
-              extension:
-                minItems: 1
-                uniqueItems: true
-                type: array
-                items:
-                  required:
-                  - url
-                  type: object
-                  properties:
-                    extension:
-                      minItems: 1
-                      uniqueItems: true
-                      type: array
-                      items:
-                        required:
-                        - url
-                        - valueCode
-                        type: object
-                        properties:
-                          url:
-                            minLength: 1
-                            type: string
-                          valueCode:
-                            minLength: 1
-                            type: string
-                    url:
-                      minLength: 1
-                      type: string
               system:
                 minLength: 1
                 type: string
               value:
                 minLength: 1
                 type: string
-              rank:
-                type: number
+        status:
+          minLength: 1
+          type: string
+        name:
+          minLength: 1
+          type: string
+        description:
+          minLength: 1
+          type: string
+        telecom:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            required:
+            - system
+            - value
+            type: object
+            properties:
+              system:
+                minLength: 1
+                type: string
+              value:
+                minLength: 1
+                type: string
         address:
           required:
           - city
+          - country
           - line
           - postalCode
           - state
@@ -816,6 +610,9 @@ components:
             postalCode:
               minLength: 1
               type: string
+            country:
+              minLength: 1
+              type: string
         position:
           required:
           - latitude
@@ -828,50 +625,13 @@ components:
               type: number
         managingOrganization:
           required:
-          - reference
+          - display
           type: object
           properties:
-            reference:
+            display:
               minLength: 1
               type: string
-        hoursOfOperation:
-          minItems: 1
-          uniqueItems: true
-          type: array
-          items:
-            type: object
-            properties:
-              daysOfWeek:
-                type: array
-                items:
-                  type: object
-                  properties: {}
       description: ''
-    GeneralError:
-      required:
-      - resourceType
-      - issue
-      type: object
-      properties:
-        resourceType:
-          minLength: 1
-          type: string
-        issue:
-          required:
-          - severity
-          - code
-          - details
-          type: object
-          properties:
-            severity:
-              minLength: 1
-              type: string
-            code:
-              minLength: 1
-              type: string
-            details:
-              minLength: 1
-              type: string
     Location-search_2:
       required:
       - entry
@@ -1145,6 +905,246 @@ components:
                             type: object
                             properties: {}
       description: ''
+    Location_2:
+      required:
+      - address
+      - extension
+      - hoursOfOperation
+      - id
+      - language
+      - managingOrganization
+      - meta
+      - name
+      - position
+      - resourceType
+      - status
+      - telecom
+      - text
+      - type
+      type: object
+      properties:
+        resourceType:
+          minLength: 1
+          type: string
+        id:
+          minLength: 1
+          type: string
+        meta:
+          required:
+          - lastUpdated
+          - profile
+          type: object
+          properties:
+            lastUpdated:
+              minLength: 1
+              type: string
+            profile:
+              type: array
+              items:
+                type: object
+                properties: {}
+        language:
+          minLength: 1
+          type: string
+        text:
+          required:
+          - div
+          - status
+          type: object
+          properties:
+            status:
+              minLength: 1
+              type: string
+            div:
+              minLength: 1
+              type: string
+        extension:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            required:
+            - url
+            type: object
+            properties:
+              url:
+                minLength: 1
+                type: string
+              valueCodeableConcept:
+                required:
+                - coding
+                type: object
+                properties:
+                  coding:
+                    minItems: 1
+                    uniqueItems: true
+                    type: array
+                    items:
+                      required:
+                      - code
+                      - system
+                      type: object
+                      properties:
+                        system:
+                          minLength: 1
+                          type: string
+                        code:
+                          minLength: 1
+                          type: string
+        status:
+          minLength: 1
+          type: string
+        name:
+          minLength: 1
+          type: string
+        type:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            type: object
+            properties:
+              coding:
+                minItems: 1
+                uniqueItems: true
+                type: array
+                items:
+                  required:
+                  - code
+                  - system
+                  type: object
+                  properties:
+                    system:
+                      minLength: 1
+                      type: string
+                    code:
+                      minLength: 1
+                      type: string
+        telecom:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            required:
+            - rank
+            - system
+            - value
+            type: object
+            properties:
+              extension:
+                minItems: 1
+                uniqueItems: true
+                type: array
+                items:
+                  required:
+                  - url
+                  type: object
+                  properties:
+                    extension:
+                      minItems: 1
+                      uniqueItems: true
+                      type: array
+                      items:
+                        required:
+                        - url
+                        - valueCode
+                        type: object
+                        properties:
+                          url:
+                            minLength: 1
+                            type: string
+                          valueCode:
+                            minLength: 1
+                            type: string
+                    url:
+                      minLength: 1
+                      type: string
+              system:
+                minLength: 1
+                type: string
+              value:
+                minLength: 1
+                type: string
+              rank:
+                type: number
+        address:
+          required:
+          - city
+          - line
+          - postalCode
+          - state
+          type: object
+          properties:
+            line:
+              type: array
+              items:
+                type: object
+                properties: {}
+            city:
+              minLength: 1
+              type: string
+            state:
+              minLength: 1
+              type: string
+            postalCode:
+              minLength: 1
+              type: string
+        position:
+          required:
+          - latitude
+          - longitude
+          type: object
+          properties:
+            longitude:
+              type: number
+            latitude:
+              type: number
+        managingOrganization:
+          required:
+          - reference
+          type: object
+          properties:
+            reference:
+              minLength: 1
+              type: string
+        hoursOfOperation:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            type: object
+            properties:
+              daysOfWeek:
+                type: array
+                items:
+                  type: object
+                  properties: {}
+      description: ''
+    GeneralError:
+      required:
+      - resourceType
+      - issue
+      type: object
+      properties:
+        resourceType:
+          minLength: 1
+          type: string
+        issue:
+          required:
+          - severity
+          - code
+          - details
+          type: object
+          properties:
+            severity:
+              minLength: 1
+              type: string
+            code:
+              minLength: 1
+              type: string
+            details:
+              minLength: 1
+              type: string
   securitySchemes:
     Bearer:
       type: http

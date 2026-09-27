@@ -557,31 +557,6 @@ components:
                     minLength: 1
                     type: string
       description: ''
-    GeneralError:
-      required:
-      - resourceType
-      - issue
-      type: object
-      properties:
-        resourceType:
-          minLength: 1
-          type: string
-        issue:
-          required:
-          - severity
-          - code
-          - details
-          type: object
-          properties:
-            severity:
-              minLength: 1
-              type: string
-            code:
-              minLength: 1
-              type: string
-            details:
-              minLength: 1
-              type: string
     Organization_2:
       required:
       - active
@@ -741,6 +716,31 @@ components:
                                 minLength: 1
                                 type: string
       description: ''
+    GeneralError:
+      required:
+      - resourceType
+      - issue
+      type: object
+      properties:
+        resourceType:
+          minLength: 1
+          type: string
+        issue:
+          required:
+          - severity
+          - code
+          - details
+          type: object
+          properties:
+            severity:
+              minLength: 1
+              type: string
+            code:
+              minLength: 1
+              type: string
+            details:
+              minLength: 1
+              type: string
     Organization-search_2:
       required:
       - entry

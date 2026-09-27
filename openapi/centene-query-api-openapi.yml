@@ -572,64 +572,6 @@ paths:
       description: Prod DMZ
 components:
   schemas:
-    constantScore:
-      description: Used to apply logic that Wraps a filter query and returns every matching document with a relevance score equal to the boost parameter value
-      type: object
-      properties:
-        nested:
-          type: object
-          allOf:
-          - $ref: '#/components/schemas/Condition'
-          - type: object
-            required:
-            - query
-            properties:
-              boost:
-                type: number
-                format: float
-              query:
-                $ref: '#/components/schemas/Condition'
-    PanelCycle:
-      type: object
-      properties:
-        ageRestriction:
-          type: string
-        endDate:
-          type: string
-          format: date-time
-        genderLimitation:
-          type: string
-        highestAge:
-          type: string
-        highestUnits:
-          type: string
-        lowestAge:
-          type: string
-        lowestUnits:
-          type: string
-        panelCode:
-          type: string
-        panelLimit:
-          type: string
-        panelStatus:
-          type: string
-        startDate:
-          type: string
-          format: date-time
-    BoundingBox:
-      description: Provide coordinates as comma separated strings ("lat, lon") for <topLeft> point of the box, and <bottomRight> point.
-      type: object
-      properties:
-        boundingBox:
-          type: object
-          required:
-          - topLeft
-          - bottomRight
-          properties:
-            topLeft:
-              type: string
-            bottomRight:
-              type: string
     Day:
       type: object
       properties:
@@ -643,33 +585,69 @@ components:
         isoClose:
           type: string
           format: date-time
-    MedicaidNumber:
+    NetworkField:
       type: object
       properties:
-        effectiveDate:
+        code:
           type: string
-          format: date-time
-        expirationDate:
+        name:
           type: string
-          format: date-time
-        number:
+        networkId:
           type: string
-        state:
-          type: string
-    NationalProviderIdentifiers:
+    GeoCoords:
       type: object
       properties:
-        effectiveDate:
-          type: string
-          format: date-time
-        number:
-          type: string
-        terminationDate:
-          type: string
-          format: date-time
-        terminationReason:
-          type: string
+        coordinates:
+          type: array
+          items:
+            type: number
+            format: float
         type:
+          type: string
+    nameMatch:
+      type: object
+      properties:
+        nameMatch:
+          type: object
+          allOf:
+          - $ref: '#/components/schemas/Condition'
+          - type: object
+            required:
+            - field
+            - value
+            properties:
+              field:
+                type: string
+              value:
+                type: string
+              boost:
+                type: number
+                format: float
+              minimumMatch:
+                description: This field is optional. When provided, it should be a percentage i. e. 75% (Indicates that this percent of the total number of optional clauses are necessary. The number computed from the percentage is rounded down and used as the minimum) The value can be negative i.e. -25% (Indicates that this percent of the total number of optional clauses can be missing. The number computed from the percentage is rounded down, before being subtracted from the total to determine the minimum.) The value can't be 0%.
+                type: string
+    Phone:
+      type: object
+      properties:
+        afterHoursPhone:
+          type: string
+        fax:
+          type: string
+        phone:
+          type: string
+    MedicareNumber:
+      type: object
+      properties:
+        number:
+          type: string
+    Disorder:
+      type: object
+      properties:
+        disorder:
+          type: string
+        disorderDescription:
+          type: string
+        disorderDescriptionFull:
           type: string
     Location:
       type: object
@@ -738,41 +716,237 @@ components:
             $ref: '#/components/schemas/Specialty'
         taxIdNumber:
           type: string
-    Shape:
-      description: Provide an array of latitude, longitude points for your shape.
-      type: object
-      properties:
-        shape:
-          type: array
-          minItems: 1
-          items:
-            type: string
-    License:
-      type: object
-      properties:
-        effectiveDate:
-          type: string
-          format: date-time
-        expirationDate:
-          type: string
-          format: date-time
-        licenseNumber:
-          type: string
-        licenseType:
-          type: string
-        licensureStatus:
-          type: string
-        state:
-          type: string
-    UDA:
+    HospitalAffiliation:
       type: object
       properties:
         name:
           type: string
-        fields:
+        primary:
+          type: string
+        privilege:
+          type: string
+        privilegeEffectiveDate:
+          type: string
+          format: date-time
+        privilegeExpirationDate:
+          type: string
+          format: date-time
+    Bucket:
+      type: object
+      properties:
+        key:
+          type: string
+        aggs:
           type: array
           items:
-            $ref: '#/components/schemas/UDAField'
+            $ref: '#/components/schemas/AggResponse'
+        docCount:
+          type: integer
+          format: int64
+    HomeCommunityBasedService:
+      type: object
+      properties:
+        activeService:
+          type: string
+        countyServed:
+          type: string
+        endDate:
+          type: string
+          format: date-time
+        hcbsService:
+          type: string
+        healthPlan:
+          type: string
+        serviceDescription:
+          type: string
+        serviceGrouping:
+          type: string
+        startDate:
+          type: string
+          format: date-time
+        waiver:
+          type: string
+    PracPhone:
+      type: object
+      properties:
+        afterHoursPhone:
+          type: string
+        fax:
+          type: string
+        phone:
+          type: string
+        verificationSource:
+          type: string
+        verifiedDate:
+          type: string
+          format: date
+    value:
+      description: Used to apply logic that restricts a provided field in the document to an **exact** value. The Value query should only be used against fields that have an exact value representation in Elasticsearch such as fields mapped as keyword or number.
+      type: object
+      properties:
+        value:
+          type: object
+          allOf:
+          - $ref: '#/components/schemas/Condition'
+          - type: object
+            required:
+            - field
+            - value
+            properties:
+              field:
+                type: string
+              value:
+                type: string
+    EligibleForDisplay:
+      type: object
+      properties:
+        eligibleIndicator:
+          type: string
+        endDate:
+          type: string
+          format: date-time
+        geoCoordsDisplay:
+          type: string
+        parDisplay:
+          type: string
+        printDisplay:
+          type: string
+        specialtyDisplay:
+          type: string
+        startDate:
+          type: string
+          format: date-time
+    aggType:
+      description: The aggType object contains the actual type of aggregation which will be like valuesAgg or filter or nested.
+      type: object
+      oneOf:
+      - $ref: '#/components/schemas/FilterAggregation'
+      - $ref: '#/components/schemas/ValuesAggregation'
+      - $ref: '#/components/schemas/NestedAggregation'
+      - $ref: '#/components/schemas/MinAggregation'
+      - $ref: '#/components/schemas/MaxAggregation'
+    UDAField:
+      type: object
+      properties:
+        name:
+          type: string
+        value:
+          type: string
+        value_date:
+          type: string
+        value_number:
+          type: number
+    Training:
+      type: object
+      properties:
+        cmeCredits:
+          type: string
+        completed:
+          type: string
+        degree:
+          type: string
+        endDate:
+          type: string
+          format: date-time
+        institutionName:
+          type: string
+        specialty:
+          type: string
+        startDate:
+          type: string
+          format: date-time
+        type:
+          type: string
+    PanelCycle:
+      type: object
+      properties:
+        ageRestriction:
+          type: string
+        endDate:
+          type: string
+          format: date-time
+        genderLimitation:
+          type: string
+        highestAge:
+          type: string
+        highestUnits:
+          type: string
+        lowestAge:
+          type: string
+        lowestUnits:
+          type: string
+        panelCode:
+          type: string
+        panelLimit:
+          type: string
+        panelStatus:
+          type: string
+        startDate:
+          type: string
+          format: date-time
+    exists:
+      type: object
+      properties:
+        exists:
+          type: object
+          allOf:
+          - $ref: '#/components/schemas/Condition'
+          - type: object
+            required:
+            - field
+            properties:
+              field:
+                type: string
+    requireAll:
+      description: A document must match all criteria in a requireAll to show up in results.
+      type: object
+      properties:
+        requireAll:
+          type: object
+          allOf:
+          - $ref: '#/components/schemas/Condition'
+          - type: object
+            required:
+            - criteria
+            properties:
+              criteria:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Condition'
+    AreaNetworkService:
+      type: object
+      properties:
+        area:
+          type: string
+        areaType:
+          type: string
+        network:
+          type: string
+        service:
+          type: string
+        serviceDescription:
+          type: string
+        serviceDescriptionFull:
+          type: string
+        serviceType:
+          type: string
+    constantScore:
+      description: Used to apply logic that Wraps a filter query and returns every matching document with a relevance score equal to the boost parameter value
+      type: object
+      properties:
+        nested:
+          type: object
+          allOf:
+          - $ref: '#/components/schemas/Condition'
+          - type: object
+            required:
+            - query
+            properties:
+              boost:
+                type: number
+                format: float
+              query:
+                $ref: '#/components/schemas/Condition'
     Address:
       type: object
       properties:
@@ -814,38 +988,98 @@ components:
           type: string
         zipPlus4:
           type: string
-    Network:
+    AggResponse:
       type: object
       properties:
-        businessUnit:
-          $ref: '#/components/schemas/NetworkField'
-        carrier:
-          $ref: '#/components/schemas/NetworkField'
-        company:
-          $ref: '#/components/schemas/NetworkField'
-        healthNetNetwork:
+        name:
           type: string
-        healthPlan:
-          $ref: '#/components/schemas/NetworkField'
-        isVendor:
+        type:
           type: string
-        networkCycles:
+        buckets:
           type: array
           items:
-            $ref: '#/components/schemas/NetworkCycle'
-        product:
-          $ref: '#/components/schemas/NetworkField'
-    NestedAggregation:
-      description: Nested Aggregations are used to get aggregate values about the nested path.
+            $ref: '#/components/schemas/Bucket'
+        otherDocs:
+          type: integer
+          format: int64
+        docCount:
+          type: integer
+          format: int64
+        aggs:
+          type: array
+          items:
+            $ref: '#/components/schemas/AggResponse'
+    Shape:
+      description: Provide an array of latitude, longitude points for your shape.
       type: object
       properties:
-        nested:
-          type: object
-          required:
-          - path
-          properties:
-            path:
-              type: string
+        shape:
+          type: array
+          minItems: 1
+          items:
+            type: string
+    OfficeHours:
+      type: object
+      properties:
+        sunday:
+          $ref: '#/components/schemas/Day'
+        monday:
+          $ref: '#/components/schemas/Day'
+        tuesday:
+          $ref: '#/components/schemas/Day'
+        wednesday:
+          $ref: '#/components/schemas/Day'
+        thursday:
+          $ref: '#/components/schemas/Day'
+        friday:
+          $ref: '#/components/schemas/Day'
+        saturday:
+          $ref: '#/components/schemas/Day'
+    NetworkCycle:
+      type: object
+      properties:
+        attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/UDA'
+        endDate:
+          type: string
+          format: date-time
+        networkCycleId:
+          type: string
+        startDate:
+          type: string
+          format: date-time
+        status:
+          type: string
+    aggs:
+      description: The Aggregations object is where a user can request aggregate data about the query results. For example, a user could ask for an aggregation on locations.address.state to get a list of all states represented in the result data. There are different types of aggregations that can be used, and aggregations can be pipelined off of each other. Currently, an aggregation needs an accompanying customQuery to return results.
+      type: object
+      required:
+      - name
+      - aggType
+      properties:
+        name:
+          type: string
+        aggType:
+          $ref: '#/components/schemas/aggType'
+        aggs:
+          type: array
+          items:
+            $ref: '#/components/schemas/aggs'
+    Name:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        middleName:
+          type: string
+        salutation:
+          type: string
+        suffix:
+          type: string
     range:
       description: Can accept a single logical operator (lt, lte, gt, gte), but at most one upper and one lower.
       type: object
@@ -875,72 +1109,28 @@ components:
               lt:
                 description: less than
                 type: string
-    Modality:
+    License:
       type: object
       properties:
-        modality:
-          type: string
-        modalityDescription:
-          type: string
-        modalityDescriptionFull:
-          type: string
-    AdditionalAddress:
-      type: object
-      properties:
-        addressId:
-          type: string
-        addressLine1:
-          type: string
-        addressLine2:
-          type: string
-        city:
-          type: string
-        county:
-          type: string
-        endDate:
+        effectiveDate:
           type: string
           format: date-time
-        geoCoords:
-          $ref: '#/components/schemas/GeoCoords'
-        latitude:
-          type: string
-        longitude:
-          type: string
-        phoneNumbers:
-          type: array
-          items:
-            $ref: '#/components/schemas/PhoneNumber'
-        startDate:
+        expirationDate:
           type: string
           format: date-time
+        licenseNumber:
+          type: string
+        licenseType:
+          type: string
+        licensureStatus:
+          type: string
         state:
           type: string
-        stateCode:
-          type: string
-        type:
-          type: string
-        zipCode:
-          type: string
-        zipPlus4:
-          type: string
-    HospitalAffiliation:
+    UDASField:
       type: object
       properties:
-        name:
+        field_id:
           type: string
-        primary:
-          type: string
-        privilege:
-          type: string
-        privilegeEffectiveDate:
-          type: string
-          format: date-time
-        privilegeExpirationDate:
-          type: string
-          format: date-time
-    UDAField:
-      type: object
-      properties:
         name:
           type: string
         value:
@@ -949,6 +1139,126 @@ components:
           type: string
         value_number:
           type: number
+    Population:
+      type: object
+      properties:
+        population:
+          type: string
+        populationDescription:
+          type: string
+        populationDescriptionFull:
+          type: string
+    Condition:
+      type: object
+    ParticipatingPhysicianGroupIdentifiers:
+      type: object
+      properties:
+        ppgId:
+          type: string
+        parentPGGId:
+          type: string
+        capitatedPGG:
+          type: string
+        pcpRequired:
+          type: string
+        effectiveDate:
+          type: string
+          format: date
+    customQuery:
+      description: The Custom Query object is where a user can define the query they want to run on the data. There are "building block" queries outlined in the DSL to allow a user to construct a query specific to their needs.
+      type: object
+      properties:
+        customQuery:
+          type: object
+          oneOf:
+          - $ref: '#/components/schemas/value'
+          - $ref: '#/components/schemas/values'
+          - $ref: '#/components/schemas/range'
+          - $ref: '#/components/schemas/geoFilter'
+          - $ref: '#/components/schemas/nameMatch'
+          - $ref: '#/components/schemas/exists'
+          - $ref: '#/components/schemas/nested'
+          - $ref: '#/components/schemas/relevancyByDistance'
+          - $ref: '#/components/schemas/requireAll'
+          - $ref: '#/components/schemas/requireAny'
+          - $ref: '#/components/schemas/exclude'
+          - $ref: '#/components/schemas/constantScore'
+          - $ref: '#/components/schemas/alphaFilter'
+          - $ref: '#/components/schemas/prefix'
+    PhoneNumber:
+      type: object
+      properties:
+        number:
+          type: string
+        phoneId:
+          type: string
+        type:
+          type: string
+    MaxAggregation:
+      description: A single-value metrics aggregation that keeps track and returns the minimum value among numeric values extracted from the aggregated documents.
+      type: object
+      properties:
+        maxAgg:
+          type: object
+          required:
+          - field
+          properties:
+            field:
+              type: string
+            missing:
+              type: string
+    CarrierEntityResults:
+      type: object
+      properties:
+        totalHits:
+          type: integer
+          format: int64
+        queryTime:
+          type: string
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Result'
+        aggs:
+          type: array
+          items:
+            $ref: '#/components/schemas/AggResponse'
+    ServiceType:
+      type: object
+      properties:
+        serviceType:
+          type: string
+        serviceTypeDescription:
+          type: string
+        serviceTypeDescriptionFull:
+          type: string
+    AssociatedProvAttribute:
+      type: object
+      properties:
+        provId:
+          type: string
+        udas:
+          type: array
+          items:
+            $ref: '#/components/schemas/UDAS'
+    CaveatMessage:
+      type: object
+      properties:
+        caveatMessage:
+          type: string
+        caveatMessageDescription:
+          type: string
+        caveatMessageDescriptionFull:
+          type: string
+    BadgeCertification:
+      type: object
+      properties:
+        badgeOrCertType:
+          type: string
+        badgeOrCertTypeDescription:
+          type: string
+        badgeOrCertTypeDescriptionFull:
+          type: string
     CarrierEntity:
       type: object
       properties:
@@ -1066,214 +1376,105 @@ components:
         updateTime:
           type: string
           format: date-time
-    exists:
+    BoundingBox:
+      description: Provide coordinates as comma separated strings ("lat, lon") for <topLeft> point of the box, and <bottomRight> point.
       type: object
       properties:
-        exists:
+        boundingBox:
           type: object
-          allOf:
-          - $ref: '#/components/schemas/Condition'
-          - type: object
-            required:
-            - field
-            properties:
-              field:
-                type: string
-    aggs:
-      description: The Aggregations object is where a user can request aggregate data about the query results. For example, a user could ask for an aggregation on locations.address.state to get a list of all states represented in the result data. There are different types of aggregations that can be used, and aggregations can be pipelined off of each other. Currently, an aggregation needs an accompanying customQuery to return results.
-      type: object
-      required:
-      - name
-      - aggType
-      properties:
-        name:
-          type: string
-        aggType:
-          $ref: '#/components/schemas/aggType'
-        aggs:
-          type: array
-          items:
-            $ref: '#/components/schemas/aggs'
-    prefix:
+          required:
+          - topLeft
+          - bottomRight
+          properties:
+            topLeft:
+              type: string
+            bottomRight:
+              type: string
+    NationalProviderIdentifiers:
       type: object
       properties:
-        prefix:
-          type: object
-          allOf:
-          - $ref: '#/components/schemas/Condition'
-          - type: object
-            required:
-            - field
-            - value
-            properties:
-              field:
-                type: string
-              value:
-                type: string
-    UDAS:
-      type: object
-      properties:
-        udaId:
-          type: string
-        name:
-          type: string
-        fields:
-          type: array
-          items:
-            $ref: '#/components/schemas/UDASField'
-    nameMatch:
-      type: object
-      properties:
-        nameMatch:
-          type: object
-          allOf:
-          - $ref: '#/components/schemas/Condition'
-          - type: object
-            required:
-            - field
-            - value
-            properties:
-              field:
-                type: string
-              value:
-                type: string
-              boost:
-                type: number
-                format: float
-              minimumMatch:
-                description: This field is optional. When provided, it should be a percentage i. e. 75% (Indicates that this percent of the total number of optional clauses are necessary. The number computed from the percentage is rounded down and used as the minimum) The value can be negative i.e. -25% (Indicates that this percent of the total number of optional clauses can be missing. The number computed from the percentage is rounded down, before being subtracted from the total to determine the minimum.) The value can't be 0%.
-                type: string
-    nested:
-      description: Specifies a list where you can declare a nested path that corresponds to a list of documents on the main provider document (ie, locations is a list of locations documents for a provider), and whether to filter the API results to only include matching results for that list.
-      type: object
-      properties:
-        nested:
-          type: object
-          allOf:
-          - $ref: '#/components/schemas/Condition'
-          - type: object
-            required:
-            - path
-            - query
-            properties:
-              path:
-                type: string
-              query:
-                $ref: '#/components/schemas/Condition'
-              matchedList:
-                $ref: '#/components/schemas/matchedList'
-    CarrierEntityResults:
-      type: object
-      properties:
-        totalHits:
-          type: integer
-          format: int64
-        queryTime:
-          type: string
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/Result'
-        aggs:
-          type: array
-          items:
-            $ref: '#/components/schemas/AggResponse'
-    Disorder:
-      type: object
-      properties:
-        disorder:
-          type: string
-        disorderDescription:
-          type: string
-        disorderDescriptionFull:
-          type: string
-    CaveatMessage:
-      type: object
-      properties:
-        caveatMessage:
-          type: string
-        caveatMessageDescription:
-          type: string
-        caveatMessageDescriptionFull:
-          type: string
-    ParticipatingPhysicianGroupIdentifiers:
-      type: object
-      properties:
-        ppgId:
-          type: string
-        parentPGGId:
-          type: string
-        capitatedPGG:
-          type: string
-        pcpRequired:
-          type: string
         effectiveDate:
           type: string
-          format: date
-    ProvPhones:
-      type: object
-      properties:
-        afterHoursPhone:
+          format: date-time
+        number:
           type: string
-        fax:
+        terminationDate:
           type: string
-        phone:
-          type: string
-    customQuery:
-      description: The Custom Query object is where a user can define the query they want to run on the data. There are "building block" queries outlined in the DSL to allow a user to construct a query specific to their needs.
-      type: object
-      properties:
-        customQuery:
-          type: object
-          oneOf:
-          - $ref: '#/components/schemas/value'
-          - $ref: '#/components/schemas/values'
-          - $ref: '#/components/schemas/range'
-          - $ref: '#/components/schemas/geoFilter'
-          - $ref: '#/components/schemas/nameMatch'
-          - $ref: '#/components/schemas/exists'
-          - $ref: '#/components/schemas/nested'
-          - $ref: '#/components/schemas/relevancyByDistance'
-          - $ref: '#/components/schemas/requireAll'
-          - $ref: '#/components/schemas/requireAny'
-          - $ref: '#/components/schemas/exclude'
-          - $ref: '#/components/schemas/constantScore'
-          - $ref: '#/components/schemas/alphaFilter'
-          - $ref: '#/components/schemas/prefix'
-    AggResponse:
-      type: object
-      properties:
-        name:
+          format: date-time
+        terminationReason:
           type: string
         type:
           type: string
-        buckets:
-          type: array
-          items:
-            $ref: '#/components/schemas/Bucket'
-        otherDocs:
-          type: integer
-          format: int64
-        docCount:
-          type: integer
-          format: int64
-        aggs:
-          type: array
-          items:
-            $ref: '#/components/schemas/AggResponse'
-    MinAggregation:
-      description: A single-value metrics aggregation that keeps track and returns the minimum value among numeric values extracted from the aggregated documents.
+    Specialty:
       type: object
       properties:
-        minAgg:
+        be5Ends:
+          type: string
+        boardCertExp:
+          type: string
+        boardCertIssued:
+          type: string
+        boardStatus:
+          type: string
+        category:
+          type: string
+        categorySpanish:
+          type: string
+        certNumber:
+          type: string
+        description:
+          type: string
+        descriptionDisplay:
+          type: string
+        descriptionSpanish:
+          type: string
+        grouping:
+          type: string
+        groupingSpanish:
+          type: string
+        hatCode:
+          type: string
+        issuerName:
+          type: string
+        netLocEligible_derived:
+          type: string
+        networkStatus:
+          type: string
+        primary:
+          type: string
+        specialtyId:
+          type: string
+        takingBoards:
+          type: string
+    MedicaidNumber:
+      type: object
+      properties:
+        effectiveDate:
+          type: string
+          format: date-time
+        expirationDate:
+          type: string
+          format: date-time
+        number:
+          type: string
+        state:
+          type: string
+    exclude:
+      type: object
+      properties:
+        exclude:
           type: object
-          required:
-          - field
-          properties:
-            field:
-              type: string
-            missing:
-              type: string
+          allOf:
+          - $ref: '#/components/schemas/Condition'
+          - type: object
+            required:
+            - criteria
+            properties:
+              criteria:
+                type: array
+                maxItems: 1
+                items:
+                  $ref: '#/components/schemas/Condition'
     matchedList:
       type: object
       description: 'Used to return and/or filter down which locations match in the locations array. '
@@ -1307,121 +1508,15 @@ components:
           type: array
           items:
             type: string
-    requireAll:
-      description: A document must match all criteria in a requireAll to show up in results.
+    PublicTransportation:
       type: object
       properties:
-        requireAll:
-          type: object
-          allOf:
-          - $ref: '#/components/schemas/Condition'
-          - type: object
-            required:
-            - criteria
-            properties:
-              criteria:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Condition'
-    HomeCommunityBasedService:
-      type: object
-      properties:
-        activeService:
+        bus:
           type: string
-        countyServed:
+        train:
           type: string
-        endDate:
+        transitRoute:
           type: string
-          format: date-time
-        hcbsService:
-          type: string
-        healthPlan:
-          type: string
-        serviceDescription:
-          type: string
-        serviceGrouping:
-          type: string
-        startDate:
-          type: string
-          format: date-time
-        waiver:
-          type: string
-    GeoCoords:
-      type: object
-      properties:
-        coordinates:
-          type: array
-          items:
-            type: number
-            format: float
-        type:
-          type: string
-    Radius:
-      description: For filtering by a certain radial distance, eg. 100 miles. Simply provide <coordinates> as a comma separated string, lat, lon and <distance> for your specified range. Be sure to include your specified unit of measure in the distance field. (ie, 100mi for 100 miles or 300km for 300 kilometers)
-      type: object
-      properties:
-        radius:
-          type: object
-          required:
-          - coordinates
-          - distance
-          properties:
-            coordinates:
-              type: string
-            distance:
-              type: string
-    BadgeCertification:
-      type: object
-      properties:
-        badgeOrCertType:
-          type: string
-        badgeOrCertTypeDescription:
-          type: string
-        badgeOrCertTypeDescriptionFull:
-          type: string
-    aggType:
-      description: The aggType object contains the actual type of aggregation which will be like valuesAgg or filter or nested.
-      type: object
-      oneOf:
-      - $ref: '#/components/schemas/FilterAggregation'
-      - $ref: '#/components/schemas/ValuesAggregation'
-      - $ref: '#/components/schemas/NestedAggregation'
-      - $ref: '#/components/schemas/MinAggregation'
-      - $ref: '#/components/schemas/MaxAggregation'
-    MedicareNumber:
-      type: object
-      properties:
-        number:
-          type: string
-    NetworkLocationCycle:
-      type: object
-      properties:
-        attributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/UDA'
-        endDate:
-          type: string
-          format: date-time
-        excludeFromDirectory:
-          type: string
-        exclusionReason:
-          type: string
-        networkCycleIdRef:
-          type: string
-        networkLocationCycleId:
-          type: string
-        populations:
-          type: array
-          items:
-            $ref: '#/components/schemas/Population'
-        serviceTypes:
-          type: array
-          items:
-            $ref: '#/components/schemas/ServiceType'
-        startDate:
-          type: string
-          format: date-time
     Affiliation:
       type: object
       properties:
@@ -1533,29 +1628,10 @@ components:
           type: string
         taxonomy:
           type: string
-    Phone:
+    alphaFilter:
       type: object
       properties:
-        afterHoursPhone:
-          type: string
-        fax:
-          type: string
-        phone:
-          type: string
-    Population:
-      type: object
-      properties:
-        population:
-          type: string
-        populationDescription:
-          type: string
-        populationDescriptionFull:
-          type: string
-    value:
-      description: Used to apply logic that restricts a provided field in the document to an **exact** value. The Value query should only be used against fields that have an exact value representation in Elasticsearch such as fields mapped as keyword or number.
-      type: object
-      properties:
-        value:
+        alphaFilter:
           type: object
           allOf:
           - $ref: '#/components/schemas/Condition'
@@ -1568,27 +1644,6 @@ components:
                 type: string
               value:
                 type: string
-    Training:
-      type: object
-      properties:
-        cmeCredits:
-          type: string
-        completed:
-          type: string
-        degree:
-          type: string
-        endDate:
-          type: string
-          format: date-time
-        institutionName:
-          type: string
-        specialty:
-          type: string
-        startDate:
-          type: string
-          format: date-time
-        type:
-          type: string
     geoFilter:
       type: object
       properties:
@@ -1606,38 +1661,22 @@ components:
             - $ref: '#/components/schemas/BoundingBox'
             - $ref: '#/components/schemas/Radius'
             - $ref: '#/components/schemas/Shape'
-    EligibleForDisplay:
+    prefix:
       type: object
       properties:
-        eligibleIndicator:
-          type: string
-        endDate:
-          type: string
-          format: date-time
-        geoCoordsDisplay:
-          type: string
-        parDisplay:
-          type: string
-        printDisplay:
-          type: string
-        specialtyDisplay:
-          type: string
-        startDate:
-          type: string
-          format: date-time
-    MaxAggregation:
-      description: A single-value metrics aggregation that keeps track and returns the minimum value among numeric values extracted from the aggregated documents.
-      type: object
-      properties:
-        maxAgg:
+        prefix:
           type: object
-          required:
-          - field
-          properties:
-            field:
-              type: string
-            missing:
-              type: string
+          allOf:
+          - $ref: '#/components/schemas/Condition'
+          - type: object
+            required:
+            - field
+            - value
+            properties:
+              field:
+                type: string
+              value:
+                type: string
     Accreditation:
       type: object
       properties:
@@ -1658,89 +1697,58 @@ components:
         validationDate:
           type: string
           format: date-time
-    Bucket:
+    MinAggregation:
+      description: A single-value metrics aggregation that keeps track and returns the minimum value among numeric values extracted from the aggregated documents.
       type: object
       properties:
-        key:
-          type: string
-        aggs:
-          type: array
-          items:
-            $ref: '#/components/schemas/AggResponse'
-        docCount:
-          type: integer
-          format: int64
-    AssociatedProvAttribute:
+        minAgg:
+          type: object
+          required:
+          - field
+          properties:
+            field:
+              type: string
+            missing:
+              type: string
+    NestedAggregation:
+      description: Nested Aggregations are used to get aggregate values about the nested path.
       type: object
       properties:
-        provId:
-          type: string
-        udas:
-          type: array
-          items:
-            $ref: '#/components/schemas/UDAS'
-    PracPhone:
+        nested:
+          type: object
+          required:
+          - path
+          properties:
+            path:
+              type: string
+    nested:
+      description: Specifies a list where you can declare a nested path that corresponds to a list of documents on the main provider document (ie, locations is a list of locations documents for a provider), and whether to filter the API results to only include matching results for that list.
       type: object
       properties:
-        afterHoursPhone:
-          type: string
-        fax:
-          type: string
-        phone:
-          type: string
-        verificationSource:
-          type: string
-        verifiedDate:
-          type: string
-          format: date
-    NetworkCycle:
+        nested:
+          type: object
+          allOf:
+          - $ref: '#/components/schemas/Condition'
+          - type: object
+            required:
+            - path
+            - query
+            properties:
+              path:
+                type: string
+              query:
+                $ref: '#/components/schemas/Condition'
+              matchedList:
+                $ref: '#/components/schemas/matchedList'
+    UDA:
       type: object
       properties:
-        attributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/UDA'
-        endDate:
-          type: string
-          format: date-time
-        networkCycleId:
-          type: string
-        startDate:
-          type: string
-          format: date-time
-        status:
-          type: string
-    Result:
-      type: object
-      properties:
-        carrierEntity:
-          $ref: '#/components/schemas/CarrierEntity'
-    NetworkField:
-      type: object
-      properties:
-        code:
-          type: string
         name:
           type: string
-        networkId:
-          type: string
-    OfficeHours:
-      type: object
-      properties:
-        sunday:
-          $ref: '#/components/schemas/Day'
-        monday:
-          $ref: '#/components/schemas/Day'
-        tuesday:
-          $ref: '#/components/schemas/Day'
-        wednesday:
-          $ref: '#/components/schemas/Day'
-        thursday:
-          $ref: '#/components/schemas/Day'
-        friday:
-          $ref: '#/components/schemas/Day'
-        saturday:
-          $ref: '#/components/schemas/Day'
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/UDAField'
     requireAny:
       description: Any criteria in a requireAny Query can be true for a document in order for that document to be returned. A minimum of one of the criteria must be true.
       type: object
@@ -1757,6 +1765,144 @@ components:
                 type: array
                 items:
                   $ref: '#/components/schemas/Condition'
+    Meta:
+      type: object
+      properties:
+        fileName:
+          type: string
+        source:
+          type: string
+        lastUpdated:
+          type: string
+          format: date-time
+    AdditionalAddress:
+      type: object
+      properties:
+        addressId:
+          type: string
+        addressLine1:
+          type: string
+        addressLine2:
+          type: string
+        city:
+          type: string
+        county:
+          type: string
+        endDate:
+          type: string
+          format: date-time
+        geoCoords:
+          $ref: '#/components/schemas/GeoCoords'
+        latitude:
+          type: string
+        longitude:
+          type: string
+        phoneNumbers:
+          type: array
+          items:
+            $ref: '#/components/schemas/PhoneNumber'
+        startDate:
+          type: string
+          format: date-time
+        state:
+          type: string
+        stateCode:
+          type: string
+        type:
+          type: string
+        zipCode:
+          type: string
+        zipPlus4:
+          type: string
+    ProvPhones:
+      type: object
+      properties:
+        afterHoursPhone:
+          type: string
+        fax:
+          type: string
+        phone:
+          type: string
+    values:
+      description: Used to apply logic that restricts a provided field in the document to an array of **exact** values. The Values query should only be used against fields that have an exact value representation in Elasticsearch such as keyword or number.
+      type: object
+      properties:
+        values:
+          type: object
+          allOf:
+          - $ref: '#/components/schemas/Condition'
+          - type: object
+            required:
+            - field
+            - values
+            properties:
+              field:
+                type: string
+              values:
+                type: array
+                items:
+                  type: string
+    Result:
+      type: object
+      properties:
+        carrierEntity:
+          $ref: '#/components/schemas/CarrierEntity'
+    FilterAggregation:
+      description: Filter Aggregations are used to insert custom query syntax at an aggregation level to limit the scope of the matching documents for that aggregation and any pipelined aggregations.
+      type: object
+      properties:
+        filter:
+          type: object
+          allOf:
+          - $ref: '#/components/schemas/Condition'
+    UDAS:
+      type: object
+      properties:
+        udaId:
+          type: string
+        name:
+          type: string
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/UDASField'
+    Radius:
+      description: For filtering by a certain radial distance, eg. 100 miles. Simply provide <coordinates> as a comma separated string, lat, lon and <distance> for your specified range. Be sure to include your specified unit of measure in the distance field. (ie, 100mi for 100 miles or 300km for 300 kilometers)
+      type: object
+      properties:
+        radius:
+          type: object
+          required:
+          - coordinates
+          - distance
+          properties:
+            coordinates:
+              type: string
+            distance:
+              type: string
+    ValuesAggregation:
+      description: Value Aggregations are used to get aggregate values about the results of a query. And example would be the top 500 unique specialties.
+      type: object
+      properties:
+        valuesAgg:
+          type: object
+          required:
+          - field
+          properties:
+            field:
+              type: string
+            size:
+              type: integer
+              format: int32
+    Modality:
+      type: object
+      properties:
+        modality:
+          type: string
+        modalityDescription:
+          type: string
+        modalityDescriptionFull:
+          type: string
     relevancyByDistance:
       description: Documents will be sorted based on distance from the specified field, according to the custom parameters set.
       type: object
@@ -1795,211 +1941,56 @@ components:
                 type: string
               query:
                 $ref: '#/components/schemas/Condition'
-    exclude:
+    NetworkLocationCycle:
       type: object
       properties:
-        exclude:
-          type: object
-          allOf:
-          - $ref: '#/components/schemas/Condition'
-          - type: object
-            required:
-            - criteria
-            properties:
-              criteria:
-                type: array
-                maxItems: 1
-                items:
-                  $ref: '#/components/schemas/Condition'
-    Condition:
-      type: object
-    ServiceType:
-      type: object
-      properties:
-        serviceType:
-          type: string
-        serviceTypeDescription:
-          type: string
-        serviceTypeDescriptionFull:
-          type: string
-    PublicTransportation:
-      type: object
-      properties:
-        bus:
-          type: string
-        train:
-          type: string
-        transitRoute:
-          type: string
-    Name:
-      type: object
-      properties:
-        firstName:
-          type: string
-        lastName:
-          type: string
-        middleName:
-          type: string
-        salutation:
-          type: string
-        suffix:
-          type: string
-    alphaFilter:
-      type: object
-      properties:
-        alphaFilter:
-          type: object
-          allOf:
-          - $ref: '#/components/schemas/Condition'
-          - type: object
-            required:
-            - field
-            - value
-            properties:
-              field:
-                type: string
-              value:
-                type: string
-    AreaNetworkService:
-      type: object
-      properties:
-        area:
-          type: string
-        areaType:
-          type: string
-        network:
-          type: string
-        service:
-          type: string
-        serviceDescription:
-          type: string
-        serviceDescriptionFull:
-          type: string
-        serviceType:
-          type: string
-    Specialty:
-      type: object
-      properties:
-        be5Ends:
-          type: string
-        boardCertExp:
-          type: string
-        boardCertIssued:
-          type: string
-        boardStatus:
-          type: string
-        category:
-          type: string
-        categorySpanish:
-          type: string
-        certNumber:
-          type: string
-        description:
-          type: string
-        descriptionDisplay:
-          type: string
-        descriptionSpanish:
-          type: string
-        grouping:
-          type: string
-        groupingSpanish:
-          type: string
-        hatCode:
-          type: string
-        issuerName:
-          type: string
-        netLocEligible_derived:
-          type: string
-        networkStatus:
-          type: string
-        primary:
-          type: string
-        specialtyId:
-          type: string
-        takingBoards:
-          type: string
-    FilterAggregation:
-      description: Filter Aggregations are used to insert custom query syntax at an aggregation level to limit the scope of the matching documents for that aggregation and any pipelined aggregations.
-      type: object
-      properties:
-        filter:
-          type: object
-          allOf:
-          - $ref: '#/components/schemas/Condition'
-    PhoneNumber:
-      type: object
-      properties:
-        number:
-          type: string
-        phoneId:
-          type: string
-        type:
-          type: string
-    values:
-      description: Used to apply logic that restricts a provided field in the document to an array of **exact** values. The Values query should only be used against fields that have an exact value representation in Elasticsearch such as keyword or number.
-      type: object
-      properties:
-        values:
-          type: object
-          allOf:
-          - $ref: '#/components/schemas/Condition'
-          - type: object
-            required:
-            - field
-            - values
-            properties:
-              field:
-                type: string
-              values:
-                type: array
-                items:
-                  type: string
-    ValuesAggregation:
-      description: Value Aggregations are used to get aggregate values about the results of a query. And example would be the top 500 unique specialties.
-      type: object
-      properties:
-        valuesAgg:
-          type: object
-          required:
-          - field
-          properties:
-            field:
-              type: string
-            size:
-              type: integer
-              format: int32
-    Meta:
-      type: object
-      properties:
-        fileName:
-          type: string
-        source:
-          type: string
-        lastUpdated:
+        attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/UDA'
+        endDate:
           type: string
           format: date-time
-    UDASField:
+        excludeFromDirectory:
+          type: string
+        exclusionReason:
+          type: string
+        networkCycleIdRef:
+          type: string
+        networkLocationCycleId:
+          type: string
+        populations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Population'
+        serviceTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/ServiceType'
+        startDate:
+          type: string
+          format: date-time
+    Network:
       type: object
       properties:
-        field_id:
+        businessUnit:
+          $ref: '#/components/schemas/NetworkField'
+        carrier:
+          $ref: '#/components/schemas/NetworkField'
+        company:
+          $ref: '#/components/schemas/NetworkField'
+        healthNetNetwork:
           type: string
-        name:
+        healthPlan:
+          $ref: '#/components/schemas/NetworkField'
+        isVendor:
           type: string
-        value:
-          type: string
-        value_date:
-          type: string
-        value_number:
-          type: number
-    query:
-      type: object
-      properties:
-        streetAddress:
-          type: string
-          example: 1261 W 76th St
-        url:
-          type: string
-          example: sunshinehealth.com
+        networkCycles:
+          type: array
+          items:
+            $ref: '#/components/schemas/NetworkCycle'
+        product:
+          $ref: '#/components/schemas/NetworkField'
     fapNetworkServiceAreaWithoutMemberOrProvider:
       type: object
       properties:
@@ -2050,6 +2041,15 @@ components:
         stateCode:
           type: string
           example: CA
+    query:
+      type: object
+      properties:
+        streetAddress:
+          type: string
+          example: 1261 W 76th St
+        url:
+          type: string
+          example: sunshinehealth.com
     queryResponseObject:
       type: array
       items:

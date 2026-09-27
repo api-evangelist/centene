@@ -47,6 +47,7 @@ tags:
   - X12
   - EDI
   - Fortune 500
+  - Health Insurance
 tags_raw:
   - Healthcare
   - Insurance
@@ -68,6 +69,7 @@ tags_raw:
   - X12
   - EDI
   - Fortune 500
+  - Health Insurance
 created: '2024-01-15'
 modified: '2026-09-07'
 specificationVersion: '0.23'
@@ -2509,8 +2511,6 @@ apis:
   humanURL: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
   baseURL: https://iopc-pa.api.centene.com/iopc/pa
   tags:
-  - AllergyIntolerance
-  tags_raw:
   - Allergy Intolerance
   properties:
   - type: OpenAPI
@@ -2557,8 +2557,6 @@ apis:
   humanURL: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
   baseURL: https://iopc-pa.api.centene.com/iopc/pa
   tags:
-  - CarePlan
-  tags_raw:
   - Care plan
   properties:
   - type: OpenAPI
@@ -2605,8 +2603,6 @@ apis:
   humanURL: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
   baseURL: https://iopc-pa.api.centene.com/iopc/pa
   tags:
-  - HealthcareService
-  tags_raw:
   - Healthcare Service
   properties:
   - type: OpenAPI
@@ -2653,8 +2649,6 @@ apis:
   humanURL: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
   baseURL: https://iopc-pa.api.centene.com/iopc/pa
   tags:
-  - InsurancePlan
-  tags_raw:
   - Insurance Plan
   properties:
   - type: OpenAPI
@@ -2701,8 +2695,6 @@ apis:
   humanURL: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
   baseURL: https://iopc-pa.api.centene.com/iopc/pa
   tags:
-  - MedicationRequest
-  tags_raw:
   - Medication Request
   properties:
   - type: OpenAPI
@@ -2749,8 +2741,6 @@ apis:
   humanURL: https://partners.centene.com/apiDetail/2718669d-6e2e-42b5-8c90-0a82f13a30ba
   baseURL: https://iopc-pa.api.centene.com/iopc/pa
   tags:
-  - PractitionerRole
-  tags_raw:
   - Practitioner Role
   properties:
   - type: OpenAPI

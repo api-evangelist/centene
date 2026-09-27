@@ -13,7 +13,7 @@ paths:
       tags:
       - Extract
       summary: Send a query to PCES Extract API Interface
-      operationId: Execute Query and Start Extract Process
+      operationId: ExecuteQueryAndStartExtractProcess
       parameters:
       - name: index
         in: query
@@ -391,12 +391,14 @@ paths:
             '*/*':
               schema:
                 type: string
+      x-operation-id-source: normalized
+      x-operation-id-original: Execute Query and Start Extract Process
   /extract/scroll/{scrollId}:
     get:
       tags:
       - Extract
       summary: returns the next set of data in the Extract request
-      operationId: Execute Scroll and return next scroll set
+      operationId: ExecuteScrollAndReturnNextScrollSet
       parameters:
       - in: path
         name: scrollId
@@ -423,12 +425,14 @@ paths:
             '*/*':
               schema:
                 type: string
+      x-operation-id-source: normalized
+      x-operation-id-original: Execute Scroll and return next scroll set
   /extract/clear/{scrollId}:
     delete:
       tags:
       - Extract
       summary: Clears the Extract request from the cache
-      operationId: clear extract
+      operationId: clearExtract
       parameters:
       - in: path
         name: scrollId
@@ -453,6 +457,8 @@ paths:
             '*/*':
               schema:
                 type: string
+      x-operation-id-source: normalized
+      x-operation-id-original: clear extract
 components:
   securitySchemes:
     api_key:
