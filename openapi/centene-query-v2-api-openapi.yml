@@ -83,15 +83,68 @@ paths:
                 $ref: '#/components/schemas/networkResults'
 components:
   schemas:
-    networkResults:
+    query:
       type: object
       properties:
-        network:
-          items:
-            $ref: '#/components/schemas/queryV2ResponseNetworkObject'
-        providerProgramCodes:
-          items:
-            $ref: '#/components/schemas/providerProgramCodes'
+        streetAddress:
+          type: string
+          example: 1261 W 76th St
+        url:
+          type: string
+          example: sunshinehealth.com
+    queryWithFapNetworkTypeCode:
+      type: object
+      required:
+      - url
+      - city
+      - state
+      - zip
+      - effectiveDate
+      - countyFIPSCode
+      - fapNetworkTypeCode
+      properties:
+        url:
+          type: string
+          example: https://healthnetcalifornia.com
+        city:
+          type: string
+          example: Santa Clara
+        state:
+          type: string
+          example: CA
+        zip:
+          type: string
+          example: 95050
+        effectiveDate:
+          type: string
+          format: date
+          example: '2020-08-01'
+        countyFIPSCode:
+          type: string
+          example: 3081
+        fapNetworkTypeCode:
+          type: string
+          example: Commercial Group Off Exchange
+        includeProviderProgramCodesAggs:
+          type: string
+          enum:
+          - Y
+          - N
+          example: Y
+    providerProgramCodes:
+      type: object
+      properties:
+        providerProgramCode:
+          type: string
+          example: 1234
+        fapNetworkIdentifier:
+          type: string
+          example:
+          - '123401'
+          - '123402'
+          - '123403'
+    queryV2ResponseNetworkObject:
+      $ref: '#/components/schemas/fapNetworkServiceAreaWithoutMemberOrProvider'
     fapNetworkServiceAreaWithoutMemberOrProvider:
       type: object
       properties:
@@ -142,68 +195,15 @@ components:
         stateCode:
           type: string
           example: CA
-    providerProgramCodes:
+    networkResults:
       type: object
       properties:
-        providerProgramCode:
-          type: string
-          example: 1234
-        fapNetworkIdentifier:
-          type: string
-          example:
-          - '123401'
-          - '123402'
-          - '123403'
-    queryV2ResponseNetworkObject:
-      $ref: '#/components/schemas/fapNetworkServiceAreaWithoutMemberOrProvider'
-    query:
-      type: object
-      properties:
-        streetAddress:
-          type: string
-          example: 1261 W 76th St
-        url:
-          type: string
-          example: sunshinehealth.com
-    queryWithFapNetworkTypeCode:
-      type: object
-      required:
-      - url
-      - city
-      - state
-      - zip
-      - effectiveDate
-      - countyFIPSCode
-      - fapNetworkTypeCode
-      properties:
-        url:
-          type: string
-          example: https://healthnetcalifornia.com
-        city:
-          type: string
-          example: Santa Clara
-        state:
-          type: string
-          example: CA
-        zip:
-          type: string
-          example: 95050
-        effectiveDate:
-          type: string
-          format: date
-          example: '2020-08-01'
-        countyFIPSCode:
-          type: string
-          example: 3081
-        fapNetworkTypeCode:
-          type: string
-          example: Commercial Group Off Exchange
-        includeProviderProgramCodesAggs:
-          type: string
-          enum:
-          - Y
-          - N
-          example: Y
+        network:
+          items:
+            $ref: '#/components/schemas/queryV2ResponseNetworkObject'
+        providerProgramCodes:
+          items:
+            $ref: '#/components/schemas/providerProgramCodes'
     queryWithAddress:
       type: object
       properties:

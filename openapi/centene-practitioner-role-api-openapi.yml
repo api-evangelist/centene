@@ -858,31 +858,6 @@ components:
                 minLength: 1
                 type: string
       description: ''
-    GeneralError:
-      required:
-      - resourceType
-      - issue
-      type: object
-      properties:
-        resourceType:
-          minLength: 1
-          type: string
-        issue:
-          required:
-          - severity
-          - code
-          - details
-          type: object
-          properties:
-            severity:
-              minLength: 1
-              type: string
-            code:
-              minLength: 1
-              type: string
-            details:
-              minLength: 1
-              type: string
     PractitionerRole-search_2:
       required:
       - entry
@@ -1097,6 +1072,31 @@ components:
                           minLength: 1
                           type: string
       description: ''
+    GeneralError:
+      required:
+      - resourceType
+      - issue
+      type: object
+      properties:
+        resourceType:
+          minLength: 1
+          type: string
+        issue:
+          required:
+          - severity
+          - code
+          - details
+          type: object
+          properties:
+            severity:
+              minLength: 1
+              type: string
+            code:
+              minLength: 1
+              type: string
+            details:
+              minLength: 1
+              type: string
     PractitionerRole_2:
       required:
       - active

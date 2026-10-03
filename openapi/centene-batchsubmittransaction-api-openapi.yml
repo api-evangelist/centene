@@ -36,6 +36,72 @@ paths:
       - BatchSubmitTransaction
 components:
   schemas:
+    COREEnvelopeBatchSubmissionResponse_element_CORE-XSD:
+      xml:
+        namespace: http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd
+        prefix: CORE-XSD
+        name: COREEnvelopeBatchSubmissionResponse
+      type: object
+      properties:
+        PayloadType:
+          xml:
+            namespace: ''
+          type: string
+        ProcessingMode:
+          $ref: '#/components/schemas/BatchMode_type_CORE-XSD'
+        PayloadID:
+          xml:
+            namespace: ''
+          type: string
+        PayloadLength:
+          xml:
+            namespace: ''
+          type: integer
+          format: int32
+        TimeStamp:
+          xml:
+            namespace: ''
+          type: string
+        SenderID:
+          xml:
+            namespace: ''
+          type: string
+        ReceiverID:
+          xml:
+            namespace: ''
+          type: string
+        CORERuleVersion:
+          xml:
+            namespace: ''
+          type: string
+        CheckSum:
+          xml:
+            namespace: ''
+          type: string
+        Payload:
+          xml:
+            namespace: ''
+          type: string
+          format: binary
+        ErrorCode:
+          xml:
+            namespace: ''
+          type: string
+        ErrorMessage:
+          xml:
+            namespace: ''
+          type: string
+      required:
+      - PayloadType
+      - ProcessingMode
+      - PayloadID
+      - TimeStamp
+      - SenderID
+      - ReceiverID
+      - CORERuleVersion
+      - ErrorCode
+      - ErrorMessage
+      example: "\n<CORE-XSD:COREEnvelopeBatchSubmissionResponse xmlns:CORE-XSD=\"http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd\">\n <PayloadType><!-- mandatory -->string</PayloadType>\n <ProcessingMode><!-- mandatory -->string</ProcessingMode>\n <PayloadID><!-- mandatory -->string</PayloadID>\n <PayloadLength>3</PayloadLength>\n <TimeStamp><!-- mandatory -->string</TimeStamp>\n <SenderID><!-- mandatory -->string</SenderID>\n <ReceiverID><!-- mandatory -->string</ReceiverID>\n <CORERuleVersion><!-- mandatory -->string</CORERuleVersion>\n <CheckSum>string</CheckSum>\n <Payload>abcd</Payload>\n <ErrorCode><!-- mandatory -->string</ErrorCode>\n <ErrorMessage><!-- mandatory -->string</ErrorMessage>\n</CORE-XSD:COREEnvelopeBatchSubmissionResponse>"
     BatchSubmitTransactionInput:
       description: Input message for wsdl operation COREEnvelopeBatchSubmission
       type: object
@@ -126,82 +192,39 @@ components:
       - CheckSum
       - Payload
       example: "\n<CORE-XSD:COREEnvelopeBatchSubmission xmlns:CORE-XSD=\"http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd\">\n <PayloadType><!-- mandatory -->string</PayloadType>\n <ProcessingMode><!-- mandatory -->string</ProcessingMode>\n <PayloadID><!-- mandatory -->string</PayloadID>\n <PayloadLength><!-- mandatory -->3</PayloadLength>\n <TimeStamp><!-- mandatory -->string</TimeStamp>\n <SenderID><!-- mandatory -->string</SenderID>\n <ReceiverID><!-- mandatory -->string</ReceiverID>\n <CORERuleVersion><!-- mandatory -->string</CORERuleVersion>\n <CheckSum><!-- mandatory -->string</CheckSum>\n <Payload><!-- mandatory -->abcd</Payload>\n</CORE-XSD:COREEnvelopeBatchSubmission>"
-    BatchMode_type_CORE-XSD:
-      xml:
-        namespace: ''
-      type: string
-      pattern: Batch
-      x-xsi-type: BatchMode
-      x-xsi-type-xml:
-        namespace: http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd
-        prefix: CORE-XSD
-      x-xsi-type-uniquename: BatchMode_type_CORE-XSD
-    COREEnvelopeBatchSubmissionResponse_element_CORE-XSD:
-      xml:
-        namespace: http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd
-        prefix: CORE-XSD
-        name: COREEnvelopeBatchSubmissionResponse
+    BatchSubmitTransactionOutput:
+      description: Output message for wsdl operation COREEnvelopeBatchSubmission
       type: object
       properties:
-        PayloadType:
+        Envelope:
           xml:
-            namespace: ''
-          type: string
-        ProcessingMode:
-          $ref: '#/components/schemas/BatchMode_type_CORE-XSD'
-        PayloadID:
-          xml:
-            namespace: ''
-          type: string
-        PayloadLength:
-          xml:
-            namespace: ''
-          type: integer
-          format: int32
-        TimeStamp:
-          xml:
-            namespace: ''
-          type: string
-        SenderID:
-          xml:
-            namespace: ''
-          type: string
-        ReceiverID:
-          xml:
-            namespace: ''
-          type: string
-        CORERuleVersion:
-          xml:
-            namespace: ''
-          type: string
-        CheckSum:
-          xml:
-            namespace: ''
-          type: string
-        Payload:
-          xml:
-            namespace: ''
-          type: string
-          format: binary
-        ErrorCode:
-          xml:
-            namespace: ''
-          type: string
-        ErrorMessage:
-          xml:
-            namespace: ''
-          type: string
+            namespace: http://www.w3.org/2003/05/soap-envelope
+            prefix: soapenv
+          type: object
+          properties:
+            Body:
+              xml:
+                namespace: http://www.w3.org/2003/05/soap-envelope
+                prefix: soapenv
+              type: object
+              properties:
+                COREEnvelopeBatchSubmissionResponse:
+                  $ref: '#/components/schemas/COREEnvelopeBatchSubmissionResponse_element_CORE-XSD'
+          required:
+          - Body
       required:
-      - PayloadType
-      - ProcessingMode
-      - PayloadID
-      - TimeStamp
-      - SenderID
-      - ReceiverID
-      - CORERuleVersion
-      - ErrorCode
-      - ErrorMessage
-      example: "\n<CORE-XSD:COREEnvelopeBatchSubmissionResponse xmlns:CORE-XSD=\"http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd\">\n <PayloadType><!-- mandatory -->string</PayloadType>\n <ProcessingMode><!-- mandatory -->string</ProcessingMode>\n <PayloadID><!-- mandatory -->string</PayloadID>\n <PayloadLength>3</PayloadLength>\n <TimeStamp><!-- mandatory -->string</TimeStamp>\n <SenderID><!-- mandatory -->string</SenderID>\n <ReceiverID><!-- mandatory -->string</ReceiverID>\n <CORERuleVersion><!-- mandatory -->string</CORERuleVersion>\n <CheckSum>string</CheckSum>\n <Payload>abcd</Payload>\n <ErrorCode><!-- mandatory -->string</ErrorCode>\n <ErrorMessage><!-- mandatory -->string</ErrorMessage>\n</CORE-XSD:COREEnvelopeBatchSubmissionResponse>"
+      - Envelope
+      x-ibm-schema:
+        wsdl-port: '{http://www.caqh.org/SOAP/WSDL/}CoreSoapPort'
+        wsdl-operation: COREEnvelopeBatchSubmission
+        wsdl-message-direction-or-name: COREEnvelopeBatchSubmissionResponse
+      example: "\n<soapenv:Envelope xmlns:soapenv=\"http://www.w3.org/2003/05/soap-envelope\">\n <soapenv:Body>\n  <CORE-XSD:COREEnvelopeBatchSubmissionResponse xmlns:CORE-XSD=\"http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd\">\n   <PayloadType><!-- mandatory -->string</PayloadType>\n   <ProcessingMode><!-- mandatory -->string</ProcessingMode>\n   <PayloadID><!-- mandatory -->string</PayloadID>\n   <PayloadLength>3</PayloadLength>\n   <TimeStamp><!-- mandatory -->string</TimeStamp>\n   <SenderID><!-- mandatory -->string</SenderID>\n   <ReceiverID><!-- mandatory -->string</ReceiverID>\n   <CORERuleVersion><!-- mandatory -->string</CORERuleVersion>\n   <CheckSum>string</CheckSum>\n   <Payload>abcd</Payload>\n   <ErrorCode><!-- mandatory -->string</ErrorCode>\n   <ErrorMessage><!-- mandatory -->string</ErrorMessage>\n  </CORE-XSD:COREEnvelopeBatchSubmissionResponse>\n </soapenv:Body>\n</soapenv:Envelope>"
+    BatchSubmitTransactionHeader:
+      description: Input headers for wsdl operation COREEnvelopeBatchSubmission
+      type: object
+      properties:
+        Security:
+          $ref: '#/components/schemas/Security'
     Security:
       xml:
         namespace: http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd
@@ -263,39 +286,16 @@ components:
                 prefix: wsu
                 attribute: true
               type: string
-    BatchSubmitTransactionOutput:
-      description: Output message for wsdl operation COREEnvelopeBatchSubmission
-      type: object
-      properties:
-        Envelope:
-          xml:
-            namespace: http://www.w3.org/2003/05/soap-envelope
-            prefix: soapenv
-          type: object
-          properties:
-            Body:
-              xml:
-                namespace: http://www.w3.org/2003/05/soap-envelope
-                prefix: soapenv
-              type: object
-              properties:
-                COREEnvelopeBatchSubmissionResponse:
-                  $ref: '#/components/schemas/COREEnvelopeBatchSubmissionResponse_element_CORE-XSD'
-          required:
-          - Body
-      required:
-      - Envelope
-      x-ibm-schema:
-        wsdl-port: '{http://www.caqh.org/SOAP/WSDL/}CoreSoapPort'
-        wsdl-operation: COREEnvelopeBatchSubmission
-        wsdl-message-direction-or-name: COREEnvelopeBatchSubmissionResponse
-      example: "\n<soapenv:Envelope xmlns:soapenv=\"http://www.w3.org/2003/05/soap-envelope\">\n <soapenv:Body>\n  <CORE-XSD:COREEnvelopeBatchSubmissionResponse xmlns:CORE-XSD=\"http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd\">\n   <PayloadType><!-- mandatory -->string</PayloadType>\n   <ProcessingMode><!-- mandatory -->string</ProcessingMode>\n   <PayloadID><!-- mandatory -->string</PayloadID>\n   <PayloadLength>3</PayloadLength>\n   <TimeStamp><!-- mandatory -->string</TimeStamp>\n   <SenderID><!-- mandatory -->string</SenderID>\n   <ReceiverID><!-- mandatory -->string</ReceiverID>\n   <CORERuleVersion><!-- mandatory -->string</CORERuleVersion>\n   <CheckSum>string</CheckSum>\n   <Payload>abcd</Payload>\n   <ErrorCode><!-- mandatory -->string</ErrorCode>\n   <ErrorMessage><!-- mandatory -->string</ErrorMessage>\n  </CORE-XSD:COREEnvelopeBatchSubmissionResponse>\n </soapenv:Body>\n</soapenv:Envelope>"
-    BatchSubmitTransactionHeader:
-      description: Input headers for wsdl operation COREEnvelopeBatchSubmission
-      type: object
-      properties:
-        Security:
-          $ref: '#/components/schemas/Security'
+    BatchMode_type_CORE-XSD:
+      xml:
+        namespace: ''
+      type: string
+      pattern: Batch
+      x-xsi-type: BatchMode
+      x-xsi-type-xml:
+        namespace: http://www.caqh.org/SOAP/WSDL/CORERule2.2.0.xsd
+        prefix: CORE-XSD
+      x-xsi-type-uniquename: BatchMode_type_CORE-XSD
   securitySchemes:
     clientID:
       type: apiKey

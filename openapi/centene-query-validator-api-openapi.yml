@@ -58,53 +58,18 @@ paths:
           description: Not Found
 components:
   schemas:
-    Condition:
-      type: object
     Query:
       title: QueryResult
       properties:
         query:
           type: string
-    RelevancyCondition:
-      title: RelevancyCondition
-      type: object
-      anyOf:
-      - $ref: '#/components/schemas/RelevancyByDistanceCondition'
-      - $ref: '#/components/schemas/AvailabilityCondition'
-    AggregationType:
-      title: AggregationType
+    MatchedListsCondition:
+      title: MatchedListsCondition
       type: object
       properties:
         filter:
-          $ref: '#/components/schemas/Condition'
-        valuesAgg:
-          $ref: '#/components/schemas/AggregationValues'
-    AvailabilityCondition:
-      title: AvailabilityCondition
-      allOf:
-      - $ref: '#/components/schemas/RelevancyCondition'
-      - title: AvailabilityCondition
-        type: object
-    AggregationValues:
-      title: AggregationValues
-      type: object
-      properties:
-        field:
           type: string
-        size:
-          type: integer
-          format: int32
-    Aggregation:
-      title: Aggregation
-      type: object
-      properties:
-        aggType:
-          $ref: '#/components/schemas/AggregationType'
-        aggs:
-          type: array
-          items:
-            $ref: '#/components/schemas/Aggregation'
-        name:
+        list:
           type: string
     CarrierEntityRequest:
       title: CarrierEntityRequest
@@ -130,14 +95,14 @@ components:
         size:
           type: integer
           format: int32
-    MatchedListsCondition:
-      title: MatchedListsCondition
+    RelevancyCondition:
+      title: RelevancyCondition
       type: object
-      properties:
-        filter:
-          type: string
-        list:
-          type: string
+      anyOf:
+      - $ref: '#/components/schemas/RelevancyByDistanceCondition'
+      - $ref: '#/components/schemas/AvailabilityCondition'
+    Condition:
+      type: object
     RelevancyByDistanceCondition:
       title: RelevancyByDistanceCondition
       properties:
@@ -170,6 +135,41 @@ components:
             type: string
           scale:
             type: string
+    AggregationValues:
+      title: AggregationValues
+      type: object
+      properties:
+        field:
+          type: string
+        size:
+          type: integer
+          format: int32
+    AggregationType:
+      title: AggregationType
+      type: object
+      properties:
+        filter:
+          $ref: '#/components/schemas/Condition'
+        valuesAgg:
+          $ref: '#/components/schemas/AggregationValues'
+    Aggregation:
+      title: Aggregation
+      type: object
+      properties:
+        aggType:
+          $ref: '#/components/schemas/AggregationType'
+        aggs:
+          type: array
+          items:
+            $ref: '#/components/schemas/Aggregation'
+        name:
+          type: string
+    AvailabilityCondition:
+      title: AvailabilityCondition
+      allOf:
+      - $ref: '#/components/schemas/RelevancyCondition'
+      - title: AvailabilityCondition
+        type: object
   securitySchemes:
     api_key:
       type: apiKey

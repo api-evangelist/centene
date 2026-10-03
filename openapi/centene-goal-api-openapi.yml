@@ -278,6 +278,82 @@ paths:
       - Bearer: []
 components:
   schemas:
+    Goal:
+      required:
+      - description
+      - id
+      - lifecycleStatus
+      - meta
+      - resourceType
+      - subject
+      - target
+      - text
+      type: object
+      properties:
+        resourceType:
+          minLength: 1
+          type: string
+        id:
+          minLength: 1
+          type: string
+        meta:
+          required:
+          - profile
+          type: object
+          properties:
+            profile:
+              type: array
+              items:
+                type: object
+                properties: {}
+        text:
+          required:
+          - div
+          - status
+          type: object
+          properties:
+            status:
+              minLength: 1
+              type: string
+            div:
+              minLength: 1
+              type: string
+        lifecycleStatus:
+          minLength: 1
+          type: string
+        description:
+          required:
+          - text
+          type: object
+          properties:
+            text:
+              minLength: 1
+              type: string
+        subject:
+          required:
+          - display
+          - reference
+          type: object
+          properties:
+            reference:
+              minLength: 1
+              type: string
+            display:
+              minLength: 1
+              type: string
+        target:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            required:
+            - dueDate
+            type: object
+            properties:
+              dueDate:
+                minLength: 1
+                type: string
+      description: ''
     Goal-search:
       required:
       - entry
@@ -411,82 +487,6 @@ components:
                         dueDate:
                           minLength: 1
                           type: string
-      description: ''
-    Goal:
-      required:
-      - description
-      - id
-      - lifecycleStatus
-      - meta
-      - resourceType
-      - subject
-      - target
-      - text
-      type: object
-      properties:
-        resourceType:
-          minLength: 1
-          type: string
-        id:
-          minLength: 1
-          type: string
-        meta:
-          required:
-          - profile
-          type: object
-          properties:
-            profile:
-              type: array
-              items:
-                type: object
-                properties: {}
-        text:
-          required:
-          - div
-          - status
-          type: object
-          properties:
-            status:
-              minLength: 1
-              type: string
-            div:
-              minLength: 1
-              type: string
-        lifecycleStatus:
-          minLength: 1
-          type: string
-        description:
-          required:
-          - text
-          type: object
-          properties:
-            text:
-              minLength: 1
-              type: string
-        subject:
-          required:
-          - display
-          - reference
-          type: object
-          properties:
-            reference:
-              minLength: 1
-              type: string
-            display:
-              minLength: 1
-              type: string
-        target:
-          minItems: 1
-          uniqueItems: true
-          type: array
-          items:
-            required:
-            - dueDate
-            type: object
-            properties:
-              dueDate:
-                minLength: 1
-                type: string
       description: ''
   securitySchemes:
     Bearer:

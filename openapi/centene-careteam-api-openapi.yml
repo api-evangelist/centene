@@ -283,6 +283,111 @@ paths:
       - Bearer: []
 components:
   schemas:
+    CareTeam:
+      required:
+      - id
+      - meta
+      - name
+      - participant
+      - resourceType
+      - status
+      - subject
+      - text
+      type: object
+      properties:
+        resourceType:
+          minLength: 1
+          type: string
+        id:
+          minLength: 1
+          type: string
+        meta:
+          required:
+          - profile
+          type: object
+          properties:
+            profile:
+              type: array
+              items:
+                type: object
+                properties: {}
+        text:
+          required:
+          - div
+          - status
+          type: object
+          properties:
+            status:
+              minLength: 1
+              type: string
+            div:
+              minLength: 1
+              type: string
+        status:
+          minLength: 1
+          type: string
+        name:
+          minLength: 1
+          type: string
+        subject:
+          required:
+          - display
+          - reference
+          type: object
+          properties:
+            reference:
+              minLength: 1
+              type: string
+            display:
+              minLength: 1
+              type: string
+        participant:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            type: object
+            properties:
+              role:
+                minItems: 1
+                uniqueItems: true
+                type: array
+                items:
+                  type: object
+                  properties:
+                    coding:
+                      minItems: 1
+                      uniqueItems: true
+                      type: array
+                      items:
+                        required:
+                        - code
+                        - display
+                        - system
+                        type: object
+                        properties:
+                          system:
+                            minLength: 1
+                            type: string
+                          code:
+                            minLength: 1
+                            type: string
+                          display:
+                            minLength: 1
+                            type: string
+              member:
+                required:
+                - display
+                - reference
+                type: object
+                properties:
+                  reference:
+                    minLength: 1
+                    type: string
+                  display:
+                    minLength: 1
+                    type: string
+      description: ''
     CareTeam-search:
       required:
       - entry
@@ -445,111 +550,6 @@ components:
                             display:
                               minLength: 1
                               type: string
-      description: ''
-    CareTeam:
-      required:
-      - id
-      - meta
-      - name
-      - participant
-      - resourceType
-      - status
-      - subject
-      - text
-      type: object
-      properties:
-        resourceType:
-          minLength: 1
-          type: string
-        id:
-          minLength: 1
-          type: string
-        meta:
-          required:
-          - profile
-          type: object
-          properties:
-            profile:
-              type: array
-              items:
-                type: object
-                properties: {}
-        text:
-          required:
-          - div
-          - status
-          type: object
-          properties:
-            status:
-              minLength: 1
-              type: string
-            div:
-              minLength: 1
-              type: string
-        status:
-          minLength: 1
-          type: string
-        name:
-          minLength: 1
-          type: string
-        subject:
-          required:
-          - display
-          - reference
-          type: object
-          properties:
-            reference:
-              minLength: 1
-              type: string
-            display:
-              minLength: 1
-              type: string
-        participant:
-          minItems: 1
-          uniqueItems: true
-          type: array
-          items:
-            type: object
-            properties:
-              role:
-                minItems: 1
-                uniqueItems: true
-                type: array
-                items:
-                  type: object
-                  properties:
-                    coding:
-                      minItems: 1
-                      uniqueItems: true
-                      type: array
-                      items:
-                        required:
-                        - code
-                        - display
-                        - system
-                        type: object
-                        properties:
-                          system:
-                            minLength: 1
-                            type: string
-                          code:
-                            minLength: 1
-                            type: string
-                          display:
-                            minLength: 1
-                            type: string
-              member:
-                required:
-                - display
-                - reference
-                type: object
-                properties:
-                  reference:
-                    minLength: 1
-                    type: string
-                  display:
-                    minLength: 1
-                    type: string
       description: ''
   securitySchemes:
     Bearer:

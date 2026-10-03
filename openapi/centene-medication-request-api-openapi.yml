@@ -294,6 +294,150 @@ paths:
       - Bearer: []
 components:
   schemas:
+    MedicationRequest:
+      required:
+      - authoredOn
+      - dosageInstruction
+      - encounter
+      - id
+      - identifier
+      - intent
+      - medicationCodeableConcept
+      - reportedBoolean
+      - requester
+      - resourceType
+      - status
+      - subject
+      - text
+      type: object
+      properties:
+        resourceType:
+          minLength: 1
+          type: string
+        id:
+          minLength: 1
+          type: string
+        text:
+          required:
+          - div
+          - status
+          type: object
+          properties:
+            status:
+              minLength: 1
+              type: string
+            div:
+              minLength: 1
+              type: string
+        identifier:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            required:
+            - system
+            - use
+            - value
+            type: object
+            properties:
+              use:
+                minLength: 1
+                type: string
+              system:
+                minLength: 1
+                type: string
+              value:
+                minLength: 1
+                type: string
+        status:
+          minLength: 1
+          type: string
+        intent:
+          minLength: 1
+          type: string
+        reportedBoolean:
+          type: boolean
+        medicationCodeableConcept:
+          required:
+          - coding
+          - text
+          type: object
+          properties:
+            coding:
+              minItems: 1
+              uniqueItems: true
+              type: array
+              items:
+                required:
+                - code
+                - display
+                - system
+                type: object
+                properties:
+                  system:
+                    minLength: 1
+                    type: string
+                  code:
+                    minLength: 1
+                    type: string
+                  display:
+                    minLength: 1
+                    type: string
+            text:
+              minLength: 1
+              type: string
+        subject:
+          required:
+          - display
+          - reference
+          type: object
+          properties:
+            reference:
+              minLength: 1
+              type: string
+            display:
+              minLength: 1
+              type: string
+        encounter:
+          required:
+          - display
+          - reference
+          type: object
+          properties:
+            reference:
+              minLength: 1
+              type: string
+            display:
+              minLength: 1
+              type: string
+        authoredOn:
+          minLength: 1
+          type: string
+        requester:
+          required:
+          - display
+          - reference
+          type: object
+          properties:
+            reference:
+              minLength: 1
+              type: string
+            display:
+              minLength: 1
+              type: string
+        dosageInstruction:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            required:
+            - text
+            type: object
+            properties:
+              text:
+                minLength: 1
+                type: string
+      description: ''
     MedicationRequest-search:
       required:
       - entry
@@ -495,150 +639,6 @@ components:
                         text:
                           minLength: 1
                           type: string
-      description: ''
-    MedicationRequest:
-      required:
-      - authoredOn
-      - dosageInstruction
-      - encounter
-      - id
-      - identifier
-      - intent
-      - medicationCodeableConcept
-      - reportedBoolean
-      - requester
-      - resourceType
-      - status
-      - subject
-      - text
-      type: object
-      properties:
-        resourceType:
-          minLength: 1
-          type: string
-        id:
-          minLength: 1
-          type: string
-        text:
-          required:
-          - div
-          - status
-          type: object
-          properties:
-            status:
-              minLength: 1
-              type: string
-            div:
-              minLength: 1
-              type: string
-        identifier:
-          minItems: 1
-          uniqueItems: true
-          type: array
-          items:
-            required:
-            - system
-            - use
-            - value
-            type: object
-            properties:
-              use:
-                minLength: 1
-                type: string
-              system:
-                minLength: 1
-                type: string
-              value:
-                minLength: 1
-                type: string
-        status:
-          minLength: 1
-          type: string
-        intent:
-          minLength: 1
-          type: string
-        reportedBoolean:
-          type: boolean
-        medicationCodeableConcept:
-          required:
-          - coding
-          - text
-          type: object
-          properties:
-            coding:
-              minItems: 1
-              uniqueItems: true
-              type: array
-              items:
-                required:
-                - code
-                - display
-                - system
-                type: object
-                properties:
-                  system:
-                    minLength: 1
-                    type: string
-                  code:
-                    minLength: 1
-                    type: string
-                  display:
-                    minLength: 1
-                    type: string
-            text:
-              minLength: 1
-              type: string
-        subject:
-          required:
-          - display
-          - reference
-          type: object
-          properties:
-            reference:
-              minLength: 1
-              type: string
-            display:
-              minLength: 1
-              type: string
-        encounter:
-          required:
-          - display
-          - reference
-          type: object
-          properties:
-            reference:
-              minLength: 1
-              type: string
-            display:
-              minLength: 1
-              type: string
-        authoredOn:
-          minLength: 1
-          type: string
-        requester:
-          required:
-          - display
-          - reference
-          type: object
-          properties:
-            reference:
-              minLength: 1
-              type: string
-            display:
-              minLength: 1
-              type: string
-        dosageInstruction:
-          minItems: 1
-          uniqueItems: true
-          type: array
-          items:
-            required:
-            - text
-            type: object
-            properties:
-              text:
-                minLength: 1
-                type: string
       description: ''
   securitySchemes:
     Bearer:
