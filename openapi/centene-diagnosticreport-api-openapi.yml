@@ -294,144 +294,6 @@ paths:
       - Bearer: []
 components:
   schemas:
-    DiagnosticReport:
-      required:
-      - category
-      - code
-      - effectiveDateTime
-      - id
-      - meta
-      - presentedForm
-      - resourceType
-      - status
-      - subject
-      - text
-      type: object
-      properties:
-        resourceType:
-          minLength: 1
-          type: string
-        id:
-          minLength: 1
-          type: string
-        meta:
-          required:
-          - profile
-          type: object
-          properties:
-            profile:
-              type: array
-              items:
-                type: object
-                properties: {}
-        text:
-          required:
-          - div
-          - status
-          type: object
-          properties:
-            status:
-              minLength: 1
-              type: string
-            div:
-              minLength: 1
-              type: string
-        status:
-          minLength: 1
-          type: string
-        category:
-          minItems: 1
-          uniqueItems: true
-          type: array
-          items:
-            required:
-            - text
-            type: object
-            properties:
-              coding:
-                minItems: 1
-                uniqueItems: true
-                type: array
-                items:
-                  required:
-                  - code
-                  - display
-                  - system
-                  type: object
-                  properties:
-                    system:
-                      minLength: 1
-                      type: string
-                    code:
-                      minLength: 1
-                      type: string
-                    display:
-                      minLength: 1
-                      type: string
-              text:
-                minLength: 1
-                type: string
-        code:
-          required:
-          - coding
-          - text
-          type: object
-          properties:
-            coding:
-              minItems: 1
-              uniqueItems: true
-              type: array
-              items:
-                required:
-                - code
-                - display
-                - system
-                type: object
-                properties:
-                  system:
-                    minLength: 1
-                    type: string
-                  code:
-                    minLength: 1
-                    type: string
-                  display:
-                    minLength: 1
-                    type: string
-            text:
-              minLength: 1
-              type: string
-        subject:
-          required:
-          - reference
-          type: object
-          properties:
-            reference:
-              minLength: 1
-              type: string
-        effectiveDateTime:
-          minLength: 1
-          type: string
-        presentedForm:
-          minItems: 1
-          uniqueItems: true
-          type: array
-          items:
-            required:
-            - contentType
-            - hash
-            - url
-            type: object
-            properties:
-              contentType:
-                minLength: 1
-                type: string
-              url:
-                minLength: 1
-                type: string
-              hash:
-                minLength: 1
-                type: string
-      description: ''
     DiagnosticReport-search:
       required:
       - entry
@@ -627,6 +489,144 @@ components:
                         hash:
                           minLength: 1
                           type: string
+      description: ''
+    DiagnosticReport:
+      required:
+      - category
+      - code
+      - effectiveDateTime
+      - id
+      - meta
+      - presentedForm
+      - resourceType
+      - status
+      - subject
+      - text
+      type: object
+      properties:
+        resourceType:
+          minLength: 1
+          type: string
+        id:
+          minLength: 1
+          type: string
+        meta:
+          required:
+          - profile
+          type: object
+          properties:
+            profile:
+              type: array
+              items:
+                type: object
+                properties: {}
+        text:
+          required:
+          - div
+          - status
+          type: object
+          properties:
+            status:
+              minLength: 1
+              type: string
+            div:
+              minLength: 1
+              type: string
+        status:
+          minLength: 1
+          type: string
+        category:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            required:
+            - text
+            type: object
+            properties:
+              coding:
+                minItems: 1
+                uniqueItems: true
+                type: array
+                items:
+                  required:
+                  - code
+                  - display
+                  - system
+                  type: object
+                  properties:
+                    system:
+                      minLength: 1
+                      type: string
+                    code:
+                      minLength: 1
+                      type: string
+                    display:
+                      minLength: 1
+                      type: string
+              text:
+                minLength: 1
+                type: string
+        code:
+          required:
+          - coding
+          - text
+          type: object
+          properties:
+            coding:
+              minItems: 1
+              uniqueItems: true
+              type: array
+              items:
+                required:
+                - code
+                - display
+                - system
+                type: object
+                properties:
+                  system:
+                    minLength: 1
+                    type: string
+                  code:
+                    minLength: 1
+                    type: string
+                  display:
+                    minLength: 1
+                    type: string
+            text:
+              minLength: 1
+              type: string
+        subject:
+          required:
+          - reference
+          type: object
+          properties:
+            reference:
+              minLength: 1
+              type: string
+        effectiveDateTime:
+          minLength: 1
+          type: string
+        presentedForm:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            required:
+            - contentType
+            - hash
+            - url
+            type: object
+            properties:
+              contentType:
+                minLength: 1
+                type: string
+              url:
+                minLength: 1
+                type: string
+              hash:
+                minLength: 1
+                type: string
       description: ''
   securitySchemes:
     Bearer:

@@ -286,248 +286,6 @@ paths:
       - Bearer: []
 components:
   schemas:
-    Coverage:
-      required:
-      - beneficiary
-      - class
-      - dependent
-      - id
-      - identifier
-      - language
-      - meta
-      - network
-      - payor
-      - period
-      - policyHolder
-      - relationship
-      - resourceType
-      - status
-      - subscriber
-      - subscriberId
-      - text
-      - type
-      type: object
-      properties:
-        resourceType:
-          minLength: 1
-          type: string
-        id:
-          minLength: 1
-          type: string
-        meta:
-          required:
-          - lastUpdated
-          - profile
-          type: object
-          properties:
-            lastUpdated:
-              minLength: 1
-              type: string
-            profile:
-              type: array
-              items:
-                type: object
-                properties: {}
-        language:
-          minLength: 1
-          type: string
-        text:
-          required:
-          - div
-          - status
-          type: object
-          properties:
-            status:
-              minLength: 1
-              type: string
-            div:
-              minLength: 1
-              type: string
-        identifier:
-          minItems: 1
-          uniqueItems: true
-          type: array
-          items:
-            required:
-            - system
-            - value
-            type: object
-            properties:
-              type:
-                required:
-                - coding
-                type: object
-                properties:
-                  coding:
-                    minItems: 1
-                    uniqueItems: true
-                    type: array
-                    items:
-                      required:
-                      - code
-                      - system
-                      type: object
-                      properties:
-                        system:
-                          minLength: 1
-                          type: string
-                        code:
-                          minLength: 1
-                          type: string
-              system:
-                minLength: 1
-                type: string
-              value:
-                minLength: 1
-                type: string
-        status:
-          minLength: 1
-          type: string
-        type:
-          required:
-          - coding
-          - text
-          type: object
-          properties:
-            coding:
-              minItems: 1
-              uniqueItems: true
-              type: array
-              items:
-                required:
-                - code
-                - system
-                type: object
-                properties:
-                  system:
-                    minLength: 1
-                    type: string
-                  code:
-                    minLength: 1
-                    type: string
-            text:
-              minLength: 1
-              type: string
-        policyHolder:
-          required:
-          - reference
-          type: object
-          properties:
-            reference:
-              minLength: 1
-              type: string
-        subscriber:
-          required:
-          - reference
-          type: object
-          properties:
-            reference:
-              minLength: 1
-              type: string
-        subscriberId:
-          minLength: 1
-          type: string
-        beneficiary:
-          required:
-          - reference
-          type: object
-          properties:
-            reference:
-              minLength: 1
-              type: string
-        dependent:
-          minLength: 1
-          type: string
-        relationship:
-          required:
-          - coding
-          type: object
-          properties:
-            coding:
-              minItems: 1
-              uniqueItems: true
-              type: array
-              items:
-                required:
-                - code
-                - system
-                type: object
-                properties:
-                  system:
-                    minLength: 1
-                    type: string
-                  code:
-                    minLength: 1
-                    type: string
-        period:
-          required:
-          - end
-          - start
-          type: object
-          properties:
-            start:
-              minLength: 1
-              type: string
-            end:
-              minLength: 1
-              type: string
-        payor:
-          minItems: 1
-          uniqueItems: true
-          type: array
-          items:
-            required:
-            - reference
-            type: object
-            properties:
-              reference:
-                minLength: 1
-                type: string
-        class:
-          minItems: 1
-          uniqueItems: true
-          type: array
-          items:
-            required:
-            - name
-            - value
-            type: object
-            properties:
-              type:
-                required:
-                - coding
-                - text
-                type: object
-                properties:
-                  coding:
-                    minItems: 1
-                    uniqueItems: true
-                    type: array
-                    items:
-                      required:
-                      - code
-                      - system
-                      type: object
-                      properties:
-                        system:
-                          minLength: 1
-                          type: string
-                        code:
-                          minLength: 1
-                          type: string
-                  text:
-                    minLength: 1
-                    type: string
-              value:
-                minLength: 1
-                type: string
-              name:
-                minLength: 1
-                type: string
-        network:
-          minLength: 1
-          type: string
-      description: ''
     Coverage-search:
       required:
       - entry
@@ -827,6 +585,248 @@ components:
                   network:
                     minLength: 1
                     type: string
+      description: ''
+    Coverage:
+      required:
+      - beneficiary
+      - class
+      - dependent
+      - id
+      - identifier
+      - language
+      - meta
+      - network
+      - payor
+      - period
+      - policyHolder
+      - relationship
+      - resourceType
+      - status
+      - subscriber
+      - subscriberId
+      - text
+      - type
+      type: object
+      properties:
+        resourceType:
+          minLength: 1
+          type: string
+        id:
+          minLength: 1
+          type: string
+        meta:
+          required:
+          - lastUpdated
+          - profile
+          type: object
+          properties:
+            lastUpdated:
+              minLength: 1
+              type: string
+            profile:
+              type: array
+              items:
+                type: object
+                properties: {}
+        language:
+          minLength: 1
+          type: string
+        text:
+          required:
+          - div
+          - status
+          type: object
+          properties:
+            status:
+              minLength: 1
+              type: string
+            div:
+              minLength: 1
+              type: string
+        identifier:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            required:
+            - system
+            - value
+            type: object
+            properties:
+              type:
+                required:
+                - coding
+                type: object
+                properties:
+                  coding:
+                    minItems: 1
+                    uniqueItems: true
+                    type: array
+                    items:
+                      required:
+                      - code
+                      - system
+                      type: object
+                      properties:
+                        system:
+                          minLength: 1
+                          type: string
+                        code:
+                          minLength: 1
+                          type: string
+              system:
+                minLength: 1
+                type: string
+              value:
+                minLength: 1
+                type: string
+        status:
+          minLength: 1
+          type: string
+        type:
+          required:
+          - coding
+          - text
+          type: object
+          properties:
+            coding:
+              minItems: 1
+              uniqueItems: true
+              type: array
+              items:
+                required:
+                - code
+                - system
+                type: object
+                properties:
+                  system:
+                    minLength: 1
+                    type: string
+                  code:
+                    minLength: 1
+                    type: string
+            text:
+              minLength: 1
+              type: string
+        policyHolder:
+          required:
+          - reference
+          type: object
+          properties:
+            reference:
+              minLength: 1
+              type: string
+        subscriber:
+          required:
+          - reference
+          type: object
+          properties:
+            reference:
+              minLength: 1
+              type: string
+        subscriberId:
+          minLength: 1
+          type: string
+        beneficiary:
+          required:
+          - reference
+          type: object
+          properties:
+            reference:
+              minLength: 1
+              type: string
+        dependent:
+          minLength: 1
+          type: string
+        relationship:
+          required:
+          - coding
+          type: object
+          properties:
+            coding:
+              minItems: 1
+              uniqueItems: true
+              type: array
+              items:
+                required:
+                - code
+                - system
+                type: object
+                properties:
+                  system:
+                    minLength: 1
+                    type: string
+                  code:
+                    minLength: 1
+                    type: string
+        period:
+          required:
+          - end
+          - start
+          type: object
+          properties:
+            start:
+              minLength: 1
+              type: string
+            end:
+              minLength: 1
+              type: string
+        payor:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            required:
+            - reference
+            type: object
+            properties:
+              reference:
+                minLength: 1
+                type: string
+        class:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            required:
+            - name
+            - value
+            type: object
+            properties:
+              type:
+                required:
+                - coding
+                - text
+                type: object
+                properties:
+                  coding:
+                    minItems: 1
+                    uniqueItems: true
+                    type: array
+                    items:
+                      required:
+                      - code
+                      - system
+                      type: object
+                      properties:
+                        system:
+                          minLength: 1
+                          type: string
+                        code:
+                          minLength: 1
+                          type: string
+                  text:
+                    minLength: 1
+                    type: string
+              value:
+                minLength: 1
+                type: string
+              name:
+                minLength: 1
+                type: string
+        network:
+          minLength: 1
+          type: string
       description: ''
   securitySchemes:
     Bearer:

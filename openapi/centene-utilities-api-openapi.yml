@@ -66,6 +66,21 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    versionResponse:
+      description: Version response containing build information of the current api
+      properties:
+        branch:
+          type: string
+          x-go-name: Branch
+        buildTime:
+          type: string
+          x-go-name: BuildTime
+        commitSHA:
+          type: string
+          x-go-name: CommitSHA
+      type: object
+      x-go-name: version
+      x-go-package: gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/api-framework/api/handlers
     healthResponse:
       description: Health response containing the status of the mongo database
       properties:
@@ -83,21 +98,6 @@ components:
           x-go-name: Reason
       type: object
       x-go-name: health
-      x-go-package: gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/api-framework/api/handlers
-    versionResponse:
-      description: Version response containing build information of the current api
-      properties:
-        branch:
-          type: string
-          x-go-name: Branch
-        buildTime:
-          type: string
-          x-go-name: BuildTime
-        commitSHA:
-          type: string
-          x-go-name: CommitSHA
-      type: object
-      x-go-name: version
       x-go-package: gitlab.centene.com/rtr/provider-rtr/interoperability/apis/fhir-pdex-plan-net-api/api-framework/api/handlers
   securitySchemes:
     oauth2:

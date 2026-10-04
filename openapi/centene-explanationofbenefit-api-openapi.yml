@@ -321,414 +321,6 @@ paths:
       - Bearer: []
 components:
   schemas:
-    ExplanationOfBenefit:
-      required:
-      - adjudication
-      - billablePeriod
-      - created
-      - diagnosis
-      - id
-      - identifier
-      - insurance
-      - insurer
-      - language
-      - meta
-      - outcome
-      - patient
-      - provider
-      - resourceType
-      - status
-      - subType
-      - supportingInfo
-      - text
-      - total
-      - type
-      - use
-      type: object
-      properties:
-        resourceType:
-          minLength: 1
-          type: string
-        id:
-          minLength: 1
-          type: string
-        meta:
-          required:
-          - lastUpdated
-          - profile
-          type: object
-          properties:
-            lastUpdated:
-              minLength: 1
-              type: string
-            profile:
-              type: array
-              items:
-                type: object
-                properties: {}
-        language:
-          minLength: 1
-          type: string
-        text:
-          required:
-          - div
-          - status
-          type: object
-          properties:
-            status:
-              minLength: 1
-              type: string
-            div:
-              minLength: 1
-              type: string
-        identifier:
-          minItems: 1
-          uniqueItems: true
-          type: array
-          items:
-            required:
-            - system
-            - value
-            type: object
-            properties:
-              type:
-                required:
-                - coding
-                type: object
-                properties:
-                  coding:
-                    minItems: 1
-                    uniqueItems: true
-                    type: array
-                    items:
-                      required:
-                      - code
-                      - system
-                      type: object
-                      properties:
-                        system:
-                          minLength: 1
-                          type: string
-                        code:
-                          minLength: 1
-                          type: string
-              system:
-                minLength: 1
-                type: string
-              value:
-                minLength: 1
-                type: string
-        status:
-          minLength: 1
-          type: string
-        type:
-          required:
-          - coding
-          - text
-          type: object
-          properties:
-            coding:
-              minItems: 1
-              uniqueItems: true
-              type: array
-              items:
-                required:
-                - code
-                - system
-                type: object
-                properties:
-                  system:
-                    minLength: 1
-                    type: string
-                  code:
-                    minLength: 1
-                    type: string
-            text:
-              minLength: 1
-              type: string
-        subType:
-          required:
-          - coding
-          - text
-          type: object
-          properties:
-            coding:
-              minItems: 1
-              uniqueItems: true
-              type: array
-              items:
-                required:
-                - code
-                - system
-                type: object
-                properties:
-                  system:
-                    minLength: 1
-                    type: string
-                  code:
-                    minLength: 1
-                    type: string
-            text:
-              minLength: 1
-              type: string
-        use:
-          minLength: 1
-          type: string
-        patient:
-          required:
-          - reference
-          type: object
-          properties:
-            reference:
-              minLength: 1
-              type: string
-        billablePeriod:
-          required:
-          - end
-          - start
-          type: object
-          properties:
-            start:
-              minLength: 1
-              type: string
-            end:
-              minLength: 1
-              type: string
-        created:
-          minLength: 1
-          type: string
-        insurer:
-          required:
-          - display
-          - reference
-          type: object
-          properties:
-            reference:
-              minLength: 1
-              type: string
-            display:
-              minLength: 1
-              type: string
-        provider:
-          required:
-          - display
-          - reference
-          type: object
-          properties:
-            reference:
-              minLength: 1
-              type: string
-            display:
-              minLength: 1
-              type: string
-        outcome:
-          minLength: 1
-          type: string
-        supportingInfo:
-          minItems: 1
-          uniqueItems: true
-          type: array
-          items:
-            required:
-            - sequence
-            type: object
-            properties:
-              sequence:
-                type: number
-              category:
-                required:
-                - coding
-                type: object
-                properties:
-                  coding:
-                    minItems: 1
-                    uniqueItems: true
-                    type: array
-                    items:
-                      required:
-                      - code
-                      - system
-                      type: object
-                      properties:
-                        system:
-                          minLength: 1
-                          type: string
-                        code:
-                          minLength: 1
-                          type: string
-              timingPeriod:
-                required:
-                - end
-                - start
-                type: object
-                properties:
-                  start:
-                    minLength: 1
-                    type: string
-                  end:
-                    minLength: 1
-                    type: string
-        diagnosis:
-          minItems: 1
-          uniqueItems: true
-          type: array
-          items:
-            required:
-            - sequence
-            type: object
-            properties:
-              sequence:
-                type: number
-              diagnosisCodeableConcept:
-                required:
-                - coding
-                type: object
-                properties:
-                  coding:
-                    minItems: 1
-                    uniqueItems: true
-                    type: array
-                    items:
-                      required:
-                      - code
-                      - system
-                      type: object
-                      properties:
-                        system:
-                          minLength: 1
-                          type: string
-                        code:
-                          minLength: 1
-                          type: string
-              type:
-                minItems: 1
-                uniqueItems: true
-                type: array
-                items:
-                  type: object
-                  properties:
-                    coding:
-                      minItems: 1
-                      uniqueItems: true
-                      type: array
-                      items:
-                        required:
-                        - code
-                        - system
-                        type: object
-                        properties:
-                          system:
-                            minLength: 1
-                            type: string
-                          code:
-                            minLength: 1
-                            type: string
-        insurance:
-          minItems: 1
-          uniqueItems: true
-          type: array
-          items:
-            required:
-            - focal
-            type: object
-            properties:
-              focal:
-                type: boolean
-              coverage:
-                required:
-                - reference
-                type: object
-                properties:
-                  reference:
-                    minLength: 1
-                    type: string
-        adjudication:
-          minItems: 1
-          uniqueItems: true
-          type: array
-          items:
-            type: object
-            properties:
-              category:
-                required:
-                - coding
-                - text
-                type: object
-                properties:
-                  coding:
-                    minItems: 1
-                    uniqueItems: true
-                    type: array
-                    items:
-                      required:
-                      - code
-                      - system
-                      type: object
-                      properties:
-                        system:
-                          minLength: 1
-                          type: string
-                        code:
-                          minLength: 1
-                          type: string
-                  text:
-                    minLength: 1
-                    type: string
-              amount:
-                required:
-                - currency
-                - value
-                type: object
-                properties:
-                  value:
-                    type: number
-                  currency:
-                    minLength: 1
-                    type: string
-        total:
-          minItems: 1
-          uniqueItems: true
-          type: array
-          items:
-            type: object
-            properties:
-              category:
-                required:
-                - coding
-                - text
-                type: object
-                properties:
-                  coding:
-                    minItems: 1
-                    uniqueItems: true
-                    type: array
-                    items:
-                      required:
-                      - code
-                      - system
-                      type: object
-                      properties:
-                        system:
-                          minLength: 1
-                          type: string
-                        code:
-                          minLength: 1
-                          type: string
-                  text:
-                    minLength: 1
-                    type: string
-              amount:
-                required:
-                - currency
-                - value
-                type: object
-                properties:
-                  value:
-                    type: number
-                  currency:
-                    minLength: 1
-                    type: string
-      description: ''
     ExplanationOfBenefit-search:
       required:
       - entry
@@ -1194,6 +786,414 @@ components:
                             currency:
                               minLength: 1
                               type: string
+      description: ''
+    ExplanationOfBenefit:
+      required:
+      - adjudication
+      - billablePeriod
+      - created
+      - diagnosis
+      - id
+      - identifier
+      - insurance
+      - insurer
+      - language
+      - meta
+      - outcome
+      - patient
+      - provider
+      - resourceType
+      - status
+      - subType
+      - supportingInfo
+      - text
+      - total
+      - type
+      - use
+      type: object
+      properties:
+        resourceType:
+          minLength: 1
+          type: string
+        id:
+          minLength: 1
+          type: string
+        meta:
+          required:
+          - lastUpdated
+          - profile
+          type: object
+          properties:
+            lastUpdated:
+              minLength: 1
+              type: string
+            profile:
+              type: array
+              items:
+                type: object
+                properties: {}
+        language:
+          minLength: 1
+          type: string
+        text:
+          required:
+          - div
+          - status
+          type: object
+          properties:
+            status:
+              minLength: 1
+              type: string
+            div:
+              minLength: 1
+              type: string
+        identifier:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            required:
+            - system
+            - value
+            type: object
+            properties:
+              type:
+                required:
+                - coding
+                type: object
+                properties:
+                  coding:
+                    minItems: 1
+                    uniqueItems: true
+                    type: array
+                    items:
+                      required:
+                      - code
+                      - system
+                      type: object
+                      properties:
+                        system:
+                          minLength: 1
+                          type: string
+                        code:
+                          minLength: 1
+                          type: string
+              system:
+                minLength: 1
+                type: string
+              value:
+                minLength: 1
+                type: string
+        status:
+          minLength: 1
+          type: string
+        type:
+          required:
+          - coding
+          - text
+          type: object
+          properties:
+            coding:
+              minItems: 1
+              uniqueItems: true
+              type: array
+              items:
+                required:
+                - code
+                - system
+                type: object
+                properties:
+                  system:
+                    minLength: 1
+                    type: string
+                  code:
+                    minLength: 1
+                    type: string
+            text:
+              minLength: 1
+              type: string
+        subType:
+          required:
+          - coding
+          - text
+          type: object
+          properties:
+            coding:
+              minItems: 1
+              uniqueItems: true
+              type: array
+              items:
+                required:
+                - code
+                - system
+                type: object
+                properties:
+                  system:
+                    minLength: 1
+                    type: string
+                  code:
+                    minLength: 1
+                    type: string
+            text:
+              minLength: 1
+              type: string
+        use:
+          minLength: 1
+          type: string
+        patient:
+          required:
+          - reference
+          type: object
+          properties:
+            reference:
+              minLength: 1
+              type: string
+        billablePeriod:
+          required:
+          - end
+          - start
+          type: object
+          properties:
+            start:
+              minLength: 1
+              type: string
+            end:
+              minLength: 1
+              type: string
+        created:
+          minLength: 1
+          type: string
+        insurer:
+          required:
+          - display
+          - reference
+          type: object
+          properties:
+            reference:
+              minLength: 1
+              type: string
+            display:
+              minLength: 1
+              type: string
+        provider:
+          required:
+          - display
+          - reference
+          type: object
+          properties:
+            reference:
+              minLength: 1
+              type: string
+            display:
+              minLength: 1
+              type: string
+        outcome:
+          minLength: 1
+          type: string
+        supportingInfo:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            required:
+            - sequence
+            type: object
+            properties:
+              sequence:
+                type: number
+              category:
+                required:
+                - coding
+                type: object
+                properties:
+                  coding:
+                    minItems: 1
+                    uniqueItems: true
+                    type: array
+                    items:
+                      required:
+                      - code
+                      - system
+                      type: object
+                      properties:
+                        system:
+                          minLength: 1
+                          type: string
+                        code:
+                          minLength: 1
+                          type: string
+              timingPeriod:
+                required:
+                - end
+                - start
+                type: object
+                properties:
+                  start:
+                    minLength: 1
+                    type: string
+                  end:
+                    minLength: 1
+                    type: string
+        diagnosis:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            required:
+            - sequence
+            type: object
+            properties:
+              sequence:
+                type: number
+              diagnosisCodeableConcept:
+                required:
+                - coding
+                type: object
+                properties:
+                  coding:
+                    minItems: 1
+                    uniqueItems: true
+                    type: array
+                    items:
+                      required:
+                      - code
+                      - system
+                      type: object
+                      properties:
+                        system:
+                          minLength: 1
+                          type: string
+                        code:
+                          minLength: 1
+                          type: string
+              type:
+                minItems: 1
+                uniqueItems: true
+                type: array
+                items:
+                  type: object
+                  properties:
+                    coding:
+                      minItems: 1
+                      uniqueItems: true
+                      type: array
+                      items:
+                        required:
+                        - code
+                        - system
+                        type: object
+                        properties:
+                          system:
+                            minLength: 1
+                            type: string
+                          code:
+                            minLength: 1
+                            type: string
+        insurance:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            required:
+            - focal
+            type: object
+            properties:
+              focal:
+                type: boolean
+              coverage:
+                required:
+                - reference
+                type: object
+                properties:
+                  reference:
+                    minLength: 1
+                    type: string
+        adjudication:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            type: object
+            properties:
+              category:
+                required:
+                - coding
+                - text
+                type: object
+                properties:
+                  coding:
+                    minItems: 1
+                    uniqueItems: true
+                    type: array
+                    items:
+                      required:
+                      - code
+                      - system
+                      type: object
+                      properties:
+                        system:
+                          minLength: 1
+                          type: string
+                        code:
+                          minLength: 1
+                          type: string
+                  text:
+                    minLength: 1
+                    type: string
+              amount:
+                required:
+                - currency
+                - value
+                type: object
+                properties:
+                  value:
+                    type: number
+                  currency:
+                    minLength: 1
+                    type: string
+        total:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            type: object
+            properties:
+              category:
+                required:
+                - coding
+                - text
+                type: object
+                properties:
+                  coding:
+                    minItems: 1
+                    uniqueItems: true
+                    type: array
+                    items:
+                      required:
+                      - code
+                      - system
+                      type: object
+                      properties:
+                        system:
+                          minLength: 1
+                          type: string
+                        code:
+                          minLength: 1
+                          type: string
+                  text:
+                    minLength: 1
+                    type: string
+              amount:
+                required:
+                - currency
+                - value
+                type: object
+                properties:
+                  value:
+                    type: number
+                  currency:
+                    minLength: 1
+                    type: string
       description: ''
   securitySchemes:
     Bearer:

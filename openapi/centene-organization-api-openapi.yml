@@ -319,96 +319,6 @@ paths:
     - url: https://dev-int-api-gw.centene.com/fhir/v4/patientaccess
 components:
   schemas:
-    Organization:
-      required:
-      - active
-      - id
-      - identifier
-      - language
-      - meta
-      - name
-      - resourceType
-      - text
-      type: object
-      properties:
-        resourceType:
-          minLength: 1
-          type: string
-        id:
-          minLength: 1
-          type: string
-        meta:
-          required:
-          - lastUpdated
-          - profile
-          type: object
-          properties:
-            lastUpdated:
-              minLength: 1
-              type: string
-            profile:
-              type: array
-              items:
-                type: object
-                properties: {}
-        language:
-          minLength: 1
-          type: string
-        text:
-          required:
-          - div
-          - status
-          type: object
-          properties:
-            status:
-              minLength: 1
-              type: string
-            div:
-              minLength: 1
-              type: string
-        identifier:
-          minItems: 1
-          uniqueItems: true
-          type: array
-          items:
-            required:
-            - system
-            - value
-            type: object
-            properties:
-              type:
-                required:
-                - coding
-                type: object
-                properties:
-                  coding:
-                    minItems: 1
-                    uniqueItems: true
-                    type: array
-                    items:
-                      required:
-                      - code
-                      - system
-                      type: object
-                      properties:
-                        system:
-                          minLength: 1
-                          type: string
-                        code:
-                          minLength: 1
-                          type: string
-              system:
-                minLength: 1
-                type: string
-              value:
-                minLength: 1
-                type: string
-        active:
-          type: boolean
-        name:
-          minLength: 1
-          type: string
-      description: ''
     Organization-search:
       required:
       - entry
@@ -557,19 +467,16 @@ components:
                     minLength: 1
                     type: string
       description: ''
-    Organization_2:
+    Organization:
       required:
       - active
-      - contact
-      - extension
       - id
+      - identifier
       - language
       - meta
       - name
-      - partOf
       - resourceType
       - text
-      - type
       type: object
       properties:
         resourceType:
@@ -607,140 +514,49 @@ components:
             div:
               minLength: 1
               type: string
-        extension:
+        identifier:
           minItems: 1
           uniqueItems: true
           type: array
           items:
             required:
-            - url
+            - system
+            - value
             type: object
             properties:
-              url:
-                minLength: 1
-                type: string
-              valueReference:
+              type:
                 required:
-                - reference
+                - coding
                 type: object
                 properties:
-                  reference:
-                    minLength: 1
-                    type: string
+                  coding:
+                    minItems: 1
+                    uniqueItems: true
+                    type: array
+                    items:
+                      required:
+                      - code
+                      - system
+                      type: object
+                      properties:
+                        system:
+                          minLength: 1
+                          type: string
+                        code:
+                          minLength: 1
+                          type: string
+              system:
+                minLength: 1
+                type: string
+              value:
+                minLength: 1
+                type: string
         active:
           type: boolean
-        type:
-          minItems: 1
-          uniqueItems: true
-          type: array
-          items:
-            type: object
-            properties:
-              coding:
-                minItems: 1
-                uniqueItems: true
-                type: array
-                items:
-                  required:
-                  - code
-                  - display
-                  - system
-                  type: object
-                  properties:
-                    system:
-                      minLength: 1
-                      type: string
-                    code:
-                      minLength: 1
-                      type: string
-                    display:
-                      minLength: 1
-                      type: string
         name:
           minLength: 1
           type: string
-        partOf:
-          required:
-          - reference
-          type: object
-          properties:
-            reference:
-              minLength: 1
-              type: string
-        contact:
-          minItems: 1
-          uniqueItems: true
-          type: array
-          items:
-            type: object
-            properties:
-              name:
-                required:
-                - family
-                - given
-                type: object
-                properties:
-                  family:
-                    minLength: 1
-                    type: string
-                  given:
-                    type: array
-                    items:
-                      type: object
-                      properties: {}
-              telecom:
-                minItems: 1
-                uniqueItems: true
-                type: array
-                items:
-                  type: object
-                  properties:
-                    extension:
-                      minItems: 1
-                      uniqueItems: true
-                      type: array
-                      items:
-                        required:
-                        - url
-                        type: object
-                        properties:
-                          url:
-                            minLength: 1
-                            type: string
-                          valueReference:
-                            required:
-                            - reference
-                            type: object
-                            properties:
-                              reference:
-                                minLength: 1
-                                type: string
       description: ''
-    GeneralError:
-      required:
-      - resourceType
-      - issue
-      type: object
-      properties:
-        resourceType:
-          minLength: 1
-          type: string
-        issue:
-          required:
-          - severity
-          - code
-          - details
-          type: object
-          properties:
-            severity:
-              minLength: 1
-              type: string
-            code:
-              minLength: 1
-              type: string
-            details:
-              minLength: 1
-              type: string
     Organization-search_2:
       required:
       - entry
@@ -958,6 +774,190 @@ components:
                                           minLength: 1
                                           type: string
       description: ''
+    Organization_2:
+      required:
+      - active
+      - contact
+      - extension
+      - id
+      - language
+      - meta
+      - name
+      - partOf
+      - resourceType
+      - text
+      - type
+      type: object
+      properties:
+        resourceType:
+          minLength: 1
+          type: string
+        id:
+          minLength: 1
+          type: string
+        meta:
+          required:
+          - lastUpdated
+          - profile
+          type: object
+          properties:
+            lastUpdated:
+              minLength: 1
+              type: string
+            profile:
+              type: array
+              items:
+                type: object
+                properties: {}
+        language:
+          minLength: 1
+          type: string
+        text:
+          required:
+          - div
+          - status
+          type: object
+          properties:
+            status:
+              minLength: 1
+              type: string
+            div:
+              minLength: 1
+              type: string
+        extension:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            required:
+            - url
+            type: object
+            properties:
+              url:
+                minLength: 1
+                type: string
+              valueReference:
+                required:
+                - reference
+                type: object
+                properties:
+                  reference:
+                    minLength: 1
+                    type: string
+        active:
+          type: boolean
+        type:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            type: object
+            properties:
+              coding:
+                minItems: 1
+                uniqueItems: true
+                type: array
+                items:
+                  required:
+                  - code
+                  - display
+                  - system
+                  type: object
+                  properties:
+                    system:
+                      minLength: 1
+                      type: string
+                    code:
+                      minLength: 1
+                      type: string
+                    display:
+                      minLength: 1
+                      type: string
+        name:
+          minLength: 1
+          type: string
+        partOf:
+          required:
+          - reference
+          type: object
+          properties:
+            reference:
+              minLength: 1
+              type: string
+        contact:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                required:
+                - family
+                - given
+                type: object
+                properties:
+                  family:
+                    minLength: 1
+                    type: string
+                  given:
+                    type: array
+                    items:
+                      type: object
+                      properties: {}
+              telecom:
+                minItems: 1
+                uniqueItems: true
+                type: array
+                items:
+                  type: object
+                  properties:
+                    extension:
+                      minItems: 1
+                      uniqueItems: true
+                      type: array
+                      items:
+                        required:
+                        - url
+                        type: object
+                        properties:
+                          url:
+                            minLength: 1
+                            type: string
+                          valueReference:
+                            required:
+                            - reference
+                            type: object
+                            properties:
+                              reference:
+                                minLength: 1
+                                type: string
+      description: ''
+    GeneralError:
+      required:
+      - resourceType
+      - issue
+      type: object
+      properties:
+        resourceType:
+          minLength: 1
+          type: string
+        issue:
+          required:
+          - severity
+          - code
+          - details
+          type: object
+          properties:
+            severity:
+              minLength: 1
+              type: string
+            code:
+              minLength: 1
+              type: string
+            details:
+              minLength: 1
+              type: string
   securitySchemes:
     Bearer:
       type: http

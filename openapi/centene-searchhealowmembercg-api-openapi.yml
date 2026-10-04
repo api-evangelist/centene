@@ -181,27 +181,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    Gic_data:
-      type: object
-      properties:
-        gic_data_infotext:
-          type: string
-        gic_data_list:
-          type: array
-          items:
-            $ref: '#/components/schemas/Gic_info'
-    RequestHealowMember:
-      type: object
-      properties:
-        requestHeader:
-          $ref: '#/components/schemas/requestHeaderInfo'
-        member_request:
-          $ref: '#/components/schemas/RequestMember'
-    ResponseData:
-      type: object
-      properties:
-        member_summary_fhir_doc:
-          $ref: '#/components/schemas/FHIR_doc'
     requestHeaderInfo:
       type: object
       properties:
@@ -213,129 +192,11 @@ components:
           type: string
         entityInfos:
           $ref: '#/components/schemas/entityInfo'
-    Gic_info:
+    RequestHealowMember:
       type: object
       properties:
-        gic_id:
-          type: string
-        gic_code:
-          type: string
-        gic_name:
-          type: string
-        gic_due_date:
-          format: date-time
-          type: string
-        measurement_period_start:
-          format: date-time
-          type: string
-        measurement_period_end:
-          format: date-time
-          type: string
-        gic_last_done_date:
-          format: date-time
-          type: string
-        gic_status:
-          type: string
-        gic_satisfier_value:
-          type: string
-        gic_satisfier_type:
-          type: string
-    Pce_sc_data:
-      type: object
-      properties:
-        pce_sc_infotext:
-          type: string
-        sc_data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Pce_sc_info'
-    WellcareHlMemberInsighsResponse:
-      type: object
-      properties:
-        member_data:
-          $ref: '#/components/schemas/Hlmember_data'
-        gic_data:
-          $ref: '#/components/schemas/Gic_data'
-        general_alert_data:
-          $ref: '#/components/schemas/General_alert_dataInfo'
-        pce_hcc_data:
-          $ref: '#/components/schemas/Pce_hcc_data'
-        pce_sc_data:
-          $ref: '#/components/schemas/Pce_sc_data'
-    WellCareHlMemberVer41Response:
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/ResponseData'
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/HLErrors'
-        success:
-          type: boolean
-        status:
-          type: string
-        response_time:
-          format: int32
-          type: integer
-        response_timestamp:
-          type: string
-        ht_txn_id:
-          type: string
-    FHIR_doc:
-      type: object
-      properties:
-        resource_type:
-          type: string
-        id:
-          type: string
-        content_type:
-          type: string
-        content:
-          type: string
-    Pce_sc_info:
-      type: object
-      properties:
-        pce_sc_record_id:
-          type: string
-        pce_sc_description:
-          type: string
-        pce_sc_onset_date:
-          format: date-time
-          type: string
-        pce_sc_supporting_evidence:
-          type: string
-    memberinfo:
-      type: object
-      properties:
-        uid:
-          type: string
-        zip:
-          type: string
-        date_of_birth:
-          format: date-time
-          type: string
-        gender:
-          type: string
-        first_name:
-          type: string
-        last_name:
-          type: string
-    HLErrors:
-      type: object
-      properties:
-        name:
-          type: string
-        description:
-          type: string
-        error_code:
-          format: int32
-          type: integer
-        error_details:
-          type: string
-    V52HLReqMember:
-      type: object
-      properties:
+        requestHeader:
+          $ref: '#/components/schemas/requestHeaderInfo'
         member_request:
           $ref: '#/components/schemas/RequestMember'
     Hlmember_data:
@@ -366,6 +227,11 @@ components:
         records_processed:
           format: int32
           type: integer
+    V52HLReqMember:
+      type: object
+      properties:
+        member_request:
+          $ref: '#/components/schemas/RequestMember'
     Alerts_data_info:
       type: object
       properties:
@@ -385,15 +251,48 @@ components:
           type: string
         alert_additional_info:
           type: string
-    Pce_hcc_data:
+    HlParameter:
       type: object
       properties:
-        pce_hcc_data_infotext:
+        member_id:
           type: string
-        hcc_data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Hcc_data_info'
+        member_dob:
+          type: string
+        encounter_id:
+          type: string
+        member_first_name:
+          type: string
+        member_last_name:
+          type: string
+        provider_tin:
+          type: string
+        provider_npi:
+          type: string
+        provider_name:
+          type: string
+        scheduled_appointment_date:
+          format: date-time
+          type: string
+        return_doc_data_interchange_format:
+          type: string
+        apu_id:
+          type: string
+    memberinfo:
+      type: object
+      properties:
+        uid:
+          type: string
+        zip:
+          type: string
+        date_of_birth:
+          format: date-time
+          type: string
+        gender:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
     Hcc_data_info:
       type: object
       properties:
@@ -454,6 +353,112 @@ components:
           type: string
         icd_supporting_evidence:
           type: string
+    WellCareHlMemberVer41Response:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/ResponseData'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/HLErrors'
+        success:
+          type: boolean
+        status:
+          type: string
+        response_time:
+          format: int32
+          type: integer
+        response_timestamp:
+          type: string
+        ht_txn_id:
+          type: string
+    Pce_hcc_data:
+      type: object
+      properties:
+        pce_hcc_data_infotext:
+          type: string
+        hcc_data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Hcc_data_info'
+    HLErrors:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        error_code:
+          format: int32
+          type: integer
+        error_details:
+          type: string
+    Hl41Request:
+      type: object
+      properties:
+        resourceType:
+          type: string
+        identifier:
+          type: string
+        parameter:
+          type: array
+          items:
+            $ref: '#/components/schemas/HlParameter'
+    FHIR_doc:
+      type: object
+      properties:
+        resource_type:
+          type: string
+        id:
+          type: string
+        content_type:
+          type: string
+        content:
+          type: string
+    WellcareHlMemberInsighsResponse:
+      type: object
+      properties:
+        member_data:
+          $ref: '#/components/schemas/Hlmember_data'
+        gic_data:
+          $ref: '#/components/schemas/Gic_data'
+        general_alert_data:
+          $ref: '#/components/schemas/General_alert_dataInfo'
+        pce_hcc_data:
+          $ref: '#/components/schemas/Pce_hcc_data'
+        pce_sc_data:
+          $ref: '#/components/schemas/Pce_sc_data'
+    Gic_data:
+      type: object
+      properties:
+        gic_data_infotext:
+          type: string
+        gic_data_list:
+          type: array
+          items:
+            $ref: '#/components/schemas/Gic_info'
+    General_alert_dataInfo:
+      type: object
+      properties:
+        alert_infotext:
+          type: string
+        general_alert_data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Alerts_data_info'
+    ResponseData:
+      type: object
+      properties:
+        member_summary_fhir_doc:
+          $ref: '#/components/schemas/FHIR_doc'
+    entityInfo:
+      type: object
+      properties:
+        entityId:
+          type: string
+        entityType:
+          type: string
     RequestMember:
       type: object
       properties:
@@ -489,56 +494,51 @@ components:
           type: string
         requestsource:
           type: string
-    HlParameter:
+    Gic_info:
       type: object
       properties:
-        member_id:
+        gic_id:
           type: string
-        member_dob:
+        gic_code:
           type: string
-        encounter_id:
+        gic_name:
           type: string
-        member_first_name:
-          type: string
-        member_last_name:
-          type: string
-        provider_tin:
-          type: string
-        provider_npi:
-          type: string
-        provider_name:
-          type: string
-        scheduled_appointment_date:
+        gic_due_date:
           format: date-time
           type: string
-        return_doc_data_interchange_format:
+        measurement_period_start:
+          format: date-time
           type: string
-        apu_id:
+        measurement_period_end:
+          format: date-time
           type: string
-    entityInfo:
+        gic_last_done_date:
+          format: date-time
+          type: string
+        gic_status:
+          type: string
+        gic_satisfier_value:
+          type: string
+        gic_satisfier_type:
+          type: string
+    Pce_sc_data:
       type: object
       properties:
-        entityId:
+        pce_sc_infotext:
           type: string
-        entityType:
-          type: string
-    Hl41Request:
-      type: object
-      properties:
-        resourceType:
-          type: string
-        identifier:
-          type: string
-        parameter:
+        sc_data:
           type: array
           items:
-            $ref: '#/components/schemas/HlParameter'
-    General_alert_dataInfo:
+            $ref: '#/components/schemas/Pce_sc_info'
+    Pce_sc_info:
       type: object
       properties:
-        alert_infotext:
+        pce_sc_record_id:
           type: string
-        general_alert_data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Alerts_data_info'
+        pce_sc_description:
+          type: string
+        pce_sc_onset_date:
+          format: date-time
+          type: string
+        pce_sc_supporting_evidence:
+          type: string

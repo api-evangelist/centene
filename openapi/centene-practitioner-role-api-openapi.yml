@@ -304,6 +304,254 @@ paths:
     - url: https://dev-int-api-gw.centene.com/fhir/v4/patientaccess
 components:
   schemas:
+    PractitionerRole:
+      required:
+      - active
+      - availabilityExceptions
+      - availableTime
+      - code
+      - endpoint
+      - healthcareService
+      - id
+      - identifier
+      - location
+      - notAvailable
+      - organization
+      - period
+      - practitioner
+      - resourceType
+      - specialty
+      - telecom
+      - text
+      type: object
+      properties:
+        resourceType:
+          minLength: 1
+          type: string
+        id:
+          minLength: 1
+          type: string
+        text:
+          required:
+          - div
+          - status
+          type: object
+          properties:
+            status:
+              minLength: 1
+              type: string
+            div:
+              minLength: 1
+              type: string
+        identifier:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            required:
+            - system
+            - value
+            type: object
+            properties:
+              system:
+                minLength: 1
+                type: string
+              value:
+                minLength: 1
+                type: string
+        active:
+          type: boolean
+        period:
+          required:
+          - end
+          - start
+          type: object
+          properties:
+            start:
+              minLength: 1
+              type: string
+            end:
+              minLength: 1
+              type: string
+        practitioner:
+          required:
+          - display
+          - reference
+          type: object
+          properties:
+            reference:
+              minLength: 1
+              type: string
+            display:
+              minLength: 1
+              type: string
+        organization:
+          required:
+          - reference
+          type: object
+          properties:
+            reference:
+              minLength: 1
+              type: string
+        code:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            type: object
+            properties:
+              coding:
+                minItems: 1
+                uniqueItems: true
+                type: array
+                items:
+                  required:
+                  - code
+                  - system
+                  type: object
+                  properties:
+                    system:
+                      minLength: 1
+                      type: string
+                    code:
+                      minLength: 1
+                      type: string
+        specialty:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            type: object
+            properties:
+              coding:
+                minItems: 1
+                uniqueItems: true
+                type: array
+                items:
+                  required:
+                  - code
+                  - display
+                  - system
+                  type: object
+                  properties:
+                    system:
+                      minLength: 1
+                      type: string
+                    code:
+                      minLength: 1
+                      type: string
+                    display:
+                      minLength: 1
+                      type: string
+        location:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            required:
+            - display
+            - reference
+            type: object
+            properties:
+              reference:
+                minLength: 1
+                type: string
+              display:
+                minLength: 1
+                type: string
+        healthcareService:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            required:
+            - reference
+            type: object
+            properties:
+              reference:
+                minLength: 1
+                type: string
+        telecom:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            required:
+            - system
+            - use
+            - value
+            type: object
+            properties:
+              system:
+                minLength: 1
+                type: string
+              value:
+                minLength: 1
+                type: string
+              use:
+                minLength: 1
+                type: string
+        availableTime:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            required:
+            - availableEndTime
+            - availableStartTime
+            type: object
+            properties:
+              daysOfWeek:
+                type: array
+                items:
+                  type: object
+                  properties: {}
+              availableStartTime:
+                minLength: 1
+                type: string
+              availableEndTime:
+                minLength: 1
+                type: string
+        notAvailable:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            required:
+            - description
+            type: object
+            properties:
+              description:
+                minLength: 1
+                type: string
+              during:
+                required:
+                - end
+                - start
+                type: object
+                properties:
+                  start:
+                    minLength: 1
+                    type: string
+                  end:
+                    minLength: 1
+                    type: string
+        availabilityExceptions:
+          minLength: 1
+          type: string
+        endpoint:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            required:
+            - reference
+            type: object
+            properties:
+              reference:
+                minLength: 1
+                type: string
+      description: ''
     PractitionerRole-search:
       required:
       - entry
@@ -610,24 +858,44 @@ components:
                           minLength: 1
                           type: string
       description: ''
-    PractitionerRole:
+    GeneralError:
+      required:
+      - resourceType
+      - issue
+      type: object
+      properties:
+        resourceType:
+          minLength: 1
+          type: string
+        issue:
+          required:
+          - severity
+          - code
+          - details
+          type: object
+          properties:
+            severity:
+              minLength: 1
+              type: string
+            code:
+              minLength: 1
+              type: string
+            details:
+              minLength: 1
+              type: string
+    PractitionerRole_2:
       required:
       - active
-      - availabilityExceptions
-      - availableTime
       - code
-      - endpoint
+      - extension
       - healthcareService
       - id
-      - identifier
+      - language
       - location
-      - notAvailable
+      - meta
       - organization
-      - period
-      - practitioner
       - resourceType
       - specialty
-      - telecom
       - text
       type: object
       properties:
@@ -635,6 +903,23 @@ components:
           minLength: 1
           type: string
         id:
+          minLength: 1
+          type: string
+        meta:
+          required:
+          - lastUpdated
+          - profile
+          type: object
+          properties:
+            lastUpdated:
+              minLength: 1
+              type: string
+            profile:
+              type: array
+              items:
+                type: object
+                properties: {}
+        language:
           minLength: 1
           type: string
         text:
@@ -649,48 +934,28 @@ components:
             div:
               minLength: 1
               type: string
-        identifier:
+        extension:
           minItems: 1
           uniqueItems: true
           type: array
           items:
             required:
-            - system
-            - value
+            - url
             type: object
             properties:
-              system:
+              url:
                 minLength: 1
                 type: string
-              value:
-                minLength: 1
-                type: string
+              valueReference:
+                required:
+                - reference
+                type: object
+                properties:
+                  reference:
+                    minLength: 1
+                    type: string
         active:
           type: boolean
-        period:
-          required:
-          - end
-          - start
-          type: object
-          properties:
-            start:
-              minLength: 1
-              type: string
-            end:
-              minLength: 1
-              type: string
-        practitioner:
-          required:
-          - display
-          - reference
-          type: object
-          properties:
-            reference:
-              minLength: 1
-              type: string
-            display:
-              minLength: 1
-              type: string
         organization:
           required:
           - reference
@@ -755,97 +1020,13 @@ components:
           type: array
           items:
             required:
-            - display
             - reference
             type: object
             properties:
               reference:
-                minLength: 1
-                type: string
-              display:
                 minLength: 1
                 type: string
         healthcareService:
-          minItems: 1
-          uniqueItems: true
-          type: array
-          items:
-            required:
-            - reference
-            type: object
-            properties:
-              reference:
-                minLength: 1
-                type: string
-        telecom:
-          minItems: 1
-          uniqueItems: true
-          type: array
-          items:
-            required:
-            - system
-            - use
-            - value
-            type: object
-            properties:
-              system:
-                minLength: 1
-                type: string
-              value:
-                minLength: 1
-                type: string
-              use:
-                minLength: 1
-                type: string
-        availableTime:
-          minItems: 1
-          uniqueItems: true
-          type: array
-          items:
-            required:
-            - availableEndTime
-            - availableStartTime
-            type: object
-            properties:
-              daysOfWeek:
-                type: array
-                items:
-                  type: object
-                  properties: {}
-              availableStartTime:
-                minLength: 1
-                type: string
-              availableEndTime:
-                minLength: 1
-                type: string
-        notAvailable:
-          minItems: 1
-          uniqueItems: true
-          type: array
-          items:
-            required:
-            - description
-            type: object
-            properties:
-              description:
-                minLength: 1
-                type: string
-              during:
-                required:
-                - end
-                - start
-                type: object
-                properties:
-                  start:
-                    minLength: 1
-                    type: string
-                  end:
-                    minLength: 1
-                    type: string
-        availabilityExceptions:
-          minLength: 1
-          type: string
-        endpoint:
           minItems: 1
           uniqueItems: true
           type: array
@@ -1071,187 +1252,6 @@ components:
                         reference:
                           minLength: 1
                           type: string
-      description: ''
-    GeneralError:
-      required:
-      - resourceType
-      - issue
-      type: object
-      properties:
-        resourceType:
-          minLength: 1
-          type: string
-        issue:
-          required:
-          - severity
-          - code
-          - details
-          type: object
-          properties:
-            severity:
-              minLength: 1
-              type: string
-            code:
-              minLength: 1
-              type: string
-            details:
-              minLength: 1
-              type: string
-    PractitionerRole_2:
-      required:
-      - active
-      - code
-      - extension
-      - healthcareService
-      - id
-      - language
-      - location
-      - meta
-      - organization
-      - resourceType
-      - specialty
-      - text
-      type: object
-      properties:
-        resourceType:
-          minLength: 1
-          type: string
-        id:
-          minLength: 1
-          type: string
-        meta:
-          required:
-          - lastUpdated
-          - profile
-          type: object
-          properties:
-            lastUpdated:
-              minLength: 1
-              type: string
-            profile:
-              type: array
-              items:
-                type: object
-                properties: {}
-        language:
-          minLength: 1
-          type: string
-        text:
-          required:
-          - div
-          - status
-          type: object
-          properties:
-            status:
-              minLength: 1
-              type: string
-            div:
-              minLength: 1
-              type: string
-        extension:
-          minItems: 1
-          uniqueItems: true
-          type: array
-          items:
-            required:
-            - url
-            type: object
-            properties:
-              url:
-                minLength: 1
-                type: string
-              valueReference:
-                required:
-                - reference
-                type: object
-                properties:
-                  reference:
-                    minLength: 1
-                    type: string
-        active:
-          type: boolean
-        organization:
-          required:
-          - reference
-          type: object
-          properties:
-            reference:
-              minLength: 1
-              type: string
-        code:
-          minItems: 1
-          uniqueItems: true
-          type: array
-          items:
-            type: object
-            properties:
-              coding:
-                minItems: 1
-                uniqueItems: true
-                type: array
-                items:
-                  required:
-                  - code
-                  - system
-                  type: object
-                  properties:
-                    system:
-                      minLength: 1
-                      type: string
-                    code:
-                      minLength: 1
-                      type: string
-        specialty:
-          minItems: 1
-          uniqueItems: true
-          type: array
-          items:
-            type: object
-            properties:
-              coding:
-                minItems: 1
-                uniqueItems: true
-                type: array
-                items:
-                  required:
-                  - code
-                  - display
-                  - system
-                  type: object
-                  properties:
-                    system:
-                      minLength: 1
-                      type: string
-                    code:
-                      minLength: 1
-                      type: string
-                    display:
-                      minLength: 1
-                      type: string
-        location:
-          minItems: 1
-          uniqueItems: true
-          type: array
-          items:
-            required:
-            - reference
-            type: object
-            properties:
-              reference:
-                minLength: 1
-                type: string
-        healthcareService:
-          minItems: 1
-          uniqueItems: true
-          type: array
-          items:
-            required:
-            - reference
-            type: object
-            properties:
-              reference:
-                minLength: 1
-                type: string
       description: ''
   securitySchemes:
     Bearer:

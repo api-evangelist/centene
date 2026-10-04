@@ -278,6 +278,93 @@ paths:
       - Bearer: []
 components:
   schemas:
+    Immunization:
+      required:
+      - id
+      - meta
+      - occurrenceDateTime
+      - patient
+      - primarySource
+      - resourceType
+      - status
+      - text
+      - vaccineCode
+      type: object
+      properties:
+        resourceType:
+          minLength: 1
+          type: string
+        id:
+          minLength: 1
+          type: string
+        meta:
+          required:
+          - profile
+          type: object
+          properties:
+            profile:
+              type: array
+              items:
+                type: object
+                properties: {}
+        text:
+          required:
+          - div
+          - status
+          type: object
+          properties:
+            status:
+              minLength: 1
+              type: string
+            div:
+              minLength: 1
+              type: string
+        status:
+          minLength: 1
+          type: string
+        vaccineCode:
+          required:
+          - coding
+          type: object
+          properties:
+            coding:
+              minItems: 1
+              uniqueItems: true
+              type: array
+              items:
+                required:
+                - code
+                - display
+                - system
+                type: object
+                properties:
+                  system:
+                    minLength: 1
+                    type: string
+                  code:
+                    minLength: 1
+                    type: string
+                  display:
+                    minLength: 1
+                    type: string
+        patient:
+          required:
+          - display
+          - reference
+          type: object
+          properties:
+            reference:
+              minLength: 1
+              type: string
+            display:
+              minLength: 1
+              type: string
+        occurrenceDateTime:
+          minLength: 1
+          type: string
+        primarySource:
+          type: boolean
+      description: ''
     Immunization-search:
       required:
       - entry
@@ -422,93 +509,6 @@ components:
                     type: string
                   primarySource:
                     type: boolean
-      description: ''
-    Immunization:
-      required:
-      - id
-      - meta
-      - occurrenceDateTime
-      - patient
-      - primarySource
-      - resourceType
-      - status
-      - text
-      - vaccineCode
-      type: object
-      properties:
-        resourceType:
-          minLength: 1
-          type: string
-        id:
-          minLength: 1
-          type: string
-        meta:
-          required:
-          - profile
-          type: object
-          properties:
-            profile:
-              type: array
-              items:
-                type: object
-                properties: {}
-        text:
-          required:
-          - div
-          - status
-          type: object
-          properties:
-            status:
-              minLength: 1
-              type: string
-            div:
-              minLength: 1
-              type: string
-        status:
-          minLength: 1
-          type: string
-        vaccineCode:
-          required:
-          - coding
-          type: object
-          properties:
-            coding:
-              minItems: 1
-              uniqueItems: true
-              type: array
-              items:
-                required:
-                - code
-                - display
-                - system
-                type: object
-                properties:
-                  system:
-                    minLength: 1
-                    type: string
-                  code:
-                    minLength: 1
-                    type: string
-                  display:
-                    minLength: 1
-                    type: string
-        patient:
-          required:
-          - display
-          - reference
-          type: object
-          properties:
-            reference:
-              minLength: 1
-              type: string
-            display:
-              minLength: 1
-              type: string
-        occurrenceDateTime:
-          minLength: 1
-          type: string
-        primarySource:
-          type: boolean
       description: ''
   securitySchemes:
     Bearer:

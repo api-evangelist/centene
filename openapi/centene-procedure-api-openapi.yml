@@ -292,69 +292,6 @@ paths:
       - Bearer: []
 components:
   schemas:
-    Procedure-search:
-      required:
-      - entry
-      - id
-      - link
-      - meta
-      - resourceType
-      - total
-      - type
-      type: object
-      properties:
-        resourceType:
-          minLength: 1
-          type: string
-        id:
-          minLength: 1
-          type: string
-        meta:
-          required:
-          - lastUpdated
-          type: object
-          properties:
-            lastUpdated:
-              minLength: 1
-              type: string
-        type:
-          minLength: 1
-          type: string
-        total:
-          type: number
-        link:
-          minItems: 1
-          uniqueItems: true
-          type: array
-          items:
-            required:
-            - relation
-            - url
-            type: object
-            properties:
-              relation:
-                minLength: 1
-                type: string
-              url:
-                minLength: 1
-                type: string
-        entry:
-          minItems: 1
-          uniqueItems: true
-          type: array
-          items:
-            required:
-            - fullUrl
-            - resource
-            type: object
-            properties:
-              fullUrl:
-                minLength: 1
-                type: string
-              resource:
-                minLength: 1
-                type: string
-      description: ''
     Procedure:
       description: ''
       type: object
@@ -441,6 +378,69 @@ components:
       - subject
       - performedDateTime
       - performer
+    Procedure-search:
+      required:
+      - entry
+      - id
+      - link
+      - meta
+      - resourceType
+      - total
+      - type
+      type: object
+      properties:
+        resourceType:
+          minLength: 1
+          type: string
+        id:
+          minLength: 1
+          type: string
+        meta:
+          required:
+          - lastUpdated
+          type: object
+          properties:
+            lastUpdated:
+              minLength: 1
+              type: string
+        type:
+          minLength: 1
+          type: string
+        total:
+          type: number
+        link:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            required:
+            - relation
+            - url
+            type: object
+            properties:
+              relation:
+                minLength: 1
+                type: string
+              url:
+                minLength: 1
+                type: string
+        entry:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            required:
+            - fullUrl
+            - resource
+            type: object
+            properties:
+              fullUrl:
+                minLength: 1
+                type: string
+              resource:
+                minLength: 1
+                type: string
+      description: ''
   securitySchemes:
     Bearer:
       type: http

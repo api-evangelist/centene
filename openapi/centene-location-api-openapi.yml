@@ -632,246 +632,6 @@ components:
               minLength: 1
               type: string
       description: ''
-    Location_2:
-      required:
-      - address
-      - extension
-      - hoursOfOperation
-      - id
-      - language
-      - managingOrganization
-      - meta
-      - name
-      - position
-      - resourceType
-      - status
-      - telecom
-      - text
-      - type
-      type: object
-      properties:
-        resourceType:
-          minLength: 1
-          type: string
-        id:
-          minLength: 1
-          type: string
-        meta:
-          required:
-          - lastUpdated
-          - profile
-          type: object
-          properties:
-            lastUpdated:
-              minLength: 1
-              type: string
-            profile:
-              type: array
-              items:
-                type: object
-                properties: {}
-        language:
-          minLength: 1
-          type: string
-        text:
-          required:
-          - div
-          - status
-          type: object
-          properties:
-            status:
-              minLength: 1
-              type: string
-            div:
-              minLength: 1
-              type: string
-        extension:
-          minItems: 1
-          uniqueItems: true
-          type: array
-          items:
-            required:
-            - url
-            type: object
-            properties:
-              url:
-                minLength: 1
-                type: string
-              valueCodeableConcept:
-                required:
-                - coding
-                type: object
-                properties:
-                  coding:
-                    minItems: 1
-                    uniqueItems: true
-                    type: array
-                    items:
-                      required:
-                      - code
-                      - system
-                      type: object
-                      properties:
-                        system:
-                          minLength: 1
-                          type: string
-                        code:
-                          minLength: 1
-                          type: string
-        status:
-          minLength: 1
-          type: string
-        name:
-          minLength: 1
-          type: string
-        type:
-          minItems: 1
-          uniqueItems: true
-          type: array
-          items:
-            type: object
-            properties:
-              coding:
-                minItems: 1
-                uniqueItems: true
-                type: array
-                items:
-                  required:
-                  - code
-                  - system
-                  type: object
-                  properties:
-                    system:
-                      minLength: 1
-                      type: string
-                    code:
-                      minLength: 1
-                      type: string
-        telecom:
-          minItems: 1
-          uniqueItems: true
-          type: array
-          items:
-            required:
-            - rank
-            - system
-            - value
-            type: object
-            properties:
-              extension:
-                minItems: 1
-                uniqueItems: true
-                type: array
-                items:
-                  required:
-                  - url
-                  type: object
-                  properties:
-                    extension:
-                      minItems: 1
-                      uniqueItems: true
-                      type: array
-                      items:
-                        required:
-                        - url
-                        - valueCode
-                        type: object
-                        properties:
-                          url:
-                            minLength: 1
-                            type: string
-                          valueCode:
-                            minLength: 1
-                            type: string
-                    url:
-                      minLength: 1
-                      type: string
-              system:
-                minLength: 1
-                type: string
-              value:
-                minLength: 1
-                type: string
-              rank:
-                type: number
-        address:
-          required:
-          - city
-          - line
-          - postalCode
-          - state
-          type: object
-          properties:
-            line:
-              type: array
-              items:
-                type: object
-                properties: {}
-            city:
-              minLength: 1
-              type: string
-            state:
-              minLength: 1
-              type: string
-            postalCode:
-              minLength: 1
-              type: string
-        position:
-          required:
-          - latitude
-          - longitude
-          type: object
-          properties:
-            longitude:
-              type: number
-            latitude:
-              type: number
-        managingOrganization:
-          required:
-          - reference
-          type: object
-          properties:
-            reference:
-              minLength: 1
-              type: string
-        hoursOfOperation:
-          minItems: 1
-          uniqueItems: true
-          type: array
-          items:
-            type: object
-            properties:
-              daysOfWeek:
-                type: array
-                items:
-                  type: object
-                  properties: {}
-      description: ''
-    GeneralError:
-      required:
-      - resourceType
-      - issue
-      type: object
-      properties:
-        resourceType:
-          minLength: 1
-          type: string
-        issue:
-          required:
-          - severity
-          - code
-          - details
-          type: object
-          properties:
-            severity:
-              minLength: 1
-              type: string
-            code:
-              minLength: 1
-              type: string
-            details:
-              minLength: 1
-              type: string
     Location-search_2:
       required:
       - entry
@@ -1144,6 +904,246 @@ components:
                           items:
                             type: object
                             properties: {}
+      description: ''
+    GeneralError:
+      required:
+      - resourceType
+      - issue
+      type: object
+      properties:
+        resourceType:
+          minLength: 1
+          type: string
+        issue:
+          required:
+          - severity
+          - code
+          - details
+          type: object
+          properties:
+            severity:
+              minLength: 1
+              type: string
+            code:
+              minLength: 1
+              type: string
+            details:
+              minLength: 1
+              type: string
+    Location_2:
+      required:
+      - address
+      - extension
+      - hoursOfOperation
+      - id
+      - language
+      - managingOrganization
+      - meta
+      - name
+      - position
+      - resourceType
+      - status
+      - telecom
+      - text
+      - type
+      type: object
+      properties:
+        resourceType:
+          minLength: 1
+          type: string
+        id:
+          minLength: 1
+          type: string
+        meta:
+          required:
+          - lastUpdated
+          - profile
+          type: object
+          properties:
+            lastUpdated:
+              minLength: 1
+              type: string
+            profile:
+              type: array
+              items:
+                type: object
+                properties: {}
+        language:
+          minLength: 1
+          type: string
+        text:
+          required:
+          - div
+          - status
+          type: object
+          properties:
+            status:
+              minLength: 1
+              type: string
+            div:
+              minLength: 1
+              type: string
+        extension:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            required:
+            - url
+            type: object
+            properties:
+              url:
+                minLength: 1
+                type: string
+              valueCodeableConcept:
+                required:
+                - coding
+                type: object
+                properties:
+                  coding:
+                    minItems: 1
+                    uniqueItems: true
+                    type: array
+                    items:
+                      required:
+                      - code
+                      - system
+                      type: object
+                      properties:
+                        system:
+                          minLength: 1
+                          type: string
+                        code:
+                          minLength: 1
+                          type: string
+        status:
+          minLength: 1
+          type: string
+        name:
+          minLength: 1
+          type: string
+        type:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            type: object
+            properties:
+              coding:
+                minItems: 1
+                uniqueItems: true
+                type: array
+                items:
+                  required:
+                  - code
+                  - system
+                  type: object
+                  properties:
+                    system:
+                      minLength: 1
+                      type: string
+                    code:
+                      minLength: 1
+                      type: string
+        telecom:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            required:
+            - rank
+            - system
+            - value
+            type: object
+            properties:
+              extension:
+                minItems: 1
+                uniqueItems: true
+                type: array
+                items:
+                  required:
+                  - url
+                  type: object
+                  properties:
+                    extension:
+                      minItems: 1
+                      uniqueItems: true
+                      type: array
+                      items:
+                        required:
+                        - url
+                        - valueCode
+                        type: object
+                        properties:
+                          url:
+                            minLength: 1
+                            type: string
+                          valueCode:
+                            minLength: 1
+                            type: string
+                    url:
+                      minLength: 1
+                      type: string
+              system:
+                minLength: 1
+                type: string
+              value:
+                minLength: 1
+                type: string
+              rank:
+                type: number
+        address:
+          required:
+          - city
+          - line
+          - postalCode
+          - state
+          type: object
+          properties:
+            line:
+              type: array
+              items:
+                type: object
+                properties: {}
+            city:
+              minLength: 1
+              type: string
+            state:
+              minLength: 1
+              type: string
+            postalCode:
+              minLength: 1
+              type: string
+        position:
+          required:
+          - latitude
+          - longitude
+          type: object
+          properties:
+            longitude:
+              type: number
+            latitude:
+              type: number
+        managingOrganization:
+          required:
+          - reference
+          type: object
+          properties:
+            reference:
+              minLength: 1
+              type: string
+        hoursOfOperation:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            type: object
+            properties:
+              daysOfWeek:
+                type: array
+                items:
+                  type: object
+                  properties: {}
       description: ''
   securitySchemes:
     Bearer:

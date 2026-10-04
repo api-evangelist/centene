@@ -278,115 +278,6 @@ paths:
       - Bearer: []
 components:
   schemas:
-    Device:
-      required:
-      - expirationDate
-      - id
-      - lotNumber
-      - meta
-      - patient
-      - resourceType
-      - serialNumber
-      - status
-      - text
-      - type
-      - udiCarrier
-      type: object
-      properties:
-        resourceType:
-          minLength: 1
-          type: string
-        id:
-          minLength: 1
-          type: string
-        meta:
-          required:
-          - profile
-          type: object
-          properties:
-            profile:
-              type: array
-              items:
-                type: object
-                properties: {}
-        text:
-          required:
-          - div
-          - status
-          type: object
-          properties:
-            status:
-              minLength: 1
-              type: string
-            div:
-              minLength: 1
-              type: string
-        udiCarrier:
-          minItems: 1
-          uniqueItems: true
-          type: array
-          items:
-            required:
-            - carrierHRF
-            - deviceIdentifier
-            type: object
-            properties:
-              deviceIdentifier:
-                minLength: 1
-                type: string
-              carrierHRF:
-                minLength: 1
-                type: string
-        status:
-          minLength: 1
-          type: string
-        expirationDate:
-          minLength: 1
-          type: string
-        lotNumber:
-          minLength: 1
-          type: string
-        serialNumber:
-          minLength: 1
-          type: string
-        type:
-          required:
-          - coding
-          type: object
-          properties:
-            coding:
-              minItems: 1
-              uniqueItems: true
-              type: array
-              items:
-                required:
-                - code
-                - display
-                - system
-                type: object
-                properties:
-                  system:
-                    minLength: 1
-                    type: string
-                  code:
-                    minLength: 1
-                    type: string
-                  display:
-                    minLength: 1
-                    type: string
-        patient:
-          required:
-          - display
-          - reference
-          type: object
-          properties:
-            reference:
-              minLength: 1
-              type: string
-            display:
-              minLength: 1
-              type: string
-      description: ''
     Device-search:
       required:
       - entry
@@ -553,6 +444,115 @@ components:
                       display:
                         minLength: 1
                         type: string
+      description: ''
+    Device:
+      required:
+      - expirationDate
+      - id
+      - lotNumber
+      - meta
+      - patient
+      - resourceType
+      - serialNumber
+      - status
+      - text
+      - type
+      - udiCarrier
+      type: object
+      properties:
+        resourceType:
+          minLength: 1
+          type: string
+        id:
+          minLength: 1
+          type: string
+        meta:
+          required:
+          - profile
+          type: object
+          properties:
+            profile:
+              type: array
+              items:
+                type: object
+                properties: {}
+        text:
+          required:
+          - div
+          - status
+          type: object
+          properties:
+            status:
+              minLength: 1
+              type: string
+            div:
+              minLength: 1
+              type: string
+        udiCarrier:
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            required:
+            - carrierHRF
+            - deviceIdentifier
+            type: object
+            properties:
+              deviceIdentifier:
+                minLength: 1
+                type: string
+              carrierHRF:
+                minLength: 1
+                type: string
+        status:
+          minLength: 1
+          type: string
+        expirationDate:
+          minLength: 1
+          type: string
+        lotNumber:
+          minLength: 1
+          type: string
+        serialNumber:
+          minLength: 1
+          type: string
+        type:
+          required:
+          - coding
+          type: object
+          properties:
+            coding:
+              minItems: 1
+              uniqueItems: true
+              type: array
+              items:
+                required:
+                - code
+                - display
+                - system
+                type: object
+                properties:
+                  system:
+                    minLength: 1
+                    type: string
+                  code:
+                    minLength: 1
+                    type: string
+                  display:
+                    minLength: 1
+                    type: string
+        patient:
+          required:
+          - display
+          - reference
+          type: object
+          properties:
+            reference:
+              minLength: 1
+              type: string
+            display:
+              minLength: 1
+              type: string
       description: ''
   securitySchemes:
     Bearer:
