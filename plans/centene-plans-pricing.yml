@@ -1,0 +1,91 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Centene
+providerId: centene
+created: '2026-05-04'
+# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
+# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
+method: generated
+modified: '2026-05-05'
+reconciled: false
+tags:
+  - Healthcare
+  - FHIR
+  - CMS Interoperability
+  - Patient Access
+  - Provider Directory
+description: Centene's developer portal at partners.centene.com publishes three FHIR-based interoperability
+  APIs (Patient Access, Provider Directory, and Provider RTR / PDEX Directory) that exist to satisfy
+  the 21st Century Cures Act and the CMS Interoperability and Patient Access Rule. These regulator-mandated
+  APIs do not charge a fee — third-party developers register an application and receive read access
+  on behalf of authorized members or the public, with no commercial pricing tier.
+notes: CMS-mandated FHIR APIs are free to authorized third-party developers. Centene does not publish
+  a paid tier on the partner portal.
+sources:
+  - https://partners.centene.com/apis
+  - https://partners.centene.com/applicationDeveloper
+  - https://www.superiorhealthplan.com/members/medicaid/resources/interoperability-and-patient-access/interoperability-for-developers.html
+plans:
+  - id: centene-fhir-public
+    name: CMS Interoperability FHIR APIs (Free)
+    type: freemium
+    description: Free regulator-mandated read access to Centene's FHIR Patient Access, Provider Directory,
+      and Provider RTR / PDEX Directory APIs. Patient Access requires SMART-on-FHIR member authorization;
+      Provider Directory is unauthenticated public; PDEX is restricted to authorized payers.
+    entries:
+      - label: Patient Access (SMART-on-FHIR member auth)
+        name: patient_access
+        type: quota
+        metric: request
+        limit: -1
+        timeFrame: usage
+        geo: US
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+      - label: Provider Directory (public)
+        name: provider_directory
+        type: quota
+        metric: request
+        limit: -1
+        timeFrame: usage
+        geo: US
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+      - label: Provider RTR / PDEX (authorized payer)
+        name: pdex_rtr
+        type: quota
+        metric: request
+        limit: -1
+        timeFrame: usage
+        geo: US
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+    elements:
+      - name: SMART-on-FHIR app registration
+      - name: HL7 FHIR R4 resources
+      - name: PDEX provider directory profiles
+      - name: 21st Century Cures Act compliance
+      - name: CMS Interoperability and Patient Access Rule compliance
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
+x-canonical:
+  generated: '2026-11-01'
+  vocabulary: engine/economics/plans-canonical.yml
+  models:
+  - free
+  units:
+  - request
+  plans:
+  - name: CMS Interoperability FHIR APIs (Free)
+    access: freemium
+    model: free
+    model_how: derived
+    units:
+    - request
+    periods:
+    - per-use
