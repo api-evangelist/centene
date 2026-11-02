@@ -35,7 +35,7 @@ artifacts:
   kin/checks-2026-10-23T222754.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
-  kin/checks-2026-10-31T095417.yml:
+  kin/checks-2026-11-02T082323.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   kin/score-2026-09-23T000603.yml:
@@ -90,6 +90,15 @@ artifacts:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   kin/score-2026-10-31T095417.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-11-01T171331.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-11-01T200237.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-11-02T082323.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   lifecycle/centene-lifecycle.yml:
@@ -362,6 +371,9 @@ artifacts:
   packages/centene-packages.yml:
     method: searched
     evidence: declared in the artifact
+  patterns/centene-patterns.yml:
+    method: derived
+    evidence: declared in the artifact
   plans/centene-plans-pricing.yml:
     method: generated
     evidence: declared in the artifact
@@ -383,6 +395,9 @@ artifacts:
   rate-limits/centene-rate-limits.yml:
     method: unknown
     evidence: no authorship recorded
+  rules/centene-rules.yml:
+    method: generated
+    evidence: declared in the artifact
   sandbox/centene-sandbox.yml:
     method: searched
     evidence: declared in the artifact
@@ -423,6 +438,9 @@ artifacts:
     method: generated
     evidence: declared in the artifact
   skills/centene-payer-to-payer-pdex.md:
+    method: generated
+    evidence: declared in the artifact
+  sla/centene-sla.yml:
     method: generated
     evidence: declared in the artifact
   well-known/centene-openid-configuration.json:

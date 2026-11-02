@@ -15,15 +15,23 @@ deliveryModel:
   method: derived
 accessModel:
   pricing: free
-  onboarding: unknown
+  onboarding: self-serve
   trial: false
-  try_now: false
+  try_now: true
   public: false
-  label: Free
-  confidence: medium
+  gated: none
+  gated_source:
+  - onboarding
+  label: Free · Self-serve signup
+  confidence: high
   source:
-    - plans
-  generated: '2026-07-22'
+  - plans
+  - authentication
+  - scopes
+  - rate-limits
+  - security
+  - sandbox
+  generated: '2026-11-02'
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/centene.png
 tags:
